@@ -1,0 +1,472 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<title>클라우드러닝 수정 실험실</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* 배치: 왼쪽 수정 목록(320px) + 오른쪽 화면 무대. 개발자 전달 탭은 한 열 문서. */
+@font-face { font-family: 'Pretendard Variable'; src: url('fonts/PretendardVariable.woff2') format('woff2'); font-weight: 45 920; font-display: swap; }
+:root {
+  --bg: #F3F3F5; --panel: #FFFFFF; --fg: #1D1D1F; --muted: #5E5E63; --line: #E0E0E3; --soft: #ECECEF;
+  --accent: #1D1D1F; --on-accent: #FFFFFF; --mark: #D92D20; --mark-soft: #FDECEA;
+  --k-css: #7A35D0; --k-css-bg: #F3ECFD; --k-mk: #9A5200; --k-mk-bg: #FEF3E0; --k-tok: #137333; --k-tok-bg: #E6F4EA;
+  --font: 'Pretendard Variable', Pretendard, -apple-system, system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #161618; --panel: #1F1F22; --fg: #EDEDF0; --muted: #A1A1A8; --line: #34343A; --soft: #2A2A2F;
+  --accent: #EDEDF0; --on-accent: #161618; --mark: #FF6B5E; --mark-soft: #3A1E1C;
+  --k-css: #C8A6FA; --k-css-bg: #2E2340; --k-mk: #F2B66B; --k-mk-bg: #3A2A16; --k-tok: #7FD39A; --k-tok-bg: #1C3324; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #161618; --panel: #1F1F22; --fg: #EDEDF0; --muted: #A1A1A8; --line: #34343A; --soft: #2A2A2F;
+  --accent: #EDEDF0; --on-accent: #161618; --mark: #FF6B5E; --mark-soft: #3A1E1C;
+  --k-css: #C8A6FA; --k-css-bg: #2E2340; --k-mk: #F2B66B; --k-mk-bg: #3A2A16; --k-tok: #7FD39A; --k-tok-bg: #1C3324; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--font); letter-spacing: -0.005em; }
+button, input { font: inherit; color: inherit; }
+code { font-family: var(--mono); font-size: 12.5px; padding: 0 4px; border-radius: 4px; background: var(--soft); }
+
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--panel); border-bottom: 1px solid var(--line);
+  padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--panel); }
+.brand { font-weight: 700; font-size: 15px; margin-right: 8px; white-space: nowrap; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 12px; margin-left: 6px; }
+.seg { display: inline-flex; padding: 2px; border-radius: 8px; background: var(--soft); }
+.seg button { height: 30px; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font-weight: 600; cursor: pointer; white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--panel); color: var(--fg); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.screens { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+.screens button { height: 32px; padding: 0 10px; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--muted); font-weight: 600; cursor: pointer; white-space: nowrap; }
+.screens button[aria-pressed="true"] { color: var(--fg); border-bottom-color: var(--fg); }
+.spacer { flex: 1; }
+.q-box input { height: 32px; width: 240px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.q-box input:focus { outline: 2px solid var(--mark); outline-offset: 0; border-color: transparent; }
+body.is-search #layerFilt, body.is-search #allToggle { display: none; }
+.todo { display: grid; gap: 4px; width: 100%; text-align: left; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--fg); font: inherit; cursor: pointer; }
+.todo:hover { border-color: var(--fg); }
+.todo.is-on { box-shadow: 0 0 0 2px var(--mark); border-color: transparent; }
+.todo .ttl { display: flex; gap: 6px; align-items: center; }
+.todo .id { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.todo__t { font-weight: 700; }
+.todo__b { font-size: 12.5px; color: var(--muted); }
+.todo__s { font-size: 12px; color: var(--mark); font-weight: 600; }
+.q-hint { font-size: 12.5px; color: var(--muted); margin: 0; }
+.q-hint button { border: 0; background: none; padding: 0; color: var(--mark); font: inherit; text-decoration: underline; cursor: pointer; }
+.chk { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 500; cursor: pointer; white-space: nowrap; }
+.chk input { accent-color: var(--mark); width: 16px; height: 16px; }
+.handoff-btn { height: 32px; padding: 0 14px; border: 0; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-weight: 600; cursor: pointer; white-space: nowrap; }
+.handoff-btn[aria-pressed="true"] { background: var(--mark); color: #fff; }
+
+.layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); min-height: calc(100vh - 54px); }
+.list { border-right: 1px solid var(--line); background: var(--panel); padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.list h2 { margin: 0; font-size: 13px; color: var(--muted); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.list h2 button { border: 0; background: none; color: var(--muted); font-size: 12px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.fix { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; grid-template-columns: auto minmax(0,1fr); gap: 4px 10px; }
+.fix.off { opacity: .55; }
+.fix input { margin: 3px 0 0; width: 16px; height: 16px; accent-color: var(--mark); }
+.fix .ttl { font-weight: 600; display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.fix .id { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.fix .ba { grid-column: 2; font-size: 12.5px; color: var(--muted); display: grid; gap: 2px; }
+.fix .ba b { font-weight: 600; color: var(--fg); margin-right: 4px; }
+.fix .note { grid-column: 2; font-size: 12px; color: var(--mark); }
+.kind { font-size: 11.5px; font-weight: 600; padding: 1px 6px; border-radius: 5px; white-space: nowrap; }
+.kind.CSS { color: var(--k-css); background: var(--k-css-bg); }
+.kind.마크업, .kind.문구 { color: var(--k-mk); background: var(--k-mk-bg); }
+.kind.토큰 { color: var(--k-tok); background: var(--k-tok-bg); }
+.status { font-size: 11.5px; color: var(--muted); }
+.empty-note { color: var(--muted); font-size: 13px; margin: 0; }
+
+.stage { padding: 20px; min-width: 0; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.stage-meta { align-self: stretch; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; color: var(--muted); font-size: 12.5px; }
+.stage-meta strong { color: var(--fg); }
+.frame-wrap { position: relative; background: #fff; border-radius: 10px; box-shadow: 0 0 0 1px var(--line), 0 8px 24px rgba(0,0,0,.08); overflow: hidden; max-width: 100%; }
+.frame-wrap iframe { border: 0; display: block; transform-origin: 0 0; background: #fff; }
+.mode-tag { position: absolute; top: 8px; right: 8px; z-index: 2; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--accent); color: var(--on-accent); }
+.mode-tag.after { background: var(--mark); color: #fff; }
+
+.handoff { display: none; padding-block: 24px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+body.show-handoff .layout { display: none; }
+body.show-handoff .handoff { display: block; }
+body.show-handoff .viewer-only { display: none; }
+.doc { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+.doc h1 { margin: 0; font-size: 24px; letter-spacing: -0.025em; text-wrap: balance; }
+.doc h2 { margin: 0 0 10px; font-size: 16px; }
+.doc p.lead { margin: 6px 0 0; color: var(--muted); max-width: 68ch; }
+.tbl-wrap { overflow-x: auto; background: var(--panel); border-radius: 10px; box-shadow: 0 0 0 1px var(--line); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; color: var(--muted); white-space: nowrap; background: var(--panel); }
+tr:last-child td { border-bottom: 0; }
+td.mono { font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+#hoRows td:nth-child(2) { white-space: nowrap; }
+.code-box { position: relative; background: var(--panel); border-radius: 10px; box-shadow: 0 0 0 1px var(--line); }
+.code-box pre { margin: 0; padding: 16px; overflow: auto; max-height: 520px; font: 12.5px/1.6 var(--mono); white-space: pre; }
+.copy { position: absolute; top: 10px; right: 10px; height: 30px; padding: 0 12px; border: 0; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-weight: 600; cursor: pointer; }
+.mk-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.mk-list li { background: var(--panel); border-radius: 10px; box-shadow: 0 0 0 1px var(--line); padding: 12px 14px; }
+.mk-list .h { font-weight: 600; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; margin-bottom: 4px; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+.lab-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 20; padding: 10px 16px; border-radius: 10px; background: var(--accent); color: var(--on-accent); font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); font-weight: 600; max-width: 260px; }
+.filt { display: flex; flex-wrap: wrap; gap: 4px; }
+.filt button { height: 26px; padding: 0 9px; border: 0; border-radius: 999px; background: var(--soft); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; }
+.filt button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.st { display: inline-flex; gap: 2px; grid-column: 2; margin-top: 4px; }
+.st button { height: 24px; padding: 0 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; }
+.st button[aria-pressed="true"].s-확정 { background: var(--k-tok-bg); color: var(--k-tok); border-color: transparent; }
+.st button[aria-pressed="true"].s-보류 { background: var(--soft); color: var(--fg); border-color: transparent; }
+.st button[aria-pressed="true"].s-제안 { background: var(--k-css-bg); color: var(--k-css); border-color: transparent; }
+.status.s-확정 { color: var(--k-tok); font-weight: 600; } .status.s-보류 { color: var(--muted); text-decoration: line-through; }
+.layer { font-size: 11.5px; color: var(--muted); }
+.flag { font-size: 11.5px; font-weight: 700; padding: 1px 6px; border-radius: 5px; white-space: nowrap; }
+.flag.f-dec { background: #FEF3E0; color: #9A5200; }
+.flag.f-prop { background: var(--soft); color: var(--muted); }
+.flag.f-ok { background: var(--k-tok-bg); color: var(--k-tok); }
+.fix.is-flash { box-shadow: 0 0 0 2px var(--mark); }
+.goto { border: 0; background: none; padding: 0; font: inherit; font-family: var(--mono); color: var(--mark); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; margin-right: 6px; }
+.work { font-size: 11.5px; font-weight: 600; padding: 1px 6px; border-radius: 5px; white-space: nowrap; background: var(--soft); color: var(--muted); }
+.work.w-서버 { background: var(--mark-soft); color: var(--mark); }
+.work.w-CSS만 { background: var(--k-tok-bg); color: var(--k-tok); }
+.sync { font-size: 12px; color: var(--muted); }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .list { border-right: 0; border-bottom: 1px solid var(--line); max-height: 46vh; overflow: auto; }
+  .stage { padding: 12px 0; }
+}
+:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) { .fix, .seg button { transition: opacity .15s, background .15s; } }
+</style>
+
+<header class="top">
+  <span class="brand">수정 실험실<small>클라우드러닝 작업공간</small></span>
+  <div class="seg viewer-only" role="group" aria-label="작업공간" id="ws"><button type="button" data-ws="admin">관리자</button><button type="button" data-ws="teacher">선생님</button><button type="button" data-ws="student">학생</button><button type="button" data-ws="notfound">404</button></div><span class="sync viewer-only" id="sync"></span>
+  <label class="q-box viewer-only"><input type="search" id="q" placeholder="수정 번호 · 제목 찾기 (예: X3)" aria-label="수정 항목 찾기" autocomplete="off"></label>
+  <span class="spacer"></span>
+  <div class="seg viewer-only" role="group" aria-label="보기" id="mode">
+    <button type="button" data-mode="before" aria-pressed="false">현재</button>
+    <button type="button" data-mode="after" aria-pressed="true">수정안</button>
+  </div>
+  <div class="seg viewer-only" role="group" aria-label="폭" id="device">
+    <button type="button" data-w="0" aria-pressed="false" title="축소 없이 이 창 너비 그대로 (실제처럼 가로 100%)">창 너비</button>
+    <button type="button" data-w="2560" aria-pressed="false">2560</button>
+    <button type="button" data-w="1920" aria-pressed="false">1920</button>
+    <button type="button" data-w="1440" aria-pressed="true">1440</button>
+    <button type="button" data-w="1280" aria-pressed="false">1280</button>
+    <button type="button" data-w="390" aria-pressed="false">모바일</button>
+  </div>
+  <div class="seg viewer-only" role="group" aria-label="미리보기 테마" id="theme">
+    <button type="button" data-theme-set="light" aria-pressed="true">라이트</button>
+    <button type="button" data-theme-set="dark" aria-pressed="false">다크</button>
+  </div>
+  <label class="chk viewer-only"><input type="checkbox" id="mark" checked>바뀐 곳 표시</label>
+  <button type="button" class="handoff-btn" id="handoffBtn" aria-pressed="false">개발자 전달</button>
+</header>
+
+<div class="layout">
+  <aside class="list" aria-label="수정 항목">
+    <h2><span id="listTitle">이 화면의 수정</span><button type="button" id="allToggle">모두 켜기</button></h2>
+    <div class="filt" id="layerFilt" aria-label="층"></div>
+    
+    <div id="fixList" style="display:flex;flex-direction:column;gap:10px"></div>
+  </aside>
+  <main class="stage">
+    <div class="stage-meta"><span id="stageInfo"></span><span>화면은 2026-10-19 저장본 · 연락처는 가짜 값</span></div>
+    <div class="lab-toast" id="labToast" role="status" hidden></div><div class="frame-wrap" id="wrap"><span class="mode-tag" id="modeTag">수정안</span><iframe id="frame" title="화면 미리보기"></iframe></div>
+  </main>
+</div>
+
+<section class="handoff" aria-label="개발자 전달">
+  <div class="doc">
+    <div>
+      <h1>클라우드러닝 작업공간 · 디자인 수정 요청</h1>
+      <p class="lead" id="hoLead"></p>
+    </div>
+    <div>
+      <h2>넘기기 전에 정할 것</h2>
+      <p class="lead" style="margin:0 0 10px">아래 요청서를 AI 에 넣기 전에 먼저 처리할 것.</p>
+      <div id="hoPre" style="display:grid;gap:10px"></div>
+    </div>
+    <div>
+      <h2>수정 목록</h2>
+      <div class="filters" style="margin-bottom:10px">
+        
+      </div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>ID</th><th>층</th><th>화면</th><th>항목</th><th>현재</th><th>바꿀 값</th><th>종류</th><th>작업</th></tr></thead>
+        <tbody id="hoRows"></tbody>
+      </table></div>
+    </div>
+    <div>
+      <h2>AI 수정 요청서 (Markdown)</h2>
+      <p class="lead" style="margin:0 0 10px">개발자가 AI 코딩 도구에 그대로 넣는 문서다. 규칙 · 항목별 목표 · 코드 · 확인 방법이 들어 있다.</p>
+      <div class="code-box"><button type="button" class="copy" data-copy="hoMd">복사</button><button type="button" class="copy" id="hoSave" style="right:76px" hidden>.md 저장</button><pre id="hoMd"></pre></div>
+    </div>
+    <div>
+      <h2>fixes.css — 원본 CSS 뒤에 붙이면 되는 규칙</h2>
+      <div class="code-box"><button type="button" class="copy" data-copy="hoCss">복사</button><pre id="hoCss"></pre></div>
+    </div>
+    <div>
+      <h2>마크업 · 문구 수정</h2>
+      <p class="lead" style="margin:0 0 10px">CSS 만으로는 안 되는 수정이다. 실험실에서는 스크립트로 흉내만 냈다.</p>
+      <ul class="mk-list" id="hoMarkup"></ul>
+    </div>
+  </div>
+</section>
+
+<script src="fixes.js?v=135"></script>
+<script>
+(function () {
+  const SCREENS = [
+    { id: 'dashboard', name: '대시보드', tpl: '대시보드 · 통계형' },
+    { id: 'students', name: '학생 목록', tpl: '목록형' }, { id: 'teachers', name: '선생님 목록', tpl: '목록형' }, { id: 'courses', name: '강좌 관리 (선생님)', tpl: '목록형' }, { id: 't-learn', name: '수강 관리 (선생님)', tpl: '목록형' }, { id: 't-progress', name: '진도율 관리 (선생님)', tpl: '목록형' }, { id: 't-group', name: '그룹 관리 (선생님)', tpl: '목록형' }, { id: 't-assign', name: '과제 관리 (선생님)', tpl: '목록형' }, { id: 't-info', name: '나의 정보 (선생님)', tpl: '상세형' }, { id: 't-password', name: '비밀번호 변경 (선생님)', tpl: '입력형' }, { id: 't-course-create', name: '강좌 생성 (선생님)', tpl: '입력형' }, { id: 't-course-edit', name: '강좌 수정 (선생님)', tpl: '입력형' }, { id: 't-assign-create', name: '과제 생성 (선생님)', tpl: '입력형' }, { id: 't-group-edit', name: '그룹 편집 (선생님)', tpl: '입력형' }, { id: 't-group-create-dlg', name: '그룹 생성 창 (선생님)', tpl: '입력형' }, { id: 't-info-edit', name: '정보 수정 (선생님)', tpl: '입력형' }, { id: 't-course-read', name: '강좌 상세 관리 (선생님)', tpl: '상세형' }, { id: 't-course-content', name: '강의 수정 · 순서 (선생님)', tpl: '목록형' }, { id: 't-learn-excel', name: '수강생 엑셀 등록 (선생님)', tpl: '입력형' }, { id: 't-cms-dlg', name: '강의 올리기 창 (선생님)', tpl: '입력형' }, { id: 't-cms-page', name: '강의 올리기 (선생님)', tpl: '목록형' }, { id: 't-meeting-dlg', name: '화상 강의 만들기 창 (선생님)', tpl: '입력형' }, { id: 't-thumb-dlg', name: '썸네일 만들기 창 (선생님)', tpl: '입력형' }, { id: 't-qr-dlg', name: '나의 QR코드 창 (선생님)', tpl: '상세형' },
+    { id: 'subjects', name: '과목 목록', tpl: '2단형' }, { id: 'categories', name: '분류 목록', tpl: '2단형' }, { id: 'course-list', name: '강좌 목록', tpl: '목록형' }, { id: 'contents', name: '콘텐츠 목록', tpl: '목록형' }, { id: 'cms', name: 'CMS 콘텐츠 관리', tpl: '목록형' }, { id: 'board', name: '자유게시글 목록', tpl: '목록형' }, { id: 'alarm', name: '알림 보내기', tpl: '2단형' }, { id: 'payments', name: '결제 내역 (404)', tpl: '404' }, { id: 'login-stat', name: '로그인 현황', tpl: '목록형' }, { id: 'login-stat-t', name: '로그인 현황 (선생님)', tpl: '목록형' }, { id: 'login-detail', name: '로그인 상세', tpl: '목록형' }, { id: 'demand', name: '사용량 현황', tpl: '목록형' }, { id: 'download', name: '다운로드 현황', tpl: '목록형' }, { id: 'group-stat', name: '그룹 통계', tpl: '2단형' }, { id: 'group-stat-s', name: '그룹 통계 (학생 선택)', tpl: '2단형' }, { id: 'user-stat', name: '학생 통계', tpl: '2단형' },
+    { id: 'main-setting', name: '메인페이지 설정', tpl: '입력형' }, { id: 'system-setting', name: '학원 설정', tpl: '입력형' }, { id: 'about-setting', name: '학원 소개 설정', tpl: '입력형' }, { id: 'ip-setting', name: '콘텐츠 재생 허용 IP', tpl: '목록형' }, { id: 'banner-setting', name: '이서당 배너 설정', tpl: '목록형' }, { id: 'menu-setting', name: '메뉴 설정', tpl: '입력형' },
+    { id: 'teacher-read', name: '선생님 상세', tpl: '상세형' }, { id: 'teacher-edit', name: '선생님 수정', tpl: '입력형' }, { id: 'teacher-create', name: '선생님 생성', tpl: '입력형' }, { id: 'teacher-order', name: '선생님 노출 순서', tpl: '입력형' }, { id: 'course-create', name: '강좌 생성', tpl: '입력형' }, { id: 'course-edit', name: '강좌 수정', tpl: '입력형' }, { id: 'course-sequence', name: '대표 강좌 설정', tpl: '입력형' }, { id: 'group-create-dlg', name: '그룹 생성 (창)', tpl: '입력형' }, { id: 'subject-create-dlg', name: '과목 추가 (창)', tpl: '입력형' }, { id: 'notice-create-dlg', name: '공지사항 쓰기 (창)', tpl: '입력형' },
+    { id: 'admins', name: '관리자 목록', tpl: '목록형' }, { id: 'groups', name: '그룹 목록', tpl: '목록형' }, { id: 'group-edit', name: '그룹 편집', tpl: '입력형' }, { id: 'admin-read', name: '관리자 상세', tpl: '상세형' }, { id: 'admin-create', name: '관리자 생성', tpl: '입력형' }, { id: 'admin-edit', name: '관리자 수정', tpl: '입력형' },
+    { id: 's-learn', name: '수강중인 강좌 (학생)', tpl: '목록형' },
+    { id: 's-complete', name: '수강 완료 강좌 · 0개 (학생)', tpl: '목록형' },
+    { id: 's-learn-many', name: '수강중인 강좌 · 11개 (과목 칩 예시)', tpl: '목록형' },
+    { id: 's-assign', name: '과제 목록 (학생)', tpl: '목록형' }, { id: 's-assign-read', name: '과제 상세 (학생)', tpl: '상세형' }, { id: 's-assign-read-empty', name: '과제 상세 · 제출 0건 (학생)', tpl: '상세형' }, { id: 's-assign-submit', name: '과제 새로 제출 (학생)', tpl: '입력형' }, { id: 's-assign-confirm-dlg', name: '과제 제출 확인 창 (학생)', tpl: '입력형' },
+    { id: 's-qna', name: 'Q&A 목록 (학생)', tpl: '목록형' }, { id: 's-qna-read', name: 'Q&A 상세 · 공개 화면', tpl: '상세형' }, { id: 's-qna-delete-dlg', name: 'Q&A 삭제 확인 창', tpl: '상세형' }, { id: 's-qna-edit', name: '질문 수정 · 공개 화면', tpl: '입력형' }, { id: 's-qna-detail', name: 'Q&A 상세 · 내 강의실 (새 화면)', tpl: '상세형' }, { id: 's-qna-detail-dlg', name: 'Q&A 삭제 확인 창 · 내 강의실', tpl: '상세형' },
+    { id: 's-board', name: '자유게시판 목록 (학생)', tpl: '목록형' }, { id: 's-board-detail', name: '게시글 상세 · 내 강의실 (새 화면)', tpl: '상세형' }, { id: 's-board-detail-dlg', name: '게시글 삭제 확인 창 · 내 강의실', tpl: '상세형' }, { id: 's-board-write', name: '글쓰기 · 내 강의실 (새 화면)', tpl: '입력형' },
+    { id: 's-like-course', name: '좋아요 강좌 (학생)', tpl: '목록형' }, { id: 's-like-teacher', name: '좋아요 선생님 (학생)', tpl: '목록형' },
+    { id: 's-info', name: '나의 정보 (학생)', tpl: '입력형' }, { id: 's-info-mail', name: '나의 정보 · 이메일 변경 (학생)', tpl: '입력형' }, { id: 's-info-photo-dlg', name: '기본 사진으로 확인 창 (학생)', tpl: '입력형' }, { id: 's-info-mail-dlg', name: '이메일 변경 확인 창 (학생)', tpl: '입력형' }, { id: 's-password', name: '비밀번호 변경 (학생)', tpl: '입력형' },
+    { id: 'notfound', name: '404 에러', tpl: '상태 화면' }
+  ];
+  const LAYERS = ['토큰', '공통 틀', '공통 부품', '화면별'];
+  const layerOf = f => f.layer || (f.kind === '토큰' ? '토큰' : /^(F|G)/.test(f.id) ? '공통 틀' : /^(A4|A5|H1|H3|B2)$/.test(f.id) ? '공통 부품' : '화면별');
+  const WORKS = ['CSS만', '프론트 수정', '서버 필요'];
+  const workOf = f => f.work || (f.markup || f.dom ? '프론트 수정' : 'CSS만');
+  const needsDecision = f => /정할 것|기획 확인/.test([f.next, f.markup, f.note].join(' '));
+  const flagOf = f => ({ '정할 것': needsDecision(f), '서버 필요': workOf(f) === '서버 필요', '제안': (STATUS[f.id] || f.status) === '제안' });
+  const decisionText = f => { const t = [f.next, f.markup, f.note].join(' ').replace(/\*\*/g, ''); const i = t.search(/정할 것|기획 확인/); if (i < 0) return ''; const s = Math.max(t.lastIndexOf('. ', i) + 1, t.lastIndexOf('\n', i) + 1, 0); const e = t.indexOf('.', i); return t.slice(s, e > 0 ? e + 1 : i + 90).replace(/\[정할 것\]:?/g, '').trim(); };
+  const STATUS = {}; // db 에 저장된 상태 (fixes.js 의 status 보다 우선)
+  const statusOf = f => STATUS[f.id] || f.status;
+  let canEdit = false, dbRef = null;
+  const GROUP = { 1: '머리 틀', 2: '글자 단계', 3: '보라색', 4: '상태 색', 5: '모바일 카드', 6: '이름', 7: '토큰', 8: '사이드바', 9: '표' };
+  const FIXES = window.LAB_FIXES || [];
+  const NOTES = window.LAB_NOTES || [];
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem('lab.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem('lab.' + k, JSON.stringify(v)); } catch (e) {} }
+  };
+  // 끈 항목만 'off3' 에 기억한다. 새 항목은 늘 켜진 채로 보이고, 예전 탭이 'on' · 'seen' 을 덮어써도 영향이 없다
+  const OFF = new Set(store.get('off3', null) || (() => { const seen = store.get('seen', []), on = store.get('on', null); return on ? seen.filter(i => !on.includes(i) && !/^S[LAR]\d/.test(i)) : []; })());
+  const state = {
+    screen: store.get('screen', 'dashboard'),
+    mode: store.get('mode', 'after'),
+    width: store.get('width', 1440),
+    mark: store.get('mark', true),
+    theme: store.get('theme', 'light'),
+    on: new Set(FIXES.map(f => f.id).filter(i => !OFF.has(i)))
+  };
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const md = s => esc(s || '').replace(/`([^`]+)`/g, '<code>$1</code>');
+  const forScreen = id => FIXES.filter(f => f.screens.includes('all') || f.screens.includes(id));
+  const screenNames = f => f.screens.includes('all') ? '전체' : f.screens.map(s => (SCREENS.find(x => x.id === s) || {}).name).join(', ');
+  store.set('off3', [...OFF]);
+  function save() { store.set('screen', state.screen); store.set('mode', state.mode); store.set('width', state.width); store.set('mark', state.mark); store.set('theme', state.theme); store.set('off3', FIXES.map(f => f.id).filter(i => !state.on.has(i))); }
+
+  // 화면 이동: 실제 화면처럼 미리보기 안 왼쪽 메뉴를 눌러 이동한다
+  const NAV = { '대시보드': 'dashboard', '학생 목록': 'students', '선생님 목록': 'teachers', '과목 목록': 'subjects', '분류 목록': 'categories', '강좌 목록': 'course-list', '콘텐츠 목록': 'contents', 'CMS 콘텐츠 관리': 'cms', '자유게시글 목록': 'board', '알림 보내기': 'alarm', '결제 내역': 'payments', '로그인 현황': 'login-stat', '로그인 상세': 'login-detail', '사용량 현황': 'demand', '다운로드 현황': 'download', '그룹 통계': 'group-stat', '학생 통계': 'user-stat', '메인페이지 설정': 'main-setting', '학원 설정': 'system-setting', '학원 소개 설정': 'about-setting', '콘텐츠 재생 허용 IP': 'ip-setting', '이서당 배너 설정': 'banner-setting', '메뉴 설정': 'menu-setting', '관리자 목록': 'admins', '그룹 목록': 'groups', '강좌 관리': 'courses', '수강 관리': 't-learn', '진도율 관리': 't-progress', '그룹 관리': 't-group', '과제 관리': 't-assign', '나의 정보': 't-info', '비밀번호 변경': 't-password' };
+  const NAV_S = { '수강중인 강좌': 's-learn', '나의 강좌': 's-learn', '수강 완료 강좌': 's-complete', '과제 목록': 's-assign', 'Q&A': 's-qna', '나의 글 목록': 's-qna', '자유게시판': 's-board', '좋아요 강좌': 's-like-course', '나의 좋아요': 's-like-course', '좋아요 선생님': 's-like-teacher', '나의 정보': 's-info', '비밀번호 변경': 's-password' };
+  const wsOf = id => id.startsWith('s-') ? 'student' : (id === 'courses' || id.startsWith('t-')) ? 'teacher' : id === 'notfound' ? 'notfound' : 'admin';
+  function paintTabs() { document.querySelectorAll('#ws button').forEach(b => b.setAttribute('aria-pressed', b.dataset.ws === wsOf(state.screen))); }
+  document.querySelectorAll('#ws button').forEach(b => b.addEventListener('click', () => { const t = { teacher: 'courses', student: 's-learn', notfound: 'notfound', admin: 'dashboard' }[b.dataset.ws]; if (wsOf(state.screen) !== b.dataset.ws) go(t); }));
+  $('#q').addEventListener('input', e => { state.q = e.target.value; const f = FIXES.find(x => x.id.toLowerCase() === state.q.trim().toLowerCase());
+    if (f) { const sc = f.screens.includes(state.screen) ? state.screen : f.screens.find(s => s !== 'all' && SCREENS.some(x => x.id === s)); if (sc) state.screen = sc; }
+    document.body.classList.remove('show-handoff'); $('#handoffBtn').setAttribute('aria-pressed', false); $('#handoffBtn').textContent = '개발자 전달'; render(); });
+  function go(id) { state.focus = null; state.screen = id; save(); render(); }
+  let toastT; function toast(msg) { const t = $('#labToast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2600); }
+  // 필터
+  state.layer = store.get('layer', '전체'); state.flag = store.get('flag', '모두'); state.stat = store.get('stat', '전체');
+  function chips(box, items, key) { box.innerHTML = ''; items.forEach(v => { const b = document.createElement('button'); b.type = 'button'; b.textContent = v; b.setAttribute('aria-pressed', state[key] === v);
+    b.addEventListener('click', () => { state[key] = v; store.set(key, v); renderList(); }); box.append(b); }); }
+  document.querySelectorAll('#mode button').forEach(b => b.addEventListener('click', () => { state.mode = b.dataset.mode; save(); render(); }));
+  document.querySelectorAll('#device button').forEach(b => b.addEventListener('click', () => { state.width = +b.dataset.w; save(); render(); }));
+  document.querySelectorAll('#theme [data-theme-set]').forEach(b => b.addEventListener('click', () => { state.theme = b.dataset.themeSet; save(); syncTheme(); applyTheme(); }));
+  function syncTheme() { document.querySelectorAll('#theme [data-theme-set]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeSet === state.theme))); }
+  function applyTheme() { try { const d = frame.contentDocument; if (d) d.documentElement.setAttribute('data-theme', state.theme); } catch (e) {} }
+  $('#mark').addEventListener('change', e => { state.mark = e.target.checked; save(); load(); });
+  $('#allToggle').addEventListener('click', () => {
+    const ids = forScreen(state.screen).map(f => f.id), allOn = ids.every(i => state.on.has(i));
+    ids.forEach(i => allOn ? state.on.delete(i) : state.on.add(i)); save(); render();
+  });
+  $('#handoffBtn').addEventListener('click', () => {
+    const on = !document.body.classList.contains('show-handoff');
+    document.body.classList.toggle('show-handoff', on); $('#handoffBtn').setAttribute('aria-pressed', on);
+    $('#handoffBtn').textContent = on ? '실험실로 돌아가기' : '개발자 전달'; if (on) renderHandoff();
+  });
+
+  function renderList() {
+    chips($('#layerFilt'), ['전체', ...LAYERS], 'layer');
+    // 찾기 중에만 층 · 확인 필터 칩을 숨긴다. 평소에는 이 화면의 수정 목록을 그대로 보여 준다
+    const q = (state.q || '').trim().toLowerCase(); document.body.classList.toggle('is-search', !!q);
+    const hit = f => f.id.toLowerCase() === q || (q.length > 1 && !/^[a-z]+\d+$/.test(q) && (f.id + ' ' + f.title).toLowerCase().includes(q));
+    const all = q ? FIXES.filter(hit) : forScreen(state.screen);
+    // 찾기 중에는 층 · 확인 필터 칩이 숨겨지므로 걸러 내지 않는다 (숨은 필터 때문에 항목이 안 보이던 문제)
+    const list = q ? all : all.filter(f => (state.layer === '전체' || layerOf(f) === state.layer) && (!state.flag || state.flag === '모두' || flagOf(f)[state.flag]));
+    const box = $('#fixList'); box.innerHTML = '';
+    $('#listTitle').textContent = (q ? '찾은 수정 ' : '이 화면의 수정 ') + list.length + (list.length !== all.length ? ' / ' + all.length : '');
+    const ids = all.map(f => f.id); $('#allToggle').textContent = ids.every(i => state.on.has(i)) ? '모두 끄기' : '모두 켜기';
+    if (q) { const p = document.createElement('p'); p.className = 'q-hint'; p.innerHTML = '찾기 결과만 보는 중 · <button type="button" id="qClear">지우고 전체 보기</button>'; box.append(p); p.querySelector('button').onclick = () => { $('#q').value = ''; state.q = ''; render(); }; }
+    if (!list.length) { box.insertAdjacentHTML('beforeend', '<p class="empty-note">' + (q ? '"' + esc(state.q) + '" 와 맞는 수정 항목이 없습니다.' : '조건에 맞는 수정 항목이 없습니다.') + '</p>'); return; }
+    list.forEach(f => {
+      const st = statusOf(f);
+      const el = document.createElement('div'); el.className = 'fix' + (state.on.has(f.id) ? '' : ' off'); el.id = 'fix-' + f.id; const fl = flagOf(f);
+      el.innerHTML = `<input type="checkbox" aria-label="${esc(f.id)} 켜기" ${state.on.has(f.id) ? 'checked' : ''} ${state.mode === 'before' ? 'disabled' : ''}>
+        <span class="ttl"><span class="id">${f.id}</span>${fl['정할 것'] ? '<span class="flag f-dec">정할 것</span>' : ''}${fl['제안'] ? '<span class="flag f-prop">제안</span>' : '<span class="flag f-ok">확정</span>'}${esc(f.title)} <span class="kind ${f.kind}">${f.kind}</span> <span class="layer">${layerOf(f)}</span> <span class="work w-${workOf(f).split(' ')[0]}">${workOf(f)}</span> </span>
+        <span class="ba"><span><b>현재</b>${md(f.current)}</span><span><b>바꿀 값</b>${md(f.next)}</span></span>
+        ${f.server ? `<span class="note"><b>서버</b> ${md(f.server)}</span>` : ''}
+        ${fl['정할 것'] ? `<span class="note" style="color:#9A5200;background:#FEF3E0;padding:4px 6px;border-radius:6px"><b>정할 것</b> ${md(decisionText(f))}</span>` : ''}
+        ${f.note ? `<span class="note">${md(f.note)}</span>` : ''}
+        ${canEdit ? `<span class="st" role="group" aria-label="상태">${['제안', '확정', '보류'].map(v => `<button type="button" class="s-${v}" data-v="${v}" aria-pressed="${st === v}">${v}</button>`).join('')}</span>` : ''}`;
+      el.querySelector('input').addEventListener('change', e => { e.target.checked ? state.on.add(f.id) : state.on.delete(f.id); save(); renderList(); load(); });
+      if (q) { el.style.cursor = 'pointer'; el.addEventListener('click', ev => { if (ev.target.closest('input,button')) return; const sc = f.screens.find(s => s !== 'all' && SCREENS.some(x => x.id === s)); if (sc && sc !== state.screen) { state.screen = sc; save(); paintTabs(); load(); } }); }
+      el.querySelectorAll('.st button').forEach(b => b.addEventListener('click', () => setStatus(f.id, b.dataset.v)));
+      box.append(el);
+    });
+  }
+  // '개발 전에 남은 일' 목록은 개발자 전달 슬라이드로 옮겨서 뺐다 (2026.10.23)
+  async function setStatus(id, v) {
+    if (!dbRef || statusOf(FIXES.find(f => f.id === id)) === v) return;
+    STATUS[id] = v; renderList();
+    try { await dbRef.doc('status/' + id).set({ status: v, at: new Date().toISOString() }); $('#sync').textContent = '저장됨'; }
+    catch (e) { $('#sync').textContent = '저장 실패 — 다시 눌러 주세요'; }
+  }
+
+  const frame = $('#frame'), wrap = $('#wrap');
+  let ro;
+  function fit() {
+    const avail = Math.max(280, wrap.parentElement.clientWidth - 0), w = state.width || Math.round(avail);
+    const scale = Math.min(1, avail / w);
+    let h = 900;
+    try { h = Math.max(600, frame.contentDocument.documentElement.scrollHeight); } catch (e) {}
+    frame.style.width = w + 'px'; frame.style.height = h + 'px'; frame.style.transform = `scale(${scale})`;
+    wrap.style.width = (w * scale) + 'px'; wrap.style.height = (h * scale) + 'px';
+    $('#stageInfo').innerHTML = `<strong>${(SCREENS.find(s => s.id === state.screen) || {}).name}</strong> · 왼쪽 메뉴를 눌러 이동 · ${w}px` + (state.width ? '' : ' (창 너비)') + (scale < 1 ? ` · ${Math.round(scale * 100)}% 축소` : '');
+  }
+  function apply() {
+    let doc; try { doc = frame.contentDocument; } catch (e) { return; }
+    if (!doc) return;
+    doc.documentElement.setAttribute('data-theme', state.theme);
+    if (state.mode === 'after') {
+      const qq = (state.q || '').trim().toLowerCase(); const exact = (qq && FIXES.find(f => f.id.toLowerCase() === qq)) || (!qq && state.focus && state.focusScreen === state.screen && FIXES.find(f => f.id === state.focus));
+      const active = (exact ? [exact] : forScreen(state.screen)).filter(f => state.on.has(f.id) && (f.screens.includes('all') || f.screens.includes(state.screen)));
+      const st = doc.createElement('style'); st.id = 'lab-fixes';
+      st.textContent = active.filter(f => f.css).map(f => `/* ${f.id} */\n${f.css}`).join('\n\n');
+      doc.head.append(st);
+      active.filter(f => f.dom).forEach(f => { try { new (frame.contentWindow.Function)('doc', f.dom)(doc); } catch (e) { console.warn(f.id, e); } });
+      const noteFocus = !qq && state.focus && state.focusScreen === state.screen && NOTES.some(n => n.id === state.focus);
+      if (state.mark && !noteFocus) {
+        const sel = active.flatMap(f => f.targets || []).filter(s => { try { return doc.querySelector(s); } catch (e) { return false; } });
+        if (sel.length) { const m = doc.createElement('style'); m.textContent = sel.join(',\n') + ' { outline: 2px dashed #D92D20 !important; outline-offset: 2px; }'; doc.head.append(m); }
+      }
+    }
+    if (!state.q && state.focus && state.focusScreen === state.screen) { const n = NOTES.find(x => x.id === state.focus); if (n && n.target) { const m = doc.createElement('style'); m.textContent = n.target + ' { outline: 2px dashed #D92D20 !important; outline-offset: 2px; }'; doc.head.append(m); } }
+    doc.querySelectorAll('[data-lab-go]').forEach(a => { a.classList.add('lab-live');
+      a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); go(a.dataset.labGo); }, true); });
+    doc.querySelectorAll('.cl-ws-nav__item, .cl-ws-rail__item').forEach(a => {
+      a.classList.add('lab-live');
+      a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation();
+        const name = (a.getAttribute('title') || a.textContent).trim(), id = (wsOf(state.screen) === 'student' ? NAV_S : NAV)[name];
+        if (id) { if (id !== state.screen) go(id); }
+        else toast('"' + name + '" 화면은 아직 실험실에 없습니다. HTML을 주시면 추가할게요.'); }, true);
+    });
+    const lock = doc.createElement('style');
+    lock.textContent = 'a:not(.lab-live), button:not(.lab-live) { pointer-events: none; } .lab-live { pointer-events: auto !important; } html { overflow: hidden; }';
+    doc.head.append(lock);
+    fit(); setTimeout(fit, 300); setTimeout(fit, 1200);
+  }
+  frame.addEventListener('load', apply);
+  function load() { frame.src = 'screens/' + state.screen + '.html?v=' + Date.now(); }
+  function render() {
+    paintTabs();
+    document.querySelectorAll('#mode button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === state.mode));
+    document.querySelectorAll('#device button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.w === state.width));
+    $('#mark').checked = state.mark; syncTheme();
+    const tag = $('#modeTag'); tag.textContent = state.mode === 'after' ? '수정안' : '현재'; tag.classList.toggle('after', state.mode === 'after');
+    renderList(); load();
+  }
+  window.addEventListener('resize', fit);
+  window.addEventListener('message', e => { if (e.source !== frame.contentWindow || !e.data) return; if (e.data.labGo) go(e.data.labGo); if (e.data.labFit) fit(); });
+
+  // 개발자 전달
+  state.hoScope = 'all';
+  document.querySelectorAll('#hoScope button').forEach(b => b.addEventListener('click', () => { state.hoScope = b.dataset.s; document.querySelectorAll('#hoScope button').forEach(x => x.setAttribute('aria-pressed', x === b)); renderHandoff(); }));
+  const strip = t => (t || '').replace(/`/g, '`');
+  function buildMd(list) {
+    const L = [];
+    L.push('# 클라우드러닝 작업공간 · 디자인 수정 요청', '');
+    L.push(`기준: 2026-10-19 저장 화면과 CSS(cl-tokens · base · components · manager · teacher · student.css). 항목 ${list.length}건, 층 순서(토큰 → 공통 틀 → 공통 부품 → 화면별)로 적용한다.`, '');
+    L.push('## 지켜야 할 규칙', '',
+      '- 색 · 글자 크기 · 간격 · 반경은 `cl-tokens.css` 의 `--cl-*` 토큰으로만 쓴다. 새 값이 필요하면 토큰을 먼저 추가한다.',
+      '- 아래 CSS 는 원본 CSS 맨 뒤에 덧붙여도 동작하지만, 가능하면 해당 규칙이 있는 원본 파일 안에서 고친다.',
+      '- 마크업 항목은 결과를 설명한 것이다. 실제 마크업을 만드는 서버 템플릿 · 스크립트(list.js 등)를 찾아 고친다.',
+      '- 이 문서에 없는 화면 · 동작은 바꾸지 않는다.',
+      '- 모든 움직임은 `prefers-reduced-motion: reduce` 에서 끈다.', '');
+    L.push('## 작업 구분', '', ...WORKS.map(w => `- ${w}: ${list.filter(f => workOf(f) === w).map(f => f.id).join(', ') || '없음'}`), '',
+      '- CSS만: 아래 CSS 를 붙이면 끝난다.', '- 프론트 수정: 템플릿 · JS 를 고친다. 실험실 그래프 · 숫자는 예시 데이터이므로 실제 데이터로 확인한다.', '- 서버 필요: 프론트보다 먼저 API 를 고친다. 항목의 "서버" 줄을 백엔드 담당에게 전달한다.', '');
+    LAYERS.forEach(ly => { const g = list.filter(f => layerOf(f) === ly); if (!g.length) return;
+      L.push(`## ${ly}`, '');
+      g.forEach(f => {
+        L.push(`### ${f.id} · ${f.title}`, '');
+        L.push(`- 화면: ${screenNames(f)}`, `- 종류: ${f.kind}`, `- 작업: ${workOf(f)}`, `- 현재: ${strip(f.current)}`, `- 목표: ${strip(f.next)}`);
+        if (f.markup) L.push(`- 마크업: ${strip(f.markup)}`);
+        if (f.server) L.push(`- 서버: ${strip(f.server)}`);
+        L.push('');
+        if (f.css) L.push('```css', f.css, '```', '');
+        L.push(`확인: ${f.check || '실험실 "' + f.id + '" 수정안 화면과 같아야 한다 — ' + strip(f.next)}`, '');
+      }); });
+    if (NOTES.length) { L.push('## 개발 확인 메모 (화면 수정 아님 — 먼저 정할 것)', ''); NOTES.forEach(n => { L.push(`### ${n.id} · ${n.title}`, '', `- 구분: ${n.level} · ${n.area}`, `- 화면: ${n.screens}`, `- 무엇: ${strip(n.what)}`, `- 영향: ${strip(n.impact)}`, `- 확인할 것: ${strip(n.check)}`, `- 정할 것: ${strip(n.options)}`, ''); }); L.push('이 메모는 AI 가 혼자 고치지 않는다. 확인 결과와 정한 방향을 받은 뒤 작업한다.', ''); }
+    return L.join('\n');
+  }
+  function renderHandoff() {
+    const sc = state.hoScope;
+    const list = FIXES.filter(f => sc === 'all' || (sc === 'active' ? statusOf(f) !== '보류' : statusOf(f) === '확정'))
+      .sort((a, b) => LAYERS.indexOf(layerOf(a)) - LAYERS.indexOf(layerOf(b)));
+    const nConf = FIXES.filter(f => statusOf(f) === '확정').length;
+    $('#hoLead').textContent = `수정 ${list.length}건. 개발자는 아래 'AI 수정 요청서'를 AI 도구에 넣으면 된다. 기준 파일: cl-tokens · base · components · manager · teacher.css (2026-10-19), student.css (2026-10-22).`;
+    $('#hoRows').innerHTML = list.map(f => `<tr><td class="mono">${f.id}</td><td>${layerOf(f)}</td><td>${esc(screenNames(f))}</td><td>${esc(f.title)}</td><td>${md(f.current)}</td><td>${md(f.next)}</td><td><span class="kind ${f.kind}">${f.kind}</span></td><td><span class="work w-${workOf(f).split(' ')[0]}">${workOf(f)}</span></td></tr>`).join('');
+    $('#hoMd').textContent = buildMd(list);
+    const css = '/* fixes.css — 클라우드러닝 작업공간 디자인 수정\n   원본 CSS 다음에 불러온다. 항목 ID 는 수정 목록 표와 같다. */\n\n' +
+      list.filter(f => f.css).map(f => `/* ${f.id} · ${f.title} */\n${f.css}`).join('\n\n') + '\n';
+    $('#hoCss').textContent = css;
+    const wk = f => f.work || (f.markup || f.dom ? '프론트 수정' : 'CSS만');
+    const pick = re => FIXES.filter(f => re.test([f.next, f.markup, f.note].join(' ')));
+    const decide = pick(/정할 것|기획 확인/);
+    const sentence = f => { const t = [f.next, f.markup, f.note].join(' '); const i = t.search(/정할 것|기획 확인/); return t.slice(Math.max(0, t.lastIndexOf('.', i) + 1, t.lastIndexOf('·', i) + 1, t.lastIndexOf('\n', i) + 1), t.indexOf('.', i) > 0 ? t.indexOf('.', i) + 1 : i + 80).trim(); };
+    const prop = FIXES.filter(f => statusOf(f) === '제안'), srv = FIXES.filter(f => wk(f) === '서버 필요');
+    const box = (n, title, desc, items) => `<div class="mk-list" style="list-style:none"><li><div class="h"><span class="id" style="font-family:var(--mono);color:var(--mark)">${n}</span>${title} <span class="layer">${items.length}건</span></div><div style="font-size:13px;color:var(--muted);margin-bottom:6px">${desc}</div><div style="display:grid;gap:4px;font-size:13px">${items.join('') || '<span style="color:var(--k-tok)">없음 — 완료</span>'}</div></li></div>`;
+    const row = (id, t) => `<div>${FIXES.some(f => f.id === id) ? `<button type="button" class="goto" data-goto="${id}" title="이 항목이 있는 화면 열기">${id}</button>` : `<span style="font-family:var(--mono);color:var(--muted);margin-right:6px">${id}</span>`}${t}</div>`;
+    $('#hoPre').innerHTML =
+      box('1', '제안 상태 확정', '검토 후 확정할 항목 ID 를 Claude 에게 알려 주면 확정으로 바꾼다. 확정 전 항목은 요청서에 "제안"으로 남는다.', prop.map(f => row(f.id, esc(f.title)))) +
+      box('2', '기획 결정', '항목 설명에 [정할 것] · 기획 확인이 적힌 것.', decide.map(f => row(f.id, esc(f.title) + ' — <span style="color:var(--muted)">' + md(sentence(f)) + '</span>'))) +
+      box('3', '서버 작업', '프론트보다 먼저 API 를 고쳐야 하는 것. 백엔드 일정이 필요하다.', srv.map(f => row(f.id, esc(f.title) + (f.server ? ' — <span style="color:var(--muted)">' + md(f.server) + '</span>' : '')))) +
+      box('4', '개발 확인 메모 (권한 · 데이터)', '화면 수정과 별개로 먼저 정한다. AI 가 혼자 고치지 않는다.', NOTES.map(n => `<div style="display:grid;gap:4px;padding:8px 0;border-top:1px solid var(--line)"><div><span style="font-family:var(--mono);color:var(--mark);margin-right:6px">${n.id}</span><b>${esc(n.title)}</b> <span class="layer">${n.level} · ${n.area} · ${esc(n.screens)}</span></div><div><b>무엇</b> ${md(n.what)}</div><div><b>영향</b> ${md(n.impact)}</div><div><b>확인할 것</b> ${md(n.check)}</div><div><b>정할 것</b> ${md(n.options)}</div>${n.note ? `<div style="color:var(--muted)">${md(n.note)}</div>` : ''}</div>`));
+    $('#hoMarkup').innerHTML = list.filter(f => f.markup).map(f => `<li><div class="h"><span class="id" style="font-family:var(--mono);color:var(--muted)">${f.id}</span>${esc(f.title)} <span class="kind ${f.kind}">${f.kind}</span></div><div>${md(f.markup)}</div></li>`).join('') || '<li>없음</li>';
+  }
+  document.addEventListener('click', e => {
+    const g = e.target.closest('[data-goto]');
+    if (g) { const f = FIXES.find(x => x.id === g.dataset.goto); const sc = f.screens.find(s => s !== 'all' && SCREENS.some(x => x.id === s)) || state.screen;
+      document.body.classList.remove('show-handoff'); $('#handoffBtn').setAttribute('aria-pressed', false); $('#handoffBtn').textContent = '개발자 전달';
+      state.layer = '전체'; state.flag = '모두'; store.set('layer', '전체'); store.set('flag', '모두'); go(sc);
+      setTimeout(() => { const c = document.getElementById('fix-' + f.id); if (c) { c.scrollIntoView({ block: 'center', behavior: 'smooth' }); c.classList.add('is-flash'); setTimeout(() => c.classList.remove('is-flash'), 2400); } }, 120); return; }
+    const b = e.target.closest('[data-copy]'); if (!b) return;
+    const pre = document.getElementById(b.dataset.copy);
+    navigator.clipboard.writeText(pre.textContent).then(() => { b.textContent = '복사됨'; setTimeout(() => b.textContent = '복사', 1500); })
+      .catch(() => { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = '선택됨 · ⌘C'; });
+  });
+
+  render();
+
+  (async () => {
+    if (!window.claude || !claude.use) return;
+    const dl = await claude.use('downloads');
+    if (dl) { const b = $('#hoSave'); b.hidden = false; b.addEventListener('click', () => dl.save({ filename: 'cloudlearning-design-fixes.md', data: $('#hoMd').textContent }).catch(() => {})); }
+  })();
+})();
+</script>
+
+</body></html>
