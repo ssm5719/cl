@@ -1,0 +1,17 @@
+<!-- @dsCard group="Status" height=80 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Badge</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-2); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="pv-row">
+<span class="cl-badge cl-badge--success">승인</span><span class="cl-badge cl-badge--warning">대기</span><span class="cl-badge cl-badge--danger">탈퇴</span><span class="cl-badge cl-badge--info">공개강좌</span><span class="cl-badge cl-badge--neutral">비공개</span></div>
+</body>
+</html>

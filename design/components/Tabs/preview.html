@@ -1,0 +1,15 @@
+<!-- @dsCard group="Navigation" height=80 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Tabs</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="cl-tabs" role="tablist" aria-label="승인 상태" data-states=""><button type="button" class="cl-tab" role="tab" aria-selected="true">전체<span class="cl-tab__count cl-num">34</span></button><button type="button" class="cl-tab" role="tab" aria-selected="false">승인<span class="cl-tab__count cl-num">19</span></button><button type="button" class="cl-tab" role="tab" aria-selected="false">대기<span class="cl-tab__count cl-num" data-tone="warning">14</span></button><button type="button" class="cl-tab" role="tab" aria-selected="false">탈퇴<span class="cl-tab__count cl-num">1</span></button></div>
+</body>
+</html>

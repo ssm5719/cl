@@ -1,0 +1,18 @@
+<!-- @dsCard group="Forms" height=230 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Field</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-2); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="pv-stack">
+<label class="cl-field"><span class="cl-field__label">과목 이름</span><input class="cl-input" value="동영상녹화"><span class="cl-field__help">선생님과 강좌에 붙는 담당 분야입니다.</span></label>
+<label class="cl-field is-invalid"><span class="cl-field__label">휴대폰</span><input class="cl-input" value="0106706"><span class="cl-field__error">휴대폰 번호 10~11자리를 넣어 주세요.</span></label></div>
+</body>
+</html>

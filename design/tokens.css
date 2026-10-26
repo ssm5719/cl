@@ -1,0 +1,251 @@
+/* 클라우드러닝 작업공간 — generated from tokens.json */
+:root, [data-theme="light"] {
+  --cl-primary: #904ae8; /* 학원 대표색. 주 버튼 배경, 흰 배경 위 링크, 선택 표시, 포커스 테두리에 쓴다. 흰 배경 4.85:1(흰 글자를 얹어도 4.85:1) — 글자로는 기준(6:1)에 못 미쳐 점검 대상(audit 2-2). */
+  --cl-primary-pressed: #7a35d0; /* 주 버튼 눌림. 회백색 · 연보라 위 링크, 활성 메뉴 글자, 연보라 배지 글자로도 쓴다. 흰 배경 6.47:1, cl-primary-tint 위 5.61:1. */
+  --cl-primary-on-dark: #b78af7; /* 어두운 배경 위 링크 · 강조. #272729 위 5.67:1. 차트 두 번째 계열(다운로드) 막대에도 쓴다. */
+  --cl-primary-tint: #f3ecfd; /* 선택된 행, 정보 배지 배경, 상단 바 학기 칩, 연보라 버튼(cl-btn--tint) 배경. */
+  --cl-ink: #1d1d1f; /* 본문 글자. cl-canvas · cl-parchment · cl-sidebar 위. 칩 선택 · 현재 쪽 번호 · 토스트 · 일괄 작업 바의 배경으로도 쓴다. */
+  --cl-ink-2: #3a3a3f; /* 사이드바 메뉴 기본 글자, 대화상자 설명, 중립 배지 글자. */
+  --cl-ink-muted: #5e5e63; /* 보조 글자(설명 · 날짜 · 표 머리 · 단위). 작업공간 값: 흰 배경 6.45:1, 회백색 5.92:1. 공개 화면은 #6E6E73(5.07:1). */
+  --cl-ink-faint: #aeaeb2; /* 비활성 · 빈 값 표시, 입력 칸 안내 글자. 흰 배경 2.21:1이라 읽어야 하는 글자에는 쓰지 않는다. */
+  --cl-control-border: #d2d2d7; /* 입력 칸 · 검색 칸 · 선택 칸 · 칩의 1px 테두리. */
+  --cl-hairline: #e0e0e3; /* 카드 테두리, 떠 있는 메뉴 테두리, 범위 표시 상자 테두리. */
+  --cl-grid-head: #ededf0; /* 표 머리 아래 선, 탭 줄 아래 선, 상단 바 아래 선, 대시보드 구역 나누는 선. */
+  --cl-grid-row: #f0f0f2; /* 표 행 사이 선, 숫자 띠 칸 사이 선, 차트 가운데 눈금. */
+  --cl-canvas: #ffffff; /* 본문 바탕, 카드 · 메뉴 · 대화상자 바탕, 선택된 사이드바 메뉴 바탕. */
+  --cl-parchment: #f5f5f7; /* 회백색 바탕. 빈 그래프 상자 배경. */
+  --cl-sidebar: #f7f7f8; /* 사이드바 · 상단 바 브랜드 칸 배경. */
+  --cl-sidebar-border: #e6e6e9; /* 사이드바 오른쪽 선, 테두리 버튼(ghost)의 1px 링(cl-ring). */
+  --cl-hover: #f4f4f6; /* 버튼 · 메뉴 · 행 hover 배경, 보기 전환 바탕, 중립 배지 · 빈 상태 아이콘 배경. */
+  --cl-surface-dark: #1d1d1f; /* 어두운 면(공개 영역). 작업공간 화면에서는 아직 쓰지 않는다. */
+  --cl-glass: rgba(255,255,255,.85); /* 공개 영역 반투명 머리 바 배경. 흐림 필터(saturate 180%, blur 20px)와 같이 쓴다. */
+  --cl-success: #137333; /* 성공 · 완료 글자와 점. cl-success-bg 위 5.24:1, 흰 배경 5.95:1. */
+  --cl-success-bg: #e6f4ea; /* 성공 배지 배경. */
+  --cl-warning: #ce6e00; /* 주의 · 대기 글자와 점. cl-warning-bg 위 5.34:1, 흰 배경 5.86:1. */
+  --cl-warning-bg: #fef3e0; /* 주의 배지 배경, 학기 칩 경고 배경. */
+  --cl-danger: #c5221f; /* 위험 · 실패 글자와 점, 위험 버튼 배경, 입력 오류 테두리. cl-danger-bg 위 4.92:1, 흰 배경 5.8:1. 흰 글자를 얹으면 5.8:1. */
+  --cl-danger-bg: #fce8e6; /* 위험 배지 배경. */
+  --cl-heat-0: #f4f4f6; /* 진도 히트맵 · 진도 막대 바탕: 시작 전. */
+  --cl-heat-1: #e2d3fb; /* 진도 1~49%. */
+  --cl-heat-2: #b78af7; /* 진도 50~99%. */
+  --cl-heat-3: #7a35d0; /* 진도 완료. */
+  --cl-ring: 0 0 0 1px #e6e6e9; /* 테두리 버튼(ghost) · 범위 상자 둘레의 1px 선. 그림자가 아니라 테두리 대신 쓴다. */
+  --cl-ring-active: 0 0 0 1px #e0e0e3, 0 1px 2px rgba(0,0,0,.04); /* 선택된 사이드바 메뉴. */
+  --cl-shadow-float: 0 8px 24px rgba(0,0,0,.12); /* 떠 있는 메뉴 · 선택 목록 · 대화상자 · 토스트. */
+  --cl-shadow-bulkbar: 0 8px 24px rgba(0,0,0,.18); /* 화면 아래 일괄 작업 바. */
+}
+:root {
+  --cl-space-1: 4px; /* 아이콘과 글자 사이, 탭 개수 간격 같은 가장 작은 틈. */
+  --cl-space-2: 8px; /* 버튼 사이, 도구 줄 항목 사이, 사이드바 메뉴 안쪽 여백. */
+  --cl-space-3: 12px; /* 표 칸 좌우 여백, 버튼 좌우 여백, 화면 머리 줄 항목 사이. */
+  --cl-space-4: 16px; /* 카드 안쪽 여백, 카드 사이, 모바일 화면 좌우 여백. */
+  --cl-space-5: 24px; /* 화면 위 여백, 대화상자 안쪽 여백. */
+  --cl-space-6: 32px; /* 큰 구역 사이. */
+  --cl-space-7: 48px; /* 빈 상태 위아래 여백. */
+  --cl-space-8: 80px; /* 공개 영역 구역 사이. */
+  --cl-radius-xs: 4px; /* 체크박스, 히트맵 칸. */
+  --cl-radius-sm: 8px; /* 작업공간 버튼 · 입력 칸 · 검색 칸 · 보기 전환 · 빈 그래프 상자. */
+  --cl-radius-md: 10px; /* 작업공간 카드(cl-card, cl-card-item), 숫자 띠 상자. */
+  --cl-radius-lg: 12px; /* 떠 있는 메뉴 · 대화상자 · 토스트 · 일괄 작업 바, 공개 영역 썸네일. */
+  --cl-radius-pill: 999px; /* 칩, 학기 칩, 계정 버튼, 아바타, 진도 막대. */
+  --cl-fs-page-title: 24px; /* 화면 제목(h1). 700 / 1.35 / -0.025em. 공개 화면 기본값은 22px. */
+  --cl-fs-section-title: 16px; /* 섹션 제목(h2, .cl-section-title). 700. 공개 화면 기본값은 15px. */
+  --cl-fs-ui: 14px; /* 본문 · 메뉴 · 표 · 버튼. 공개 화면 기본값은 13.5px. */
+  --cl-fs-table-head: 13px; /* 표 머리. 500. */
+  --cl-fs-caption: 13px; /* 보조 설명 · 날짜 · 도움말 · 표 아래 합계. */
+  --cl-fs-micro: 12px; /* 배지 · 범례 · 사이드바 묶음 이름 · 탭 개수. 500. */
+  --cl-fs-hero: 104px; /* 공개 영역 첫 화면 제목. 700 / 1.02 / -0.045em. 모바일 40px. */
+  --cl-fs-page-title-pub: 56px; /* 공개 영역 화면 제목. 700 / 1.1 / -0.04em. 모바일 36px. */
+  --cl-fs-display: 40px; /* 공개 영역 큰 제목. 700 / 1.2 / -0.03em. 모바일 28px. */
+  --cl-fs-list-title: 26px; /* 공개 영역 목차형 강좌명. 600 / -0.02em. */
+  --cl-fs-lead: 19px; /* 공개 영역 머리말. */
+  --cl-fs-body-public: 17px; /* 공개 영역 본문. 400 / 1.6 / -0.01em. */
+  --cl-h-ws-topbar: 56px; /* 작업공간 상단 바 높이. 모바일 52px. */
+  --cl-w-ws-sidebar: 240px; /* 작업공간 사이드바 너비. 태블릿 56px 레일, 모바일 300px 서랍. */
+  --cl-h-nav-item: 34px; /* 사이드바 메뉴 한 줄 높이. 모바일 44px. */
+  --cl-h-table-head: 40px; /* 표 머리 높이. */
+  --cl-h-table-row: 44px; /* 표 행 최소 높이. */
+  --cl-h-toolbar: 44px; /* 도구 줄(검색 · 필터) 최소 높이. */
+  --cl-h-control: 32px; /* 작업공간 버튼 · 검색 칸 · 선택 칸 높이. */
+  --cl-h-control-lg: 40px; /* 폼 입력 칸(cl-input) 높이. */
+  --cl-touch: 44px; /* 모바일에서 누르는 영역 최소 크기. 큰 버튼(cl-btn--lg) 높이. */
+  --cl-h-public-header: 72px; /* 공개 영역 머리 바 높이. */
+  --cl-h-cta: 52px; /* 공개 영역 주 행동 버튼 높이. */
+  --cl-focus-offset: 2px; /* 포커스 테두리와 요소 사이 간격. */
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, system-ui, sans-serif;
+  --text-page-title: 700 24px/1.35 var(--font-sans); /* 화면 제목 h1 — cl-fs-page-title */
+  --text-section-title: 700 16px/1.5 var(--font-sans); /* 섹션 제목 h2 — cl-fs-section-title */
+  --text-ui-strong: 600 14px/1.5 var(--font-sans); /* 버튼 · 표 제목 칸 · 탭 — cl-fs-ui */
+  --text-ui: 400 14px/1.5 var(--font-sans); /* 본문 · 메뉴 · 표 — cl-fs-ui */
+  --text-table-head: 500 13px/1.5 var(--font-sans); /* 표 머리 — cl-fs-table-head */
+  --text-caption: 400 13px/1.5 var(--font-sans); /* 보조 설명 · 날짜 — cl-fs-caption */
+  --text-micro: 500 12px/1.5 var(--font-sans); /* 배지 · 범례 · 메뉴 묶음 이름 — cl-fs-micro */
+  --text-direct-22: 700 22px/1.5 var(--font-sans); /* 숫자 띠(KPI) 값 .cl-kpi dd. 토큰 없음. */
+  --text-direct-18: 700 18px/1.5 var(--font-sans); /* 숫자 상자 값 .cl-stat__value. 토큰 없음. */
+  --text-direct-17: 600 17px/1.5 var(--font-sans); /* 대화상자 제목(700) · 빈 상태 제목 · 선생님 카드 이름 등 6곳. */
+  --text-direct-15: 600 15px/1.5 var(--font-sans); /* 카드 제목 · 목록 행 제목 · 큰 버튼 등 12곳. */
+  --text-direct-14-5: 600 14.5px/1.5 var(--font-sans); /* 강좌 이름 .cl-tc-course__title 등 2곳. */
+  --text-direct-14-title: 700 14px/1.5 var(--font-sans); /* 대시보드 섹션 제목 .cl-md-title — 토큰(16px)이 있는데 직접 적음. */
+  --text-direct-13-5: 400 13.5px/1.5 var(--font-sans); /* 이미지 저장소 파일 이름 1곳. */
+  --text-direct-11: 400 11px/1.5 var(--font-sans); /* 차트 축 · 최대값, 단축키 표시 등 7곳. */
+  --text-hero: 700 104px/1.02 var(--font-sans); /* 첫 화면 제목 — cl-fs-hero */
+  --text-page-title-pub: 700 56px/1.1 var(--font-sans); /* 화면 제목 — cl-fs-page-title-pub */
+  --text-display: 700 40px/1.2 var(--font-sans); /* 큰 제목 — cl-fs-display */
+  --text-list-title: 600 26px/1.3 var(--font-sans); /* 목차형 강좌명 — cl-fs-list-title */
+  --text-lead: 400 19px/1.6 var(--font-sans); /* 머리말 — cl-fs-lead */
+  --text-body-public: 400 17px/1.6 var(--font-sans); /* 본문 — cl-fs-body-public */
+}
+.page-title {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.section-title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+.ui-strong {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.ui {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+.table-head {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.caption {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+.micro {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.direct-22 {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.direct-18 {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.direct-17 {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.direct-15 {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.direct-14-5 {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.direct-14-title {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.direct-13-5 {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.direct-11 {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.hero {
+  font-family: var(--font-sans);
+  font-size: 104px;
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+.page-title-pub {
+  font-family: var(--font-sans);
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+.display {
+  font-family: var(--font-sans);
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.list-title {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.lead {
+  font-family: var(--font-sans);
+  font-size: 19px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body-public {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+@font-face {
+  font-family: "Pretendard Variable";
+  src: url("fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}

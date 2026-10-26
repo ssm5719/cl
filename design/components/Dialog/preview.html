@@ -1,0 +1,17 @@
+<!-- @dsCard group="Overlays" height=230 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Dialog</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-2); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="cl-dialog cl-dialog--confirm" role="dialog" aria-modal="false" style="position:static;display:block;margin:0"><h2 class="cl-dialog__title">선생님을 삭제할까요?</h2><p class="cl-dialog__desc">장현석 선생님의 강좌 3개는 담당 선생님이 비게 됩니다.
+삭제한 계정은 되살릴 수 없습니다.</p><div class="cl-dialog__actions"><button class="cl-btn cl-btn--text">취소</button><button class="cl-btn cl-btn--danger">삭제</button></div></div>
+</body>
+</html>

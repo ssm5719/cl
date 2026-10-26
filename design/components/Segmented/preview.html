@@ -1,0 +1,23 @@
+<!-- @dsCard group="Filters" height=90 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Segmented</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-2); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="pv-row"><div aria-label="보기 방식" class="cl-segmented" data-view-toggle="" role="group">
+<button aria-label="표로 보기" aria-pressed="true" class="cl-segmented__item" data-view="table" title="표로 보기" type="button"><svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="16"><path d="M12 3v18"></path><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path></svg></button>
+<button aria-label="크게 보기" aria-pressed="false" class="cl-segmented__item" data-view="card" title="크게 보기" type="button"><svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="16"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect></svg></button>
+</div><div aria-label="기간" class="cl-segmented" data-periods="" role="group">
+<button aria-pressed="false" class="cl-segmented__item cl-segmented__item--text" data-period="1" type="button">오늘</button>
+<button aria-pressed="false" class="cl-segmented__item cl-segmented__item--text" data-period="7" type="button">7일</button>
+<button aria-pressed="true" class="cl-segmented__item cl-segmented__item--text" data-period="30" type="button">30일</button>
+</div></div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!-- @dsCard group="Status" height=110 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Progress</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-2); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="pv-stack">
+<div class="pv-row" style="max-width:360px"><span class="cl-progress" style="flex:1"><span class="cl-progress__track"><span class="cl-progress__bar" style="width:34%"></span></span><span class="cl-progress__value cl-num">34%</span></span></div>
+<div class="pv-row" style="max-width:360px"><span class="cl-progress is-done" style="flex:1"><span class="cl-progress__track"><span class="cl-progress__bar" style="width:100%"></span></span><span class="cl-progress__value cl-num">100%</span></span></div>
+<div><p class="pv-label">표 안 작은 막대 (강좌 관리 · 평균 진도율)</p><span class="cl-pd-row__bar"><span class="cl-pd-mini"><span style="width:0%"></span></span><span class="cl-num">0%</span></span></div></div>
+</body>
+</html>

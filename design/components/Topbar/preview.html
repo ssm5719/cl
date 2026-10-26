@@ -1,0 +1,74 @@
+<!-- @dsCard group="Layout" height=190 width=1440 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Topbar</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-2); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="pv-stack"><div><p class="pv-label">관리자</p><header class="cl-ws-topbar">
+<button aria-controls="cl-ws-sidebar" aria-expanded="false" aria-label="메뉴 열기" class="cl-ws-topbar__menu cl-icon-btn" data-ws-drawer-open="" type="button">
+<svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="22"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg> </button>
+<a class="cl-ws-brand" href="#">
+<img alt="" class="cl-ws-brand__logo" src="/_blob/3fd315f9ac959d86aab9873fa111b5c2"/>
+<span class="cl-ws-brand__text">
+<span class="cl-ws-brand__name">클라우드러닝</span>
+<span class="cl-ws-brand__area">관리자</span>
+</span>
+</a>
+<div class="cl-ws-topbar__actions">
+<a class="cl-ws-term" href="#" title="현재 학기 (분류 목록에서 바꿉니다)"><svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="14"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect height="18" rx="2" width="18" x="3" y="4"></rect><path d="M3 10h18"></path></svg>랩241</a>
+<div class="cl-popover" data-popover="">
+<button aria-expanded="false" aria-haspopup="true" aria-label="알림" class="cl-icon-btn cl-ws-alarm" data-alarm-trigger="" data-popover-trigger="" type="button">
+<svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="18"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg> <span class="cl-ws-alarm__dot" data-alarm-dot="" hidden=""></span>
+</button>
+
+</div>
+<div class="cl-popover" data-popover="">
+<button aria-expanded="false" aria-haspopup="menu" class="cl-ws-account" data-popover-trigger="" type="button">
+<span aria-hidden="true" class="cl-avatar"></span>
+<span class="cl-ws-account__name"></span>
+<svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="14"><path d="m6 9 6 6 6-6"></path></svg> </button>
+
+</div>
+</div>
+</header></div><div><p class="pv-label">선생님</p><header class="cl-ws-topbar">
+<button aria-controls="cl-ws-sidebar" aria-expanded="false" aria-label="메뉴 열기" class="cl-ws-topbar__menu cl-icon-btn" data-ws-drawer-open="" type="button">
+<svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="22"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg> </button>
+<a class="cl-ws-brand" href="#">
+<img alt="" class="cl-ws-brand__logo" src="/_blob/3fd315f9ac959d86aab9873fa111b5c2"/>
+<span class="cl-ws-brand__text">
+<span class="cl-ws-brand__name">클라우드러닝</span>
+<span class="cl-ws-brand__area">선생님</span>
+</span>
+</a>
+<div class="cl-ws-topbar__actions">
+<!-- 기존 화면 오른쪽에 떠 있던 선생님 빠른 버튼(썸네일 · 콘텐츠 · 화상 강의)과 만들기 동작을 한곳에 모았다 -->
+<div class="cl-popover" data-popover="">
+<button aria-expanded="false" aria-haspopup="menu" aria-label="새로 만들기" class="cl-btn cl-btn--primary cl-btn--sm cl-ws-create__btn" data-coach-target="create" data-popover-trigger="" type="button">
+<svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="16"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg><span class="cl-ws-create__label">새로 만들기</span><span class="cl-ws-create__chevron"><svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="14"><path d="m6 9 6 6 6-6"></path></svg></span>
+</button>
+
+</div>
+<div class="cl-popover" data-popover="">
+<button aria-expanded="false" aria-haspopup="true" aria-label="알림" class="cl-icon-btn cl-ws-alarm" data-alarm-trigger="" data-popover-trigger="" type="button">
+<svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="18"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg> <span class="cl-ws-alarm__dot" data-alarm-dot="" hidden=""></span>
+</button>
+
+</div>
+<div class="cl-popover" data-popover="">
+<button aria-expanded="false" aria-haspopup="menu" class="cl-ws-account" data-popover-trigger="" type="button">
+<span aria-hidden="true" class="cl-avatar cl-avatar">장</span>
+<span class="cl-ws-account__name">장현석</span>
+<svg aria-hidden="true" class="cl-icon" fill="none" focusable="false" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="14"><path d="m6 9 6 6 6-6"></path></svg> </button>
+
+</div>
+</div>
+</header></div></div>
+</body>
+</html>

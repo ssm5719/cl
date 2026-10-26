@@ -1,0 +1,645 @@
+{
+  "manifestVersion": 3,
+  "name": "클라우드러닝 작업공간",
+  "namespace": "ClWorkspace",
+  "files": [
+    "assets/Icons/README.md",
+    "assets/Logos/README.md",
+    "audit.md",
+    "components/Avatar/README.md",
+    "components/Badge/README.md",
+    "components/Button/README.md",
+    "components/Chart/README.md",
+    "components/Chip/README.md",
+    "components/Dialog/README.md",
+    "components/Empty/README.md",
+    "components/Field/README.md",
+    "components/Menu/README.md",
+    "components/MobileCard/README.md",
+    "components/NeedsList/README.md",
+    "components/PageHead/README.md",
+    "components/Pagination/README.md",
+    "components/Progress/README.md",
+    "components/Segmented/README.md",
+    "components/SelectionBar/README.md",
+    "components/Sidebar/README.md",
+    "components/StatStrip/README.md",
+    "components/Table/README.md",
+    "components/Tabs/README.md",
+    "components/TeacherList/README.md",
+    "components/Toast/README.md",
+    "components/Toolbar/README.md",
+    "components/Topbar/README.md",
+    "components/bundle.css",
+    "fonts/PretendardVariable.woff2",
+    "tokens.css"
+  ],
+  "libraries": [],
+  "components": [
+    {
+      "name": "Avatar",
+      "group": "Identity",
+      "summary": "사람을 나타내는 원형 사진 자리. 사진이 없으면 이름 첫 글자를 넣는다."
+    },
+    {
+      "name": "Badge",
+      "group": "Status",
+      "summary": "행이나 카드의 상태를 한 단어로 보여 주는 표시다."
+    },
+    {
+      "name": "Button",
+      "group": "Actions",
+      "summary": "화면에서 누르는 동작은 모두 cl-btn 하나에 종류와 크기를 붙여 만든다."
+    },
+    {
+      "name": "Chart",
+      "group": "Dashboard",
+      "summary": "대시보드 막대 그래프(로그인 현황, 학습 시간대, 트래픽, 저장량)."
+    },
+    {
+      "name": "Chip",
+      "group": "Filters",
+      "summary": "여러 값 중 하나로 목록을 거를 때 쓰는 알약 모양 버튼이다."
+    },
+    {
+      "name": "Dialog",
+      "group": "Overlays",
+      "summary": "흐름을 멈추고 확인을 받거나 짧은 입력을 받는 창."
+    },
+    {
+      "name": "Empty",
+      "group": "Status",
+      "summary": "목록이나 구역에 보여 줄 것이 없을 때 그 자리를 채운다."
+    },
+    {
+      "name": "Field",
+      "group": "Forms",
+      "summary": "폼 입력 한 칸: 이름표, 입력 칸, 도움말 또는 오류."
+    },
+    {
+      "name": "Menu",
+      "group": "Overlays",
+      "summary": "버튼을 누르면 뜨는 동작 목록(행 메뉴 ⋯, 계정 메뉴, 새로 만들기, 엑셀 메뉴)."
+    },
+    {
+      "name": "MobileCard",
+      "group": "Data",
+      "summary": "900px 이하에서 표(cl-table)가 바뀌는 카드형 행. 따로 만드는 컴포넌트가 아니라 같은 표 마크업이 CSS로 바뀐다."
+    },
+    {
+      "name": "NeedsList",
+      "group": "Dashboard",
+      "summary": "대시보드 '확인 필요': 관리자가 지금 처리할 일을 상태 순서로 모은 목록."
+    },
+    {
+      "name": "PageHead",
+      "group": "Layout",
+      "summary": "화면 맨 위: 상위 메뉴, 제목, 화면 단위 버튼, 설명."
+    },
+    {
+      "name": "Pagination",
+      "group": "Navigation",
+      "summary": "목록 아래 쪽 번호."
+    },
+    {
+      "name": "Progress",
+      "group": "Status",
+      "summary": "진도율처럼 0~100% 값을 막대로 보여 준다."
+    },
+    {
+      "name": "Segmented",
+      "group": "Filters",
+      "summary": "같은 목록을 다르게 보는 두세 가지 방식 중 하나를 고른다. 표/카드 보기, 대시보드 기간(오늘 · 7일 · 30일)에 쓴다."
+    },
+    {
+      "name": "SelectionBar",
+      "group": "Data",
+      "summary": "표에서 행을 고르면 화면 아래에 떠서 고른 행에 할 일을 보여 준다."
+    },
+    {
+      "name": "Sidebar",
+      "group": "Layout",
+      "summary": "작업공간 왼쪽 메뉴. 메뉴 검색, 묶음 이름, 메뉴 항목, 아래 바로가기."
+    },
+    {
+      "name": "StatStrip",
+      "group": "Dashboard",
+      "summary": "대시보드 맨 위 숫자 띠. 핵심 숫자 여섯 개를 한 줄에 둔다."
+    },
+    {
+      "name": "Table",
+      "group": "Data",
+      "summary": "여러 행을 같은 칸으로 비교하는 목록. 작업공간 목록 화면의 기본이다."
+    },
+    {
+      "name": "Tabs",
+      "group": "Navigation",
+      "summary": "한 목록을 상태별로 나눠 볼 때 쓴다(학생 목록: 전체 · 승인 · 대기 · 탈퇴, 강좌 관리: 과목별)."
+    },
+    {
+      "name": "TeacherList",
+      "group": "Data",
+      "summary": "관리자 선생님 목록 표. 사람 목록의 기준 화면이다."
+    },
+    {
+      "name": "Toast",
+      "group": "Feedback",
+      "summary": "동작이 끝났다는 것을 화면 아래 가운데에 잠깐 알린다."
+    },
+    {
+      "name": "Toolbar",
+      "group": "Filters",
+      "summary": "목록 바로 위에서 검색 · 거르기 · 개수를 한 줄에 모은다."
+    },
+    {
+      "name": "Topbar",
+      "group": "Layout",
+      "summary": "작업공간 맨 위 고정 줄: 브랜드, 학기, 알림, 계정."
+    }
+  ],
+  "assetGroups": [
+    {
+      "name": "Logos",
+      "tile": "l",
+      "order": [
+        "cloudlearning-logo.png"
+      ],
+      "files": [
+        {
+          "path": "assets/Logos/cloudlearning-logo.png",
+          "id": "3fd315f9ac959d86aab9873fa111b5c2"
+        }
+      ]
+    },
+    {
+      "name": "Icons",
+      "tile": "xs",
+      "order": [
+        "dashboard.svg",
+        "student.svg",
+        "teacher.svg",
+        "admin.svg",
+        "group.svg",
+        "category.svg",
+        "subject.svg",
+        "course.svg",
+        "content.svg",
+        "upload.svg",
+        "post.svg",
+        "notify.svg",
+        "payment.svg",
+        "stats-bar.svg",
+        "history.svg",
+        "usage.svg",
+        "download.svg",
+        "group-stats.svg",
+        "trend.svg",
+        "main-page.svg",
+        "settings.svg",
+        "about.svg",
+        "ip.svg",
+        "banner.svg",
+        "menu-settings.svg",
+        "external.svg",
+        "enroll.svg",
+        "assignment.svg",
+        "profile.svg",
+        "key.svg",
+        "menu.svg",
+        "search.svg",
+        "bell.svg",
+        "plus.svg",
+        "calendar.svg",
+        "refresh.svg",
+        "more.svg",
+        "close.svg",
+        "chevron-left.svg",
+        "view-table.svg",
+        "view-grid.svg"
+      ],
+      "files": [
+        {
+          "path": "assets/Icons/dashboard.svg",
+          "id": "63c59067a1fe8db6f919816527dc1aff"
+        },
+        {
+          "path": "assets/Icons/student.svg",
+          "id": "71fb9554d8bdbfa7b6e142ff7ef2695f"
+        },
+        {
+          "path": "assets/Icons/teacher.svg",
+          "id": "b2b291c07fe777c40bd6d024232ffdbc"
+        },
+        {
+          "path": "assets/Icons/admin.svg",
+          "id": "9782548e2af2078dde882c862a9cbef9"
+        },
+        {
+          "path": "assets/Icons/group.svg",
+          "id": "712a6a7532112da9bd8864abe46b8d43"
+        },
+        {
+          "path": "assets/Icons/category.svg",
+          "id": "0e9149bb4bc91d59294dd24528648224"
+        },
+        {
+          "path": "assets/Icons/subject.svg",
+          "id": "40e25172ae2019570f3591b5e3ea33a6"
+        },
+        {
+          "path": "assets/Icons/course.svg",
+          "id": "da321aae42325d99bff70d1e306c6b65"
+        },
+        {
+          "path": "assets/Icons/content.svg",
+          "id": "c8e176b5618d5a384c5b0ebc6a278be6"
+        },
+        {
+          "path": "assets/Icons/upload.svg",
+          "id": "966663d0cba199e4c730365bc457e075"
+        },
+        {
+          "path": "assets/Icons/post.svg",
+          "id": "0aac159a80026f34fcf8710915a792d7"
+        },
+        {
+          "path": "assets/Icons/notify.svg",
+          "id": "8ec04d6c9f2636a6c90d0005a79e13a3"
+        },
+        {
+          "path": "assets/Icons/payment.svg",
+          "id": "4514ccf0222b158829f1c0d71f6fd09b"
+        },
+        {
+          "path": "assets/Icons/stats-bar.svg",
+          "id": "5529bd592eb9a1c09934c2a7d874d3cc"
+        },
+        {
+          "path": "assets/Icons/history.svg",
+          "id": "c1e086a81e94e0ad283a485ef1f27a8a"
+        },
+        {
+          "path": "assets/Icons/usage.svg",
+          "id": "e9a8a786ba70949330fd798032ad4322"
+        },
+        {
+          "path": "assets/Icons/download.svg",
+          "id": "81301077d935211fdf94d620c5989c2c"
+        },
+        {
+          "path": "assets/Icons/group-stats.svg",
+          "id": "268e05dce26d0590e803b4827c8a551d"
+        },
+        {
+          "path": "assets/Icons/trend.svg",
+          "id": "611406c5631b398ce929118c31f112c5"
+        },
+        {
+          "path": "assets/Icons/main-page.svg",
+          "id": "56dfb2452fcb68615cccefd1ccacc1c1"
+        },
+        {
+          "path": "assets/Icons/settings.svg",
+          "id": "835ab4f0f1cc496e604ba0d8290d44d7"
+        },
+        {
+          "path": "assets/Icons/about.svg",
+          "id": "4772e69ea7b0507f0986d040fb6420c2"
+        },
+        {
+          "path": "assets/Icons/ip.svg",
+          "id": "6fa2d0c7ffe4b3b6a0693d7fef931f79"
+        },
+        {
+          "path": "assets/Icons/banner.svg",
+          "id": "6b4f18b827c1dafeedf54e0dcd47119d"
+        },
+        {
+          "path": "assets/Icons/menu-settings.svg",
+          "id": "6185173a7a6dc728a01267488c11caf9"
+        },
+        {
+          "path": "assets/Icons/external.svg",
+          "id": "f485c1914c915781e881ad63088b1816"
+        },
+        {
+          "path": "assets/Icons/enroll.svg",
+          "id": "6839ad705f6e48b107519ac7467a49f9"
+        },
+        {
+          "path": "assets/Icons/assignment.svg",
+          "id": "84ce10367fc4a71d23f205961134c0d3"
+        },
+        {
+          "path": "assets/Icons/profile.svg",
+          "id": "936e9bef2a3dcd08b4e00c2d073785d4"
+        },
+        {
+          "path": "assets/Icons/key.svg",
+          "id": "e1e48ee548ee30db8846682360827cf4"
+        },
+        {
+          "path": "assets/Icons/menu.svg",
+          "id": "32dbe75b20da17bc3db98c3ffe12d287"
+        },
+        {
+          "path": "assets/Icons/search.svg",
+          "id": "c2ba40a08a117b3da8340028941d99c7"
+        },
+        {
+          "path": "assets/Icons/bell.svg",
+          "id": "83663759b7c299e5b4b9450b3201e9dd"
+        },
+        {
+          "path": "assets/Icons/plus.svg",
+          "id": "5da16df885e85f9b02b14050a0ebc571"
+        },
+        {
+          "path": "assets/Icons/calendar.svg",
+          "id": "36e759a1ed59aa5c39d10aa18636e134"
+        },
+        {
+          "path": "assets/Icons/refresh.svg",
+          "id": "bf048df0f7947e7f413fa0c0eb1f8249"
+        },
+        {
+          "path": "assets/Icons/more.svg",
+          "id": "75e1f787e96d766d538f3e36627229b0"
+        },
+        {
+          "path": "assets/Icons/close.svg",
+          "id": "5ff200185392960ec7355e5139438286"
+        },
+        {
+          "path": "assets/Icons/chevron-left.svg",
+          "id": "2505f95e9883ddf7c9447fa1eb6d45aa"
+        },
+        {
+          "path": "assets/Icons/view-table.svg",
+          "id": "4840a06e38242f98adc212aee8107320"
+        },
+        {
+          "path": "assets/Icons/view-grid.svg",
+          "id": "d4ffecf49f4514086824560a80e73b44"
+        }
+      ]
+    }
+  ],
+  "storage": {
+    "files": {
+      "assets/Icons/about.svg": {
+        "store": "blob",
+        "id": "4772e69ea7b0507f0986d040fb6420c2",
+        "bytes": 284,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/admin.svg": {
+        "store": "blob",
+        "id": "9782548e2af2078dde882c862a9cbef9",
+        "bytes": 460,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/assignment.svg": {
+        "store": "blob",
+        "id": "84ce10367fc4a71d23f205961134c0d3",
+        "bytes": 446,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/banner.svg": {
+        "store": "blob",
+        "id": "6b4f18b827c1dafeedf54e0dcd47119d",
+        "bytes": 348,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/bell.svg": {
+        "store": "blob",
+        "id": "83663759b7c299e5b4b9450b3201e9dd",
+        "bytes": 297,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/calendar.svg": {
+        "store": "blob",
+        "id": "36e759a1ed59aa5c39d10aa18636e134",
+        "bytes": 320,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/category.svg": {
+        "store": "blob",
+        "id": "0e9149bb4bc91d59294dd24528648224",
+        "bytes": 496,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/chevron-left.svg": {
+        "store": "blob",
+        "id": "2505f95e9883ddf7c9447fa1eb6d45aa",
+        "bytes": 222,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/close.svg": {
+        "store": "blob",
+        "id": "5ff200185392960ec7355e5139438286",
+        "bytes": 246,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/content.svg": {
+        "store": "blob",
+        "id": "c8e176b5618d5a384c5b0ebc6a278be6",
+        "bytes": 430,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/course.svg": {
+        "store": "blob",
+        "id": "da321aae42325d99bff70d1e306c6b65",
+        "bytes": 440,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/dashboard.svg": {
+        "store": "blob",
+        "id": "63c59067a1fe8db6f919816527dc1aff",
+        "bytes": 406,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/download.svg": {
+        "store": "blob",
+        "id": "81301077d935211fdf94d620c5989c2c",
+        "bytes": 340,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/enroll.svg": {
+        "store": "blob",
+        "id": "6839ad705f6e48b107519ac7467a49f9",
+        "bytes": 373,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/external.svg": {
+        "store": "blob",
+        "id": "f485c1914c915781e881ad63088b1816",
+        "bytes": 320,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/group-stats.svg": {
+        "store": "blob",
+        "id": "268e05dce26d0590e803b4827c8a551d",
+        "bytes": 304,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/group.svg": {
+        "store": "blob",
+        "id": "712a6a7532112da9bd8864abe46b8d43",
+        "bytes": 326,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/history.svg": {
+        "store": "blob",
+        "id": "c1e086a81e94e0ad283a485ef1f27a8a",
+        "bytes": 312,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/ip.svg": {
+        "store": "blob",
+        "id": "6fa2d0c7ffe4b3b6a0693d7fef931f79",
+        "bytes": 401,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/key.svg": {
+        "store": "blob",
+        "id": "e1e48ee548ee30db8846682360827cf4",
+        "bytes": 441,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/main-page.svg": {
+        "store": "blob",
+        "id": "56dfb2452fcb68615cccefd1ccacc1c1",
+        "bytes": 377,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/menu-settings.svg": {
+        "store": "blob",
+        "id": "6185173a7a6dc728a01267488c11caf9",
+        "bytes": 347,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/menu.svg": {
+        "store": "blob",
+        "id": "32dbe75b20da17bc3db98c3ffe12d287",
+        "bytes": 320,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/more.svg": {
+        "store": "blob",
+        "id": "75e1f787e96d766d538f3e36627229b0",
+        "bytes": 306,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/notify.svg": {
+        "store": "blob",
+        "id": "8ec04d6c9f2636a6c90d0005a79e13a3",
+        "bytes": 276,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/payment.svg": {
+        "store": "blob",
+        "id": "4514ccf0222b158829f1c0d71f6fd09b",
+        "bytes": 289,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/plus.svg": {
+        "store": "blob",
+        "id": "5da16df885e85f9b02b14050a0ebc571",
+        "bytes": 242,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/post.svg": {
+        "store": "blob",
+        "id": "0aac159a80026f34fcf8710915a792d7",
+        "bytes": 384,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/profile.svg": {
+        "store": "blob",
+        "id": "936e9bef2a3dcd08b4e00c2d073785d4",
+        "bytes": 335,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/refresh.svg": {
+        "store": "blob",
+        "id": "bf048df0f7947e7f413fa0c0eb1f8249",
+        "bytes": 295,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/search.svg": {
+        "store": "blob",
+        "id": "c2ba40a08a117b3da8340028941d99c7",
+        "bytes": 261,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/settings.svg": {
+        "store": "blob",
+        "id": "835ab4f0f1cc496e604ba0d8290d44d7",
+        "bytes": 467,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/stats-bar.svg": {
+        "store": "blob",
+        "id": "5529bd592eb9a1c09934c2a7d874d3cc",
+        "bytes": 310,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/student.svg": {
+        "store": "blob",
+        "id": "71fb9554d8bdbfa7b6e142ff7ef2695f",
+        "bytes": 287,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/subject.svg": {
+        "store": "blob",
+        "id": "40e25172ae2019570f3591b5e3ea33a6",
+        "bytes": 364,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/teacher.svg": {
+        "store": "blob",
+        "id": "b2b291c07fe777c40bd6d024232ffdbc",
+        "bytes": 400,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/trend.svg": {
+        "store": "blob",
+        "id": "611406c5631b398ce929118c31f112c5",
+        "bytes": 257,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/upload.svg": {
+        "store": "blob",
+        "id": "966663d0cba199e4c730365bc457e075",
+        "bytes": 337,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/usage.svg": {
+        "store": "blob",
+        "id": "e9a8a786ba70949330fd798032ad4322",
+        "bytes": 357,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/view-grid.svg": {
+        "store": "blob",
+        "id": "d4ffecf49f4514086824560a80e73b44",
+        "bytes": 406,
+        "type": "image/svg+xml"
+      },
+      "assets/Icons/view-table.svg": {
+        "store": "blob",
+        "id": "4840a06e38242f98adc212aee8107320",
+        "bytes": 322,
+        "type": "image/svg+xml"
+      },
+      "assets/Logos/cloudlearning-logo.png": {
+        "store": "blob",
+        "id": "3fd315f9ac959d86aab9873fa111b5c2",
+        "bytes": 4297,
+        "type": "image/png"
+      }
+    },
+    "blobBytesUsed": 18448
+  }
+}

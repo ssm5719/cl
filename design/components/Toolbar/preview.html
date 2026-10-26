@@ -1,0 +1,49 @@
+<!-- @dsCard group="Filters" height=220 width=1200 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Toolbar</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="pv-stack"><div><p class="pv-label">학생 목록</p><div class="cl-toolbar">
+        <form role="search" data-search-form="">
+            <label class="cl-search">
+                <svg class="cl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>                <input type="search" placeholder="이름, 아이디, 휴대폰 등" aria-label="학생 검색" data-search="" title="이름 · 아이디 · 메모 · 휴대폰 · 이메일로 찾습니다">
+            <button type="button" class="cl-search__clear" aria-label="검색어 지우기" hidden=""><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></label>
+        </form>
+        <button type="button" class="cl-btn cl-btn--text cl-btn--sm" data-reset="" disabled=""><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>조건 초기화</button>
+        <span class="cl-toolbar__spacer"></span>
+        <label class="cl-tc-size">쪽마다
+            <span class="cl-selectbox"><button type="button" class="cl-select cl-selectbox__control cl-selectbox__button" aria-haspopup="listbox" aria-expanded="false" aria-controls="cl-selectbox-1"><span class="cl-selectbox__label">10명</span><span class="cl-selectbox__sizer" aria-hidden="true"><span>10명</span><span>20명</span><span>50명</span><span>100명</span></span></button><ul id="cl-selectbox-1" class="cl-selectbox__list" role="listbox" tabindex="-1" hidden=""></ul></span><select class="cl-select" data-size="" data-select="menu" hidden="" aria-hidden="true" tabindex="-1">
+                <option value="10">10명</option>
+                <option value="20">20명</option>
+                <option value="50">50명</option>
+                <option value="100">100명</option>
+            </select>
+        </label>
+    </div></div><div><p class="pv-label">선생님 목록</p><div class="cl-toolbar">
+        <form role="search" data-search-form="">
+            <label class="cl-search">
+                <svg class="cl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>                <input type="search" placeholder="아이디, 이름" aria-label="선생님 검색" data-search="">
+            </label>
+        </form>
+        <span class="cl-toolbar__spacer"></span>
+        <div class="cl-segmented" role="group" aria-label="보기 방식" data-view-toggle="">
+            <button type="button" class="cl-segmented__item" aria-pressed="true" data-view="table" aria-label="표로 보기" title="표로 보기"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"></path><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path></svg></button>
+            <button type="button" class="cl-segmented__item" aria-pressed="false" data-view="card" aria-label="크게 보기" title="크게 보기"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></button>
+        </div><span class="cl-muted" data-summary="">선생님 25명</span>
+    </div></div><div><p class="pv-label">강좌 관리 (선생님)</p><div class="cl-toolbar"><form class="cl-tc-search" role="search" data-search-form="">
+            <label class="cl-search">
+                <svg class="cl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>                <input type="search" placeholder="강좌명 검색" aria-label="강좌명 검색" data-search="">
+            </label>
+        </form><span class="cl-toolbar__spacer"></span><div class="cl-segmented" role="group" aria-label="보기 방식" data-view-toggle="">
+            <button type="button" class="cl-segmented__item" aria-pressed="true" data-view="table" aria-label="표로 보기" title="표로 보기"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"></path><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path></svg></button>
+            <button type="button" class="cl-segmented__item" aria-pressed="false" data-view="card" aria-label="카드로 보기" title="카드로 보기"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></button>
+        </div><span class="cl-muted">강좌 1개</span></div></div></div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!-- @dsCard group="Data" height=90 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>SelectionBar</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-2); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-4); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+
+</style></head>
+<body class="cl-scope cl-ws-body">
+<div class="cl-selbar" style="position:static;transform:none;display:inline-flex"><strong>3명 선택</strong><button class="cl-selbar__btn">승인</button><button class="cl-selbar__btn">그룹에 넣기</button><button class="cl-selbar__btn is-danger">탈퇴</button><button class="cl-selbar__close" aria-label="선택 해제"><svg class="cl-icon" width="16" height="16" aria-hidden="true" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="20"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+</body>
+</html>
