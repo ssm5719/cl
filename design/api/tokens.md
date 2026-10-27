@@ -156,6 +156,21 @@ Fonts: `tokens.css` loads each font from its file, by path.
 | --- | --- | --- | --- | --- |
 | Pretendard Variable | `fonts/PretendardVariable.woff2` (weight 45 920) | `read` the file with `project/` in front | `var(--font-sans)` | `pretendard-variable` |
 
+### 공개 화면 글자 단계 (2026.10.27)
+
+학원 메인 · 전체강좌 · 강좌 상세에 맞춘 역할별 단계. 공개 화면(학원소개 · 선생님소개 · Q&A · 자유게시판 …)은 새 크기를 만들지 않고 이 여섯 칸만 쓴다. 공개 화면도 작업공간과 같이 `--cl-fs-ui` 14 · `--cl-fs-caption` 13 으로 올린다(`.cl-scope.cl-pub-body`).
+
+| 역할 | 토큰 | 크기 | 굵기 | 예 |
+|---|---|---|---|---|
+| 화면 제목 | `--cl-fs-display` | 40 · 모바일 28 | 700 | 전체강좌, 강좌 이름 |
+| 섹션 제목 | `--cl-fs-section-pub` | clamp(26, 2.2vw, 32) | 700 | 대표 강좌, 분류별로 찾기 |
+| 본문 · 목록 제목 · 탭 · 메뉴 | `--cl-fs-body-public` | 17 | 400 본문 / 600 제목 · 탭 | 강좌 설명, 강의 제목, 커리큘럼 탭 |
+| 부제 · 필터 항목 | `--cl-fs-body-sm-pub` | 15 | 400 | 화면 부제, 대분류 · 과목 |
+| 버튼 · 도구 · 정보 | `--cl-fs-ui` | 14 | 500 버튼 / 400 | 관련질문 · 공유하기, 정렬, 강사 · 학기 |
+| 메타 · 위치 · 개수 | `--cl-fs-caption` | 13 | 400 | 홈 › 전체강좌, 2026.10.20 · 조회 0, 필터 제목 |
+
+굵기는 세 단계만 쓴다 — 700 제목급, 600 누르는 제목 · 탭 · 값, 500 버튼. 나머지 400.
+
 ## Spacing
 
 4px 단위 8단계. 실제 CSS는 아직 이 토큰보다 숫자를 직접 적은 곳이 많다(audit 4).
