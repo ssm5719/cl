@@ -213,7 +213,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   </div>
 </section>
 
-<script src="fixes.js?v=149"></script>
+<script src="fixes.js?v=150"></script>
 <script>
 (function () {
   const SCREENS = [
@@ -344,8 +344,9 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   function fit() {
     const avail = Math.max(280, wrap.parentElement.clientWidth - 0), w = state.width || Math.round(avail);
     const scale = Math.min(1, avail / w);
+    // 1440×900 창을 흉내 — 꼬리말이 화면 바닥에 붙는지 보이게. 먼저 900 으로 줄였다가 잰다(100vh 가 이전 높이에 묶이지 않게)
     let h = 900;
-    try { h = Math.max(600, frame.contentDocument.documentElement.scrollHeight); } catch (e) {}
+    try { frame.style.height = '900px'; h = Math.max(900, frame.contentDocument.documentElement.scrollHeight); } catch (e) {}
     frame.style.width = w + 'px'; frame.style.height = h + 'px'; frame.style.transform = `scale(${scale})`;
     wrap.style.width = (w * scale) + 'px'; wrap.style.height = (h * scale) + 'px';
     $('#stageInfo').innerHTML = `<strong>${(SCREENS.find(s => s.id === state.screen) || {}).name}</strong> · 왼쪽 메뉴를 눌러 이동 · ${w}px` + (state.width ? '' : ' (창 너비)') + (scale < 1 ? ` · ${Math.round(scale * 100)}% 축소` : '');
