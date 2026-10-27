@@ -2598,12 +2598,12 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
   },
   {
     id: 'AM20', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-course-read'],
-    title: '머리 폭을 본문 1200px 에 맞추기',
+    title: '머리 · 꼬리말 폭을 본문 1200px 에 맞추기',
     current: '머리 안쪽(`.cl-pub-header__inner`)은 `max-width: 1200px` 안에 좌우 여백 20 을 **포함**해서 글이 1160px 폭에 선다. 본문(`.cl-pub-wrap`)은 1200px **바깥에** 여백 20 을 두어 글이 1200px 에 선다. 같은 1200 이라 적혀 있지만 실제로는 머리가 양쪽 20px 씩 안으로 들어와, 로고와 [강좌 참여하기] · 첫 카드의 왼쪽 끝이 어긋난다(1440 화면에서 로고 140 · 본문 120)',
     next: '머리도 본문과 같이 `box-sizing: content-box` 로 — 여백 20 을 1200 바깥에 둔다. 로고 · 메뉴 · 오른쪽 버튼이 본문과 같은 1200px 선에 선다. 1240px 이하에서는 본문과 똑같이 `border-box` 로 돌아가 화면 끝에서 20px 여백이 유지된다',
-    css: `/* 머리 안쪽 폭을 본문(.cl-pub-wrap)과 같은 방식으로 — 여백 20 을 1200 바깥에 둔다 */\n@media (min-width: 901px) {\n  .cl-pub-header__inner { box-sizing: content-box; }\n}\n@media (min-width: 901px) and (max-width: 1240px) {\n  .cl-pub-header__inner { box-sizing: border-box; }\n}`,
-    targets: ['.cl-pub-header__inner'],
-    note: '본문 쪽 규칙(`public.css` 4~5줄)을 그대로 따라 한 것이라, 개발에서는 머리 규칙을 본문과 같은 두 줄로 바꾸면 된다. 모바일(900px 이하) 머리 여백(`0 6px 0 16px`)은 건드리지 않았다. 학원 메인 · 전체강좌 모두 머리가 같아 함께 맞는다.'
+    css: `/* 머리 안쪽 폭을 본문(.cl-pub-wrap)과 같은 방식으로 — 여백 20 을 1200 바깥에 둔다 */\n@media (min-width: 901px) {\n  .cl-pub-header__inner, .cl-pub-footer__inner { box-sizing: content-box; }\n}\n@media (min-width: 901px) and (max-width: 1240px) {\n  .cl-pub-header__inner, .cl-pub-footer__inner { box-sizing: border-box; }\n}`,
+    targets: ['.cl-pub-header__inner', '.cl-pub-footer__inner'],
+    note: '꼬리말(`.cl-pub-footer__inner`)도 같은 방식으로 여백을 1200 안에 넣고 있어 로고 · 연락처 · 저작권 줄이 본문보다 20px 안쪽에 섰다 — 같은 두 줄로 함께 맞췄다(2026.10.27). 본문 쪽 규칙(`public.css` 4~5줄)을 그대로 따라 한 것이라, 개발에서는 머리 규칙을 본문과 같은 두 줄로 바꾸면 된다. 모바일(900px 이하) 머리 여백(`0 6px 0 16px`)은 건드리지 않았다. 학원 메인 · 전체강좌 모두 머리가 같아 함께 맞는다.'
   },
   {
     id: 'AM21', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-course-read'],
@@ -2691,6 +2691,17 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     markup: '`.cl-cd__aside` 안에서 썸네일 뒤의 정보 · 상태 문구 · 수강 신청 버튼 · 첨부 파일을 `<div class="cl-cd__panel">` 하나로 감싼다. 개발에서 DOM 을 직접 손볼 수 있으면, 썸네일을 머리 옆 칸으로 · 패널을 목록 옆 칸으로 옮기는 2행 격자가 `display: contents` 보다 깔끔하다.',
     targets: ['.cl-cd__aside'],
     note: '좋은 점: 세로 정렬선이 생겨 화면이 정돈되고, 썸네일이 머리(제목 · 설명)의 그림 역할을, 정보가 목록의 요약 역할을 맡아 짝이 분명해진다. **치르는 것 하나** — 지금은 썸네일까지 통째로 따라 내려오는데, 바꾸면 썸네일은 머리와 함께 위로 올라가고 정보 · 수강 신청 버튼만 따라온다. 버튼이 계속 보이므로 신청에는 지장이 없고, 오히려 긴 목록을 내릴 때 큰 그림이 따라오지 않아 가볍다. 설명이 아주 짧아 머리가 썸네일보다 낮으면 머리 아래 여백이 썸네일 높이만큼 늘어난다. 모바일(900px 이하)은 지금 순서 그대로다. [정할 것] 이대로 갈지 — 괜찮으면 확정으로 바꾼다.'
+  },
+  {
+    id: 'AD7', group: 3, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-course-read'],
+    title: '탭 옆 숫자를 배지로 — 안 고름 회색 · 고름 연보라',
+    current: '탭 옆 숫자(커리큘럼 2 · 화상 강의 0)가 탭 글자와 같은 17px 로 붙어 있어 \'커리큘럼2\' 처럼 한 단어로 읽힌다. 고른 탭과 안 고른 탭의 숫자도 같은 모양이라 숫자만으로는 어느 쪽이 열렸는지 알 수 없다',
+    next: '숫자를 13px(위치 표시와 같은 `--cl-fs-caption`) **배지**로 — 이미 있는 공통 부품 `.cl-badge`(높이 22 · 모서리 6)를 쓴다. 안 고른 탭: 지금 같은 회색 글자(`--cl-ink-muted`) + 옅은 회색 바탕(`--cl-hover`). 고른 탭: 보라 글자 + 연보라 바탕(`--cl-primary-tint`) — `.cl-badge--info` 와 같은 짝이다. 탭을 바꾸면 글자 · 밑줄 · 배지가 같은 150ms 로 함께 바뀐다',
+    css: `/* 탭 옆 숫자 — 배지(.cl-badge) 모양으로. 안 고름: 회색 글자 + 옅은 회색 / 고름: 보라 글자 + 연보라 */\n.cl-cd__tab .cl-badge {\n  height: 22px; min-width: 22px; padding: 0 7px; justify-content: center;\n  border-radius: var(--cl-radius-2xs);\n  font-size: var(--cl-fs-caption); font-weight: 500; font-variant-numeric: tabular-nums;\n  background: var(--cl-hover); color: var(--cl-ink-muted);\n  transition: background-color 150ms ease-out, color 150ms ease-out;\n}\n.cl-cd__tab[aria-selected="true"] .cl-badge { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }\n@media (prefers-reduced-motion: reduce) { .cl-cd__tab .cl-badge { transition: none; } }`,
+    dom: `doc.querySelectorAll('.cl-cd__tab .cl-num').forEach(function (n) { n.classList.add('cl-badge'); });`,
+    markup: '`.cl-cd__tab` 안 숫자 `<span class="cl-num">` 에 `cl-badge` 를 더한다. 고름 · 안 고름 색은 탭의 `aria-selected` 로 바뀌므로 JS 는 지금처럼 `aria-selected` 만 바꾸면 된다.',
+    targets: ['.cl-cd__tabs'],
+    note: '배지는 공통층에 이미 있다 — `.cl-badge--neutral`(옅은 회색) · `.cl-badge--info`(연보라). 다만 neutral 은 글자가 `--cl-ink-2`(진한 회색)라, 요청대로 안 고른 탭의 글자색(`--cl-ink-muted`)에 맞춰 글자만 한 단계 밝혔다. 고른 배지의 글자는 메인 보라(#904AE8) 대신 한 단계 진한 `--cl-primary-pressed`(#7A35D0)다 — 연보라 바탕 위에서 메인 보라는 대비가 4.2:1 로 기준(4.5) 아래로 떨어지고, pressed 는 5.6:1 이다. 안 고른 배지(회색 글자 · 옅은 회색 바탕)는 4.6:1 로 기준 안이다. 글자 크기는 12 가 공통 배지 기본값이지만, 위치 표시와 같은 13 으로 두어 공개 화면 글자 단계 안에 둔다. 한 자리 숫자도 정사각형(22×22)으로 서게 `min-width` 를 줬다.'
   }
 ];
 
