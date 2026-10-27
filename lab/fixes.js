@@ -2586,6 +2586,15 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     css: `/* 선생님 · 관리자 페이지 이동 버튼 — 프로필 버튼과 같은 32px, 메뉴보다 조용하게 */\n.cl-scope .cl-pub-btn-pill {\n  height: var(--cl-h-control); padding: 0 12px 0 14px; gap: 4px;\n  font-size: var(--cl-fs-ui); font-weight: 600;\n  background: var(--cl-canvas); color: var(--cl-ink);\n  box-shadow: inset 0 0 0 1px var(--cl-control-border);\n}\n.cl-scope .cl-pub-btn-pill:hover { background: var(--cl-hover); }\n.cl-scope .cl-pub-btn-pill .cl-icon { width: 14px; height: 14px; }\n@media (max-width: 900px) { .cl-scope .cl-pub-btn-pill { height: var(--cl-h-control); padding: 0 10px 0 12px; font-size: var(--cl-fs-ui); } }`,
     targets: ['.cl-pub-btn-pill'],
     note: '자리 · 글자 · 화살표는 그대로라 매일 쓰는 선생님이 찾는 데 지장이 없다. 다른 안 두 가지도 재 봤다 — ① 연보라 바탕 + 보라 글자: 조용하지만 전체강좌의 \'지금 고른 분류 · 정렬\'과 같은 색이라 \'선택된 탭\'처럼 읽힌다 ② 보라 채움 유지 · 크기만 32: 크기는 맞지만 여전히 머리에서 가장 진하다. 바꾸려면 `background` · `color` 두 줄만 고치면 된다. 프로필 동그라미는 28px 이지만 눌리는 자리가 32px 이라 그쪽에 맞췄다 — 28 로 내리면 14px 글자가 위아래로 꽉 차 답답하다. 모바일(900px 이하)도 34 → 32 로 같이 맞춘다.'
+  },
+  {
+    id: 'AM19', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses'],
+    title: '머리 프로필 hover — 삐뚤어진 회색 바탕 대신 보라 테두리',
+    current: '프로필 버튼은 작업공간 머리의 \'동그라미 + 이름 + 화살표\' 버튼을 그대로 가져와서 안쪽 여백이 `왼쪽 2px · 오른쪽 6px` 이다. 학원 머리에는 동그라미만 있어서, 마우스를 올리면 36×32 회색 캡슐이 동그라미 **오른쪽으로 4px 치우쳐** 깔린다 — 원 위에 타원이 어긋나 겹쳐 보인다',
+    next: '학원 머리에서는 버튼을 동그라미에 맞춘 **32×32 원**으로 만든다(여백 0, 가운데 정렬). hover 하면 회색 바탕 대신 **보라 테두리 1.5px** 가 150ms ease-out 으로 서서히 나타난다 — 분류 · 선생님 카드의 테두리 hover 와 같은 말투다. 메뉴가 열려 있는 동안에도 테두리를 남겨 \'지금 열린 곳\'을 보여 준다',
+    css: `/* 학원 머리 프로필 — 동그라미에 딱 맞는 32×32 원, hover 는 보라 테두리가 서서히 */\n.cl-scope .cl-pub-header .cl-ws-account {\n  width: var(--cl-h-control); height: var(--cl-h-control); padding: 0;\n  justify-content: center; border-radius: 50%;\n  background: transparent;\n  box-shadow: inset 0 0 0 1px transparent;\n  transition: box-shadow 150ms ease-out;\n}\n.cl-scope .cl-pub-header .cl-ws-account:hover,\n.cl-scope .cl-pub-header .cl-ws-account[aria-expanded="true"] {\n  background: transparent;\n  box-shadow: inset 0 0 0 1.5px var(--cl-primary);\n}\n@media (prefers-reduced-motion: reduce) { .cl-scope .cl-pub-header .cl-ws-account { transition: none; } }`,
+    targets: ['.cl-ws-account'],
+    note: '작업공간 머리의 프로필 버튼(이름 · 화살표가 붙은 것)은 그대로 둔다 — `.cl-pub-header` 안에서만 바뀐다. 테두리는 `inset` 그림자로 그려 버튼 크기가 바뀌지 않고, 동그라미(28px)와 테두리 사이에 2px 흰 틈이 남아 사진이 있는 경우에도 테두리가 사진에 먹히지 않는다. 공통 전환 목록(`:is(button, a)`)에는 그림자가 없어 이 버튼에만 따로 적었다.'
   }
 ];
 
