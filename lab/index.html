@@ -376,8 +376,13 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
         else toast('"' + name + '" 화면은 아직 실험실에 없습니다. HTML을 주시면 추가할게요.'); }, true);
     });
     const lock = doc.createElement('style');
-    lock.textContent = 'a:not(.lab-live), button:not(.lab-live) { pointer-events: none; } .lab-live { pointer-events: auto !important; } html { overflow: hidden; }';
+    lock.textContent = 'html { overflow: hidden; }';
     doc.head.append(lock);
+    // 눌러도 움직이지 않게는 하되 pointer-events 로 막지는 않는다 — 그러면 :hover 까지 죽는다
+    doc.addEventListener('click', e => {
+      const t = e.target.closest && e.target.closest('a, button');
+      if (t && !t.classList.contains('lab-live')) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
     fit(); setTimeout(fit, 300); setTimeout(fit, 1200);
   }
   frame.addEventListener('load', apply);
