@@ -2724,6 +2724,17 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     markup: '지금 보는 강의(`.is-current`)의 번호 칸에 ▷ 아이콘 대신 번호를 그린다. 머리 숫자 `<span class="cl-num">` 에 `cl-badge` 를 더한다.',
     targets: ['.cl-player-page__aside'],
     note: '상자(테두리)는 남겼다 — 목록이 길면 이 상자 안에서만 스크롤되고(`max-height`), 그 경계가 테두리다. 굵기를 나머지에서 빼고 지금 강의에만 주어서, 긴 목록을 훑을 때 지금 자리가 바로 잡힌다. 강의 길이 · 진도(`.cl-playlist__meta`)도 13 으로 맞췄다 — 학생 화면에서 보인다.'
+  },
+  {
+    id: 'AP3', group: 9, status: '제안', kind: '마크업', layer: '화면별', screens: ['a-player'],
+    title: '[정할 것] 선생님 줄을 오른쪽 강의 목록 위로',
+    current: '선생님 줄(사진 · 이름 · 선생님 소개 보기)이 영상 아래 버튼 줄 밑에 있다. 왼쪽 열에 영상 · 위치 · 제목 · 날짜 · 버튼 · 선생님까지 여섯 덩어리가 쌓여 길고, 오른쪽 열은 목록 아래가 비어 있다',
+    next: '선생님 줄을 오른쪽 열 맨 위, 강의 목록 상자 바로 위로 옮긴다(사이 16px). 선생님 줄의 위 끝이 영상의 위 끝과 맞는다. 왼쪽은 [영상] · [위치 · 제목 · 날짜] · [버튼] 세 덩어리로 줄어 \'이 강의\'만 남고, 오른쪽은 [누가 가르치나] · [이 강좌의 강의들] 로 \'이 강좌\' 정보가 모인다. 스크롤하면 선생님 줄은 올라가고 **목록만 지금처럼 따라 내려온다**',
+    css: `/* 오른쪽 열 = [선생님 줄] + [강의 목록]. 선생님 줄은 스크롤과 함께 올라가고, 목록만 따라 내려온다 */\n.cl-player-side { min-width: 0; align-self: stretch; display: flex; flex-direction: column; gap: 16px; }\n.cl-player-side .cl-player-info__teacher { margin-top: 0; }\n.cl-player-side .cl-player-info__teacher-link { max-width: none; }\n@media (max-width: 1100px) { .cl-player-side { align-self: start; } }`,
+    dom: `var aside = doc.querySelector('.cl-player-page__aside');\nvar teacher = doc.querySelector('.cl-player-info__teacher');\nif (aside && teacher && !doc.querySelector('.cl-player-side')) {\n  var side = doc.createElement('div');\n  side.className = 'cl-player-side';\n  aside.before(side);\n  side.append(teacher, aside);\n}`,
+    markup: '`.cl-player-page__aside`(목록 상자)와 선생님 줄(`.cl-player-info__teacher`)을 `<div class="cl-player-side">` 하나로 감싸 오른쪽 칸에 둔다 — 선생님 줄이 위, 목록 상자가 아래. 목록 상자의 `position: sticky` 는 그대로다.',
+    targets: ['.cl-player-info__teacher', '.cl-player-page__aside'],
+    note: '좋은 점: 선생님은 강의마다 바뀌지 않는 **강좌 정보**라, 강좌 상세에서 오른쪽 패널에 \'강사\'가 있는 것과 자리가 맞는다. 치르는 것: 첫 화면에서 목록이 84px(줄 68 + 간격 16) 내려가 1366×768 화면에서 처음 보이는 강의가 한두 개 줄어든다 — 스크롤을 시작하면 목록이 맨 위에 붙으므로 그때부터는 지금과 같다. 선생님 줄까지 따라 내려오게 하지 않은 이유는, 그러면 목록 상자의 높이가 늘 84px 줄어 긴 목록에서 손해가 계속되기 때문이다. 1100px 이하(한 줄로 쌓이는 화면)에서는 영상 · 정보 · 버튼 · 선생님 · 목록 순서로, 지금과 거의 같다.'
   }
 ];
 
