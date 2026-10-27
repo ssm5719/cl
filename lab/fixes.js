@@ -2577,6 +2577,15 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     markup: '`.cl-cs-reset` 버튼 맨 앞에 16px 되돌리기 아이콘(`rotate-ccw`)을 넣는다. 위치 · 동작 · 숨김 조건(`hidden`)은 그대로다.',
     targets: ['.cl-cs-reset'],
     note: '빨강 · 보라는 쓰지 않았다 — 지우는 게 아니라 되돌리는 동작이라 경고색이 맞지 않고, 보라는 지금 고른 분류가 쓰고 있다. 아이콘이 첫 줄(10), 글자가 둘째 줄(34)에 서서 AC2 의 세로선과 맞는다. [덧붙일 수 있는 것] 걸린 필터 수를 \'필터 초기화 · 2\' 처럼 붙이면 무엇이 되돌려지는지 미리 보인다 — 기능 변경이라 넣지 않았다.'
+  },
+  {
+    id: 'AM18', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses'],
+    title: '선생님 · 관리자 페이지 버튼 — 32px 로 낮추고 보라 채움을 테두리로',
+    current: '머리 오른쪽 [선생님 페이지 →] (관리자는 [관리자 페이지 →])가 높이 40px · 15px · **보라로 꽉 찬 캡슐**이다. 바로 옆 프로필 버튼은 32px(동그라미 28px)이라 버튼만 한 단계 크고, 머리에서 유일하게 색이 채워진 것이라 메뉴(17px · 검정)보다 먼저 눈에 들어온다. 그런데 이 버튼은 학원 화면에서 할 일이 아니라 **내 작업공간으로 나가는 길**이다 — 손님(학생 · 방문자)이 보는 화면에서 가장 큰 소리를 낼 이유가 없다',
+    next: '높이 40 → 32(`--cl-h-control`, 프로필 버튼과 같은 높이), 글자 15 → 14(`--cl-fs-ui`), 화살표 16 → 14. 색은 **흰 바탕 + 회색 테두리 + 검정 글자**로 — 메뉴와 같은 검정이라 머리 안에서 튀지 않고, 캡슐 테두리와 화살표가 있어 \'누르는 것\'은 그대로 보인다. 마우스를 올리면 옅은 회색 바탕',
+    css: `/* 선생님 · 관리자 페이지 이동 버튼 — 프로필 버튼과 같은 32px, 메뉴보다 조용하게 */\n.cl-scope .cl-pub-btn-pill {\n  height: var(--cl-h-control); padding: 0 12px 0 14px; gap: 4px;\n  font-size: var(--cl-fs-ui); font-weight: 600;\n  background: var(--cl-canvas); color: var(--cl-ink);\n  box-shadow: inset 0 0 0 1px var(--cl-control-border);\n}\n.cl-scope .cl-pub-btn-pill:hover { background: var(--cl-hover); }\n.cl-scope .cl-pub-btn-pill .cl-icon { width: 14px; height: 14px; }\n@media (max-width: 900px) { .cl-scope .cl-pub-btn-pill { height: var(--cl-h-control); padding: 0 10px 0 12px; font-size: var(--cl-fs-ui); } }`,
+    targets: ['.cl-pub-btn-pill'],
+    note: '자리 · 글자 · 화살표는 그대로라 매일 쓰는 선생님이 찾는 데 지장이 없다. 다른 안 두 가지도 재 봤다 — ① 연보라 바탕 + 보라 글자: 조용하지만 전체강좌의 \'지금 고른 분류 · 정렬\'과 같은 색이라 \'선택된 탭\'처럼 읽힌다 ② 보라 채움 유지 · 크기만 32: 크기는 맞지만 여전히 머리에서 가장 진하다. 바꾸려면 `background` · `color` 두 줄만 고치면 된다. 프로필 동그라미는 28px 이지만 눌리는 자리가 32px 이라 그쪽에 맞췄다 — 28 로 내리면 14px 글자가 위아래로 꽉 차 답답하다. 모바일(900px 이하)도 34 → 32 로 같이 맞춘다.'
   }
 ];
 
