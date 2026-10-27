@@ -2388,6 +2388,24 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     css: `/* 로고는 세로 기준으로 키우고 비율은 건드리지 않는다 (정사각형 · 가로형 둘 다) */\n.cl-pub-brand__logo { height: 40px; width: auto; max-width: 240px; object-fit: contain; }\n.cl-pub-brand--logo-only .cl-pub-brand__logo { height: 50px; }\n@media (max-width: 900px) {\n  .cl-pub-brand__logo, .cl-pub-brand--logo-only .cl-pub-brand__logo { height: 36px; max-width: 160px; }\n}`,
     targets: ['.cl-pub-brand'],
     note: '머리 바 72px 안에서 로고 50px 이면 위아래 11px 씩 남는다. 로고 파일이 투명 여백을 품고 있으면 실제로 보이는 크기는 그보다 작을 수 있으니, 관리자 업로드 안내에 "여백 없이 잘라서 올려 주세요"를 한 줄 넣는 것이 좋다. 권장 크기는 세로 100px 이상(2배 화면 대비).'
+  },
+  {
+    id: 'AM3', group: 2, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main'],
+    title: '섹션 제목 40 → 32px, 설명 21 → 17px',
+    current: '섹션 제목이 40px, 그 아래 설명이 21px 인데 정작 내용인 강좌 제목은 19px 이다. 설명이 강좌 이름보다 크다. 안내 문구에 눈이 먼저 가고 봐야 할 강좌 이름이 그 아래 작게 깔린다. 제목도 강좌 한 줄 높이가 113px 인 목록 위에 40px 로 앉아 있어 제목이 목록을 누른다 (제목 : 내용 = 2.1배)',
+    next: '제목 32px, 설명 17px. 강좌 제목 19px 은 그대로 둔다. 32 → 19 → 17 이 되어 제목 · 강좌 이름 · 설명 순서가 제자리를 찾는다. 설명 17px 은 공개 화면 본문 단계(`--cl-fs-body-public`)라 새 값이 아니다. 제목은 좁은 화면에서 26px 까지 줄어든다',
+    css: `/* 설명이 강좌 이름보다 크지 않게 — 제목 32 · 강좌 19 · 설명 17 */\n.cl-home-head__title { font-size: clamp(26px, 2.2vw, 32px); }\n.cl-home-head__sub { font-size: var(--cl-fs-body-public); }`,
+    targets: ['.cl-home-head'],
+    note: '`.cl-home-head__title` 은 대표 강좌 · 분류별로 찾기 · 선생님 소개 · 학원소개 · 상담 띠 · 오시는 길 여섯 곳에서 같이 쓴다. 한 번에 같이 바뀐다. 히어로 제목(`.cl-home-hero__title`)은 따로다 — 슬라이드도 사진도 없는 학원에서 `clamp(40px, 7.2vw, 104px)` 가 104px 까지 올라가는 문제는 아직 정하지 않았다.'
+  },
+  {
+    id: 'AM4', group: 5, status: '제안', kind: 'CSS', layer: '화면별', screens: ['a-main'],
+    title: '선생님 카드 — 세로형에서 가로형으로',
+    current: '사진칸이 216×281px 세로형이고 그 안에 성 한 글자가 56px 로 들어간다. 언어비전은 선생님 12명 전원이 사진을 안 올려서 같은 연보라 네모가 한 줄에 다섯 개 늘어서고 글자만 다르다 — 송 · 장 · 김 · 김 · 변. 사람 목록이 아니라 자음 표처럼 보이고, 같은 성이 둘이면 구분도 안 된다. 소개글도 대부분 비어 있어 카드 아래가 비고 높이가 제각각이다',
+    next: '사진을 왼쪽에 작게 두고 오른쪽에 과목 · 이름 · 소개글을 쌓는 가로형 카드로 바꾼다. 사진 비율 10:13 은 그대로 두고 너비만 216 → 88px 로 줄인다(88×114). 이니셜은 56 → 28px. 카드에 테두리와 흰 바탕을 주어 한 사람씩 끊어 읽히게 한다. 선생님 목록 화면(`/user/teacher`)의 `.cl-teacher-card` 와 같은 모양이라, 메인과 목록이 한 부품으로 맞는다',
+    css: `/* 가로형 카드 — 사진 왼쪽, 글 오른쪽. 마크업은 그대로 두고 격자로 자리만 다시 잡는다 */\n.cl-home-teachers > li { flex: 0 0 clamp(272px, 26vw, 340px); }\n.cl-home-teacher {\n  display: grid;\n  grid-template-columns: 88px minmax(0, 1fr);\n  grid-template-rows: 1fr auto auto auto 1fr;\n  grid-template-areas: "photo ." "photo subject" "photo name" "photo comment" "photo .";\n  column-gap: 14px; row-gap: 2px;\n  height: 100%; box-sizing: border-box;\n  padding: 16px; border: 1px solid var(--cl-hairline); border-radius: 10px;\n  background: var(--cl-canvas);\n}\n.cl-home-teacher:hover { border-color: var(--cl-primary); }\n/* 사진 비율 10:13 은 그대로. 너비만 줄인다 */\n.cl-home-teacher__photo { grid-area: photo; width: 88px; aspect-ratio: 10 / 13; border-radius: 8px; margin-bottom: 0; }\n.cl-home-teacher__initial { font-size: 28px; }\n.cl-home-teacher__subject { grid-area: subject; }\n.cl-home-teacher__name { grid-area: name; font-size: 17px; }\n.cl-home-teacher__comment { grid-area: comment; font-size: 14px; }`,
+    targets: ['.cl-home-teachers'],
+    note: '사진칸 위아래 빈 줄(1fr)이 글 묶음을 가운데로 맞춘다 — 소개글이 없는 선생님도 사진 높이에 맞춰 가운데에 선다. 가로 넘김은 그대로다. 1240px 폭에서 한 번에 3~4장 보인다(지금은 5장). 12명이면 넘길 거리가 길어지니, 두 줄 격자로 한 번에 8명을 보이게 하는 안도 있다 — 정해 주시면 그쪽으로 바꾼다. 사진을 안 올린 선생님에게 성 한 글자 대신 사람 모양 아이콘을 넣을지는 아직 정하지 않았다.'
   }
 ];
 
