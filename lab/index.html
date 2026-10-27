@@ -139,7 +139,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
 
 <header class="top">
   <span class="brand">수정 실험실<small>클라우드러닝 작업공간</small></span>
-  <div class="seg viewer-only" role="group" aria-label="작업공간" id="ws"><button type="button" data-ws="admin">관리자</button><button type="button" data-ws="teacher">선생님</button><button type="button" data-ws="student">학생</button><button type="button" data-ws="notfound">404</button></div><span class="sync viewer-only" id="sync"></span>
+  <div class="seg viewer-only" role="group" aria-label="작업공간" id="ws"><button type="button" data-ws="admin">관리자</button><button type="button" data-ws="teacher">선생님</button><button type="button" data-ws="student">학생</button><button type="button" data-ws="academy">학원</button><button type="button" data-ws="notfound">404</button></div><span class="sync viewer-only" id="sync"></span>
   <label class="q-box viewer-only"><input type="search" id="q" placeholder="수정 번호 · 제목 찾기 (예: X3)" aria-label="수정 항목 찾기" autocomplete="off"></label>
   <span class="spacer"></span>
   <div class="seg viewer-only" role="group" aria-label="보기" id="mode">
@@ -213,7 +213,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   </div>
 </section>
 
-<script src="fixes.js?v=135"></script>
+<script src="fixes.js?v=136"></script>
 <script>
 (function () {
   const SCREENS = [
@@ -231,6 +231,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     { id: 's-board', name: '자유게시판 목록 (학생)', tpl: '목록형' }, { id: 's-board-detail', name: '게시글 상세 · 내 강의실 (새 화면)', tpl: '상세형' }, { id: 's-board-detail-dlg', name: '게시글 삭제 확인 창 · 내 강의실', tpl: '상세형' }, { id: 's-board-write', name: '글쓰기 · 내 강의실 (새 화면)', tpl: '입력형' },
     { id: 's-like-course', name: '좋아요 강좌 (학생)', tpl: '목록형' }, { id: 's-like-teacher', name: '좋아요 선생님 (학생)', tpl: '목록형' },
     { id: 's-info', name: '나의 정보 (학생)', tpl: '입력형' }, { id: 's-info-mail', name: '나의 정보 · 이메일 변경 (학생)', tpl: '입력형' }, { id: 's-info-photo-dlg', name: '기본 사진으로 확인 창 (학생)', tpl: '입력형' }, { id: 's-info-mail-dlg', name: '이메일 변경 확인 창 (학생)', tpl: '입력형' }, { id: 's-password', name: '비밀번호 변경 (학생)', tpl: '입력형' },
+    { id: 'a-main', name: '학원 메인 · 기본형 (선생님 로그인)', tpl: '메인형' },
     { id: 'notfound', name: '404 에러', tpl: '상태 화면' }
   ];
   const LAYERS = ['토큰', '공통 틀', '공통 부품', '화면별'];
@@ -271,9 +272,9 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   // 화면 이동: 실제 화면처럼 미리보기 안 왼쪽 메뉴를 눌러 이동한다
   const NAV = { '대시보드': 'dashboard', '학생 목록': 'students', '선생님 목록': 'teachers', '과목 목록': 'subjects', '분류 목록': 'categories', '강좌 목록': 'course-list', '콘텐츠 목록': 'contents', 'CMS 콘텐츠 관리': 'cms', '자유게시글 목록': 'board', '알림 보내기': 'alarm', '결제 내역': 'payments', '로그인 현황': 'login-stat', '로그인 상세': 'login-detail', '사용량 현황': 'demand', '다운로드 현황': 'download', '그룹 통계': 'group-stat', '학생 통계': 'user-stat', '메인페이지 설정': 'main-setting', '학원 설정': 'system-setting', '학원 소개 설정': 'about-setting', '콘텐츠 재생 허용 IP': 'ip-setting', '이서당 배너 설정': 'banner-setting', '메뉴 설정': 'menu-setting', '관리자 목록': 'admins', '그룹 목록': 'groups', '강좌 관리': 'courses', '수강 관리': 't-learn', '진도율 관리': 't-progress', '그룹 관리': 't-group', '과제 관리': 't-assign', '나의 정보': 't-info', '비밀번호 변경': 't-password' };
   const NAV_S = { '수강중인 강좌': 's-learn', '나의 강좌': 's-learn', '수강 완료 강좌': 's-complete', '과제 목록': 's-assign', 'Q&A': 's-qna', '나의 글 목록': 's-qna', '자유게시판': 's-board', '좋아요 강좌': 's-like-course', '나의 좋아요': 's-like-course', '좋아요 선생님': 's-like-teacher', '나의 정보': 's-info', '비밀번호 변경': 's-password' };
-  const wsOf = id => id.startsWith('s-') ? 'student' : (id === 'courses' || id.startsWith('t-')) ? 'teacher' : id === 'notfound' ? 'notfound' : 'admin';
+  const wsOf = id => id.startsWith('a-') ? 'academy' : id.startsWith('s-') ? 'student' : (id === 'courses' || id.startsWith('t-')) ? 'teacher' : id === 'notfound' ? 'notfound' : 'admin';
   function paintTabs() { document.querySelectorAll('#ws button').forEach(b => b.setAttribute('aria-pressed', b.dataset.ws === wsOf(state.screen))); }
-  document.querySelectorAll('#ws button').forEach(b => b.addEventListener('click', () => { const t = { teacher: 'courses', student: 's-learn', notfound: 'notfound', admin: 'dashboard' }[b.dataset.ws]; if (wsOf(state.screen) !== b.dataset.ws) go(t); }));
+  document.querySelectorAll('#ws button').forEach(b => b.addEventListener('click', () => { const t = { teacher: 'courses', student: 's-learn', academy: 'a-main', notfound: 'notfound', admin: 'dashboard' }[b.dataset.ws]; if (wsOf(state.screen) !== b.dataset.ws) go(t); }));
   $('#q').addEventListener('input', e => { state.q = e.target.value; const f = FIXES.find(x => x.id.toLowerCase() === state.q.trim().toLowerCase());
     if (f) { const sc = f.screens.includes(state.screen) ? state.screen : f.screens.find(s => s !== 'all' && SCREENS.some(x => x.id === s)); if (sc) state.screen = sc; }
     document.body.classList.remove('show-handoff'); $('#handoffBtn').setAttribute('aria-pressed', false); $('#handoffBtn').textContent = '개발자 전달'; render(); });

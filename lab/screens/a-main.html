@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#904AE8">
+    <title>클라우드러닝 | 학원 메인</title>
+    <link rel="stylesheet" href="../css/cl-tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/public.css">
+<link rel="stylesheet" href="../css/lab-frame.css">
+<style>
+/* 실험실 전용 — 실제 화면에서는 관리자가 올린 사진이 들어가는 자리다 */
+.cl-ph { width: 100%; height: 100%; min-height: 0; border-radius: 16px; background: var(--cl-hover); color: var(--cl-ink-faint); display: grid; place-items: center; font-size: var(--cl-fs-caption); }
+.cl-home-gallery .cl-ph:first-child { grid-row: 1 / 3; }
+.cl-ph-dot { background: var(--cl-hover); }
+</style>
+</head>
+<body class="cl-scope cl-pub-body">
+<a class="cl-skip" href="#">본문으로 건너뛰기</a>
+<header class="cl-pub-header">
+<div class="cl-pub-header__inner">
+<a class="cl-pub-brand cl-pub-brand--logo-only" href="#">
+<img class="cl-pub-brand__logo" src="../img/image_6acf2b92d8a59.png" alt="">
+<span class="cl-pub-brand__name cl-sr-only">클라우드러닝</span>
+</a>
+<nav class="cl-pub-nav" aria-label="학원 메뉴"><a class="cl-pub-nav__item" href="#">전체강좌</a><a class="cl-pub-nav__item" href="#">학원소개</a><a class="cl-pub-nav__item" href="#">선생님소개</a><a class="cl-pub-nav__item" href="#">Q&amp;A</a><a class="cl-pub-nav__item" href="#">자유게시판</a></nav>
+<div class="cl-pub-actions">
+<div class="cl-popover" data-popover="">
+<button type="button" class="cl-icon-btn cl-pub-icon-btn cl-ws-alarm" aria-label="알림" aria-haspopup="true" aria-expanded="false" data-popover-trigger="">
+<svg class="cl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg><span class="cl-ws-alarm__dot" data-alarm-dot="" hidden=""></span>
+</button>
+<div class="cl-popover__panel cl-alarm-panel" role="dialog" aria-label="알림" data-popover-panel="" hidden="">
+<div class="cl-alarm-panel__head"><strong>알림</strong><button type="button" class="cl-text-btn" data-alarm-clear="" hidden="">모두 지우기</button></div>
+<ul class="cl-alarm-panel__list" data-alarm-list=""></ul>
+<p class="cl-alarm-panel__empty" data-alarm-empty="">새 알림이 없습니다.</p>
+</div>
+</div>
+<a class="cl-btn cl-btn--primary cl-pub-btn-pill" href="#" data-lab-go="t-course-read"><span class="cl-pub-hide-mobile">선생님 페이지</span><span class="cl-pub-show-mobile">선생님</span><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<div class="cl-popover cl-pub-hide-mobile" data-popover="">
+<button type="button" class="cl-ws-account" aria-haspopup="menu" aria-expanded="false" aria-label="계정 메뉴" data-popover-trigger="">
+<img class="cl-avatar" src="../img/default-person.svg" alt="" data-avatar-fallback="장" data-avatar-role="teacher">
+</button>
+<div class="cl-popover__panel cl-menu" role="menu" data-popover-panel="" hidden="">
+<div class="cl-menu__head"><strong>장현석 선생님</strong><span>dkjang</span></div>
+<a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>강좌 관리</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>수강 관리</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>진도율 관리</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="10" r="3"></circle><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path></svg>나의 정보</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>사이트 관리</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>이용 매뉴얼</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"></path><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path></svg>고객센터</a>
+<button type="button" role="menuitem" class="cl-menu__item" data-logout=""><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>로그아웃</button>
+</div>
+</div>
+<button type="button" class="cl-icon-btn cl-pub-icon-btn cl-pub-show-mobile" aria-label="메뉴 열기" aria-controls="cl-pub-drawer" aria-expanded="false" data-pub-drawer-open=""><svg class="cl-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button>
+</div>
+</div>
+</header>
+
+<main class="cl-pub-main" id="main" tabindex="-1">
+<div class="cl-home" data-preset="default">
+
+<section class="cl-home-sec cl-home-hero">
+<div class="cl-pub-wrap cl-home-hero__text">
+<div class="cl-home-hero__copy">
+<h1 class="cl-home-hero__title">클라우드러닝</h1>
+<p class="cl-home-hero__sub">믿음으로 선택한 고객에게 신뢰로 보답해온 랩241</p>
+<div class="cl-home-hero__actions">
+<a class="cl-btn cl-btn--primary cl-home-btn" href="#">전체강좌 보기</a>
+<a class="cl-btn cl-home-btn cl-home-btn--soft" href="#">상담 문의하기</a>
+</div>
+<dl class="cl-home-stats">
+<div class="cl-home-stats__item"><dt>개설 강좌</dt><dd class="cl-num">5</dd></div>
+<div class="cl-home-stats__item"><dt>선생님</dt><dd class="cl-num">20</dd></div>
+</dl>
+</div>
+<figure class="cl-home-hero__media"><span class="cl-ph" aria-hidden="true">학원 사진</span></figure>
+</div>
+</section>
+
+<section class="cl-home-sec cl-home-sec--tight is-alt">
+<div class="cl-pub-wrap cl-home-keywords">
+<h2 class="cl-home-keywords__title">강좌 추천 키워드</h2>
+<div class="cl-home-keywords__list">
+<a class="cl-home-keyword" href="#"># 수능대비특강</a><a class="cl-home-keyword" href="#"># 영어특강</a><a class="cl-home-keyword" href="#"># 테스트</a><a class="cl-home-keyword" href="#"># 수능특강</a>
+</div>
+</div>
+</section>
+
+<section class="cl-home-sec">
+<div class="cl-pub-wrap">
+<div class="cl-home-head">
+<div><h2 class="cl-home-head__title">대표 강좌</h2><p class="cl-home-head__sub">지금 수강할 수 있는 강좌를 둘러보세요.</p></div>
+<a class="cl-home-more" href="#">전체강좌 보기<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></a>
+</div>
+<div><ol class="cl-home-courses"><li><a class="cl-home-course" href="#"><span class="cl-home-course__num cl-num">01</span><span class="cl-home-course__thumb"><span class="cl-thumb-text"><small>클라우드러닝</small>지수/로그</span></span><span class="cl-home-course__body"><span class="cl-home-course__title">함수</span><span class="cl-home-course__cat">지수/로그 · 지수함수</span></span><span class="cl-home-course__teacher">장현석 선생님</span><span class="cl-home-course__std cl-num">수강생 0</span><span class="cl-home-course__go"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></span></a></li><li><a class="cl-home-course" href="#"><span class="cl-home-course__num cl-num">02</span><span class="cl-home-course__thumb"><span class="cl-thumb-text"><small>클라우드러닝</small>수능</span></span><span class="cl-home-course__body"><span class="cl-home-course__title">무한히 계속 더했지만 유한이 된다?</span><span class="cl-home-course__cat">수능 · 2027</span></span><span class="cl-home-course__teacher">장현석 선생님</span><span class="cl-home-course__std cl-num">수강생 0</span><span class="cl-home-course__go"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></span></a></li><li><a class="cl-home-course" href="#"><span class="cl-home-course__num cl-num">03</span><span class="cl-home-course__thumb"><span class="cl-thumb-text"><small>클라우드러닝</small>수능</span></span><span class="cl-home-course__body"><span class="cl-home-course__title">2026년 수능 기출</span><span class="cl-home-course__cat">수능 · 2027</span></span><span class="cl-home-course__teacher">장현석 선생님</span><span class="cl-home-course__std cl-num">수강생 1</span><span class="cl-home-course__go"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></span></a></li><li><a class="cl-home-course" href="#"><span class="cl-home-course__num cl-num">04</span><span class="cl-home-course__thumb"><span class="cl-thumb-text"><small>클라우드러닝</small>수능</span></span><span class="cl-home-course__body"><span class="cl-home-course__title">2027년 수능</span><span class="cl-home-course__cat">수능 · 2027</span></span><span class="cl-home-course__teacher">장현석 선생님</span><span class="cl-home-course__std cl-num">수강생 2</span><span class="cl-home-course__go"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></span></a></li><li><a class="cl-home-course" href="#"><span class="cl-home-course__num cl-num">05</span><span class="cl-home-course__thumb"><span class="cl-thumb-text"><small>클라우드러닝</small>수능</span></span><span class="cl-home-course__body"><span class="cl-home-course__title">삼각함수의 활용</span><span class="cl-home-course__cat">수능 · 2027</span></span><span class="cl-home-course__teacher">장현석 선생님</span><span class="cl-home-course__std cl-num">수강생 0</span><span class="cl-home-course__go"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></span></a></li></ol></div>
+</div>
+</section>
+
+<section class="cl-home-sec is-alt">
+<div class="cl-pub-wrap">
+<div class="cl-home-head">
+<div><h2 class="cl-home-head__title">분류별로 찾기</h2><p class="cl-home-head__sub">관심 있는 분야의 강좌만 모아 볼 수 있습니다.</p></div>
+</div>
+<div class="cl-home-cats"><a class="cl-home-cat" href="#"><span class="cl-home-cat__head"><strong>지수/로그</strong><small class="cl-num">강좌 1</small></span><span class="cl-home-cat__subs">로그함수 · 지수함수</span><span class="cl-home-cat__go">강좌 보기<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a><a class="cl-home-cat" href="#"><span class="cl-home-cat__head"><strong>수능</strong><small class="cl-num">강좌 4</small></span><span class="cl-home-cat__subs">2027</span><span class="cl-home-cat__go">강좌 보기<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a></div>
+</div>
+</section>
+
+<section class="cl-home-sec">
+<div class="cl-pub-wrap">
+<div class="cl-home-head">
+<div><h2 class="cl-home-head__title">선생님 소개</h2><p class="cl-home-head__sub">우리 학원 선생님을 소개합니다.</p></div>
+<div class="cl-home-head__end">
+<div class="cl-home-scroll-ctl">
+<button type="button" class="cl-home-slider__ctl" aria-label="이전" disabled=""><svg class="cl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"></path></svg></button>
+<button type="button" class="cl-home-slider__ctl" aria-label="다음"><svg class="cl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></button>
+</div>
+<a class="cl-home-more" href="#">선생님 모두 보기<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></a>
+</div>
+</div>
+<ul class="cl-home-teachers"><li><a class="cl-home-teacher" href="#"><span class="cl-home-teacher__photo"><span class="cl-home-teacher__initial">조</span></span><span class="cl-home-teacher__subject">이서당</span><strong class="cl-home-teacher__name">조하늘 선생님</strong><span class="cl-home-teacher__comment">과학과 수학을 사랑하며, 학생들이 흥미를 느끼도록 노력하겠습니다.</span></a></li><li><a class="cl-home-teacher" href="#"><span class="cl-home-teacher__photo"><span class="cl-home-teacher__initial">박</span></span><span class="cl-home-teacher__subject">동영상녹화</span><strong class="cl-home-teacher__name">박채원 선생님</strong></a></li><li><a class="cl-home-teacher" href="#"><span class="cl-home-teacher__photo"><span class="cl-home-teacher__initial">최</span></span><span class="cl-home-teacher__subject">수학</span><strong class="cl-home-teacher__name">최민재 선생님</strong></a></li><li><a class="cl-home-teacher" href="#"><span class="cl-home-teacher__photo"><span class="cl-home-teacher__initial">정</span></span><span class="cl-home-teacher__subject">국어</span><strong class="cl-home-teacher__name">정다은 선생님</strong></a></li><li><a class="cl-home-teacher" href="#"><span class="cl-home-teacher__photo"><span class="cl-home-teacher__initial">강</span></span><span class="cl-home-teacher__subject">영어</span><strong class="cl-home-teacher__name">강예린 선생님</strong></a></li><li><a class="cl-home-teacher" href="#"><span class="cl-home-teacher__photo"><span class="cl-home-teacher__initial">장</span></span><span class="cl-home-teacher__subject">수학</span><strong class="cl-home-teacher__name">장현석 선생님</strong></a></li></ul>
+</div>
+</section>
+
+<section class="cl-home-sec is-alt">
+<div class="cl-pub-wrap cl-home-about">
+<div class="cl-home-about__text">
+<p class="cl-home-about__eyebrow">학원소개</p>
+<h2 class="cl-home-head__title">믿음으로 선택한 고객에게 신뢰로 보답해온 랩241</h2>
+<p class="cl-home-about__desc">랩241은 영상 시스템 설계, 영상 솔루션 컨설팅, 및 온라인 교육 플랫폼을 선도해 나가는 기업입니다. 2015년 영상 시장에서 독보적인 기업으로 도약하기 위해 뜻을 모아 새롭게 시작하였습니다. 빠르게 발전하는 영상 환경을 분석하고, 변화하는 트렌드에 민감하게 반응하여 영상 시장에 안정적으로 정착하였습니다. 그리고 독자적으로 ...</p>
+<div class="cl-home-about__sns">
+<a class="cl-home-pill" href="#"><span class="cl-home-pill__logo cl-ph-dot" aria-hidden="true"></span>블로그</a>
+<a class="cl-home-pill" href="#"><span class="cl-home-pill__logo cl-ph-dot" aria-hidden="true"></span>유튜브</a>
+</div>
+<a class="cl-home-more" href="#">학원소개 보기<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></a>
+</div>
+<div class="cl-home-gallery is-count-3">
+<span class="cl-ph" aria-hidden="true">학원 사진 1</span><span class="cl-ph" aria-hidden="true">2</span><span class="cl-ph" aria-hidden="true">3</span>
+</div>
+</div>
+</section>
+
+<section class="cl-home-sec cl-home-cta">
+<div class="cl-pub-wrap cl-home-cta__inner">
+<h2 class="cl-home-head__title">수강 상담이 필요하신가요?</h2>
+<p class="cl-home-head__sub">강좌 선택부터 수강 방법까지 안내해 드립니다.</p>
+<div class="cl-home-cta__actions">
+<a class="cl-btn cl-btn--primary cl-home-btn" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92"></path></svg>전화 상담 <span class="cl-num">02-6265-3385</span></a>
+</div>
+</div>
+</section>
+
+<section class="cl-home-sec is-alt">
+<div class="cl-pub-wrap">
+<h2 class="cl-home-head__title">오시는 길</h2>
+<ul class="cl-home-contact">
+<li><span class="cl-home-contact__icon"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg></span><span><small>주소</small><strong>서울특별시 금천구 가산동 벚꽃로 286 삼성리더스타워 1402호</strong></span></li>
+<li><span class="cl-home-contact__icon"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92"></path></svg></span><span><small>전화</small><a href="#" class="cl-num">02-6265-3385</a></span></li>
+</ul>
+</div>
+</section>
+
+</div>
+</main>
+
+<footer class="cl-pub-footer">
+<div class="cl-pub-footer__inner">
+<div class="cl-pub-footer__brand">
+<img class="cl-pub-footer__logo" src="../img/image_6acf2b92d8a59.png" alt="클라우드러닝">
+<span class="cl-pub-footer__muted">믿음으로 선택한 고객에게 신뢰로 보답해온 랩241</span>
+</div>
+<div class="cl-pub-footer__col">
+<span class="cl-pub-footer__label">연락처</span>
+<span>서울특별시 금천구 가산동 000로 00 리더스타워 0000호</span>                <span class="cl-num">Tel 02-0000-0000</span>
+</div>
+<nav class="cl-pub-footer__col" aria-label="안내">
+<span class="cl-pub-footer__label">안내</span>
+<a href="#">이용약관</a>
+<a href="#" class="cl-pub-footer__strong">개인정보처리방침</a>
+<a href="#">자료실</a>
+<a href="#">문의하기</a>
+<a href="#">학원탈퇴</a>
+</nav>
+<div class="cl-pub-footer__bottom">
+<span>© 2022–2025 Lab241 Co., Ltd. All rights reserved.</span>
+<span class="cl-pub-footer__links">
+<a href="#">클라우드러닝 포털</a>
+<a href="#">Powered by Lab241 · 올댓에듀케이션 소개</a>
+</span>
+</div>
+</div>
+</footer>
+
+<button type="button" class="cl-pub-top" aria-label="맨 위로"><svg class="cl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m18 15-6-6-6 6"></path></svg></button>
+
+<script>
+// 실험실 전용: 실제 화면 post-common.js createRichEditor 와 같은 설정
+(function () { var el = document.querySelector('[data-lab-editor]'); if (!el || !window.toastui) return;
+  new toastui.Editor({ el: el, height: el.style.height || '270px', initialEditType: 'wysiwyg', previewStyle: 'vertical', usageStatistics: false,
+    toolbarItems: [['heading', 'bold', 'italic', 'strike', 'hr'], ['table', 'image', 'link']],
+    initialValue: el.dataset.labValue || '' });
+  setTimeout(function () { try { parent.postMessage({ labFit: 1 }, '*'); } catch (e) {} }, 300);
+})();
+</script>
+</body></html>

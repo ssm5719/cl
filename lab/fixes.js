@@ -2370,6 +2370,15 @@ const inp=doc.querySelector('.cl-ws-search input'); if(inp) inp.title=tip;
 const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     targets: ['.cl-ws-search'],
     note: '단축키 동작은 표시와 상관없이 그대로 먹는다. 안내가 필요하면 이용 매뉴얼에 한 줄 적는 쪽이 화면을 깨끗하게 둔다.'
+  },
+  {
+    id: 'A1', group: 2, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main'],
+    title: '학원 상단 메뉴 — 글자 15 → 17px, 사이 28 → 40px',
+    current: '상단 메뉴가 15px 600 이고 메뉴 사이가 28px 이다. 같은 줄의 로고 글자는 17px 이라 헤더 안에서 두 크기가 섞인다. 본문은 공개 화면 단계(섹션 설명 21 · 강좌 제목 19 · 본문 17)를 쓰는데 메뉴만 작업공간 단계인 15px 이 남아 있어, 본문 최소 단계보다도 2px 작다. 다섯 개가 28px 간격으로 붙어 있어 한 덩어리로 보인다',
+    next: '글자를 17px(`--cl-fs-body-public`)로 올려 로고와 키를 맞추고 본문 단계에 잇는다. 메뉴 사이는 40px. 56px 도 재어 봤지만 글자를 키운 상태에서는 간격이 글자보다 커져 한 메뉴 줄로 안 읽히고, 오른쪽 블록까지 40px 밖에 안 남아 학원 이름이 길거나 메뉴를 하나 더 켠 학원에서 바로 넘친다. 40px 이면 96px 이 남는다. 1100px 이하는 18 → 24px',
+    css: `/* 헤더를 공개 화면 글자 단계에 맞춘다 — 로고 17px 과 같은 키 */\n.cl-pub-nav__item { font-size: var(--cl-fs-body-public); }\n.cl-pub-nav { gap: 40px; }\n@media (max-width: 1100px) { .cl-pub-nav { gap: 24px; } }`,
+    targets: ['.cl-pub-nav'],
+    note: '실제 화면(guest.lab241.com/user/main, 선생님 로그인)에 잠깐 입혀 폭을 쟀다. 17px · 40px 에서 메뉴 끝 1216px, 오른쪽 블록 시작 1256px 로 넘치지 않는다. 15px 은 public.css 에서 32곳에 쓰이므로 글자 단계 정리(181곳)와 함께 한 번에 옮기는 것이 낫다.'
   }
 ];
 
