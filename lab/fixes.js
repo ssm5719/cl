@@ -2471,11 +2471,11 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     markup: '`.cl-home-teacher__photo` 안에서 사진이 없을 때 `<span class="cl-home-teacher__initial">성</span>` 대신 36×36 아이콘을 넣는다. 선생님 목록 화면(`/user/teacher`)의 `.cl-teacher-card__photo__initial`, 선생님 상세의 `.cl-teacher__avatar-initial` 도 같은 자리다 — 세 곳을 함께 바꾼다.',
     dom: `doc.querySelectorAll('.cl-home-teacher__initial').forEach(function (el) {
   const w = doc.createElement('span');
-  w.innerHTML = '<svg class=\"cl-icon cl-home-teacher__icon\" width=\"36\" height=\"36\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"></circle><path d=\"M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1\"></path></svg>';
+  w.innerHTML = '<svg class=\"cl-home-teacher__icon\" width=\"36\" height=\"36\" viewBox=\"0 0 100 100\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"m11.4 93.3c-.1 0-.1 0-.2 0-1.3-.1-2.2-1.2-2.1-2.4 1.3-19.1 19.3-34 40.9-34s39.6 14.9 40.9 33.9c.1 1.3-.9 2.3-2.1 2.4-1.3.1-2.3-.9-2.4-2.1-1.2-16.7-17.2-29.7-36.4-29.7-19.3 0-35.3 13.1-36.4 29.8-.1 1.2-1.1 2.1-2.2 2.1z\"></path><path d=\"m50 52.3c-12.6 0-22.8-10.2-22.8-22.8s10.2-22.8 22.8-22.8 22.8 10.2 22.8 22.8-10.2 22.8-22.8 22.8zm0-41c-10 0-18.2 8.2-18.2 18.2s8.2 18.2 18.2 18.2 18.2-8.2 18.2-18.2-8.2-18.2-18.2-18.2z\"></path></svg>';
   el.replaceWith(w.firstChild);
 });`,
     targets: ['.cl-home-teacher__photo'],
-    note: '지금 들어 있는 아이콘은 **자리를 잡아 둔 사람 모양**이다 — 디자인시스템 아이콘 규칙(24 격자 · 선 굵기 1.75 · 둥근 끝)을 따라 그렸다. 보내 주신 SVG 가 도착하면 이 모양만 바꾸면 된다. 아이콘만 있고 이름이 없는 화면은 없으므로 `aria-hidden` 으로 둔다.'
+    note: '받은 SVG 그대로 넣었다(100×100 1:1, 채움 방식). `fill="currentColor"` 만 달아서 색을 CSS 로 정하게 했다 — 학원이 대표색을 바꾸면 아이콘도 같이 바뀐다. 파일은 `lab/img/teacher-placeholder.svg` 에도 뒀다. 아이콘 바로 아래에 이름이 있으므로 `aria-hidden` 으로 둔다.'
   },
   {
     id: 'AM11', group: 4, status: '제안', kind: 'CSS', layer: '화면별', screens: ['a-main'],
