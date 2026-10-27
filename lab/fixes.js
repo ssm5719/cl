@@ -2461,6 +2461,30 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     css: `/* 900px 이하: 가로 꽉 찬 카드 대신 [썸네일 | 글] 한 줄로 */\n@media (max-width: 900px) {\n  .cl-home[data-preset="default"] .cl-home-courses { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--cl-space-5); border-top: 1px solid var(--cl-ink); }\n  .cl-home[data-preset="default"] .cl-home-course {\n    grid-template-columns: 112px minmax(0, 1fr) auto;\n    grid-template-areas: "thumb body body" "thumb teacher std";\n    column-gap: var(--cl-space-3); row-gap: 2px;\n    align-items: start;\n    padding: var(--cl-space-3) var(--cl-space-2);\n    height: 100%; box-sizing: border-box;\n  }\n  .cl-home[data-preset="default"] .cl-home-course__num,\n  .cl-home[data-preset="default"] .cl-home-course__go { display: none; }\n  .cl-home[data-preset="default"] .cl-home-course__thumb { grid-area: thumb; border-radius: var(--cl-radius-2xs, 6px); }\n  .cl-home[data-preset="default"] .cl-home-course__thumb .cl-thumb-text { font-size: var(--cl-fs-caption); padding: 8px 10px; }\n  .cl-home[data-preset="default"] .cl-home-course__body { grid-area: body; }\n  .cl-home[data-preset="default"] .cl-home-course__title { font-size: var(--cl-fs-lead); }\n  .cl-home[data-preset="default"] .cl-home-course__teacher { grid-area: teacher; display: block; align-self: end; }\n  .cl-home[data-preset="default"] .cl-home-course__std { grid-area: std; display: block; align-self: end; }\n}\n/* 601~900px: 두 칸씩 */\n@media (min-width: 601px) and (max-width: 900px) {\n  .cl-home[data-preset="default"] .cl-home-courses { grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 0; }\n  .cl-home[data-preset="default"] .cl-home-courses > li:nth-child(-n + 2) .cl-home-course { border-top: 1px solid var(--cl-ink); }\n}\n/* 600px 이하: 썸네일을 한 번 더 줄인다 */\n@media (max-width: 600px) {\n  .cl-home[data-preset="default"] .cl-home-course { grid-template-columns: 96px minmax(0, 1fr) auto; }\n}`,
     targets: ['.cl-home-courses'],
     note: '선생님 카드(AM4)를 가로형으로 바꾼 것과 같은 방향이다 — 큰 사진칸을 줄이고 글을 옆에 둔다. 썸네일이 있는 학원은 112px 썸네일이 또렷하게 보이고, 없는 학원은 자리표시가 작아져 벽처럼 보이지 않는다. 601px 을 경계로 둔 이유는 그 아래에서 두 칸으로 깔면 썸네일이 60px 밑으로 내려가 알아볼 수 없기 때문이다.'
+  },
+  {
+    id: 'AM10', group: 5, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-main'],
+    title: '선생님 사진이 없을 때 — 이름 첫 글자 대신 아이콘',
+    current: '사진을 안 올린 선생님 자리에 성 한 글자가 들어간다. 언어비전은 선생님 12명 전원이 사진이 없어 "송 · 장 · 김 · 김 · 변" 이 늘어서고, 같은 성이 둘이면 구분도 안 된다. 글자라서 이름을 읽는 것처럼 보이는데 정작 아래에 이름이 또 있어 같은 정보가 두 번 나온다',
+    next: '36×36 사람 아이콘으로 바꾼다. 아이콘은 \'없음\'을 뜻할 뿐 정보를 주지 않으므로, 이름은 아래 한 곳에서만 읽힌다. 색은 학원 대표색(`--cl-primary`)',
+    css: `/* 사진 없는 자리 — 36px 1:1 아이콘 */\n.cl-home-teacher__icon { width: 36px; height: 36px; color: var(--cl-primary); }`,
+    markup: '`.cl-home-teacher__photo` 안에서 사진이 없을 때 `<span class="cl-home-teacher__initial">성</span>` 대신 36×36 아이콘을 넣는다. 선생님 목록 화면(`/user/teacher`)의 `.cl-teacher-card__photo__initial`, 선생님 상세의 `.cl-teacher__avatar-initial` 도 같은 자리다 — 세 곳을 함께 바꾼다.',
+    dom: `doc.querySelectorAll('.cl-home-teacher__initial').forEach(function (el) {
+  const w = doc.createElement('span');
+  w.innerHTML = '<svg class=\"cl-icon cl-home-teacher__icon\" width=\"36\" height=\"36\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"4\"></circle><path d=\"M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1\"></path></svg>';
+  el.replaceWith(w.firstChild);
+});`,
+    targets: ['.cl-home-teacher__photo'],
+    note: '지금 들어 있는 아이콘은 **자리를 잡아 둔 사람 모양**이다 — 디자인시스템 아이콘 규칙(24 격자 · 선 굵기 1.75 · 둥근 끝)을 따라 그렸다. 보내 주신 SVG 가 도착하면 이 모양만 바꾸면 된다. 아이콘만 있고 이름이 없는 화면은 없으므로 `aria-hidden` 으로 둔다.'
+  },
+  {
+    id: 'AM11', group: 4, status: '제안', kind: 'CSS', layer: '화면별', screens: ['a-main'],
+    title: '[정할 것] 사진 · 썸네일이 없는 자리를 연보라에서 밝은 회색으로',
+    current: '사진이나 썸네일이 없으면 연보라 바탕(`--cl-primary-tint` #F3ECFD)에 보라 글자(`--cl-primary-pressed` #7A35D0)가 들어간다. 선생님 12명이 모두 사진이 없는 학원에서는 연보라 네모가 화면을 덮고, 강좌 다섯 개도 모두 연보라 썸네일이 된다. 학원 대표색이 \'누를 수 있는 것 · 지금 고른 것\'을 뜻하는데, **비어 있는 자리**에 가장 많이 쓰이게 된다',
+    next: '밝은 회색 바탕(`--cl-parchment` #F5F5F7)에 본문 글자색(`--cl-ink`). 썸네일의 학원명 줄은 보조 글자색(`--cl-ink-muted`). 빈 자리는 뒤로 물러나고 보라는 버튼 · 링크에만 남는다. 글자 대비도 5.61:1 → 16.9:1 로 올라간다',
+    css: `/* 빈 자리는 뒤로 물러나게 — 보라는 누를 수 있는 것에만 남긴다 */\n.cl-home-teacher__photo { background: var(--cl-parchment); }\n.cl-home-course__thumb .cl-thumb-text,\n.cl-cs-thumb .cl-thumb-text { background: var(--cl-parchment); color: var(--cl-ink); }\n.cl-home-course__thumb .cl-thumb-text small,\n.cl-cs-thumb .cl-thumb-text small { color: var(--cl-ink-muted); }`,
+    targets: ['.cl-home-teacher__photo', '.cl-home-course__thumb'],
+    note: '[정할 것] 반대 의견도 있다 — 연보라는 \'만들다 만 화면\'이 아니라 \'학원 색을 입힌 자리\'처럼 보여서, 회색으로 두면 사진을 못 불러온 오류처럼 읽힐 수 있다. 사진을 올린 학원이 많다면 지금이 나을 수도 있다. AM10 의 아이콘 색(보라)은 회색 바탕 위에서도 그대로 둔다 — 빈 자리는 조용해지고 아이콘만 학원 색으로 남는다.'
   }
 ];
 
