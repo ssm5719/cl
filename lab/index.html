@@ -213,7 +213,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   </div>
 </section>
 
-<script src="fixes.js?v=142"></script>
+<script src="fixes.js?v=143"></script>
 <script>
 (function () {
   const SCREENS = [
@@ -369,6 +369,15 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     if (!state.q && state.focus && state.focusScreen === state.screen) { const n = NOTES.find(x => x.id === state.focus); if (n && n.target) { const m = doc.createElement('style'); m.textContent = n.target + ' { outline: 2px dashed #D92D20 !important; outline-offset: 2px; }'; doc.head.append(m); } }
     doc.querySelectorAll('[data-lab-go]').forEach(a => { a.classList.add('lab-live');
       a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); go(a.dataset.labGo); }, true); });
+    // 학원 머리 메뉴 · 로고 → 실험실 화면으로. 아직 없는 화면은 알려만 준다
+    const NAV_A = { '전체강좌': 'a-courses' };
+    doc.querySelectorAll('.cl-pub-nav__item, .cl-pub-brand').forEach(a => {
+      a.classList.add('lab-live');
+      a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation();
+        const name = a.classList.contains('cl-pub-brand') ? '' : a.textContent.trim(), id = name ? NAV_A[name] : 'a-main';
+        if (id) { if (id !== state.screen) go(id); }
+        else toast('"' + name + '" 화면은 아직 실험실에 없습니다. 열어 두시면 가져올게요.'); }, true);
+    });
     doc.querySelectorAll('.cl-ws-nav__item, .cl-ws-rail__item').forEach(a => {
       a.classList.add('lab-live');
       a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation();
