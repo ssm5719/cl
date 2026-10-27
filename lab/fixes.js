@@ -2372,7 +2372,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '단축키 동작은 표시와 상관없이 그대로 먹는다. 안내가 필요하면 이용 매뉴얼에 한 줄 적는 쪽이 화면을 깨끗하게 둔다.'
   },
   {
-    id: 'AM1', group: 2, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main'],
+    id: 'AM1', group: 2, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses'],
     title: '학원 상단 메뉴 — 글자 15 → 17px, 사이 28 → 40px',
     current: '상단 메뉴가 15px 600 이고 메뉴 사이가 28px 이다. 같은 줄의 로고 글자는 17px 이라 헤더 안에서 두 크기가 섞인다. 본문은 공개 화면 단계(섹션 설명 21 · 강좌 제목 19 · 본문 17)를 쓰는데 메뉴만 작업공간 단계인 15px 이 남아 있어, 본문 최소 단계보다도 2px 작다. 다섯 개가 28px 간격으로 붙어 있어 한 덩어리로 보인다',
     next: '글자를 17px(`--cl-fs-body-public`)로 올려 로고와 키를 맞추고 본문 단계에 잇는다. 메뉴 사이는 40px. 56px 도 재어 봤지만 글자를 키운 상태에서는 간격이 글자보다 커져 한 메뉴 줄로 안 읽히고, 오른쪽 블록까지 40px 밖에 안 남아 학원 이름이 길거나 메뉴를 하나 더 켠 학원에서 바로 넘친다. 40px 이면 96px 이 남는다. 1100px 이하는 18 → 24px',
@@ -2381,7 +2381,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '실제 화면(guest.lab241.com/user/main, 선생님 로그인)에 잠깐 입혀 폭을 쟀다. 17px · 40px 에서 메뉴 끝 1216px, 오른쪽 블록 시작 1256px 로 넘치지 않는다. 15px 은 public.css 에서 32곳에 쓰이므로 글자 단계 정리(181곳)와 함께 한 번에 옮기는 것이 낫다.'
   },
   {
-    id: 'AM2', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main'],
+    id: 'AM2', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses'],
     title: '학원 로고 — 세로 50px 까지, 비율 고정',
     current: '로고가 세로 36px(이름 없이 로고만) · 32px(이름과 같이)로 고정돼 있고 `width` 가 없어 `max-width: 168px` 에 먼저 걸린다. 그래서 가로로 긴 로고는 세로를 키워도 168px 에서 멈춰 더 커지지 않는다. 머리 바가 72px 인데 로고가 36px 이라 위아래가 비어 보이고, 학원 로고가 상단 바에서 가장 작게 들어간다',
     next: '로고만 있을 때 세로 50px, 학원 이름과 같이 있을 때 40px 까지 키운다. `width: auto` 로 두어 세로 기준으로 가로가 정해지게 하고, `max-width` 를 240px 로 넓힌다. 정사각형 로고(50×50)도, 가로로 긴 로고(174×73 → 119×50)도 비율 그대로 들어간다. 240px 보다 더 긴 로고는 `object-fit: contain` 이 비율을 지키며 세로를 줄인다 — 잘리지 않는다. 900px 이하에서는 머리 바가 56px 이므로 36px',
@@ -2445,7 +2445,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '구분선(`border-bottom`)은 그대로 둔다 — 줄의 바깥 테두리가 곧 hover 영역의 경계가 되어 선 밖으로 넘칠 일이 없다. 900px 이하는 AM9 에서 같은 8px 로 맞춘다. 기본형(`data-preset=\"default\"`)만 손봤다 — 다른 메인 종류는 강좌 목록 모양이 달라 따로 본다.'
   },
   {
-    id: 'AM8', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main'],
+    id: 'AM8', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses'],
     title: '태블릿에서 상단 메뉴가 오른쪽 버튼 밑으로 파고드는 것 막기',
     current: '학원 이름이 길고(언어비전국어전문학원) 메뉴 이름도 긴 학원에서, 901~1024px 구간에 메뉴 끝이 오른쪽 블록(알림 · 로그인 · 회원가입)을 **밑으로 파고든다**. 지금 코드로도 901px 에서 5px 겹치고, 메뉴를 17px 로 키우면(AM1) 960px 에서 31px, 901px 에서 90px 까지 겹친다. 메뉴 글자가 `white-space: nowrap` 이고 `.cl-pub-nav` 가 `min-width: 0` 이라, 넘쳐도 잘리거나 줄바꿈되지 않고 그대로 뚫고 나간다',
     next: '1100px 이하에서 **로고가 있는 학원만** 학원 이름 글자를 숨긴다. 로고 그림에 이미 학원 이름이 들어 있는 경우가 많아 태블릿에서는 로고만으로 충분하고, 그만큼(약 154px) 메뉴가 숨 쉴 자리가 생긴다. 로고 없이 첫 글자 네모(`cl-pub-brand__mark`)만 쓰는 학원은 이름을 숨기면 학원을 알 수 없으므로 `:has()` 로 걸러 그대로 둔다',
@@ -2548,6 +2548,35 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     markup: '계정 메뉴에서 [이용 매뉴얼 · 고객센터]를 [로그아웃](있으면 [학원 탈퇴]) 바로 위로 옮기고, `.cl-menu__head` 뒤 · `[이용 매뉴얼]` 앞 · 계정 묶음 앞에 `<div class="cl-menu__sep"></div>` 를 넣는다. 학생 메뉴의 `[학원 탈퇴]` 항목에 `cl-menu__item--danger` 를 더한다. 계정 메뉴를 만드는 곳이 한 군데(머리 포함 파일)이므로 89개 화면이 한 번에 맞는다. 선생님 작업공간 머리에는 [만들기] 메뉴도 같은 `.cl-menu` 부품으로 있는데, 거기에는 구분선을 넣지 않는다 — 여섯 항목이 모두 \'만들기\' 하나라 가를 묶음이 없다.',
     targets: ['.cl-ws-account'],
     note: '**6px 이 틀린 값은 아니었다** — 패널 모서리 12 에 안쪽 여백 6 이면 안쪽 모서리는 12 − 6 = 6 이 맞다. 다만 그 6 이 척도에 없는 값이라, 여백을 4 로 줄여 8 이 나오게 했다. 결과는 같은 완전 중첩이면서 값은 척도 안이다. 로그아웃은 **빨강으로 칠하지 않았다** — 다시 들어오면 그만이라 되돌릴 수 없는 동작이 아니고, 메뉴를 열 때마다 빨강이 보이면 경고가 값싸진다. 빨강은 [학원 탈퇴]처럼 정말 되돌릴 수 없는 것에만 남긴다. 지난주 G5(제안)와 같은 내용이라 G5 는 보류로 돌리고 이 건으로 합쳤다. 선생님 작업공간 메뉴는 TN2 가 먼저 갈라 두므로, 선이 이미 있으면 이 건은 선을 다시 넣지 않고 아이콘 · 모서리만 맞춘다. [정할 것] [나의 정보]를 계정 묶음(맨 아래)으로 옮길지 — 지금은 순서를 건드리지 않으려고 그대로 두었다. 지금 화면에서 하는 일로 보면 위가 맞고, 성격으로 보면 아래가 맞다.'
+  },
+  {
+    id: 'AC1', group: 2, status: '확정', kind: 'CSS', layer: '토큰', screens: ['a-main', 'a-courses', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg'],
+    title: '전체강좌 글자 크기 — 제목 56 → 40, 12px 대 글자는 13 · 14 로',
+    current: '제목 \'전체강좌\'가 56px 인데 바로 아래 부제가 13px 이다 — 4.3배 차이라 부제가 각주처럼 붙는다. 메인 섹션 제목을 40 → 32 로 내린 뒤라 목록 화면 제목만 혼자 크다. 반대로 나머지는 작다 — 필터 제목 12 · 분류 개수 12 · 카드 분류 12 · 선생님 12.5 · 통계 12.5 · 필터 초기화 12.5 · 정렬 13 · 하위 분류 13. **크기가 12 · 12.5 · 13 · 13.5 · 14 · 15.5 · 56 일곱 가지이고 토큰은 제목 하나뿐**이다. 원인 하나가 겹쳐 있다 — 지난주 작업공간은 본문 14 · 보조 13 으로 올렸는데(`.cl-ws-body`), 공개 화면은 13.5 · 12.5 그대로다',
+    next: '공개 화면에도 작업공간과 같은 가독성 단계(본문 14 · 보조 13)를 준다. 제목은 이미 있는 `--cl-fs-display`(40 · 모바일 28)로 내린다 — 히어로 80 > 페이지 제목 40 > 섹션 제목 32 순서가 맞는다. 부제와 필터 항목은 15 단계(`--cl-fs-body-sm-pub` 새 토큰), 카드 제목은 메인 본문과 같은 17. **이 화면의 글자 크기를 모두 토큰으로** 바꾼다 — 13 · 14 · 15 · 17 · 40 다섯 단계',
+    css: `/* 공개 화면도 작업공간과 같은 가독성 단계로 — 작업공간만 14 · 13 으로 올라가 있었다 */\n.cl-scope.cl-pub-body { --cl-fs-ui: 14px; --cl-fs-caption: 13px; --cl-fs-table-head: 13px; --cl-fs-body-sm-pub: 15px; }\n/* 머리 — 제목은 한 단계 내리고, 부제는 한 단계 올린다 */\n.cl-cs-title { font-size: var(--cl-fs-display); letter-spacing: -0.03em; }\n.cl-cs-sub { font-size: var(--cl-fs-body-sm-pub); }\n.cl-cs-crumb { font-size: var(--cl-fs-caption); }\n/* 왼쪽 필터 */\n.cl-cs-filter__title { font-size: var(--cl-fs-caption); font-weight: 600; }\n.cl-cs-cate, .cl-cs-subject, .cl-cs-cate.is-child { font-size: var(--cl-fs-body-sm-pub); }\n.cl-cs-cate__count { font-size: var(--cl-fs-caption); }\n.cl-cs-search input { font-size: var(--cl-fs-ui); }\n/* 목록 위 줄 */\n.cl-cs-count, .cl-cs-sort { font-size: var(--cl-fs-ui); }\n/* 카드 */\n.cl-cs-meta, .cl-cs-teacher, .cl-cs-stats { font-size: var(--cl-fs-caption); }\n.cl-cs-name { font-size: var(--cl-fs-body-public); }\n.cl-cs-more { font-size: var(--cl-fs-ui); }\n.cl-cs-row__text .cl-cs-meta, .cl-cs-row__stats-mobile { font-size: var(--cl-fs-caption); }\n@media (max-width: 900px) { .cl-cs-count, .cl-cs-sort { font-size: var(--cl-fs-caption); } }`,
+    targets: ['.cl-cs-title', '.cl-cs-sub', '.cl-cs-filter'],
+    note: '공개 화면 가독성 단계는 **토큰층**이라 학원 메인 · Q&A 화면의 13.5 · 12.5 글자도 14 · 13 으로 같이 오른다(메인의 선생님 소개글 · 카드 개수 등). 작업공간이 이미 그렇게 바뀌어 있어 같은 제품 안에서 크기가 맞춰진다. `--cl-fs-page-title-pub`(56)는 그대로 둔다 — 메인 히어로가 사진과 같이 나올 때 최대값으로 쓰고 있어서, 토큰 값을 바꾸면 메인이 같이 줄어든다. 대신 전체강좌 제목이 `--cl-fs-display` 를 쓰도록 바꿨다. Q&A · 자유게시판 제목(`.cl-pub-title`)도 같은 56 이라 그 화면을 고칠 때 같은 방식으로 맞추면 된다. 썸네일 대체 글자(22 · 11)는 기본 이미지가 항상 들어가 보이지 않으므로 손대지 않았다.'
+  },
+  {
+    id: 'AC2', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-courses'],
+    title: '왼쪽 필터 — 글자가 시작하는 세로선 다섯 개를 두 개로',
+    current: '필터 열 200px 안에서 글자가 시작하는 자리가 **다섯 군데**다 — 필터 제목 0 · 대분류 10 · 하위 분류 22 · 검색창 글자 32 · 과목 글자 34. 2 · 10 · 12px 차이라 \'일부러 들여쓴 것\'으로도 \'어긋난 것\'으로도 읽히고, 그래서 위아래로 훑을 때 시선이 지그재그로 꺾인다. 상자(분류 hover 바탕 · 검색창 테두리)는 모두 0 에서 시작하니 상자 줄은 맞고 글자 줄만 흩어져 있다',
+    next: '**상자는 0, 글자는 10 · 34 두 줄**로 모은다. 첫 줄(10)에 필터 제목 · 대분류 · 체크박스 · 검색 아이콘 · 필터 초기화 아이콘이, 둘째 줄(34)에 하위 분류 · 과목 이름 · 검색 글자 · 필터 초기화 글자가 선다. 34 는 \'10 + 아이콘 16 + 간격 8\' 이라 체크박스 · 아이콘이 있는 줄과 없는 줄이 같은 자리에 맞는다. 줄 높이 34 → 36 (4px 격자)',
+    css: `/* 왼쪽 필터 — 글자가 시작하는 세로선을 두 줄(10 · 34)로 모은다. 상자(hover 바탕 · 검색창)는 0 에서 */\n@media (min-width: 901px) {\n  .cl-cs-filter__title { padding-left: 10px; }\n  .cl-cs-cate.is-child { padding-left: 34px; }\n  .cl-cs-search input { padding-left: 34px; }\n  .cl-cs-cate, .cl-cs-subject { min-height: 36px; }\n}`,
+    targets: ['.cl-cs-filter'],
+    note: '과목이 1~5개인 학원(어시브 1개 · 언어비전)이 대부분이라 과목 묶음이 짧고, 그래서 대분류 → 과목 → 검색으로 내려오는 세 묶음의 시작선이 다르면 더 도드라진다. 하위 분류는 22 → 34 로 더 들어가지만 글자 크기를 부모와 같게(AC1) 맞춰, 들여쓰기 하나로만 계층을 말한다 — 지금은 들여쓰기 + 작은 글자 두 가지로 말하고 있다. 모바일(칩 줄)은 손대지 않았다.'
+  },
+  {
+    id: 'AC3', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-courses'],
+    title: '필터 초기화 — 자리는 그대로, 모양 · 글자 · 색만',
+    current: '`cl-btn--text cl-btn--sm` 이라 12.5px · 굵게(600) · 검정 글자뿐이다. 바로 위 필터 제목(상세검색 · 대분류 · 과목)이 12px · 500 · 회색이라, 크기는 같고 더 진하고 더 굵은 **또 하나의 제목**처럼 읽힌다 — 누르는 것인지 다음 묶음의 머리인지 구분이 안 된다. 높이 28px 로 다른 필터 줄(34)보다 작고, 글자 시작도 10 이라 버튼 테두리가 없으면 어디까지 눌리는지 보이지 않는다',
+    next: '자리(필터 열 맨 아래 · 왼쪽)는 그대로 둔다. ① 앞에 되돌리기 아이콘(↺)을 붙여 \'동작\'으로 읽히게 한다 ② 글자는 14px · 500 · 회색(`--cl-ink-muted`)으로 — 제목보다 크고 덜 진해 제목과 헷갈리지 않고, 고른 분류(보라)보다 조용하다 ③ 줄 전체를 분류 줄과 같은 36px · 모서리 8 · hover 바탕으로 — 필터 줄과 같은 식구로 보이면서 눌리는 범위가 보인다 ④ 위에 얇은 선 하나로 \'고르기\'와 \'되돌리기\'를 가른다',
+    css: `/* 필터 초기화 — 자리는 그대로, 제목처럼 읽히지 않고 '되돌리기'로 읽히게 */\n.cl-scope .cl-cs-reset {\n  height: 36px; padding: 0 10px; gap: 8px;\n  border-radius: var(--cl-radius-sm);\n  font-size: var(--cl-fs-ui); font-weight: 500;\n  color: var(--cl-ink-muted);\n}\n.cl-scope .cl-cs-reset:hover { background: var(--cl-hover); color: var(--cl-ink); }\n.cl-cs-reset .cl-icon { flex: none; }\n@media (min-width: 901px) {\n  /* 필터와 동작 사이를 선 하나로 가른다 — 자리는 그대로 맨 아래 */\n  .cl-cs-reset { position: relative; margin-top: 4px; }\n  .cl-cs-reset::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 1px; background: var(--cl-hairline); }\n  .cl-cs-reset { align-self: stretch; justify-content: flex-start; }\n}`,
+    dom: `doc.querySelectorAll('.cl-cs-reset').forEach(function (b) {\n  if (b.querySelector('.cl-icon')) return;\n  b.insertAdjacentHTML('afterbegin', '<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>');\n});`,
+    markup: '`.cl-cs-reset` 버튼 맨 앞에 16px 되돌리기 아이콘(`rotate-ccw`)을 넣는다. 위치 · 동작 · 숨김 조건(`hidden`)은 그대로다.',
+    targets: ['.cl-cs-reset'],
+    note: '빨강 · 보라는 쓰지 않았다 — 지우는 게 아니라 되돌리는 동작이라 경고색이 맞지 않고, 보라는 지금 고른 분류가 쓰고 있다. 아이콘이 첫 줄(10), 글자가 둘째 줄(34)에 서서 AC2 의 세로선과 맞는다. [덧붙일 수 있는 것] 걸린 필터 수를 \'필터 초기화 · 2\' 처럼 붙이면 무엇이 되돌려지는지 미리 보인다 — 기능 변경이라 넣지 않았다.'
   }
 ];
 
