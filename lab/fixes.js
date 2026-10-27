@@ -2616,10 +2616,10 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
   },
   {
     id: 'AC4', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-courses'],
-    title: '머리 — 위치와 제목 사이 8 → 24px',
+    title: '머리 — 위치와 제목 사이 8 → 16px',
     current: '위치(홈 > 전체강좌) · 제목(전체강좌) · 설명이 8px · 8px 간격으로 붙어 있다. 성격이 다른 셋(길 안내 · 제목 · 설명)이 한 덩어리로 뭉쳐 빽빽하다',
-    next: '위치와 제목 사이를 **24px**(`--cl-space-5`)로 넓힌다. 위치는 제목 위에 떠 있는 길 안내로, 제목과 설명은 한 묶음으로 읽힌다',
-    css: `/* 위치(홈 > 전체강좌)와 제목 사이를 24px 로 */\n.cl-cs-head__row { margin-top: var(--cl-space-5); }`,
+    next: '위치와 제목 사이를 **16px**(`--cl-space-4`)로 넓힌다. 위치는 제목 위에 떠 있는 길 안내로, 제목과 설명은 한 묶음으로 읽힌다',
+    css: `/* 위치(홈 > 전체강좌)와 제목 사이를 16px 로 */\n.cl-cs-head__row { margin-top: var(--cl-space-4); }`,
     targets: ['.cl-cs-head'],
     note: '제목과 설명 사이(8px)는 그대로 두었다 — 둘은 한 묶음이라 붙어 있는 게 맞다. Q&A · 자유게시판 머리도 같은 구조라 그 화면을 고칠 때 같은 값으로 맞춘다.'
   }
