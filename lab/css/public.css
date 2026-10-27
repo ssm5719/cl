@@ -540,3 +540,40 @@ a.cl-cd-row__title:hover { color: var(--cl-primary-pressed); }
 .cl-lecture-card__body { padding: 16px 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .cl-lecture-card__title { font-size: 17px; font-weight: 600; line-height: 1.35; color: var(--cl-ink); text-decoration: none; overflow-wrap: anywhere; }
 .cl-lecture-card__title:hover { color: var(--cl-primary-pressed); }
+
+/* ---------- 강의 보기 ---------- */
+.cl-player-page { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 32px; align-items: start; padding-top: 24px; padding-bottom: 64px; }
+.cl-player-page__main { min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.cl-player { border-radius: 14px; overflow: hidden; background: #111; }
+.cl-player__frame { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.cl-player__empty, .cl-player__doc { aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; color: #fff; background: var(--cl-surface-dark); }
+.cl-player__empty span { font-size: 14px; color: #A1A1A6; }
+.cl-player__doc { background: var(--cl-parchment); color: var(--cl-ink); }
+.cl-player-info { display: flex; flex-direction: column; gap: 12px; }
+.cl-player-info__title { margin: 0; font-size: clamp(22px, 2vw, 28px); font-weight: 700; line-height: 1.3; letter-spacing: -0.025em; overflow-wrap: anywhere; }
+.cl-player-info__meta { margin: 0; font-size: 14px; color: var(--cl-ink-muted); }
+.cl-player-info__teacher:empty { display: none; }
+.cl-player-info__teacher-link { max-width: 420px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--cl-hairline); border-radius: 12px; color: var(--cl-ink); text-decoration: none; }
+.cl-player-info__teacher-link:hover { border-color: var(--cl-primary); }
+.cl-player-info__teacher-link > span:nth-child(2) { flex: 1; display: flex; flex-direction: column; }
+.cl-player-info__teacher-link small { font-size: 13px; color: var(--cl-ink-muted); }
+.cl-player-page__aside { position: sticky; top: calc(var(--cl-h-public-header) + 16px); max-height: calc(100vh - var(--cl-h-public-header) - 32px); display: flex; flex-direction: column; border: 1px solid var(--cl-hairline); border-radius: 12px; overflow: hidden; }
+.cl-playlist__head { padding: 14px 16px; border-bottom: 1px solid var(--cl-hairline); display: flex; flex-direction: column; gap: 10px; }
+.cl-playlist__title { margin: 0; font-size: 17px; font-weight: 700; }
+.cl-playlist__title .cl-num { color: var(--cl-ink-muted); font-weight: 400; }
+.cl-playlist__tools { display: flex; gap: 8px; }
+.cl-playlist__tools .cl-search { flex: 1; }
+.cl-playlist__tools .cl-search input { width: 100%; }
+.cl-playlist { flex: 1; margin: 0; padding: 4px 0; list-style: none; overflow-y: auto; }
+.cl-playlist__item { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 8px; align-items: center; padding: 10px 16px; color: var(--cl-ink); text-decoration: none; }
+.cl-playlist__item:hover { background: var(--cl-hover); }
+.cl-playlist__item.is-current { background: var(--cl-primary-tint); }
+.cl-playlist__num { font-size: 13px; color: var(--cl-ink-muted); display: grid; place-items: center; }
+.cl-playlist__item.is-current .cl-playlist__num { color: var(--cl-primary-pressed); }
+.cl-playlist__body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cl-playlist__name { font-size: 14px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.cl-playlist__meta { display: flex; gap: 8px; font-size: 12px; color: var(--cl-ink-muted); }
+.cl-playlist__meta .is-done { color: var(--cl-success); font-weight: 600; }
+.cl-player-page__aside [data-pagination]:not(:empty) { padding: 8px; border-top: 1px solid var(--cl-hairline); }
+@media (max-width: 1100px) { .cl-player-page { grid-template-columns: 1fr; } .cl-player-page__aside { position: static; max-height: 520px; } }
+@media (max-width: 900px) { .cl-player-page { padding-top: 0; } .cl-player { margin: 0 -20px; border-radius: 0; } }
