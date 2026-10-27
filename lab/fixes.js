@@ -2394,7 +2394,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     title: '섹션 제목 40 → 32px, 설명 21 → 17px',
     current: '섹션 제목이 40px, 그 아래 설명이 21px 인데 정작 내용인 강좌 제목은 19px 이다. 설명이 강좌 이름보다 크다. 안내 문구에 눈이 먼저 가고 봐야 할 강좌 이름이 그 아래 작게 깔린다. 제목도 강좌 한 줄 높이가 113px 인 목록 위에 40px 로 앉아 있어 제목이 목록을 누른다 (제목 : 내용 = 2.1배)',
     next: '제목 32px, 설명 17px. 강좌 제목 19px 은 그대로 둔다. 32 → 19 → 17 이 되어 제목 · 강좌 이름 · 설명 순서가 제자리를 찾는다. 설명 17px 은 공개 화면 본문 단계(`--cl-fs-body-public`)라 새 값이 아니다. 제목은 좁은 화면에서 26px 까지 줄어든다',
-    css: `/* 설명이 강좌 이름보다 크지 않게 — 제목 32 · 강좌 19 · 설명 17 */\n.cl-home-head__title { font-size: clamp(26px, 2.2vw, 32px); }\n.cl-home-head__sub { font-size: var(--cl-fs-body-public); }`,
+    css: `/* 공개 화면 글자 단계에 두 단계를 등록한다 (cl-tokens.css 로 올라갈 값) */\n.cl-scope {\n  --cl-fs-section-pub: clamp(26px, 2.2vw, 32px);  /* 섹션 제목 — 대표 강좌 · 선생님 소개 등 6곳 */\n}\n/* 설명이 강좌 이름보다 크지 않게 — 제목 32 · 강좌 19 · 설명 17 */\n.cl-home-head__title { font-size: var(--cl-fs-section-pub); }\n.cl-home-head__sub { font-size: var(--cl-fs-body-public); }`,
     targets: ['.cl-home-head'],
     note: '`.cl-home-head__title` 은 대표 강좌 · 분류별로 찾기 · 선생님 소개 · 학원소개 · 상담 띠 · 오시는 길 여섯 곳에서 같이 쓴다. 한 번에 같이 바뀐다. 히어로 제목(`.cl-home-hero__title`)은 따로다 — 슬라이드도 사진도 없는 학원에서 `clamp(40px, 7.2vw, 104px)` 가 104px 까지 올라가는 문제는 아직 정하지 않았다.'
   },
@@ -2403,9 +2403,18 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     title: '선생님 카드 — 세로형에서 가로형으로',
     current: '사진칸이 216×281px 세로형이고 그 안에 성 한 글자가 56px 로 들어간다. 언어비전은 선생님 12명 전원이 사진을 안 올려서 같은 연보라 네모가 한 줄에 다섯 개 늘어서고 글자만 다르다 — 송 · 장 · 김 · 김 · 변. 사람 목록이 아니라 자음 표처럼 보이고, 같은 성이 둘이면 구분도 안 된다. 소개글도 대부분 비어 있어 카드 아래가 비고 높이가 제각각이다',
     next: '사진을 왼쪽에 작게 두고 오른쪽에 과목 · 이름 · 소개글을 쌓는 가로형 카드로 바꾼다. 사진 비율 10:13 은 그대로 두고 너비만 216 → 88px 로 줄인다(88×114). 이니셜은 56 → 28px. 카드에 테두리와 흰 바탕을 주어 한 사람씩 끊어 읽히게 한다. 선생님 목록 화면(`/user/teacher`)의 `.cl-teacher-card` 와 같은 모양이라, 메인과 목록이 한 부품으로 맞는다',
-    css: `/* 가로형 카드 — 사진 왼쪽, 글 오른쪽. 마크업은 그대로 두고 격자로 자리만 다시 잡는다 */\n.cl-home-teachers > li { flex: 0 0 clamp(272px, 26vw, 340px); }\n.cl-home-teacher {\n  display: grid;\n  grid-template-columns: 88px minmax(0, 1fr);\n  grid-template-rows: 1fr auto auto auto 1fr;\n  grid-template-areas: "photo ." "photo subject" "photo name" "photo comment" "photo .";\n  column-gap: 14px; row-gap: 2px;\n  height: 100%; box-sizing: border-box;\n  padding: 16px; border: 1px solid var(--cl-hairline); border-radius: 10px;\n  background: var(--cl-canvas);\n}\n.cl-home-teacher:hover { border-color: var(--cl-primary); }\n/* 사진 비율 10:13 은 그대로. 너비만 줄인다 */\n.cl-home-teacher__photo { grid-area: photo; width: 88px; aspect-ratio: 10 / 13; border-radius: 8px; margin-bottom: 0; }\n.cl-home-teacher__initial { font-size: 28px; }\n.cl-home-teacher__subject { grid-area: subject; }\n.cl-home-teacher__name { grid-area: name; font-size: 17px; }\n.cl-home-teacher__comment { grid-area: comment; font-size: 14px; }`,
+    css: `/* 가로형 카드 — 사진 왼쪽, 글 오른쪽. 마크업은 그대로 두고 격자로 자리만 다시 잡는다 */\n.cl-home-teachers > li { flex: 0 0 clamp(272px, 26vw, 340px); }\n.cl-home-teacher {\n  display: grid;\n  grid-template-columns: 88px minmax(0, 1fr);\n  grid-template-rows: 1fr auto auto auto 1fr;\n  grid-template-areas: "photo ." "photo subject" "photo name" "photo comment" "photo .";\n  column-gap: 14px; row-gap: 2px;\n  height: 100%; box-sizing: border-box;\n  padding: 16px; border: 1px solid var(--cl-hairline); border-radius: 10px;\n  background: var(--cl-canvas);\n}\n.cl-home-teacher:hover { border-color: var(--cl-primary); }\n/* 사진 비율 10:13 은 그대로. 너비만 줄인다 */\n.cl-home-teacher__photo { grid-area: photo; width: 88px; aspect-ratio: 10 / 13; border-radius: 8px; margin-bottom: 0; }\n.cl-home-teacher__initial { font-size: var(--cl-fs-list-title); }\n.cl-home-teacher__subject { grid-area: subject; }\n.cl-home-teacher__name { grid-area: name; font-size: var(--cl-fs-body-public); }\n.cl-home-teacher__comment { grid-area: comment; font-size: var(--cl-fs-ui); }`,
     targets: ['.cl-home-teachers'],
     note: '사진칸 위아래 빈 줄(1fr)이 글 묶음을 가운데로 맞춘다 — 소개글이 없는 선생님도 사진 높이에 맞춰 가운데에 선다. 가로 넘김은 그대로다. 1240px 폭에서 한 번에 3~4장 보인다(지금은 5장). 12명이면 넘길 거리가 길어지니, 두 줄 격자로 한 번에 8명을 보이게 하는 안도 있다 — 정해 주시면 그쪽으로 바꾼다. 사진을 안 올린 선생님에게 성 한 글자 대신 사람 모양 아이콘을 넣을지는 아직 정하지 않았다.'
+  },
+  {
+    id: 'AM5', group: 2, status: '확정', kind: 'CSS', layer: '토큰', screens: ['a-main'],
+    title: '히어로 제목 최대 104 → 80px, 토큰으로',
+    current: '학원 이름이 `clamp(40px, 7.2vw, 104px)` 로 그려져 넓은 화면에서 104px 까지 올라간다. 크기가 화면 CSS 에 직접 적혀 있고 토큰(`--cl-fs-hero`)은 104px 이라는 숫자만 들고 있어 서로 따로 논다. 104px 는 짧은 영문 단어에 맞춘 크기라, "언어비전국어전문학원" 같은 10글자 한글 학원 이름은 가로 1040px 을 먹어 본문 폭을 꽉 채운다. 지금 두 학원은 슬라이드를 쓰거나 사진이 있어 가려져 있을 뿐, 슬라이드도 사진도 없는 학원에서는 바로 드러난다',
+    next: '최대 80px 으로 낮춘다. 그리고 크기를 화면 CSS 에서 빼고 토큰이 `clamp` 까지 들고 있게 한다 — 화면은 `var(--cl-fs-hero)` 만 읽는다. 한글 10글자면 800px 로, 본문 폭 1240px 안에 한 줄로 들어간다. 15글자 학원도 두 줄에서 멈춘다',
+    css: `/* 크기는 토큰이 들고, 화면은 읽기만 한다 */\n.cl-scope { --cl-fs-hero: clamp(40px, 5.6vw, 80px); }\n.cl-home-hero__title { font-size: var(--cl-fs-hero); }`,
+    targets: ['.cl-home-hero'],
+    note: '사진이 같이 있는 히어로는 따로 `clamp(40px, 4.4vw, 56px)` 로 한 번 더 줄이고 있어 그대로 둔다. 이 값도 토큰(`--cl-fs-page-title-pub` 56px)에 올리면 화면 CSS 에서 숫자가 완전히 사라진다 — 글자 단계 정리(181곳) 때 같이 옮긴다.'
   }
 ];
 
