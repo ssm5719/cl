@@ -2421,7 +2421,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     title: '모서리 둥글기 — 16 · 12 · 10 · 8 네 값을 6 · 8 두 단계로',
     current: '학원 메인의 네모난 면이 16 · 12 · 10 · 8px 네 값을 쓴다. 그중 **16px 이 7곳**(히어로 사진 · 선생님 사진 · 갤러리 · 슬라이드 · 배너 · 대시보드 타일)인데 토큰 척도(4 · 8 · 10 · 12 · pill)에 없는 값이다. 같은 화면에서 사진은 16, 카드는 10, 썸네일은 8 이라 면마다 모서리가 다르게 깎여 있다',
     next: '작은 썸네일은 6px, 나머지 네모 면은 모두 8px. 6px 은 새 토큰 `--cl-radius-2xs` 로 등록한다 — 배지 · 메뉴 항목 · 보기 전환 · 작은 버튼이 이미 6px 을 직접 적고 있어, 디자인시스템 점검 7번의 "[정할 것] 6px 을 토큰으로 올릴지"를 같이 정리하는 셈이다. 버튼 · 칩 · 아바타 · 아이콘 동그라미(pill)는 모양 자체가 원이라 건드리지 않는다',
-    css: `/* 6px 을 척도에 등록한다 (배지 · 메뉴 항목 · 보기 전환 · 작은 버튼도 쓰는 값) */\n.cl-scope { --cl-radius-2xs: 6px; }\n/* 작은 썸네일만 6px */\n.cl-home-course__thumb { border-radius: var(--cl-radius-2xs); }\n/* 나머지 네모 면은 8px — 16px 을 쓰던 7곳 포함 */\n.cl-home-cat,\n.cl-home-teacher,\n.cl-home-teacher__photo,\n.cl-home-hero__media,\n.cl-home-gallery img,\n.cl-home-banner,\n.cl-home-slider__viewport,\n.cl-home-split__fallback,\n.cl-home-tile { border-radius: var(--cl-radius-sm); }\n/* 모바일에서 썸네일이 가로 전체가 되면 8px (지금은 12px) */\n@media (max-width: 900px) { .cl-home-course__thumb { border-radius: var(--cl-radius-sm); } }`,
+    css: `/* 6px 을 척도에 등록한다 (배지 · 메뉴 항목 · 보기 전환 · 작은 버튼도 쓰는 값) */\n.cl-scope { --cl-radius-2xs: 6px; }\n/* 작은 썸네일만 6px */\n.cl-home-course__thumb { border-radius: var(--cl-radius-2xs); }\n/* 나머지 네모 면은 8px — 16px 을 쓰던 7곳 포함 */\n.cl-home-cat,\n.cl-home-teacher,\n.cl-home-teacher__photo,\n.cl-home-hero__media,\n.cl-home-gallery img,\n.cl-home-gallery > *,\n.cl-home-banner,\n.cl-home-slider__viewport,\n.cl-home-split__fallback,\n.cl-home-tile { border-radius: var(--cl-radius-sm); }\n/* 모바일에서 썸네일이 가로 전체가 되면 8px (지금은 12px) */\n@media (max-width: 900px) { .cl-home-course__thumb { border-radius: var(--cl-radius-sm); } }`,
     targets: ['.cl-home-hero__media', '.cl-home-cat', '.cl-home-teachers'],
     note: '정할 것 두 가지. ① 분류 카드를 10 → 8 로 내리면 작업공간 카드(`--cl-radius-md` 10px)와 어긋난다 — 공개 화면 카드 8, 관리자 카드 10. 끝까지 맞추려면 작업공간 카드도 8로 내려야 하고 그건 관리자 · 선생님 · 학생 전체에 영향이 간다. 공통층 넘길 때 같이 정한다. ② 슬라이드(1200×460)와 배너는 실험실 화면에 아직 없어 눈으로 확인하지 못했다 — CSS 에는 넣었지만 실제 화면에서 한 번 보고 확정한다.'
   },
@@ -2479,12 +2479,12 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
   },
   {
     id: 'AM11', group: 4, status: '제안', kind: 'CSS', layer: '화면별', screens: ['a-main'],
-    title: '[정할 것] 사진 · 썸네일이 없는 자리를 연보라에서 밝은 회색으로',
-    current: '사진이나 썸네일이 없으면 연보라 바탕(`--cl-primary-tint` #F3ECFD)에 보라 글자(`--cl-primary-pressed` #7A35D0)가 들어간다. 선생님 12명이 모두 사진이 없는 학원에서는 연보라 네모가 화면을 덮고, 강좌 다섯 개도 모두 연보라 썸네일이 된다. 학원 대표색이 \'누를 수 있는 것 · 지금 고른 것\'을 뜻하는데, **비어 있는 자리**에 가장 많이 쓰이게 된다',
-    next: '밝은 회색 바탕(`--cl-parchment` #F5F5F7)에 본문 글자색(`--cl-ink`). 썸네일의 학원명 줄은 보조 글자색(`--cl-ink-muted`). 빈 자리는 뒤로 물러나고 보라는 버튼 · 링크에만 남는다. 글자 대비도 5.61:1 → 16.9:1 로 올라간다',
-    css: `/* 빈 자리는 뒤로 물러나게 — 보라는 누를 수 있는 것에만 남긴다 */\n.cl-home-teacher__photo { background: var(--cl-parchment); }\n.cl-home-course__thumb .cl-thumb-text,\n.cl-cs-thumb .cl-thumb-text { background: var(--cl-parchment); color: var(--cl-ink); }\n.cl-home-course__thumb .cl-thumb-text small,\n.cl-cs-thumb .cl-thumb-text small { color: var(--cl-ink-muted); }`,
-    targets: ['.cl-home-teacher__photo', '.cl-home-course__thumb'],
-    note: '[정할 것] 반대 의견도 있다 — 연보라는 \'만들다 만 화면\'이 아니라 \'학원 색을 입힌 자리\'처럼 보여서, 회색으로 두면 사진을 못 불러온 오류처럼 읽힐 수 있다. 사진을 올린 학원이 많다면 지금이 나을 수도 있다. AM10 의 아이콘 색(보라)은 회색 바탕 위에서도 그대로 둔다 — 빈 자리는 조용해지고 아이콘만 학원 색으로 남는다.'
+    title: '[정할 것] 사진이 없는 자리 — 연보라 한 단계 밝히기, 큰 자리에만 구름',
+    current: '사진이 없으면 연보라(`--cl-primary-tint` #F3ECFD)가 들어간다. 선생님 12명이 모두 사진이 없는 학원에서는 연보라 네모가 화면을 덮는다. 학원 대표색이 \'누를 수 있는 것\'을 뜻하는데 **비어 있는 자리**에 가장 많이 쓰이게 된다',
+    next: '한 단계 밝은 #FAF7FE 로 내린다. 거의 흰색이라 보라 덩어리로 읽히지 않으면서 학원 색의 기운은 남는다. 회색(#F5F5F7)도 재 봤지만 사진을 못 불러온 것처럼 보인다. 큰 빈 자리(히어로 사진 · 배너)에만 아주 옅은 구름 하나를 모서리 밖으로 흘려보낸다 — 로고에 이미 있는 모양이라 새로 지어낸 장식이 아니다',
+    css: `/* 빈 자리는 연보라를 한 단계 밝혀 거의 흰색으로 — 보라 덩어리로 읽히지 않게 */\n.cl-home-teacher__photo { background: #FAF7FE; }\n/* 큰 빈 자리에만 아주 옅은 구름. 모서리 밖으로 흘려보낸다 */\n.cl-home-hero__media:not(:has(img)),\n.cl-home-banner:not(:has(img)) {\n  background-color: #FAF7FE;\n  background-image: url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20120%2080%27%3E%3Cpath%20d%3D%27M26%2060h62a16%2016%200%200%200%200-32h-2a24%2024%200%200%200-45-8%2018%2018%200%200%200-15%2040z%27%20fill%3D%27none%27%20stroke%3D%27%23EDE3FB%27%20stroke-width%3D%272.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E\");\n  background-repeat: no-repeat;\n  background-position: right -40px bottom -34px;\n  background-size: 46% auto;\n}`,
+    targets: ['.cl-home-teacher__photo', '.cl-home-hero__media'],
+    note: '구름은 **큰 자리에만** 넣는다. 선생님 사진칸(88×114)에 넣어 보니 사람 아이콘과 겹쳐 덩어리가 됐다. 구름 선은 바탕과 1.17:1 로, 보려고 보면 보이고 평소에는 질감처럼 깔리는 정도다. 그라데이션은 쓰지 않는다. 강좌 썸네일은 기본 이미지가 항상 등록되므로 이 건에서 뺐다. [정할 것] 구름 모양은 임시로 그린 것이다 — 로고 SVG 를 받으면 선 모양을 맞춘다.'
   }
 ];
 
