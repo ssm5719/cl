@@ -2595,6 +2595,33 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     css: `/* 학원 머리 프로필 — 동그라미에 딱 맞는 32×32 원. 마우스를 올려도 바뀌지 않는다 */\n.cl-scope .cl-pub-header .cl-ws-account {\n  width: var(--cl-h-control); height: var(--cl-h-control); padding: 0;\n  justify-content: center; border-radius: 50%;\n}\n.cl-scope .cl-pub-header .cl-ws-account,\n.cl-scope .cl-pub-header .cl-ws-account:hover,\n.cl-scope .cl-pub-header .cl-ws-account[aria-expanded="true"] { background: transparent; }`,
     targets: ['.cl-ws-account'],
     note: '작업공간 머리의 프로필 버튼(이름 · 화살표가 붙은 것)은 그대로 둔다 — `.cl-pub-header` 안에서만 바뀐다. 보라 테두리 hover 도 재 봤지만 빼기로 했다(2026.10.27). 키보드로 왔을 때의 초점 테두리(`:focus-visible`)는 공통 규칙 그대로 남는다 — 그건 hover 가 아니라 접근성 표시라 지우면 안 된다.'
+  },
+  {
+    id: 'AM20', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses'],
+    title: '머리 폭을 본문 1200px 에 맞추기',
+    current: '머리 안쪽(`.cl-pub-header__inner`)은 `max-width: 1200px` 안에 좌우 여백 20 을 **포함**해서 글이 1160px 폭에 선다. 본문(`.cl-pub-wrap`)은 1200px **바깥에** 여백 20 을 두어 글이 1200px 에 선다. 같은 1200 이라 적혀 있지만 실제로는 머리가 양쪽 20px 씩 안으로 들어와, 로고와 [강좌 참여하기] · 첫 카드의 왼쪽 끝이 어긋난다(1440 화면에서 로고 140 · 본문 120)',
+    next: '머리도 본문과 같이 `box-sizing: content-box` 로 — 여백 20 을 1200 바깥에 둔다. 로고 · 메뉴 · 오른쪽 버튼이 본문과 같은 1200px 선에 선다. 1240px 이하에서는 본문과 똑같이 `border-box` 로 돌아가 화면 끝에서 20px 여백이 유지된다',
+    css: `/* 머리 안쪽 폭을 본문(.cl-pub-wrap)과 같은 방식으로 — 여백 20 을 1200 바깥에 둔다 */\n@media (min-width: 901px) {\n  .cl-pub-header__inner { box-sizing: content-box; }\n}\n@media (min-width: 901px) and (max-width: 1240px) {\n  .cl-pub-header__inner { box-sizing: border-box; }\n}`,
+    targets: ['.cl-pub-header__inner'],
+    note: '본문 쪽 규칙(`public.css` 4~5줄)을 그대로 따라 한 것이라, 개발에서는 머리 규칙을 본문과 같은 두 줄로 바꾸면 된다. 모바일(900px 이하) 머리 여백(`0 6px 0 16px`)은 건드리지 않았다. 학원 메인 · 전체강좌 모두 머리가 같아 함께 맞는다.'
+  },
+  {
+    id: 'AM21', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses'],
+    title: '알림 종 — 32px 원으로, 아이콘 18',
+    current: '알림 버튼이 44×44 라 마우스를 올리면 회색 원이 44px 로 깔린다. 바로 옆 [선생님 페이지] · 프로필은 32px 이라 원 하나만 크게 부풀어 보인다',
+    next: '버튼을 프로필 · 페이지 이동 버튼과 같은 **32px 원**으로. hover 회색 원도 32px 로 깔려 세 개의 높이가 맞는다. 아이콘은 20 → **18px** — 32 원 안에서 위아래 7px 씩 남아, 프로필 동그라미(28) · 버튼 글자(14)와 무게가 맞는다',
+    css: `/* 알림 종 — 프로필 · 페이지 이동 버튼과 같은 32px 원, 아이콘 20 → 18 */\n@media (min-width: 901px) {\n  .cl-scope .cl-pub-icon-btn.cl-ws-alarm { width: var(--cl-h-control); height: var(--cl-h-control); }\n}\n.cl-scope .cl-pub-icon-btn.cl-ws-alarm > .cl-icon { width: 18px; height: 18px; }`,
+    targets: ['.cl-ws-alarm'],
+    note: '눌리는 자리는 공통 규칙(손가락 화면에서 `::after` 로 44px 까지 넓힘)이 그대로 지켜 준다 — 보이는 원만 작아진다. 모바일(900px 이하)은 44px 그대로 둔다. 새 알림 점(`.cl-ws-alarm__dot`)은 위치가 버튼 기준이라 함께 따라온다.'
+  },
+  {
+    id: 'AC4', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-courses'],
+    title: '머리 — 위치와 제목 사이 8 → 24px',
+    current: '위치(홈 > 전체강좌) · 제목(전체강좌) · 설명이 8px · 8px 간격으로 붙어 있다. 성격이 다른 셋(길 안내 · 제목 · 설명)이 한 덩어리로 뭉쳐 빽빽하다',
+    next: '위치와 제목 사이를 **24px**(`--cl-space-5`)로 넓힌다. 위치는 제목 위에 떠 있는 길 안내로, 제목과 설명은 한 묶음으로 읽힌다',
+    css: `/* 위치(홈 > 전체강좌)와 제목 사이를 24px 로 */\n.cl-cs-head__row { margin-top: var(--cl-space-5); }`,
+    targets: ['.cl-cs-head'],
+    note: '제목과 설명 사이(8px)는 그대로 두었다 — 둘은 한 묶음이라 붙어 있는 게 맞다. Q&A · 자유게시판 머리도 같은 구조라 그 화면을 고칠 때 같은 값으로 맞춘다.'
   }
 ];
 
