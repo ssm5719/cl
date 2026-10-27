@@ -2531,12 +2531,12 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     id: 'AM16', group: 5, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-main'],
     title: '선생님 카드 — 마우스를 올리면 이름 옆에 화살표가 나타나기',
     current: '선생님 카드는 눌러서 선생님 상세로 가는 링크인데, 겉으로는 그냥 정보 상자처럼 보인다. 마우스를 올려도 테두리만 바뀐다 — 분류 카드에는 [강좌 보기 →] 가 처음부터 있어 누를 수 있다는 것이 보이는데, 선생님 카드에는 그런 표시가 없다',
-    next: '이름 오른쪽 10px 자리에 분류 카드와 **같은 화살표**를 둔다. 평소에는 보이지 않다가, 마우스를 올리면 왼쪽에서 6px 오른쪽으로 미끄러지며 서서히 나타난다 — 150ms ease-out 으로 테두리 · 이름 색과 같은 속도다. 글자를 더하지 않고 누를 수 있다는 것만 알린다',
-    css: `/* 선생님 이름 옆 화살표 — 평소에는 없고, 마우스를 올리면 오른쪽으로 미끄러지며 나타난다 */\n.cl-home-teacher__name { display: inline-flex; align-items: center; }\n.cl-home-teacher__arrow {\n  margin-left: 10px;\n  color: var(--cl-primary);\n  opacity: 0; transform: translateX(-6px);\n  transition: opacity 150ms ease-out, transform 150ms ease-out;\n  flex: none;\n}\n.cl-home-teacher:hover .cl-home-teacher__arrow { opacity: 1; transform: translateX(0); }\n@media (prefers-reduced-motion: reduce) {\n  .cl-home-teacher__arrow { transition: none; }\n  .cl-home-teacher:hover .cl-home-teacher__arrow { transform: none; }\n}`,
+    next: '이름 오른쪽 10px 자리에 분류 카드와 **같은 화살표**를 둔다. 평소에는 보이지 않다가, 마우스를 올리면 **제자리에서 서서히 나타난다** — 150ms ease-out 으로 테두리 · 이름 색과 같은 속도다. 움직이지 않는다. 글자를 더하지 않고 누를 수 있다는 것만 알린다',
+    css: `/* 선생님 이름 옆 화살표 — 평소에는 없고, 마우스를 올리면 제자리에서 나타난다 */\n.cl-home-teacher__name { display: inline-flex; align-items: center; }\n.cl-home-teacher__arrow {\n  margin-left: 10px;\n  color: var(--cl-primary);\n  opacity: 0;\n  transition: opacity 150ms ease-out;\n  flex: none;\n}\n.cl-home-teacher:hover .cl-home-teacher__arrow { opacity: 1; }\n@media (prefers-reduced-motion: reduce) {\n  .cl-home-teacher__arrow { transition: none; }\n}`,
     dom: `var ARROW = '<svg class="cl-icon cl-home-teacher__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';\ndoc.querySelectorAll('.cl-home-teacher__name').forEach(function (el) {\n  if (!el.querySelector('.cl-home-teacher__arrow')) el.insertAdjacentHTML('beforeend', ARROW);\n});`,
     markup: '`.cl-home-teacher__name` 안 맨 끝에 `<svg class="cl-icon cl-home-teacher__arrow" ...>` 를 넣는다. 분류 카드 `.cl-home-cat__go` 안에 있는 화살표와 같은 모양 · 같은 크기(16px)다. 선생님 목록 화면(`/user/teacher`)의 `.cl-teacher-card` 도 같은 링크 카드라 함께 넣는 쪽이 맞다.',
     targets: ['.cl-home-teachers'],
-    note: '이름(`strong`)을 `inline-flex` 로 바꿔 화살표를 옆에 세웠다 — 칸을 따로 만들지 않아 소개글이 없는 카드에서도 자리가 어긋나지 않는다. 화살표는 10px 떨어진 자리에 들어오므로 이름이 길어도 줄이 밀리지 않는다. `aria-hidden` 으로 둔다 — 링크 이름은 선생님 이름이고, 화살표는 읽을 것이 없다. `prefers-reduced-motion` 을 켠 사람에게는 움직임 없이 hover 할 때 바로 보인다.'
+    note: '이름(`strong`)을 `inline-flex` 로 바꿔 화살표를 옆에 세웠다 — 칸을 따로 만들지 않아 소개글이 없는 카드에서도 자리가 어긋나지 않는다. 화살표는 10px 떨어진 자리에 들어오므로 이름이 길어도 줄이 밀리지 않는다. `aria-hidden` 으로 둔다 — 링크 이름은 선생님 이름이고, 화살표는 읽을 것이 없다. 움직임은 넣지 않았다 — 화살표가 이미 오른쪽을 가리키고 있어 방향은 모양이 말해 준다. `prefers-reduced-motion` 을 켠 사람에게는 서서히가 아니라 바로 보인다.'
   }
 ];
 
