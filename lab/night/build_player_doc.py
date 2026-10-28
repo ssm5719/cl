@@ -1,7 +1,11 @@
 """학원 강의 보기 · 문서 강의 — a-player 에서 만든다. 기본 화면을 고치면 다시 실행."""
 import re, os
 os.chdir(os.path.join(os.path.dirname(__file__), '..', 'screens'))
-src = open('a-player.html').read()
+p0 = open('a-player.html').read()
+p0 = re.sub(r'(<span class="cl-playlist__num cl-num">03</span><span class="cl-playlist__body"><span class="cl-playlist__name">)[^<]*', r'\g<1>수학수능기출26 해설', p0, count=1)
+p0 = re.sub(r'<a class="cl-playlist__item" href="#"( data-lab-go="[^"]*")?><span class="cl-playlist__num cl-num">03</span>', '<a class="cl-playlist__item" href="#" data-lab-go="a-player-doc-hwp"><span class="cl-playlist__num cl-num">03</span>', p0, count=1)
+open('a-player.html', 'w').write(p0)
+src = p0
 I = lambda p, w=16: f'<svg class="cl-icon" width="{w}" height="{w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{p}</svg>'
 FILE = '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path>'
 DL = '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path><path d="M12 15V3"></path>'
@@ -24,19 +28,22 @@ def doc(kind, name, ext, meta):
             '<div class="cl-docfile__actions"><a class="cl-btn cl-btn--primary" href="#" download>' + I(DL) + '내려받기</a>'
             '<a class="cl-btn cl-btn--ghost" href="#" target="_blank">' + I(EXT) + '새 창으로 열기</a></div></div>')
     return f'<div class="cl-player" data-player=""><div class="cl-player__doc" data-doc-kind="{kind}">{view}{card}</div></div>'
-def build(out, kind, name, ext, meta):
+def build(out, kind, name, ext, meta, title='수학수능기출26', cur='02'):
     s = src
     s = re.sub(r'<div class="cl-player" data-player="">.*?</div></div>', doc(kind, name, ext, meta), s, count=1, flags=re.S)
-    s = re.sub(r'(<h1 class="cl-player-info__title" data-title="">).*?(</h1>)', r'\g<1>수학수능기출26\2', s, flags=re.S)
+    s = re.sub(r'(<h1 class="cl-player-info__title" data-title="">).*?(</h1>)', r'\g<1>' + title + r'\2', s, flags=re.S)
     s = re.sub(r'(<p class="cl-player-info__meta" data-meta="">).*?(</p>)', r'\g<1>2026.10.27 · 조회 0 · 공통수학 · 강의 2개\2', s, flags=re.S)
     s = s.replace('<title>[Playlist]', '<title>수학수능기출26 ·', 1)
     # 목록: 01 은 영상 강의로, 02 가 지금 강의
     s = re.sub(r'<a class="cl-playlist__item is-current" href="#" aria-current="page"><span class="cl-playlist__num cl-num">.*?</span>', '<a class="cl-playlist__item" href="#" data-lab-go="a-player"><span class="cl-playlist__num cl-num">01</span>', s, count=1, flags=re.S)
-    s = re.sub(r'<a class="cl-playlist__item" href="#"( data-lab-go="a-player-doc")?><span class="cl-playlist__num cl-num">02</span>',
-               '<a class="cl-playlist__item is-current" href="#" aria-current="page"><span class="cl-playlist__num cl-num">02</span>', s, count=1)
+    s = re.sub(r'<a class="cl-playlist__item" href="#"( data-lab-go="a-player-doc(-hwp)?")?><span class="cl-playlist__num cl-num">' + cur + '</span>',
+               '<a class="cl-playlist__item is-current" href="#" aria-current="page"><span class="cl-playlist__num cl-num">' + cur + '</span>', s, count=1)
+    for n, go in (('02', 'a-player-doc'), ('03', 'a-player-doc-hwp')):
+        if n != cur:
+            s = re.sub(r'<a class="cl-playlist__item" href="#"( data-lab-go="[^"]*")?><span class="cl-playlist__num cl-num">' + n + '</span>', '<a class="cl-playlist__item" href="#" data-lab-go="' + go + '"><span class="cl-playlist__num cl-num">' + n + '</span>', s, count=1)
     open(out, 'w').write(s)
 build('a-player-doc.html', 'pdf', '수학수능기출26.pdf', 'PDF', 'PDF · 40쪽 · 3.1MB')
-build('a-player-doc-hwp.html', 'file', '수학수능기출26_해설.hwp', 'HWP', '한글 문서 · 2.4MB')
+build('a-player-doc-hwp.html', 'file', '수학수능기출26_해설.hwp', 'HWP', '한글 문서 · 2.4MB', '수학수능기출26 해설', '03')
 # 영상 강의 화면 · 강좌 상세에서 문서 강의로
 p = open('a-player.html').read()
 p = re.sub(r'<a class="cl-playlist__item" href="#"><span class="cl-playlist__num cl-num">02</span>', '<a class="cl-playlist__item" href="#" data-lab-go="a-player-doc"><span class="cl-playlist__num cl-num">02</span>', p, count=1)
