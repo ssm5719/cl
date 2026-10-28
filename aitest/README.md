@@ -32,7 +32,7 @@
 Python 3.10 이상.
 
 ```bash
-cd ai-test
+cd aitest
 ```
 
 ```bash
