@@ -96,7 +96,12 @@ if (typeof document !== 'undefined') {
   });
   const onInput = (e) => {
     const el = e.target.closest('[data-a]');
-    if (el && el.matches('input, textarea, select')) current().onInput?.(el.dataset.a, el, state, e.type);
+    if (!el || !el.matches('input, textarea, select')) return;
+    // 글 입력 칸은 input 만, 체크 · 선택 칸은 change 만 받는다. 글 칸의 change(포커스 잃을 때)까지 받으면
+    // 다시 그리는 도중에 또 그리게 된다.
+    const choice = el.matches('select, [type=checkbox], [type=radio]');
+    if ((e.type === 'change') !== choice) return;
+    current().onInput?.(el.dataset.a, el, state, e.type);
   };
   document.addEventListener('input', onInput);
   document.addEventListener('change', onInput);

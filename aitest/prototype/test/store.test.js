@@ -52,3 +52,13 @@ test('삭제 · 붙여 넣은 지문 · 처음으로', () => {
   st.reset();
   assert.equal(st.listPasted().length, 0);
 });
+
+test('자료 권리 확인은 한 번 받으면 기억한다', () => {
+  const s = memoryStorage();
+  const st = createStore(s);
+  assert.equal(st.rightsAgreed(), false);
+  st.agreeRights();
+  assert.equal(createStore(s).rightsAgreed(), true);
+  createStore(s).reset();
+  assert.equal(createStore(s).rightsAgreed(), true, '데모 처음으로는 권리 확인까지 지우지 않음');
+});

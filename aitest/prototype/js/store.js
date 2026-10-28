@@ -1,5 +1,5 @@
 // 데모 저장소: 보는 사람의 브라우저(localStorage)에만 둔다. 막혀 있으면 메모리로만 동작한다.
-const KEY = { exams: 'cl-exam-proto:exams', pasted: 'cl-exam-proto:pasted' };
+const KEY = { exams: 'cl-exam-proto:exams', pasted: 'cl-exam-proto:pasted', rights: 'cl-exam-proto:rights' };
 
 export function createStore(storage = globalThis.localStorage) {
   const mem = { exams: [], pasted: [] };
@@ -40,6 +40,12 @@ export function createStore(storage = globalThis.localStorage) {
     },
     listPasted: () => [...mem.pasted],
     savePasted(paper) { mem.pasted = [...mem.pasted.filter((p) => p.id !== paper.id), paper]; write('pasted'); },
+    rightsAgreed() {
+      if (mem.rights) return true;
+      try { mem.rights = storage?.getItem(KEY.rights) === '1'; } catch (e) { persistent = false; }
+      return !!mem.rights;
+    },
+    agreeRights() { mem.rights = true; try { storage?.setItem(KEY.rights, '1'); } catch (e) { persistent = false; } },
     reset() { mem.exams = []; mem.pasted = []; write('exams'); write('pasted'); },
   };
 }

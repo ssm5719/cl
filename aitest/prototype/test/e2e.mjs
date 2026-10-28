@@ -101,6 +101,50 @@ step('보관함: 지문 추가 → 직접 추가 행', async (page) => {
   assert(await page.isVisible('td >> text=직접 추가'), '종류 직접 추가 없음');
 });
 
+
+const barText = (page) => page.textContent('.pt-bar__summary');
+
+step('① 자료: 전체 선택은 그림 지문을 빼고, 0개면 다음 비활성', async (page) => {
+  await open(page, '#/new?paper=s-en');
+  await see(page, '.pt-steps [aria-current="step"] >> text=자료');
+  assert(await page.isDisabled('[data-a="wiz-next"]'), '고른 지문이 없는데 다음이 켜져 있음');
+  await page.click('[data-a="src-all"]');
+  assert((await barText(page)).includes('고른 지문 4개'), await barText(page));
+  assert(await page.isDisabled('[data-unit="s-en/u03"] input'), '그림 지문 체크박스가 켜져 있음');
+  await see(page, '[data-unit="s-en/u03"] >> text=그림이 있어 자동 출제에서 빠져요');
+  assert(!(await page.isDisabled('[data-a="wiz-next"]')), '다음이 꺼져 있음');
+});
+
+step('① 자료: 주소로 고른 지문 · 바구니에서 빼고 되돌리기', async (page) => {
+  await open(page, '#/new?units=s-en/u02');
+  await see(page, '.pt-basket >> text=22번');
+  assert((await barText(page)).includes('고른 지문 1개'), await barText(page));
+  await page.click('.pt-basket [data-a="basket-remove"]');
+  assert((await barText(page)).includes('고른 지문 0개'), '빼기 안 됨');
+  await page.click('[data-a="basket-undo"]');
+  assert((await barText(page)).includes('고른 지문 1개'), '되돌리기 안 됨');
+});
+
+step('① 자료: 지문 붙여넣기 · 권리 확인은 처음 한 번만 · 작성 중 저장', async (page) => {
+  await open(page, '#/new');
+  await page.click('[data-a="src-tab"][data-v="paste"]');
+  await page.fill('[data-a="paste-title"] >> nth=0', '교과서 1과');
+  await page.fill('[data-a="paste-text"] >> nth=0', 'Good habits are built one small step at a time.');
+  await page.click('[data-a="paste-add"]');
+  await page.fill('[data-a="paste-title"] >> nth=1', '교과서 2과');
+  await page.fill('[data-a="paste-text"] >> nth=1', 'Curiosity makes learning feel like play.');
+  assert(await page.isDisabled('[data-a="wiz-next"]'), '권리 확인 전에 다음이 켜져 있음');
+  await page.check('[data-a="rights"]');
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=방식');
+  const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('cl-exam-proto:exams') || '[]'));
+  assert(saved.some((e) => e.status === 'draft'), '작성 중 시험지가 저장되지 않음');
+  await open(page, '#/exams');
+  await open(page, '#/new');
+  await page.click('[data-a="src-tab"][data-v="paste"]');
+  assert(!(await page.isVisible('[data-a="rights"]')), '두 번째에도 권리 확인을 받음');
+});
+
 // ---------------------------------------------------------------- 실행
 
 const server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: ROOT, stdio: 'ignore' });
