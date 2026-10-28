@@ -71,7 +71,7 @@
 .cl-tc-course { display: flex; align-items: center; gap: 12px; min-width: 280px; }
 /* 강좌 칸은 flex 라 표의 고정 높이(64px)가 상자 높이로 굳어 글이 3줄이면 위아래 행으로 넘친다. 최소 높이로 바꿔 행이 늘어나게 */
 .cl-tc-table td.cl-tc-course { height: auto; min-height: 64px; }
-.cl-tc-course__thumb { flex: none; align-self: center; width: 80px; height: 45px; border-radius: var(--cl-radius-item); overflow: hidden; background: var(--cl-hover); display: block; text-decoration: none; }
+.cl-tc-course__thumb { flex: none; align-self: center; width: 80px; height: 45px; border-radius: var(--cl-radius-2xs); overflow: hidden; background: var(--cl-hover); display: block; text-decoration: none; }
 .cl-tc-course__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* 이미지가 없을 때: 목록의 작은 칸은 아이콘, 카드는 분류 + 강좌명 글자 썸네일 */
 .cl-tc-course__thumb .cl-thumb-icon { width: 100%; height: 100%; display: grid; place-items: center; background: var(--cl-primary-tint); color: var(--cl-primary); }
@@ -219,7 +219,7 @@ a.cl-tc-todo:hover { text-decoration: underline; }
 .cl-tce-row__order .cl-icon-btn:disabled { opacity: .3; cursor: default; }
 .cl-tce-handle { width: 24px; height: 28px; display: grid; place-items: center; color: var(--cl-ink-muted); cursor: grab; }
 .cl-tce-handle.is-disabled { cursor: not-allowed; opacity: .35; }
-.cl-tce-thumb { position: relative; width: 96px; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: var(--cl-radius-item); overflow: hidden; background: var(--cl-hover); cursor: pointer; }
+.cl-tce-thumb { position: relative; width: 96px; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: var(--cl-radius-2xs); overflow: hidden; background: var(--cl-hover); cursor: pointer; }
 .cl-tce-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cl-tce-thumb__hover { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0, 0, 0, .45); color: var(--cl-on-ink); font-size: var(--cl-fs-micro); font-weight: 600; opacity: 0; transition: opacity .15s; }
 .cl-tce-thumb:hover .cl-tce-thumb__hover, .cl-tce-thumb:focus-visible .cl-tce-thumb__hover { opacity: 1; }
@@ -267,7 +267,7 @@ a.cl-tc-todo:hover { text-decoration: underline; }
 .cl-tl-pick__name + .cl-badge { margin-left: auto; }
 .cl-tl-has-bar { padding-bottom: 88px; }
 .cl-tl-toast { display: flex; align-items: center; gap: 12px; }
-.cl-tl-toast__undo { pointer-events: auto; height: 28px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-item); background: rgba(255, 255, 255, .2); color: var(--cl-on-ink); font: inherit; font-weight: 600; cursor: pointer; }
+.cl-tl-toast__undo { pointer-events: auto; height: 28px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-2xs); background: rgba(255, 255, 255, .2); color: var(--cl-on-ink); font: inherit; font-weight: 600; cursor: pointer; }
 .cl-tl-toast__undo:hover { background: rgba(255, 255, 255, .3); }
 .cl-tl-pick__empty { padding: 40px 12px; text-align: center; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
 @media (max-width: 900px) {
@@ -319,7 +319,7 @@ a.cl-tc-todo:hover { text-decoration: underline; }
 .cl-tp-lecture strong { display: block; font-size: var(--cl-fs-micro); }
 .cl-tp-lecture span { display: block; max-width: 64px; overflow: hidden; text-overflow: ellipsis; font-size: var(--cl-fs-11); font-weight: 400; color: var(--cl-ink-muted); }
 .cl-tp-cell { padding: 4px !important; text-align: center; }
-.cl-tp-heat { width: 56px; height: 32px; border: 0; border-radius: var(--cl-radius-item); display: inline-grid; place-items: center; font: inherit; font-size: var(--cl-fs-12); font-weight: 600; font-variant-numeric: tabular-nums; }
+.cl-tp-heat { width: 56px; height: 32px; border: 0; border-radius: var(--cl-radius-2xs); display: inline-grid; place-items: center; font: inherit; font-size: var(--cl-fs-12); font-weight: 600; font-variant-numeric: tabular-nums; }
 button.cl-tp-heat { cursor: pointer; }
 button.cl-tp-heat:hover, .cl-tp-heat.is-selected { outline: 2px solid var(--cl-ink); outline-offset: 1px; }
 .cl-tp-heat.is-0, .cl-tp-swatch.is-0 { background: var(--cl-heat-0); color: var(--cl-ink-muted); }
@@ -371,13 +371,13 @@ button.cl-tp-heat:hover, .cl-tp-heat.is-selected { outline: 2px solid var(--cl-i
 .cl-tpd-class .cl-tpd-stop.is-drop small { color: var(--cl-ink-muted); }
 .cl-tpd-bars { align-items: flex-end; padding-top: 11px !important; padding-bottom: 11px !important; }
 .cl-tpd-slot { flex: 1 1 0; min-width: 0; height: 50px; display: flex; align-items: flex-end; }
-.cl-tpd-bar { width: 100%; border-radius: var(--cl-radius-hair) var(--cl-radius-hair) 0 0; }
+.cl-tpd-bar { width: 100%; border-radius: var(--cl-radius-3xs) var(--cl-radius-3xs) 0 0; }
 .cl-tpd-bar.is-high { background: var(--cl-heat-3); }
 .cl-tpd-bar.is-low { background: var(--cl-heat-2); }
 .cl-tpd-bar.is-drop { background: var(--cl-danger); }
 .cl-tpd-bar.is-excluded { background: repeating-linear-gradient(135deg, var(--cl-track) 0 2px, var(--cl-row-hover) 2px 4px); }
 .cl-tpd-bar:focus-visible { outline: 2px solid var(--cl-ink); }
-.cl-tp-tip { position: fixed; z-index: 1000; padding: 4px 8px; border-radius: var(--cl-radius-item); background: var(--cl-surface-dark); color: var(--cl-on-ink); font-size: var(--cl-fs-micro); white-space: nowrap; pointer-events: none; }
+.cl-tp-tip { position: fixed; z-index: 1000; padding: 4px 8px; border-radius: var(--cl-radius-2xs); background: var(--cl-surface-dark); color: var(--cl-on-ink); font-size: var(--cl-fs-micro); white-space: nowrap; pointer-events: none; }
 .cl-tp-tip[hidden] { display: none; }
 /* 16강씩 펼쳐 보기: 학생 180 · 전체 72 · 칸 32px */
 .cl-tpd-chunks { margin-bottom: 4px; }
@@ -412,7 +412,7 @@ button.cl-tp-heat:hover, .cl-tp-heat.is-selected { outline: 2px solid var(--cl-i
     .cl-tpd-stop { grid-column: 1 / -1; grid-row: 2; }
     .cl-tpd-band { grid-column: 1 / -1; grid-row: 3; min-height: 22px; }
     .cl-tpd-head .cl-tpd-band { grid-row: 2; min-height: 18px; }
-    .cl-tpd-class .cl-tpd-stop.is-drop { padding: 6px 8px; border-radius: var(--cl-radius-item); }
+    .cl-tpd-class .cl-tpd-stop.is-drop { padding: 6px 8px; border-radius: var(--cl-radius-2xs); }
 }
 
 /* 그룹 관리 */
@@ -510,8 +510,8 @@ button.cl-tp-heat:hover, .cl-tp-heat.is-selected { outline: 2px solid var(--cl-i
 .cl-thumb__color { width: 40px; height: 40px; flex: none; padding: 3px; border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); cursor: pointer; }
 .cl-thumb__row .cl-thumb__color, .cl-thumb__swatches .cl-thumb__color { width: 32px; height: 32px; }
 .cl-thumb__color::-webkit-color-swatch-wrapper { padding: 0; }
-.cl-thumb__color::-webkit-color-swatch { border: 0; border-radius: var(--cl-radius-item); }
-.cl-thumb__color::-moz-color-swatch { border: 0; border-radius: var(--cl-radius-item); }
+.cl-thumb__color::-webkit-color-swatch { border: 0; border-radius: var(--cl-radius-2xs); }
+.cl-thumb__color::-moz-color-swatch { border: 0; border-radius: var(--cl-radius-2xs); }
 .cl-thumb__bgs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
 .cl-thumb__bg { padding: 0; border: 0; border-radius: var(--cl-radius-xs); overflow: hidden; aspect-ratio: 16 / 9; background: var(--cl-parchment); box-shadow: 0 0 0 1px var(--cl-hairline); cursor: pointer; }
 .cl-thumb__bg img { display: block; width: 100%; height: 100%; object-fit: cover; }

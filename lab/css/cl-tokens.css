@@ -104,9 +104,9 @@
   --cl-pub-gutter: max(20px, calc((100cqw - 1200px) / 2));
 
   /* 반경 */
-  --cl-radius-hair: 2px;  /* 진행 막대 끝 · 탭 밑줄 */
+  --cl-radius-3xs: 2px;  /* 진행 막대 끝 · 탭 밑줄 */
   --cl-radius-xs: 4px;    /* 체크박스 · 히트맵 칸 */
-  --cl-radius-item: 6px;  /* 메뉴 줄 · 작은 버튼 · 배지 · 작은 썸네일 */
+  --cl-radius-2xs: 6px;  /* 메뉴 줄 · 작은 버튼 · 배지 · 작은 썸네일 */
   --cl-radius-sm: 8px;    /* 작업공간 버튼 · 입력 · 배지(6) */
   --cl-radius-md: 10px;   /* 작업공간 카드 */
   --cl-radius-lg: 12px;   /* 공개 썸네일 · 떠 있는 바 */

@@ -24,8 +24,8 @@
 .cl-ws-topbar { grid-column: 1 / -1; position: sticky; top: 0; z-index: 30; height: var(--cl-h-ws-topbar); display: flex; align-items: center; background: var(--cl-canvas); border-bottom: 1px solid var(--cl-grid-head); }
 .cl-ws-topbar .cl-ws-topbar__menu { display: none; }
 .cl-ws-brand { width: var(--cl-w-ws-sidebar); height: 100%; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: var(--cl-sidebar); border-right: 1px solid var(--cl-sidebar-border); text-decoration: none; }
-.cl-ws-brand__mark { width: 24px; height: 24px; flex: none; border-radius: var(--cl-radius-item); background: var(--cl-primary); color: var(--cl-on-ink); display: grid; place-items: center; font-size: var(--cl-fs-12); font-weight: 700; }
-.cl-ws-brand__logo { width: 24px; height: 24px; flex: none; border-radius: var(--cl-radius-item); object-fit: contain; }
+.cl-ws-brand__mark { width: 24px; height: 24px; flex: none; border-radius: var(--cl-radius-2xs); background: var(--cl-primary); color: var(--cl-on-ink); display: grid; place-items: center; font-size: var(--cl-fs-12); font-weight: 700; }
+.cl-ws-brand__logo { width: 24px; height: 24px; flex: none; border-radius: var(--cl-radius-2xs); object-fit: contain; }
 .cl-ws-brand__text { min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
 .cl-ws-brand__name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cl-ws-brand__area { font-size: var(--cl-fs-micro); color: var(--cl-ink-muted); }
@@ -77,7 +77,7 @@
 .cl-ws-nav { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; padding: 2px 8px 12px; display: flex; flex-direction: column; gap: 8px; }
 .cl-ws-nav__group { display: flex; flex-direction: column; gap: 1px; }
 .cl-ws-nav__label { height: 28px; display: flex; align-items: center; padding: 0 8px; font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
-.cl-ws-nav__item { height: var(--cl-h-nav-item); flex: none; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: var(--cl-radius-item); color: var(--cl-ink-2); text-decoration: none; }
+.cl-ws-nav__item { height: var(--cl-h-nav-item); flex: none; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: var(--cl-radius-2xs); color: var(--cl-ink-2); text-decoration: none; }
 .cl-ws-nav__item > .cl-icon { color: var(--cl-ink-muted); }
 .cl-ws-nav__item:hover { background: var(--cl-nav-hover); }
 .cl-ws-nav__item:hover > .cl-icon { color: currentColor; }
@@ -144,7 +144,7 @@ button.cl-ws-nav__item { width: 100%; border: 0; background: transparent; font: 
 /* ---------- 버튼 ---------- */
 .cl-btn { height: var(--cl-h-control); padding: 0 12px; border: 0; border-radius: var(--cl-radius-sm); display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 600; text-decoration: none; cursor: pointer; white-space: nowrap; }
 .cl-btn--lg { height: var(--cl-touch); padding: 0 20px; font-size: var(--cl-fs-15); }
-.cl-btn--xs { height: 26px; padding: 0 8px; font-size: var(--cl-fs-micro); border-radius: var(--cl-radius-item); }
+.cl-btn--xs { height: 26px; padding: 0 8px; font-size: var(--cl-fs-micro); border-radius: var(--cl-radius-2xs); }
 .cl-btn--primary { background: var(--cl-primary); color: var(--cl-on-ink); }
 .cl-btn--primary:hover { background: var(--cl-primary-pressed); }
 .cl-btn--primary:disabled { background: var(--cl-ink-faint); cursor: not-allowed; }
@@ -172,7 +172,7 @@ button.cl-ws-nav__item { width: 100%; border: 0; background: transparent; font: 
 /* iOS 는 16px 보다 작은 입력 칸에 포커스하면 화면을 확대하고 되돌리지 않는다 — 터치 기기만 16px */
 @media (pointer: coarse) { .cl-scope :is(input:not([type=checkbox], [type=radio], [type=range], [type=color]), select, textarea) { font-size: var(--cl-fs-16); } }
 .cl-input:focus { outline: 2px solid var(--cl-primary); outline-offset: -1px; border-color: transparent; }
-.cl-input-group__btn { position: absolute; right: 2px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border: 0; border-radius: var(--cl-radius-item); background: transparent; color: var(--cl-ink-muted); display: grid; place-items: center; cursor: pointer; }
+.cl-input-group__btn { position: absolute; right: 2px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border: 0; border-radius: var(--cl-radius-2xs); background: transparent; color: var(--cl-ink-muted); display: grid; place-items: center; cursor: pointer; }
 .cl-input-group__btn[aria-pressed="true"] { color: var(--cl-primary-pressed); }
 .cl-input-group .cl-input:has(+ .cl-input-group__btn) { padding-right: 44px; }
 .cl-field.is-invalid .cl-input { border-color: var(--cl-danger); }
@@ -198,7 +198,7 @@ button.cl-ws-nav__item { width: 100%; border: 0; background: transparent; font: 
 .cl-menu { padding: 6px; display: flex; flex-direction: column; }
 .cl-menu__head { padding: 8px 10px 4px; display: flex; flex-direction: column; }
 .cl-menu__head span { font-size: var(--cl-fs-micro); color: var(--cl-ink-muted); }
-.cl-menu__item { height: 36px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-item); background: transparent; display: flex; align-items: center; gap: 8px; text-align: left; text-decoration: none; cursor: pointer; }
+.cl-menu__item { height: 36px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-2xs); background: transparent; display: flex; align-items: center; gap: 8px; text-align: left; text-decoration: none; cursor: pointer; }
 .cl-menu__item:hover { background: var(--cl-hover); }
 /* 계정 메뉴 묶음 가르기: 설정 · 바로가기 · 도움 · 계정 */
 .cl-menu__sep { height: 1px; margin: 4px 6px; background: var(--cl-grid-row); }
