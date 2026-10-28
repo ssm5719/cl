@@ -3095,7 +3095,9 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
     current: "[질문하기] · [관련 질문]을 누르면 같은 탭에서 다른 화면으로 넘어가 보던 영상이 끊김",
     next: "오른쪽 칸 머리를 [강의 목록 20 | 관련 질문 3] 탭으로(검색 · 정렬은 강의 목록 탭에 그대로). 지금 보는 강의 제목 아래 [이 강의 질문하기] → 누르면 그 자리에 짧은 입력칸(2줄, 내용에 따라 늘어남) · Enter 등록 · Shift+Enter 줄바꿈 · [취소][등록] · '파일 첨부 · 자세히 쓰기'(새 탭, 강좌 · 강의 미리 골라짐). 등록하면 이동 없이 '질문을 등록했어요' 3초 · 관련 질문 맨 위에 추가. 관련 질문은 상태 배지 · 제목 · 강의 이름(이 강의는 보라), 누르면 새 탭. 버튼 줄의 [질문하기][관련 질문]은 뺌",
     css: `/* 오른쪽 칸 — [강의 목록 | 관련 질문] 탭. 검색 · 정렬은 강의 목록 탭 그대로 */
-.cl-ptabs { display: flex; gap: 20px; margin: -4px 0 0; border-bottom: 1px solid var(--cl-hairline); }
+.cl-playlist__head { padding: 16px 20px 16px; gap: 16px; }
+.cl-ptabs { display: flex; gap: 24px; margin: 0; border-bottom: 1px solid var(--cl-hairline); }
+.cl-playlist__item { padding: 14px 20px; }
 .cl-ptab { position: relative; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0; border: 0; background: none; font: inherit; font-size: var(--cl-fs-body-sm-pub); font-weight: 500; color: var(--cl-ink-muted); cursor: pointer; }
 .cl-ptab[aria-selected="true"] { color: var(--cl-ink); font-weight: 600; }
 .cl-ptab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; border-radius: 2px; background: var(--cl-primary); }
@@ -3104,34 +3106,36 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
 .cl-playlist__head .cl-playlist__title { display: none; }
 .cl-player-page__aside[data-tab="qna"] .cl-playlist__tools, .cl-player-page__aside[data-tab="qna"] .cl-playlist { display: none; }
 .cl-player-page__aside:not([data-tab="qna"]) .cl-prelated { display: none; }
-/* 지금 보는 강의 — 제목 아래 [질문하기] */
+/* 지금 보는 강의 — 제목 아래 [질문하기]. 묶음 안 12, 바깥 20 */
 .cl-playlist li.has-ask { background: var(--cl-primary-tint); }
-.cl-playlist li.has-ask > .cl-playlist__item { padding-bottom: 6px; }
-.cl-playlist__ask { padding: 0 16px 12px 52px; }
-.cl-ask-btn { display: inline-flex; align-items: center; gap: 4px; height: 28px; padding: 0 10px; border: 1px solid var(--cl-primary-tint-strong, #E4D7F8); border-radius: var(--cl-radius-pill); background: var(--cl-canvas); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; cursor: pointer; transition: border-color .15s ease-out, background-color .15s ease-out; }
-.cl-ask-btn:hover { border-color: var(--cl-primary); }
+.cl-playlist li.has-ask > .cl-playlist__item { padding: 16px 20px 0; background: none; }
+.cl-playlist__ask { padding: 12px 20px 20px 52px; }
+.cl-ask-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px #E4D7F8; color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; cursor: pointer; transition: box-shadow .15s ease-out; }
+.cl-ask-btn:hover { box-shadow: inset 0 0 0 1px var(--cl-primary); }
 .cl-ask-btn[hidden] { display: none; }
-/* 짧은 질문 입력 */
-.cl-ask { display: flex; flex-direction: column; gap: 8px; }
+@media (prefers-reduced-motion: reduce) { .cl-ask-btn { transition: none; } }
+/* 짧은 질문 입력 — 입력칸 아래 한 줄: [자세히 쓰기 ↗] … [취소][등록] */
+.cl-ask { display: flex; flex-direction: column; gap: 12px; }
 .cl-ask[hidden] { display: none; }
-.cl-ask textarea { width: 100%; box-sizing: border-box; min-height: 64px; max-height: 160px; padding: 10px 12px; border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); font: inherit; font-size: var(--cl-fs-ui); line-height: 1.5; resize: none; field-sizing: content; }
+.cl-ask textarea { width: 100%; box-sizing: border-box; min-height: 88px; max-height: 180px; padding: 12px 14px; border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6; resize: none; field-sizing: content; }
+.cl-ask textarea::placeholder { color: #A1A1A6; }
 .cl-ask textarea:focus { outline: none; border-color: var(--cl-primary); box-shadow: 0 0 0 3px rgba(144, 74, 232, .15); }
-.cl-ask__row { display: flex; align-items: center; gap: 6px; }
-.cl-ask__hint { flex: 1; font-size: var(--cl-fs-micro); color: var(--cl-ink-muted); }
-.cl-ask__row .cl-btn { height: 30px; padding: 0 12px; font-size: var(--cl-fs-caption); }
-.cl-ask__more { font-size: var(--cl-fs-micro); color: var(--cl-ink-muted); text-decoration: underline; text-underline-offset: 2px; }
-.cl-ask__done { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-success); }
+.cl-ask__row { display: flex; align-items: center; gap: 8px; }
+.cl-ask__more { display: inline-flex; align-items: center; gap: 4px; margin-right: auto; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-decoration: none; }
+.cl-ask__more:hover { color: var(--cl-ink); text-decoration: underline; text-underline-offset: 3px; }
+.cl-ask__row .cl-btn { height: 32px; padding: 0 14px; font-size: var(--cl-fs-caption); }
+.cl-ask__done { margin: 12px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-success); }
 /* 관련 질문 탭 */
 .cl-prelated { display: flex; flex-direction: column; min-height: 0; overflow: auto; }
 .cl-prelated__list { margin: 0; padding: 0; list-style: none; }
-.cl-prelated__item { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; row-gap: 4px; padding: 14px 16px; border-bottom: 1px solid var(--cl-hairline); color: var(--cl-ink); text-decoration: none; }
+.cl-prelated__item { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 6px; padding: 16px 20px; border-bottom: 1px solid var(--cl-hairline); color: var(--cl-ink); text-decoration: none; }
 .cl-prelated__item:hover { background: var(--cl-row-hover); }
 .cl-prelated__item { grid-template-columns: 64px minmax(0, 1fr); }
 .cl-prelated__item .cl-badge { grid-row: 1 / span 2; align-self: start; justify-content: center; width: 64px; box-sizing: border-box; }
 .cl-prelated__title { font-size: var(--cl-fs-ui); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cl-prelated__meta { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cl-prelated__here { color: var(--cl-primary-pressed); font-weight: 500; }
-.cl-prelated__all { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 12px 16px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-align: center; }
+.cl-prelated__all { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 16px 20px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-align: center; }
 /* 버튼 줄의 질문하기 · 관련 질문은 오른쪽 칸으로 옮겼으니 뺀다 */
 .cl-player-info .cl-cd__pills > .is-moved { display: none; }`,
     dom: `var aside = doc.querySelector('.cl-player-page__aside'); if (!aside || aside.querySelector('.cl-ptabs')) return;
@@ -3160,9 +3164,8 @@ head.after(rel);
 var cur = aside.querySelector('.cl-playlist__item.is-current'); if (!cur) return; var li = cur.closest('li'); li.classList.add('has-ask');
 var box = doc.createElement('div'); box.className = 'cl-playlist__ask';
 box.innerHTML = '<button type="button" class="cl-ask-btn lab-live">' + IC(MSG) + '이 강의 질문하기</button>' +
-  '<form class="cl-ask" hidden novalidate><textarea rows="2" maxlength="500" placeholder="이 강의에서 궁금한 점을 적어 주세요" aria-label="질문 내용"></textarea>' +
-  '<div class="cl-ask__row"><span class="cl-ask__hint">Enter 등록 · Shift+Enter 줄바꿈</span><button type="button" class="cl-btn cl-btn--ghost lab-live" data-cancel>취소</button><button type="submit" class="cl-btn cl-btn--primary lab-live">등록</button></div>' +
-  '<a class="cl-ask__more" href="#" target="_blank">파일 첨부 · 자세히 쓰기</a></form>';
+  '<form class="cl-ask" hidden novalidate><textarea rows="3" maxlength="500" placeholder="이 강의에서 궁금한 점을 적어 주세요&#10;Enter 등록 · Shift+Enter 줄바꿈" aria-label="질문 내용"></textarea>' +
+  '<div class="cl-ask__row"><a class="cl-ask__more" href="#" target="_blank">파일 첨부 · 자세히 쓰기 ' + IC(EXT) + '</a><button type="button" class="cl-btn cl-btn--ghost lab-live" data-cancel>취소</button><button type="submit" class="cl-btn cl-btn--primary lab-live">등록</button></div></form>';
 li.appendChild(box);
 var btn = box.querySelector('.cl-ask-btn'), form = box.querySelector('.cl-ask'), ta = form.querySelector('textarea');
 var open = function (on) { form.hidden = !on; btn.hidden = on; if (on) setTimeout(function () { ta.focus(); }, 0); fit(); };
@@ -3179,6 +3182,89 @@ ta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftK
     markup: "content-view.js: 질문 등록은 질문하기 페이지와 같은 POST /api/boards { cos, cnt, title, content } — title 은 입력 첫 줄 앞 60자, content 는 전체. 관련 질문은 GET /api/boards?type=cmnt&course={cos} (qna-list.js 와 같은 주소), 응답의 cnt_uid 가 지금 강의면 '이 강의'. 편집기 · 첨부는 이 칸에 두지 않으므로 Toast UI 를 더 불러올 필요 없음.",
     targets: [".cl-player-page__aside"],
     note: "실험실에서 탭 · [이 강의 질문하기] · 등록(가짜)이 동작함. [정할 것] '이 강의 질문만' 거르려면 서버에 강의(cnt) 조건 추가 필요 — 지금은 강좌 전체를 보여 주고 강의 이름으로 구분. 짧은 입력은 서식 없는 글로 저장됨(줄바꿈은 <br>)"
+  },
+  {
+    id: "NP2",
+    group: 2,
+    status: "제안",
+    kind: "마크업",
+    layer: "화면별",
+    screens: ["a-player"],
+    title: "강의 보기 — 선생님 링크를 누르면 아래로 작은 창(이동하지 않음)",
+    current: "[장현석 선생님 ›]을 누르면 같은 탭에서 선생님 상세로 넘어가 보던 영상이 끊김",
+    next: "누르면 버튼 아래 8px 에 320px 창 — 안쪽 20, [사진 44 · 이름 · 담당과목] / 16 / '담당 강좌 7' + 강좌 최대 5개(한 줄씩, 옅은 회색 선, 지금 강좌는 '보는 중') / 16 / [선생님 소개 전체 보기 ↗]. 소개글은 뺌. 강좌 · 전체 보기는 새 탭. 꺾쇠는 아래 방향, 열리면 뒤집힘 · 테두리 보라. 바깥 클릭 · Esc 로 닫힘",
+    css: `/* 강의 보기 선생님 — 누르면 아래로 작은 창(이동하지 않음). 안쪽 20 · 묶음 사이 16 */
+.cl-scope .cl-player-teacher { position: relative; cursor: pointer; border: 0; font: inherit; font-size: var(--cl-fs-ui); font-weight: 500; }
+.cl-player-teacher > .cl-icon { transition: transform .15s ease-out; }
+.cl-scope .cl-player-teacher[aria-expanded="true"] { box-shadow: inset 0 0 0 1px var(--cl-primary); color: var(--cl-primary-pressed); }
+.cl-player-teacher[aria-expanded="true"] > .cl-icon { transform: rotate(180deg); color: inherit; }
+.cl-tpop-wrap { position: relative; display: inline-flex; }
+.cl-player-teacher:focus:not(:focus-visible) { outline: none; }
+.cl-player-teacher[aria-expanded="true"] { outline: none; }
+.cl-tpop { position: absolute; top: calc(100% + 8px); left: 0; z-index: 30; width: 320px; max-width: calc(100vw - 40px); box-sizing: border-box; padding: 20px; border: 1px solid var(--cl-hairline); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); box-shadow: 0 8px 24px rgba(0, 0, 0, .08); }
+.cl-tpop[hidden] { display: none; }
+.cl-tpop__head { display: flex; align-items: center; gap: 12px; }
+.cl-tpop__head .cl-avatar-ph, .cl-tpop__head img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+.cl-tpop__name { margin: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 600; color: var(--cl-ink); }
+.cl-tpop__subject { margin: 2px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-tpop__label { margin: 20px 0 8px; display: flex; align-items: center; gap: 6px; font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-tpop__label .cl-num { height: 20px; min-width: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); background: var(--cl-hover); }
+.cl-tpop__list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--cl-hairline); }
+.cl-tpop__list a { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--cl-hairline); font-size: var(--cl-fs-ui); color: var(--cl-ink); text-decoration: none; }
+.cl-tpop__list a span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-tpop__list a:hover span { color: var(--cl-primary-pressed); }
+.cl-tpop__now { flex: none; height: 20px; padding: 0 8px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); font-weight: 500; background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+.cl-tpop__all { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 16px; height: 36px; border-radius: var(--cl-radius-sm); background: var(--cl-hover); font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink); text-decoration: none; }
+.cl-tpop__all:hover { background: var(--cl-row-hover); }
+@media (prefers-reduced-motion: reduce) { .cl-player-teacher > .cl-icon { transition: none; } }`,
+    dom: `var a = doc.querySelector('.cl-player-teacher'); if (!a || a.closest('.cl-tpop-wrap')) return;
+var EXT = '<svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>';
+var chev = a.querySelector('.cl-icon'); if (chev) chev.innerHTML = '<path d="m6 9 6 6 6-6"></path>';
+var name = (a.querySelector('span:not(.cl-comment__avatar):not(.cl-avatar-ph)') || a).textContent.trim();
+var btn = doc.createElement('button'); btn.type = 'button'; btn.className = a.className + ' lab-live'; btn.innerHTML = a.innerHTML;
+btn.setAttribute('aria-haspopup', 'dialog'); btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-label', name + ' 정보 열기');
+var wrap = doc.createElement('span'); wrap.className = 'cl-tpop-wrap'; a.replaceWith(wrap); wrap.appendChild(btn);
+var av = btn.querySelector('.cl-comment__avatar'); var avHtml = av ? av.innerHTML : '';
+var C = ['중학교1학년수학복습', '공통수학', '함수', '무한히 계속 더했지만 유한이 된다?', '이차방정식의 근과 계수의 관계'];
+var now = '공통수학';
+var pop = doc.createElement('div'); pop.className = 'cl-tpop'; pop.hidden = true; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', name);
+pop.innerHTML = '<div class="cl-tpop__head">' + avHtml + '<div><p class="cl-tpop__name">' + name + '</p><p class="cl-tpop__subject">수학</p></div></div>' +
+  '<p class="cl-tpop__label">담당 강좌 <span class="cl-num">7</span></p><ul class="cl-tpop__list">' +
+  C.map(function (c) { return '<li><a href="#" target="_blank"><span>' + c + '</span>' + (c === now ? '<em class="cl-tpop__now" style="font-style:normal">보는 중</em>' : '') + '</a></li>'; }).join('') +
+  '</ul><a class="cl-tpop__all" href="#" target="_blank">선생님 소개 전체 보기 ' + EXT + '</a>';
+wrap.appendChild(pop);
+var fit = function () { try { parent.postMessage({ labFit: 1 }, '*'); } catch (e) {} };
+var set = function (on) { pop.hidden = !on; btn.setAttribute('aria-expanded', String(on)); fit(); };
+btn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); set(pop.hidden); });
+doc.addEventListener('click', function (e) { if (!wrap.contains(e.target)) set(false); });
+doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) { set(false); btn.focus(); } });`,
+    markup: "content-view.js: 링크(a) 대신 버튼. 처음 열 때 GET /api/teachers/{tea_uid} (이름 · 과목 · 사진) 와 GET /api/courses/teacher/{tea_uid}?page=0 (teacher-read.js 와 같은 주소) 를 불러와 5개만 그림. 지금 강좌(cos_uid 같음)는 '보는 중'.",
+    targets: [".cl-player-teacher"],
+    note: "실험실에서 열고 닫힘. 휴대폰에서도 같은 자리 아래로 열림(너비 화면 - 40)"
+  },
+  {
+    id: "NI1",
+    group: 5,
+    status: "확정",
+    kind: "마크업",
+    layer: "공통 부품",
+    screens: ["a-main", "a-courses", "a-courses-empty", "a-course-read", "a-player", "a-about", "a-teachers", "a-teachers-empty", "a-teacher-read", "a-teacher-read-empty", "a-qna", "a-qna-empty", "a-qna-read", "a-qna-read-empty", "a-board", "a-board-empty", "a-board-read", "a-board-read-empty"],
+    title: "사진 없는 선생님 아이콘 — 메인과 같은 선 아이콘으로 통일",
+    current: "머리 계정 버튼 · 강의 보기 선생님 링크의 기본 그림(default-person.svg)이 세로 사진용(200×260) 회색 사람이라 동그라미 안에서 머리 · 어깨가 잘려 보임",
+    next: "메인 선생님 소개(AM10) · 선생님 목록 · 상세(NT5)와 같은 선 사람 아이콘을 연보라(#F7F3FD) 원 가운데 60% 크기로. 색은 학원 대표색",
+    css: `/* 사진 없는 선생님 — 잘린 회색 사람 그림 대신 메인(AM10)과 같은 선 아이콘, 연보라 원 */
+.cl-avatar-ph { display: inline-grid; place-items: center; flex: none; box-sizing: border-box; border-radius: 50%; background: #F7F3FD; color: var(--cl-primary); overflow: hidden; }
+.cl-avatar-ph > svg { width: 60%; height: 60%; margin-top: -4%; }
+.cl-ws-account .cl-avatar-ph { width: 32px; height: 32px; }
+.cl-comment__avatar .cl-avatar-ph { width: 100%; height: 100%; }`,
+    dom: `var ICON = '<svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true" focusable="false"><path d="m11.4 93.3c-.1 0-.1 0-.2 0-1.3-.1-2.2-1.2-2.1-2.4 1.3-19.1 19.3-34 40.9-34s39.6 14.9 40.9 33.9c.1 1.3-.9 2.3-2.1 2.4-1.3.1-2.3-.9-2.4-2.1-1.2-16.7-17.2-29.7-36.4-29.7-19.3 0-35.3 13.1-36.4 29.8-.1 1.2-1.1 2.1-2.2 2.1z"></path><path d="m50 52.3c-12.6 0-22.8-10.2-22.8-22.8s10.2-22.8 22.8-22.8 22.8 10.2 22.8 22.8-10.2 22.8-22.8 22.8zm0-41c-10 0-18.2 8.2-18.2 18.2s8.2 18.2 18.2 18.2 18.2-8.2 18.2-18.2-8.2-18.2-18.2-18.2z"></path></svg>';
+/* 선생님 자리만: 머리 계정 버튼(선생님 로그인) · 강의 보기 선생님 링크 · 선생님 드롭다운 */
+doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teacher img[src*="default-person"], .cl-player-info__teacher-link img[src*="default-person"], .cl-tpop img[src*="default-person"]').forEach(function (img) {
+  var s = doc.createElement('span'); s.className = 'cl-avatar-ph' + (img.classList.contains('cl-avatar') ? ' cl-avatar' : ''); s.innerHTML = ICON; img.replaceWith(s);
+});`,
+    markup: "선생님 사진이 없을 때 <img src=default-person.svg> 대신 <span class=\"cl-avatar-ph\"><svg …AM10 아이콘…></svg></span>. 크기는 자리마다(머리 32 · 강의 보기 링크 28 · 드롭다운 44). 아이콘 파일은 lab/img/teacher-placeholder.svg",
+    targets: [".cl-avatar-ph"],
+    note: "학생 댓글의 기본 그림은 학생 자리라 이번에는 그대로 둠"
   }
 ];
 
