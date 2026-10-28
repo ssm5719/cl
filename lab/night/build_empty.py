@@ -48,6 +48,7 @@ open('a-board-empty.html','w').write(nopag(s))
 # 게시글 읽기 — 댓글 없음
 s=open('a-board-read.html').read(); a,b=cut(s,'<ul class="cl-comments__list"','ul')
 s=a+empty('msg','아직 댓글이 없습니다',extra=' cl-pub-empty--sm')+b
+s=re.sub(r'(cl-comments__title">댓글 <span class="cl-num">)\d+',r'\g<1>0',s)
 open('a-board-read-empty.html','w').write(s)
 # 선생님 상세 — 담당 강좌 없음 (같은 부품으로)
 s=open('a-teacher-read-empty.html').read()
