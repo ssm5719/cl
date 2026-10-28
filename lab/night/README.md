@@ -27,3 +27,4 @@
 - 2026.10.28 — 문서 강의 `a-player-doc`(PDF) · `a-player-doc-hwp`(한글 · 워드) 추가, `build_player_doc.py` 가 a-player 에서 만든다. 영상 화면 · 강좌 상세의 수학수능기출26 이 여기로 연결. NP3(제안).
 - 2026.10.28 — 전체강좌 학생 로그인 `a-courses-s`(수강 상태 7개, `build_courses_student.py`) · NC1(카드형 · 목록형 여백 · 상태 표시) 확정.
 - 2026.10.28 — 수강 상태 버튼을 공통 부품으로: `cl-btn--undo`(수강중 → 수강 취소) · `cl-btn--pill`, 수강신청은 `cl-btn--tint cl-btn--pill`. lab/css/components.css 에 정의, NC1 의 화면 전용 클래스(cl-cs-state · cl-cs-apply) 삭제.
+- 2026.10.28 — 학원 메인 대시보드형 `a-main-dash`(테스트 사이트 마크업, `build_main_dash.py`) · 대시보드 CSS(`public-dash.css` → css/public.css 끝) · NM1(제안).
