@@ -3083,6 +3083,102 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
 .cl-pub-main .cl-post-footer .cl-btn { height: 40px; }`,
     targets: [".cl-post__head", ".cl-post-footer"],
     note: "글쓴이가 볼 때 [수정][삭제]가 생기면 지금처럼 제목 줄 오른쪽(공유 · 인쇄 옆)"
+  },
+  {
+    id: "NP1",
+    group: 2,
+    status: "제안",
+    kind: "마크업",
+    layer: "화면별",
+    screens: ["a-player"],
+    title: "강의 보기 — 질문하기 · 관련 질문을 페이지 이동 없이 오른쪽 칸에서",
+    current: "[질문하기] · [관련 질문]을 누르면 같은 탭에서 다른 화면으로 넘어가 보던 영상이 끊김",
+    next: "오른쪽 칸 머리를 [강의 목록 20 | 관련 질문 3] 탭으로(검색 · 정렬은 강의 목록 탭에 그대로). 지금 보는 강의 제목 아래 [이 강의 질문하기] → 누르면 그 자리에 짧은 입력칸(2줄, 내용에 따라 늘어남) · Enter 등록 · Shift+Enter 줄바꿈 · [취소][등록] · '파일 첨부 · 자세히 쓰기'(새 탭, 강좌 · 강의 미리 골라짐). 등록하면 이동 없이 '질문을 등록했어요' 3초 · 관련 질문 맨 위에 추가. 관련 질문은 상태 배지 · 제목 · 강의 이름(이 강의는 보라), 누르면 새 탭. 버튼 줄의 [질문하기][관련 질문]은 뺌",
+    css: `/* 오른쪽 칸 — [강의 목록 | 관련 질문] 탭. 검색 · 정렬은 강의 목록 탭 그대로 */
+.cl-ptabs { display: flex; gap: 20px; margin: -4px 0 0; border-bottom: 1px solid var(--cl-hairline); }
+.cl-ptab { position: relative; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0; border: 0; background: none; font: inherit; font-size: var(--cl-fs-body-sm-pub); font-weight: 500; color: var(--cl-ink-muted); cursor: pointer; }
+.cl-ptab[aria-selected="true"] { color: var(--cl-ink); font-weight: 600; }
+.cl-ptab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; border-radius: 2px; background: var(--cl-primary); }
+.cl-ptab .cl-num { height: 20px; min-width: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); font-weight: 500; background: var(--cl-hover); color: var(--cl-ink-muted); }
+.cl-ptab[aria-selected="true"] .cl-num { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+.cl-playlist__head .cl-playlist__title { display: none; }
+.cl-player-page__aside[data-tab="qna"] .cl-playlist__tools, .cl-player-page__aside[data-tab="qna"] .cl-playlist { display: none; }
+.cl-player-page__aside:not([data-tab="qna"]) .cl-prelated { display: none; }
+/* 지금 보는 강의 — 제목 아래 [질문하기] */
+.cl-playlist li.has-ask { background: var(--cl-primary-tint); }
+.cl-playlist li.has-ask > .cl-playlist__item { padding-bottom: 6px; }
+.cl-playlist__ask { padding: 0 16px 12px 52px; }
+.cl-ask-btn { display: inline-flex; align-items: center; gap: 4px; height: 28px; padding: 0 10px; border: 1px solid var(--cl-primary-tint-strong, #E4D7F8); border-radius: var(--cl-radius-pill); background: var(--cl-canvas); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; cursor: pointer; transition: border-color .15s ease-out, background-color .15s ease-out; }
+.cl-ask-btn:hover { border-color: var(--cl-primary); }
+.cl-ask-btn[hidden] { display: none; }
+/* 짧은 질문 입력 */
+.cl-ask { display: flex; flex-direction: column; gap: 8px; }
+.cl-ask[hidden] { display: none; }
+.cl-ask textarea { width: 100%; box-sizing: border-box; min-height: 64px; max-height: 160px; padding: 10px 12px; border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); font: inherit; font-size: var(--cl-fs-ui); line-height: 1.5; resize: none; field-sizing: content; }
+.cl-ask textarea:focus { outline: none; border-color: var(--cl-primary); box-shadow: 0 0 0 3px rgba(144, 74, 232, .15); }
+.cl-ask__row { display: flex; align-items: center; gap: 6px; }
+.cl-ask__hint { flex: 1; font-size: var(--cl-fs-micro); color: var(--cl-ink-muted); }
+.cl-ask__row .cl-btn { height: 30px; padding: 0 12px; font-size: var(--cl-fs-caption); }
+.cl-ask__more { font-size: var(--cl-fs-micro); color: var(--cl-ink-muted); text-decoration: underline; text-underline-offset: 2px; }
+.cl-ask__done { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-success); }
+/* 관련 질문 탭 */
+.cl-prelated { display: flex; flex-direction: column; min-height: 0; overflow: auto; }
+.cl-prelated__list { margin: 0; padding: 0; list-style: none; }
+.cl-prelated__item { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; row-gap: 4px; padding: 14px 16px; border-bottom: 1px solid var(--cl-hairline); color: var(--cl-ink); text-decoration: none; }
+.cl-prelated__item:hover { background: var(--cl-row-hover); }
+.cl-prelated__item { grid-template-columns: 64px minmax(0, 1fr); }
+.cl-prelated__item .cl-badge { grid-row: 1 / span 2; align-self: start; justify-content: center; width: 64px; box-sizing: border-box; }
+.cl-prelated__title { font-size: var(--cl-fs-ui); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-prelated__meta { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-prelated__here { color: var(--cl-primary-pressed); font-weight: 500; }
+.cl-prelated__all { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 12px 16px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-align: center; }
+/* 버튼 줄의 질문하기 · 관련 질문은 오른쪽 칸으로 옮겼으니 뺀다 */
+.cl-player-info .cl-cd__pills > .is-moved { display: none; }`,
+    dom: `var aside = doc.querySelector('.cl-player-page__aside'); if (!aside || aside.querySelector('.cl-ptabs')) return;
+var IC = function (p) { return '<svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + p + '</svg>'; };
+var MSG = '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path><path d="M12 8v8"></path><path d="M8 12h8"></path>';
+var EXT = '<path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>';
+var fit = function () { try { parent.postMessage({ labFit: 1 }, '*'); } catch (e) {} };
+/* 버튼 줄의 질문하기 · 관련 질문 → 오른쪽 칸으로 */
+doc.querySelectorAll('.cl-player-info .cl-cd__pills > *').forEach(function (b) { var t = b.textContent.trim(); if (t === '질문하기' || t === '관련 질문') b.classList.add('is-moved'); });
+/* 탭 */
+var head = aside.querySelector('.cl-playlist__head'), cnt = (aside.querySelector('[data-count]') || {}).textContent || '';
+var tabs = doc.createElement('div'); tabs.className = 'cl-ptabs'; tabs.setAttribute('role', 'tablist');
+tabs.innerHTML = '<button type="button" class="cl-ptab lab-live" role="tab" aria-selected="true" data-t="list">강의 목록 <span class="cl-num">' + cnt + '</span></button><button type="button" class="cl-ptab lab-live" role="tab" aria-selected="false" data-t="qna">관련 질문 <span class="cl-num" data-rel-count>3</span></button>';
+head.insertBefore(tabs, head.firstChild);
+tabs.addEventListener('click', function (e) { var b = e.target.closest('.cl-ptab'); if (!b) return; e.preventDefault(); e.stopPropagation();
+  tabs.querySelectorAll('.cl-ptab').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+  if (b.dataset.t === 'qna') aside.setAttribute('data-tab', 'qna'); else aside.removeAttribute('data-tab'); fit(); });
+/* 관련 질문 */
+var rel = doc.createElement('div'); rel.className = 'cl-prelated'; rel.setAttribute('role', 'tabpanel');
+var Q = [['is-waiting','warning','답변대기','6분쯤 나오는 공식이 왜 이렇게 바뀌는지 모르겠어요','이 강의 · 사혜인 · 3일 전',1],['','success','답변 1','판별식 문제에서 등호가 들어가는 경우','판별식으로 근 판단하기 · 탁유원 · 1주 전',0],['','success','답변 2','이 강의는 언제까지 볼 수 있나요?','강좌 전체 · 사혜인 · 2년 전',0]];
+rel.innerHTML = '<ul class="cl-prelated__list" data-rel-list>' + Q.map(function (q) { var m = q[5] ? q[4].replace('이 강의', '<span class="cl-prelated__here">이 강의</span>') : q[4];
+  return '<li><a class="cl-prelated__item" href="#" target="_blank"><span class="cl-badge cl-badge--' + q[1] + '">' + q[2] + '</span><span class="cl-prelated__title">' + q[3] + '</span><span class="cl-prelated__meta">' + m + '</span></a></li>'; }).join('') +
+  '</ul><a class="cl-prelated__all" href="#" target="_blank">Q&amp;A 에서 이 강좌 질문 모두 보기 ' + IC(EXT) + '</a>';
+head.after(rel);
+/* 지금 보는 강의 아래 [질문하기] + 짧은 입력 */
+var cur = aside.querySelector('.cl-playlist__item.is-current'); if (!cur) return; var li = cur.closest('li'); li.classList.add('has-ask');
+var box = doc.createElement('div'); box.className = 'cl-playlist__ask';
+box.innerHTML = '<button type="button" class="cl-ask-btn lab-live">' + IC(MSG) + '이 강의 질문하기</button>' +
+  '<form class="cl-ask" hidden novalidate><textarea rows="2" maxlength="500" placeholder="이 강의에서 궁금한 점을 적어 주세요" aria-label="질문 내용"></textarea>' +
+  '<div class="cl-ask__row"><span class="cl-ask__hint">Enter 등록 · Shift+Enter 줄바꿈</span><button type="button" class="cl-btn cl-btn--ghost lab-live" data-cancel>취소</button><button type="submit" class="cl-btn cl-btn--primary lab-live">등록</button></div>' +
+  '<a class="cl-ask__more" href="#" target="_blank">파일 첨부 · 자세히 쓰기</a></form>';
+li.appendChild(box);
+var btn = box.querySelector('.cl-ask-btn'), form = box.querySelector('.cl-ask'), ta = form.querySelector('textarea');
+var open = function (on) { form.hidden = !on; btn.hidden = on; if (on) setTimeout(function () { ta.focus(); }, 0); fit(); };
+btn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); open(true); });
+form.querySelector('[data-cancel]').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); ta.value = ''; open(false); });
+var submit = function () { var v = ta.value.trim(); if (!v) { ta.focus(); return; }
+  var list = rel.querySelector('[data-rel-list]'), c = tabs.querySelector('[data-rel-count]');
+  var it = doc.createElement('li'); it.innerHTML = '<a class="cl-prelated__item" href="#" target="_blank"><span class="cl-badge cl-badge--warning">답변대기</span><span class="cl-prelated__title"></span><span class="cl-prelated__meta"><span class="cl-prelated__here">이 강의</span> · 나 · 방금</span></a>';
+  it.querySelector('.cl-prelated__title').textContent = v.split('\\n')[0].slice(0, 60); list.insertBefore(it, list.firstChild); c.textContent = String(+c.textContent + 1);
+  ta.value = ''; form.hidden = true; btn.hidden = false;
+  var done = doc.createElement('p'); done.className = 'cl-ask__done'; done.textContent = '질문을 등록했어요 · 관련 질문 탭에서 볼 수 있어요'; box.appendChild(done); setTimeout(function () { done.remove(); fit(); }, 3000); fit(); };
+form.addEventListener('submit', function (e) { e.preventDefault(); e.stopPropagation(); submit(); });
+ta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); submit(); } });`,
+    markup: "content-view.js: 질문 등록은 질문하기 페이지와 같은 POST /api/boards { cos, cnt, title, content } — title 은 입력 첫 줄 앞 60자, content 는 전체. 관련 질문은 GET /api/boards?type=cmnt&course={cos} (qna-list.js 와 같은 주소), 응답의 cnt_uid 가 지금 강의면 '이 강의'. 편집기 · 첨부는 이 칸에 두지 않으므로 Toast UI 를 더 불러올 필요 없음.",
+    targets: [".cl-player-page__aside"],
+    note: "실험실에서 탭 · [이 강의 질문하기] · 등록(가짜)이 동작함. [정할 것] '이 강의 질문만' 거르려면 서버에 강의(cnt) 조건 추가 필요 — 지금은 강좌 전체를 보여 주고 강의 이름으로 구분. 짧은 입력은 서식 없는 글로 저장됨(줄바꿈은 <br>)"
   }
 ];
 
