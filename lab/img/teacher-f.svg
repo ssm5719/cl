@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <!-- 실험실 전용 예시 사진 — 여자 선생님 (직접 그린 그림, 실제 인물 아님) -->
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.35" r="0.8"><stop offset="0" stop-color="#ECE8E4"/><stop offset="1" stop-color="#C6BFB8"/></radialGradient>
+    <linearGradient id="jk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#44506A"/><stop offset="1" stop-color="#323B50"/></linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4D4BC"/><stop offset="1" stop-color="#E8BC9E"/></linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A2A22"/><stop offset="1" stop-color="#2A1E18"/></linearGradient>
+  </defs>
+  <rect width="200" height="260" fill="url(#bg)"/>
+  <!-- 뒷머리 -->
+  <path d="M52 112 C48 64 74 42 100 42 C126 42 152 64 148 112 L152 196 C140 204 124 204 116 196 L84 196 C76 204 60 204 48 196 Z" fill="url(#hair)"/>
+  <!-- 어깨 · 재킷 -->
+  <path d="M22 260 C26 218 54 200 100 196 C146 200 174 218 178 260 Z" fill="url(#jk)"/>
+  <!-- 블라우스 -->
+  <path d="M80 198 L100 244 L120 198 Z" fill="#F6F1EC"/>
+  <path d="M80 198 L100 222 L120 198" stroke="#E2D9CF" stroke-width="2" fill="none"/>
+  <!-- 깃 -->
+  <path d="M80 196 L98 222 L86 244 L68 210 Z" fill="#525E7A"/>
+  <path d="M120 196 L102 222 L114 244 L132 210 Z" fill="#525E7A"/>
+  <!-- 목 -->
+  <path d="M88 166 L112 166 L114 198 L100 206 L86 198 Z" fill="#E2B396"/>
+  <!-- 얼굴 -->
+  <path d="M68 104 C68 76 82 62 100 62 C118 62 132 76 132 104 L132 126 C132 152 118 172 100 172 C82 172 68 152 68 126 Z" fill="url(#skin)"/>
+  <!-- 앞머리 -->
+  <path d="M64 118 C60 76 78 54 102 54 C126 54 142 74 136 118 C132 96 124 84 112 80 C100 92 84 96 70 98 C68 104 66 110 64 118 Z" fill="url(#hair)"/>
+  <!-- 귀걸이 -->
+  <circle cx="68" cy="136" r="2.6" fill="#E7D6A8"/>
+  <circle cx="132" cy="136" r="2.6" fill="#E7D6A8"/>
+  <!-- 눈썹 · 눈 -->
+  <path d="M79 108 Q87 104 94 107" stroke="#3A2A22" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M106 107 Q113 104 121 108" stroke="#3A2A22" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <ellipse cx="87" cy="118" rx="4" ry="3.4" fill="#2B201B"/>
+  <ellipse cx="113" cy="118" rx="4" ry="3.4" fill="#2B201B"/>
+  <path d="M82 115 Q87 112 92 115 M108 115 Q113 112 118 115" stroke="#2B201B" stroke-width="1.4" fill="none"/>
+  <!-- 코 · 입 -->
+  <path d="M100 122 L98 137 Q100 139 103 138" stroke="#CF9A7C" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M91 150 Q100 156 109 150" stroke="#C0766A" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+</svg>
