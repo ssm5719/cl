@@ -2372,7 +2372,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '단축키 동작은 표시와 상관없이 그대로 먹는다. 안내가 필요하면 이용 매뉴얼에 한 줄 적는 쪽이 화면을 깨끗하게 둔다.'
   },
   {
-    id: 'AM1', group: 2, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM1', group: 2, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '학원 상단 메뉴 — 글자 15 → 17px, 사이 28 → 40px',
     current: '상단 메뉴가 15px 600 이고 메뉴 사이가 28px 이다. 같은 줄의 로고 글자는 17px 이라 헤더 안에서 두 크기가 섞인다. 본문은 공개 화면 단계(섹션 설명 21 · 강좌 제목 19 · 본문 17)를 쓰는데 메뉴만 작업공간 단계인 15px 이 남아 있어, 본문 최소 단계보다도 2px 작다. 다섯 개가 28px 간격으로 붙어 있어 한 덩어리로 보인다',
     next: '글자를 17px(`--cl-fs-body-public`)로 올려 로고와 키를 맞추고 본문 단계에 잇는다. 메뉴 사이는 40px. 56px 도 재어 봤지만 글자를 키운 상태에서는 간격이 글자보다 커져 한 메뉴 줄로 안 읽히고, 오른쪽 블록까지 40px 밖에 안 남아 학원 이름이 길거나 메뉴를 하나 더 켠 학원에서 바로 넘친다. 40px 이면 96px 이 남는다. 1100px 이하는 18 → 24px',
@@ -2381,7 +2381,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '실제 화면(guest.lab241.com/user/main, 선생님 로그인)에 잠깐 입혀 폭을 쟀다. 17px · 40px 에서 메뉴 끝 1216px, 오른쪽 블록 시작 1256px 로 넘치지 않는다. 15px 은 public.css 에서 32곳에 쓰이므로 글자 단계 정리(181곳)와 함께 한 번에 옮기는 것이 낫다.'
   },
   {
-    id: 'AM2', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM2', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '학원 로고 — 세로 50px 까지, 비율 고정',
     current: '로고가 세로 36px(이름 없이 로고만) · 32px(이름과 같이)로 고정돼 있고 `width` 가 없어 `max-width: 168px` 에 먼저 걸린다. 그래서 가로로 긴 로고는 세로를 키워도 168px 에서 멈춰 더 커지지 않는다. 머리 바가 72px 인데 로고가 36px 이라 위아래가 비어 보이고, 학원 로고가 상단 바에서 가장 작게 들어간다',
     next: '로고만 있을 때 세로 50px, 학원 이름과 같이 있을 때 40px 까지 키운다. `width: auto` 로 두어 세로 기준으로 가로가 정해지게 하고, `max-width` 를 240px 로 넓힌다. 정사각형 로고(50×50)도, 가로로 긴 로고(174×73 → 119×50)도 비율 그대로 들어간다. 240px 보다 더 긴 로고는 `object-fit: contain` 이 비율을 지키며 세로를 줄인다 — 잘리지 않는다. 900px 이하에서는 머리 바가 56px 이므로 36px',
@@ -2426,7 +2426,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '정할 것 두 가지. ① 분류 카드를 10 → 8 로 내리면 작업공간 카드(`--cl-radius-md` 10px)와 어긋난다 — 공개 화면 카드 8, 관리자 카드 10. 끝까지 맞추려면 작업공간 카드도 8로 내려야 하고 그건 관리자 · 선생님 · 학생 전체에 영향이 간다. 공통층 넘길 때 같이 정한다. ② 슬라이드(1200×460)와 배너는 실험실 화면에 아직 없어 눈으로 확인하지 못했다 — CSS 에는 넣었지만 실제 화면에서 한 번 보고 확정한다.'
   },
   {
-    id: 'G7', group: 7, status: '확정', kind: 'CSS', layer: '토큰', screens: ['dashboard', 'students', 'teachers', 'courses', 't-learn', 't-progress', 't-group', 't-assign', 't-info', 't-password', 't-course-create', 't-course-edit', 't-assign-create', 't-group-edit', 't-group-create-dlg', 't-info-edit', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-cms-page', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 'subjects', 'categories', 'course-list', 'contents', 'cms', 'board', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'group-stat-s', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'teacher-read', 'teacher-edit', 'teacher-create', 'teacher-order', 'course-create', 'course-edit', 'course-sequence', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 'admins', 'groups', 'group-edit', 'admin-read', 'admin-create', 'admin-edit', 's-learn', 's-complete', 's-learn-many', 's-assign', 's-assign-read', 's-assign-read-empty', 's-assign-submit', 's-assign-confirm-dlg', 's-qna', 's-qna-read', 's-qna-delete-dlg', 's-qna-edit', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-main', 'notfound', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'G7', group: 7, status: '확정', kind: 'CSS', layer: '토큰', screens: ['dashboard', 'students', 'teachers', 'courses', 't-learn', 't-progress', 't-group', 't-assign', 't-info', 't-password', 't-course-create', 't-course-edit', 't-assign-create', 't-group-edit', 't-group-create-dlg', 't-info-edit', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-cms-page', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 'subjects', 'categories', 'course-list', 'contents', 'cms', 'board', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'group-stat-s', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'teacher-read', 'teacher-edit', 'teacher-create', 'teacher-order', 'course-create', 'course-edit', 'course-sequence', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 'admins', 'groups', 'group-edit', 'admin-read', 'admin-create', 'admin-edit', 's-learn', 's-complete', 's-learn-many', 's-assign', 's-assign-read', 's-assign-read-empty', 's-assign-submit', 's-assign-confirm-dlg', 's-qna', 's-qna-read', 's-qna-delete-dlg', 's-qna-edit', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-main', 'notfound', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '카드 모서리 10 → 8px, `--cl-radius-md` 를 없앤다',
     current: '모서리 척도가 4 · 8 · 10 · 12 · pill 다섯 단계인데, 그중 10px(`--cl-radius-md`)은 카드에만 쓰인다 — 카드(`.cl-card`) · 카드 항목 · 숫자 상자 · 저장소 타일 · 메인페이지 설정 상자 등 10곳. 학원 메인의 분류 카드와 선생님 카드를 8px 로 내리면(AM6) 같은 "카드"가 화면 묶음마다 8과 10 두 값을 갖게 된다',
     next: '작업공간 카드도 8px 로 내려 어디서나 같은 값이 되게 한다. 10곳을 `--cl-radius-sm` 으로 바꾸고 `--cl-radius-md` 는 척도에서 지운다. 남는 단계는 4 · 6 · 8 · 12 · pill 이다 (6px 은 AM6 에서 등록). 8 → 10 은 2px 차이라 화면이 달라 보이지는 않는다 — 쓰는 값이 하나 줄어드는 정리다',
@@ -2445,7 +2445,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '구분선(`border-bottom`)은 그대로 둔다 — 줄의 바깥 테두리가 곧 hover 영역의 경계가 되어 선 밖으로 넘칠 일이 없다. 900px 이하는 AM9 에서 같은 8px 로 맞춘다. 기본형(`data-preset=\"default\"`)만 손봤다 — 다른 메인 종류는 강좌 목록 모양이 달라 따로 본다.'
   },
   {
-    id: 'AM8', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM8', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '태블릿에서 상단 메뉴가 오른쪽 버튼 밑으로 파고드는 것 막기',
     current: '학원 이름이 길고(언어비전국어전문학원) 메뉴 이름도 긴 학원에서, 901~1024px 구간에 메뉴 끝이 오른쪽 블록(알림 · 로그인 · 회원가입)을 **밑으로 파고든다**. 지금 코드로도 901px 에서 5px 겹치고, 메뉴를 17px 로 키우면(AM1) 960px 에서 31px, 901px 에서 90px 까지 겹친다. 메뉴 글자가 `white-space: nowrap` 이고 `.cl-pub-nav` 가 `min-width: 0` 이라, 넘쳐도 잘리거나 줄바꿈되지 않고 그대로 뚫고 나간다',
     next: '1100px 이하에서 **로고가 있는 학원만** 학원 이름 글자를 숨긴다. 로고 그림에 이미 학원 이름이 들어 있는 경우가 많아 태블릿에서는 로고만으로 충분하고, 그만큼(약 154px) 메뉴가 숨 쉴 자리가 생긴다. 로고 없이 첫 글자 네모(`cl-pub-brand__mark`)만 쓰는 학원은 이름을 숨기면 학원을 알 수 없으므로 `:has()` 로 걸러 그대로 둔다',
@@ -2507,7 +2507,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '펼치기(그 자리에서 열기)가 아니라 **화면 이동**이다 — 분류를 다 보려는 사람은 결국 강좌를 찾는 중이고, 전체강좌에는 분류 필터와 정렬이 같이 있어 메인에서 열어 주는 것보다 할 수 있는 일이 많다. 버튼은 카드 아래 20px 로 띄웠다. 링크라 `<a>` 로 두었다 — 새 탭으로 열거나 주소를 복사할 수 있어야 한다. [정할 것] 여섯 개가 맞는지 — 3열 두 줄 기준이다. 지금 두 학원은 분류가 2~4개라 이 건이 켜져도 화면이 달라지지 않는다.'
   },
   {
-    id: 'AM14', group: 4, status: '확정', kind: 'CSS', layer: '토큰', screens: ['dashboard', 'students', 'teachers', 'courses', 't-learn', 't-progress', 't-group', 't-assign', 't-info', 't-password', 't-course-create', 't-course-edit', 't-assign-create', 't-group-edit', 't-group-create-dlg', 't-info-edit', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-cms-page', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 'subjects', 'categories', 'course-list', 'contents', 'cms', 'board', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'group-stat-s', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'teacher-read', 'teacher-edit', 'teacher-create', 'teacher-order', 'course-create', 'course-edit', 'course-sequence', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 'admins', 'groups', 'group-edit', 'admin-read', 'admin-create', 'admin-edit', 's-learn', 's-complete', 's-learn-many', 's-assign', 's-assign-read', 's-assign-read-empty', 's-assign-submit', 's-assign-confirm-dlg', 's-qna', 's-qna-read', 's-qna-delete-dlg', 's-qna-edit', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-main', 'notfound', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM14', group: 4, status: '확정', kind: 'CSS', layer: '토큰', screens: ['dashboard', 'students', 'teachers', 'courses', 't-learn', 't-progress', 't-group', 't-assign', 't-info', 't-password', 't-course-create', 't-course-edit', 't-assign-create', 't-group-edit', 't-group-create-dlg', 't-info-edit', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-cms-page', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 'subjects', 'categories', 'course-list', 'contents', 'cms', 'board', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'group-stat-s', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'teacher-read', 'teacher-edit', 'teacher-create', 'teacher-order', 'course-create', 'course-edit', 'course-sequence', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 'admins', 'groups', 'group-edit', 'admin-read', 'admin-create', 'admin-edit', 's-learn', 's-complete', 's-learn-many', 's-assign', 's-assign-read', 's-assign-read-empty', 's-assign-submit', 's-assign-confirm-dlg', 's-qna', 's-qna-read', 's-qna-delete-dlg', 's-qna-edit', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-main', 'notfound', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: 'hover 정리 — 줄 배경색 세 값을 하나로, 카드 테두리도 부드럽게',
     current: '마우스를 올렸을 때 **줄은 배경이, 카드는 테두리가** 바뀐다. 모양이 다르니 이건 맞다 — 줄에는 테두리가 없어 바꿀 수가 없고, 카드에 배경까지 깔면 테두리와 배경이 동시에 변해 과하다. 어긋난 건 두 가지다. ① 같은 일을 하는 배경색이 세 값이다 — 공개 화면 `#FAF7FE`(대표 강좌 · Q&A · 게시글 · 선생님 상세), 전체강좌 목록 `#FAFAFC`, 작업공간 `--cl-row-hover` #FAFAFB. 앞 둘은 토큰 없이 직접 적혀 있고 눈으로는 구분되지 않는다. ② 보조 변화가 들쭉날쭉하다 — 강좌 줄은 제목이, 선생님 카드는 이름이 보라로 바뀌는데 **분류 카드만 그대로**다. ③ 공통층(`cl-tokens.css` 184줄)의 `.cl-scope :is(button, a)` 전환 목록이 `background · color · transform` 이라 **테두리는 빠져 있다** — 그래서 카드에 마우스를 올리면 바탕은 부드럽게, 테두리는 뚝 바뀐다. 화면별로 `transition: border-color` 를 적어도 안 먹는다. `:is(button, a)` 가 (0,1,1)로 `.cl-home-cat`(0,1,0)보다 높기 때문이다',
     next: '`--cl-row-hover` 하나로 모으고 값은 #FAF7FE 로 둔다. 작업공간의 #FAFAFB 와는 1~2% 차이라 화면이 달라 보이지 않고, 보라기가 살짝 도는 쪽이 "누를 수 있는 것은 보라"라는 규칙과 맞는다. 그리고 분류 카드도 hover 하면 제목이 보라로 바뀌게 해 세 자리의 규칙을 맞춘다. 공통층 전환 목록에 `border-color` 를 넣어 **모든 카드의 테두리가 바탕과 같은 150ms ease-out 으로** 변하게 한다',
@@ -2539,7 +2539,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '이름(`strong`)을 `inline-flex` 로 바꿔 화살표를 옆에 세웠다 — 칸을 따로 만들지 않아 소개글이 없는 카드에서도 자리가 어긋나지 않는다. 화살표는 10px 떨어진 자리에 들어오므로 이름이 길어도 줄이 밀리지 않는다. `aria-hidden` 으로 둔다 — 링크 이름은 선생님 이름이고, 화살표는 읽을 것이 없다. 움직임은 넣지 않았다 — 화살표가 이미 오른쪽을 가리키고 있어 방향은 모양이 말해 준다. `prefers-reduced-motion` 을 켠 사람에게는 서서히가 아니라 바로 보인다.'
   },
   {
-    id: 'AM17', group: 1, status: '확정', kind: '마크업', layer: '공통 부품', screens: ['dashboard', 'students', 'teachers', 'courses', 't-learn', 't-progress', 't-group', 't-assign', 't-info', 't-password', 't-course-create', 't-course-edit', 't-assign-create', 't-group-edit', 't-group-create-dlg', 't-info-edit', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-cms-page', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 'subjects', 'categories', 'course-list', 'contents', 'cms', 'board', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'group-stat-s', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'teacher-read', 'teacher-edit', 'teacher-create', 'teacher-order', 'course-create', 'course-edit', 'course-sequence', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 'admins', 'groups', 'group-edit', 'admin-read', 'admin-create', 'admin-edit', 's-learn', 's-complete', 's-learn-many', 's-assign', 's-assign-read', 's-assign-read-empty', 's-assign-submit', 's-assign-confirm-dlg', 's-qna', 's-qna-read', 's-qna-delete-dlg', 's-qna-edit', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-main', 'notfound', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM17', group: 1, status: '확정', kind: '마크업', layer: '공통 부품', screens: ['dashboard', 'students', 'teachers', 'courses', 't-learn', 't-progress', 't-group', 't-assign', 't-info', 't-password', 't-course-create', 't-course-edit', 't-assign-create', 't-group-edit', 't-group-create-dlg', 't-info-edit', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-cms-page', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 'subjects', 'categories', 'course-list', 'contents', 'cms', 'board', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'group-stat-s', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'teacher-read', 'teacher-edit', 'teacher-create', 'teacher-order', 'course-create', 'course-edit', 'course-sequence', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 'admins', 'groups', 'group-edit', 'admin-read', 'admin-create', 'admin-edit', 's-learn', 's-complete', 's-learn-many', 's-assign', 's-assign-read', 's-assign-read-empty', 's-assign-submit', 's-assign-confirm-dlg', 's-qna', 's-qna-read', 's-qna-delete-dlg', 's-qna-edit', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-main', 'notfound', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '계정 메뉴 — 묶음 가르기 · 아이콘 물리기 · 모서리 척도 안으로',
     current: '머리글(이름 · 아이디) 아래로 항목이 **한 덩어리로 늘어선다**. 선생님 메뉴는 8개(강좌 관리 ~ 로그아웃), 선생님 작업공간은 12개(강좌 생성 ~ 로그아웃)까지 간다. 성격이 다른 셋 — 그 화면에서 할 일 · 도움 · 계정 — 이 똑같은 줄로 붙어 있어 로그아웃이 고객센터 바로 아래에 온다. `base.css` 에 `.cl-menu__sep` 와 "계정 메뉴 묶음 가르기: 설정 · 바로가기 · 도움 · 계정" 이라는 주석이 이미 있는데, **89개 화면 어디에도 쓰이지 않는다** — 가르려던 흔적만 남고 안 갈랐다. ② 아이콘 8개가 글자와 같은 검정(`--cl-ink`)이라 아이콘 열이 글보다 먼저 읽힌다. ③ 항목 모서리가 6px 로 척도(4 · 8 · 10 · 12) 밖이고, 같은 팝오버 식구인 알림 항목은 8px 이라 둘이 다르다. ④ `.cl-menu__item--danger` 변형도 CSS 에만 있고 **학생 메뉴의 [학원 탈퇴]에 안 붙어 있다** — 되돌릴 수 없는 동작인데 로그아웃과 똑같이 생겼다',
     next: '선을 세 군데 넣는다 — 머리글 아래, [이용 매뉴얼] 앞, [로그아웃](학생은 [학원 탈퇴]) 앞. 순서는 **한 군데만** 바꾼다 — 선생님 작업공간 메뉴에서 [이용 매뉴얼 · 고객센터]가 [나의 QR코드 · 사이트 관리] **사이에 끼어 있어서**, 도움 둘을 계정 바로 위로 모은다. 다섯 가지 계정 메뉴가 모두 `[이 화면에서 할 일] · [도움] · [계정]` 세 묶음으로 똑같이 나뉜다. 아이콘은 `--cl-ink-muted` 로 물려 글자가 먼저 읽히게 하고, 마우스를 올린 줄에서만 글자색으로 돌아온다. 항목 모서리 6 → 8(`--cl-radius-sm`), 패널 안쪽 여백 6 → 4 — 12 − 4 = 8 이라 바깥 모서리와 정확히 겹쳐 돈다. [학원 탈퇴]에 `--danger` 를 붙인다',
@@ -2550,7 +2550,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '**6px 이 틀린 값은 아니었다** — 패널 모서리 12 에 안쪽 여백 6 이면 안쪽 모서리는 12 − 6 = 6 이 맞다. 다만 그 6 이 척도에 없는 값이라, 여백을 4 로 줄여 8 이 나오게 했다. 결과는 같은 완전 중첩이면서 값은 척도 안이다. 로그아웃은 **빨강으로 칠하지 않았다** — 다시 들어오면 그만이라 되돌릴 수 없는 동작이 아니고, 메뉴를 열 때마다 빨강이 보이면 경고가 값싸진다. 빨강은 [학원 탈퇴]처럼 정말 되돌릴 수 없는 것에만 남긴다. 지난주 G5(제안)와 같은 내용이라 G5 는 보류로 돌리고 이 건으로 합쳤다. 선생님 작업공간 메뉴는 TN2 가 먼저 갈라 두므로, 선이 이미 있으면 이 건은 선을 다시 넣지 않고 아이콘 · 모서리만 맞춘다. [정할 것] [나의 정보]를 계정 묶음(맨 아래)으로 옮길지 — 지금은 순서를 건드리지 않으려고 그대로 두었다. 지금 화면에서 하는 일로 보면 위가 맞고, 성격으로 보면 아래가 맞다.'
   },
   {
-    id: 'AC1', group: 2, status: '확정', kind: 'CSS', layer: '토큰', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AC1', group: 2, status: '확정', kind: 'CSS', layer: '토큰', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '전체강좌 글자 크기 — 제목 56 → 40, 12px 대 글자는 13 · 14 로',
     current: '제목 \'전체강좌\'가 56px 인데 바로 아래 부제가 13px 이다 — 4.3배 차이라 부제가 각주처럼 붙는다. 메인 섹션 제목을 40 → 32 로 내린 뒤라 목록 화면 제목만 혼자 크다. 반대로 나머지는 작다 — 필터 제목 12 · 분류 개수 12 · 카드 분류 12 · 선생님 12.5 · 통계 12.5 · 필터 초기화 12.5 · 정렬 13 · 하위 분류 13. **크기가 12 · 12.5 · 13 · 13.5 · 14 · 15.5 · 56 일곱 가지이고 토큰은 제목 하나뿐**이다. 원인 하나가 겹쳐 있다 — 지난주 작업공간은 본문 14 · 보조 13 으로 올렸는데(`.cl-ws-body`), 공개 화면은 13.5 · 12.5 그대로다',
     next: '공개 화면에도 작업공간과 같은 가독성 단계(본문 14 · 보조 13)를 준다. 제목은 이미 있는 `--cl-fs-display`(40 · 모바일 28)로 내린다 — 히어로 80 > 페이지 제목 40 > 섹션 제목 32 순서가 맞는다. 부제와 필터 항목은 15 단계(`--cl-fs-body-sm-pub` 새 토큰), 카드 제목은 메인 본문과 같은 17. **이 화면의 글자 크기를 모두 토큰으로** 바꾼다 — 13 · 14 · 15 · 17 · 40 다섯 단계',
@@ -2579,7 +2579,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '빨강 · 보라는 쓰지 않았다 — 지우는 게 아니라 되돌리는 동작이라 경고색이 맞지 않고, 보라는 지금 고른 분류가 쓰고 있다. 아이콘이 첫 줄(10), 글자가 둘째 줄(34)에 서서 AC2 의 세로선과 맞는다. [덧붙일 수 있는 것] 걸린 필터 수를 \'필터 초기화 · 2\' 처럼 붙이면 무엇이 되돌려지는지 미리 보인다 — 기능 변경이라 넣지 않았다.'
   },
   {
-    id: 'AM18', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM18', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '선생님 · 관리자 페이지 버튼 — 32px 로 낮추고 보라 채움을 테두리로',
     current: '머리 오른쪽 [선생님 페이지 →] (관리자는 [관리자 페이지 →])가 높이 40px · 15px · **보라로 꽉 찬 캡슐**이다. 바로 옆 프로필 버튼은 32px(동그라미 28px)이라 버튼만 한 단계 크고, 머리에서 유일하게 색이 채워진 것이라 메뉴(17px · 검정)보다 먼저 눈에 들어온다. 그런데 이 버튼은 학원 화면에서 할 일이 아니라 **내 작업공간으로 나가는 길**이다 — 손님(학생 · 방문자)이 보는 화면에서 가장 큰 소리를 낼 이유가 없다',
     next: '높이 40 → 32(`--cl-h-control`, 프로필 버튼과 같은 높이), 글자 15 → 14(`--cl-fs-ui`), 화살표 16 → 14. 색은 **흰 바탕 + 회색 테두리 + 검정 글자**로 — 메뉴와 같은 검정이라 머리 안에서 튀지 않고, 캡슐 테두리와 화살표가 있어 \'누르는 것\'은 그대로 보인다. 마우스를 올리면 옅은 회색 바탕',
@@ -2588,7 +2588,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '자리 · 글자 · 화살표는 그대로라 매일 쓰는 선생님이 찾는 데 지장이 없다. 다른 안 두 가지도 재 봤다 — ① 연보라 바탕 + 보라 글자: 조용하지만 전체강좌의 \'지금 고른 분류 · 정렬\'과 같은 색이라 \'선택된 탭\'처럼 읽힌다 ② 보라 채움 유지 · 크기만 32: 크기는 맞지만 여전히 머리에서 가장 진하다. 바꾸려면 `background` · `color` 두 줄만 고치면 된다. 프로필 동그라미는 28px 이지만 눌리는 자리가 32px 이라 그쪽에 맞췄다 — 28 로 내리면 14px 글자가 위아래로 꽉 차 답답하다. 모바일(900px 이하)도 34 → 32 로 같이 맞춘다.'
   },
   {
-    id: 'AM19', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM19', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '머리 프로필 — 삐뚤어진 회색 hover 바탕 없애기',
     current: '프로필 버튼은 작업공간 머리의 \'동그라미 + 이름 + 화살표\' 버튼을 그대로 가져와서 안쪽 여백이 `왼쪽 2px · 오른쪽 6px` 이다. 학원 머리에는 동그라미만 있어서, 마우스를 올리면 36×32 회색 캡슐이 동그라미 **오른쪽으로 치우쳐** 깔린다 — 원 위에 타원이 어긋나 겹쳐 보인다',
     next: '학원 머리에서는 버튼을 동그라미에 맞춘 **32×32 원**으로 만들고(여백 0, 가운데 정렬), **hover 효과는 두지 않는다** — 마우스를 올려도 메뉴가 열려도 모양이 바뀌지 않는다. 동그라미 자체가 누르는 것으로 충분히 읽히고, 손가락 모양 커서가 그대로 남는다',
@@ -2597,7 +2597,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '작업공간 머리의 프로필 버튼(이름 · 화살표가 붙은 것)은 그대로 둔다 — `.cl-pub-header` 안에서만 바뀐다. 보라 테두리 hover 도 재 봤지만 빼기로 했다(2026.10.27). 키보드로 왔을 때의 초점 테두리(`:focus-visible`)는 공통 규칙 그대로 남는다 — 그건 hover 가 아니라 접근성 표시라 지우면 안 된다.'
   },
   {
-    id: 'AM20', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM20', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '머리 · 꼬리말 폭을 본문 1200px 에 맞추기',
     current: '머리 안쪽(`.cl-pub-header__inner`)은 `max-width: 1200px` 안에 좌우 여백 20 을 **포함**해서 글이 1160px 폭에 선다. 본문(`.cl-pub-wrap`)은 1200px **바깥에** 여백 20 을 두어 글이 1200px 에 선다. 같은 1200 이라 적혀 있지만 실제로는 머리가 양쪽 20px 씩 안으로 들어와, 로고와 [강좌 참여하기] · 첫 카드의 왼쪽 끝이 어긋난다(1440 화면에서 로고 140 · 본문 120)',
     next: '머리도 본문과 같이 `box-sizing: content-box` 로 — 여백 20 을 1200 바깥에 둔다. 로고 · 메뉴 · 오른쪽 버튼이 본문과 같은 1200px 선에 선다. 1240px 이하에서는 본문과 똑같이 `border-box` 로 돌아가 화면 끝에서 20px 여백이 유지된다',
@@ -2606,7 +2606,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '꼬리말(`.cl-pub-footer__inner`)도 같은 방식으로 여백을 1200 안에 넣고 있어 로고 · 연락처 · 저작권 줄이 본문보다 20px 안쪽에 섰다 — 같은 두 줄로 함께 맞췄다(2026.10.27). 본문 쪽 규칙(`public.css` 4~5줄)을 그대로 따라 한 것이라, 개발에서는 머리 규칙을 본문과 같은 두 줄로 바꾸면 된다. 모바일(900px 이하) 머리 여백(`0 6px 0 16px`)은 건드리지 않았다. 학원 메인 · 전체강좌 모두 머리가 같아 함께 맞는다.'
   },
   {
-    id: 'AM21', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM21', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '알림 종 — 32px 원으로, 아이콘 18',
     current: '알림 버튼이 44×44 라 마우스를 올리면 회색 원이 44px 로 깔린다. 바로 옆 [선생님 페이지] · 프로필은 32px 이라 원 하나만 크게 부풀어 보인다',
     next: '버튼을 프로필 · 페이지 이동 버튼과 같은 **32px 원**으로. hover 회색 원도 32px 로 깔려 세 개의 높이가 맞는다. 아이콘은 20 → **18px** — 32 원 안에서 위아래 7px 씩 남아, 프로필 동그라미(28) · 버튼 글자(14)와 무게가 맞는다',
@@ -2624,7 +2624,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '제목과 설명 사이(8px)는 그대로 두었다 — 둘은 한 묶음이라 붙어 있는 게 맞다. Q&A · 자유게시판 머리도 같은 구조라 그 화면을 고칠 때 같은 값으로 맞춘다.'
   },
   {
-    id: 'AD1', group: 2, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-course-read', 'a-player'],
+    id: 'AD1', group: 2, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp'],
     title: '강좌 상세 머리 — 전체강좌와 같은 단계로 (제목 72 → 40)',
     current: '강좌 이름이 **72px** 로 전체강좌 제목(수정안 40)의 거의 두 배다. 위치는 15px 에 구분자가 `/` 라 전체강좌의 `홈 > 전체강좌`(13px · 꺾쇠)와 모양이 다르다. 설명은 19px. 위 여백도 56px 로 전체강좌(40)와 달라, 목록에서 강좌를 눌러 들어오면 머리 높이와 글자가 한꺼번에 튄다',
     next: '전체강좌 머리와 같게 — 위 여백 40, 위치 13px(`--cl-fs-caption`) · 구분자 꺾쇠(›), 위치↔제목 16, 제목 **40px**(`--cl-fs-display`, 모바일 28). 제목↔설명 16 → **8**, 버튼 줄은 설명 아래 **24** — 전체강좌에서 부제 아래 24px 에 회색 선이 오는 바로 그 자리에 버튼 세 개가 선다. 설명은 17px(`--cl-fs-body-public`) — 전체강좌 부제(15)는 한 줄 소개지만 여기는 선생님이 쓴 **본문**이라 여러 줄을 읽기 좋은 본문 크기로 둔다',
@@ -2664,7 +2664,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '64 는 4px 격자 · `--cl-space` 단계(16 · 24 · 32 · 64)에 있는 값이다. 모바일은 화면이 짧아 머리 ↔ 썸네일 ↔ 목록 간격을 24 → 32 로만 넓혔다.'
   },
   {
-    id: 'AD5', group: 2, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-course-read', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AD5', group: 2, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-course-read', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '강좌 상세 글자 위계 — 공개 화면 글자 단계 여섯 칸으로',
     current: '강의 제목이 **21px** 로 탭(17~21)보다 크거나 같고, 버튼(관련질문 · 공유하기 · 좋아요)은 15px · 600 으로 강의 제목만큼 굵다. 숫자 15 · 메타 13 · 공유 13 · 시간 14 · 진도 12.5 가 모두 직접 적은 값이다. 큰 글자가 여러 군데라 어디부터 읽을지 순서가 서지 않는다',
     next: '공개 화면 전체에 쓸 **글자 단계 여섯 칸**에 맞춘다. 강의 제목 21 → 17 · 600, 버튼 15 · 600 → 14 · 500 · 높이 36, 순번 14, 메타 · 공유 · 진도 13. 굵기는 세 단계만 — 700 은 제목급, 600 은 누르는 제목 · 탭 · 값, 500 은 버튼, 나머지 400\n\n| 역할 | 토큰 | 크기 | 굵기 |\n|---|---|---|---|\n| 화면 제목 | `--cl-fs-display` | 40 (모바일 28) | 700 |\n| 섹션 제목 | `--cl-fs-section-pub` | 26~32 | 700 |\n| 본문 · 목록 제목 · 탭 | `--cl-fs-body-public` | 17 | 400 본문 / 600 제목 · 탭 |\n| 부제 · 필터 항목 | `--cl-fs-body-sm-pub` | 15 | 400 |\n| 버튼 · 도구 · 정보 | `--cl-fs-ui` | 14 | 500 버튼 / 400 |\n| 메타 · 위치 · 개수 | `--cl-fs-caption` | 13 | 400 |',
@@ -2673,7 +2673,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '**나머지 화면은 이 표대로 맞추면 된다.** 학원 메인 · 전체강좌는 이미 이 단계다(AM3 · AC1). 학원소개 · 선생님소개 · Q&A · 자유게시판도 들어가 보시면 같은 표로 맞춘다 — 화면마다 새 크기를 만들지 않는다. 표는 `design/api/tokens.md` 의 \'공개 화면 글자 단계\'에도 적어 두었다.'
   },
   {
-    id: 'AM22', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg', 'a-player', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
+    id: 'AM22', group: 1, status: '확정', kind: 'CSS', layer: '공통 틀', screens: ['a-main', 'a-courses', 'a-courses-empty', 'a-course-read', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg', 'a-player', 'a-player-doc', 'a-player-doc-hwp', 'a-about', 'a-teachers', 'a-teachers-empty', 'a-teacher-read', 'a-teacher-read-empty', 'a-qna', 'a-qna-read', 'a-qna-read-empty', 'a-qna-empty', 'a-board', 'a-board-empty', 'a-board-read', 'a-board-read-empty'],
     title: '꼬리말을 화면 맨 아래에 — 내용이 짧아도',
     current: '내용이 짧은 화면(강좌 상세에 강의 두 개, 검색 결과 없음 등)에서는 꼬리말이 내용 바로 밑으로 따라 올라오고, 그 아래로 흰 빈 자리가 남는다. 본문에 `min-height: 50vh` 가 걸려 있지만 화면 높이의 절반이라 큰 화면일수록 더 올라온다',
     next: '몸통(`body.cl-pub-body`)을 세로 flex 로, 높이를 화면 높이 이상(`min-height: 100dvh`)으로 두고 본문(`main`)이 남은 높이를 채운다. 내용이 짧으면 꼬리말이 화면 바닥에 붙고, 내용이 길면 지금처럼 내용 뒤에 온다',
@@ -2704,7 +2704,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '배지는 공통층에 이미 있다 — `.cl-badge--neutral`(옅은 회색) · `.cl-badge--info`(연보라). 다만 neutral 은 글자가 `--cl-ink-2`(진한 회색)라, 요청대로 안 고른 탭의 글자색(`--cl-ink-muted`)에 맞춰 글자만 한 단계 밝혔다. 고른 배지의 글자는 메인 보라(#904AE8) 대신 한 단계 진한 `--cl-primary-pressed`(#7A35D0)다 — 연보라 바탕 위에서 메인 보라는 대비가 4.2:1 로 기준(4.5) 아래로 떨어지고, pressed 는 5.6:1 이다. 안 고른 배지(회색 글자 · 옅은 회색 바탕)는 4.6:1 로 기준 안이다. 글자 크기는 공통 배지 기본값 12 그대로다. 한 자리 숫자도 동그라미(22×22)로 서게 `min-width` 를 줬다.'
   },
   {
-    id: 'AP1', group: 2, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-player'],
+    id: 'AP1', group: 2, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-player', 'a-player-doc', 'a-player-doc-hwp'],
     title: '강의 보기 — 재생 화면 아래 정보를 공개 화면 단계 · 여백으로',
     current: '재생 상자 모서리 14 · 선생님 줄 모서리 12 로 큰 상자 규칙(8)과 다르다. 강의 제목 28px 은 글자 단계표에 없는 크기이고, 정보 줄 14 · 위치 15(구분자 `/`) · 버튼 40px · 15 · 600 은 강좌 상세에서 고친 값과 다르다. 위치 · 제목 · 정보 · 버튼 · 선생님 줄이 모두 12px 간격이라 묶음이 없다. 정보 줄 \'2026.10.20 · 조회 2 · 공통수학 · 강의 2개\' 는 앞 둘이 이 강의, 뒤 둘이 강좌 정보라 섞여 있다',
     next: '위 여백 24 → 40(다른 공개 화면과 같은 시작선), 재생 상자 · 선생님 줄 모서리 8. 제목은 **26px**(`--cl-fs-list-title`, 섹션 제목 단계의 가장 작은 값) — 재생 화면이 화면의 주인공이고, 유튜브 제목처럼 긴 이름이 두 줄로 내려오는 일이 많아 32 로 두면 제목이 영상만큼 무거워진다. 위치 13 · 꺾쇠(AD1 과 같은 규칙), 정보 13, 버튼 36 · 14 · 500(AD5 와 같은 규칙). 간격은 [재생 화면] 24 [위치 · 제목 · 정보 — 8 간격으로 한 묶음] 24 [버튼] 24 [선생님 줄]. 정보 줄은 **날짜 · 조회만** 남긴다 — 강좌 이름은 바로 위 위치 표시에, 강의 수는 오른쪽 목록 머리에 이미 있다',
@@ -2715,7 +2715,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '위치 표시 · 버튼 모양은 강좌 상세에서 만든 AD1 · AD5 규칙을 그대로 쓴다(같은 부품 `.cl-cd__crumb` · `.cl-cd-pill`) — 이 화면에 새 크기를 만들지 않았다. 선생님 줄은 선생님 소개 카드(AM4)와 같은 테두리 hover(보라, 150ms)를 이미 쓰고 있어 모서리 · 글자만 맞췄다. [질문하기]는 Q&A 글쓰기 화면으로, [공유]는 \'주소를 복사했습니다\' 알림으로 이어진다 — 둘 다 확인했고, 글쓰기 화면은 Q&A 화면을 고칠 때 함께 본다. 버튼 이름 [질문하기] · [관련 질문]이 비슷한 점은 문구 변경이라 손대지 않았다(예: [이 강의 질문하기] · [질문 모아보기]).'
   },
   {
-    id: 'AP2', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-player'],
+    id: 'AP2', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-player', 'a-player-doc', 'a-player-doc-hwp'],
     title: '오른쪽 강의 목록 — 숫자 배지, 지금 보는 강의만 굵게, 번호 유지',
     current: '목록 상자 모서리 12. 머리 \'강의 목록 2\' 의 숫자가 글자 그대로라 강좌 상세의 탭 배지(AD7)와 다르다. 항목 제목이 모두 14px · 600(굵게)이라 지금 보는 강의와 나머지가 바탕색으로만 구분된다. 지금 보는 강의는 번호 자리에 ▷ 가 대신 들어가 **몇 번째 강의인지가 사라진다**',
     next: '모서리 8. 머리 숫자는 강좌 상세 탭과 같은 **회색 캡슐 배지**(12px). 항목은 14px · 보통 굵기 · 진한 회색, **지금 보는 강의만** 600 · 검정 + 연보라 바탕 + 보라 번호. 번호는 지금 보는 강의에도 그대로 둔다(01 · 02 …) — 위치는 번호로, 재생 중은 색으로 말한다. 줄 hover 는 다른 목록과 같은 `--cl-row-hover`',
@@ -2726,7 +2726,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '목록 상자 최대 높이는 `화면 높이 − 머리 − 56` — 위 여백 40 과 아래 여백 16 을 뺀 값이라, 강의가 20개를 넘어도 첫 화면에서 상자 아래 끝까지 보이고 그 안에서만 스크롤된다(1440×900 에서 12개, 1366×768 에서 9개). 상자(테두리)는 남겼다 — 목록이 길면 이 상자 안에서만 스크롤되고(`max-height`), 그 경계가 테두리다. 굵기를 나머지에서 빼고 지금 강의에만 주어서, 긴 목록을 훑을 때 지금 자리가 바로 잡힌다. 강의 길이 · 진도(`.cl-playlist__meta`)도 13 으로 맞췄다 — 학생 화면에서 보인다.'
   },
   {
-    id: 'AP3', group: 9, status: '보류', kind: '마크업', layer: '화면별', screens: ['a-player'],
+    id: 'AP3', group: 9, status: '보류', kind: '마크업', layer: '화면별', screens: ['a-player', 'a-player-doc', 'a-player-doc-hwp'],
     title: '[정할 것] 선생님 줄을 오른쪽 강의 목록 위로',
     current: '선생님 줄(사진 · 이름 · 선생님 소개 보기)이 영상 아래 버튼 줄 밑에 있다. 왼쪽 열에 영상 · 위치 · 제목 · 날짜 · 버튼 · 선생님까지 여섯 덩어리가 쌓여 길고, 오른쪽 열은 목록 아래가 비어 있다',
     next: '선생님 줄을 오른쪽 열 맨 위, 강의 목록 상자 바로 위로 옮긴다(사이 16px). 선생님 줄의 위 끝이 영상의 위 끝과 맞는다. 왼쪽은 [영상] · [위치 · 제목 · 날짜] · [버튼] 세 덩어리로 줄어 \'이 강의\'만 남고, 오른쪽은 [누가 가르치나] · [이 강좌의 강의들] 로 \'이 강좌\' 정보가 모인다. 스크롤하면 선생님 줄은 올라가고 **목록만 지금처럼 따라 내려온다**',
@@ -2737,7 +2737,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '**보류(2026.10.27)** — 강의 20개로 재 본 뒤 접었다. 선생님은 버튼 줄의 링크로 옮긴다(AP4). 좋은 점: 선생님은 강의마다 바뀌지 않는 **강좌 정보**라, 강좌 상세에서 오른쪽 패널에 \'강사\'가 있는 것과 자리가 맞는다. 치르는 것: 첫 화면에서 목록 상자가 84px(줄 68 + 간격 16) 내려간다. **강의 20개로 재 보니**(2026.10.27) — AP3 없이는 첫 화면에 상자 전체가 들어오고 13개(1440×900) · 10개(1366×768)가 보이는데, AP3 를 켜면 12개 · 9개로 줄고 **상자 아래 끝이 화면 밖으로 69px 잘린다**(상자 안 스크롤의 끝이 안 보이는 이중 스크롤). 상자 최대 높이를 84px 줄이면 잘림은 없어지지만 11개 · 8개로 더 준다. 이 화면은 왼쪽(영상 + 정보)이 짧아 목록이 따라 내려올 여유가 거의 없어서, 첫 화면에서 잃은 칸을 스크롤로 되찾지 못한다. 선생님 줄까지 따라 내려오게 하지 않은 이유는, 그러면 목록 상자의 높이가 늘 84px 줄어 긴 목록에서 손해가 계속되기 때문이다. 1100px 이하(한 줄로 쌓이는 화면)에서는 영상 · 정보 · 버튼 · 선생님 · 목록 순서로, 지금과 거의 같다.'
   },
   {
-    id: 'AP4', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-player'],
+    id: 'AP4', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-player', 'a-player-doc', 'a-player-doc-hwp'],
     title: '선생님 카드 줄을 없애고 버튼 줄 끝에 \'장현석 선생님\' 링크로',
     current: '선생님이 버튼 줄 아래에 따로 한 줄(사진 · 이름 · 선생님 소개 보기 · 화살표, 높이 68)을 차지한다. 왼쪽 열이 [영상] · [위치 · 제목 · 날짜] · [버튼] · [선생님] 네 덩어리로 길다. 오른쪽으로 옮기는 안(AP3)은 강의가 많을 때 목록이 잘려 접었다',
     next: '카드 줄을 없애고, 버튼 줄 맨 끝(새 창으로 보기 옆)에 **[사진 28 · 장현석 선생님 ›]** 링크를 둔다. 높이는 다른 버튼과 같은 36 이지만 모양을 다르게 — 회색 채움 대신 **흰 바탕 + 옅은 테두리**, 왼쪽에 동그라미 사진. 동작 버튼(질문 · 공유 · 새 창)이 아니라 \'사람에게 가는 길\'로 읽힌다. 마우스를 올리면 테두리와 글자가 보라로(카드 hover 와 같은 말투, 150ms). 왼쪽 열은 세 덩어리로 줄고 92px(줄 68 + 간격 24) 짧아진다',
@@ -3090,7 +3090,7 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
     status: "제안",
     kind: "마크업",
     layer: "화면별",
-    screens: ["a-player"],
+    screens: ["a-player", "a-player-doc", "a-player-doc-hwp"],
     title: "강의 보기 — 질문하기 · 관련 질문을 페이지 이동 없이 오른쪽 칸에서",
     current: "[질문하기] · [관련 질문]을 누르면 같은 탭에서 다른 화면으로 넘어가 보던 영상이 끊김",
     next: "오른쪽 칸 머리를 [강의 목록 20 | 관련 질문 3] 탭으로(검색 · 정렬은 강의 목록 탭에 그대로). 지금 보는 강의 제목 아래 [이 강의 질문하기] → 누르면 그 자리에 짧은 입력칸(2줄, 내용에 따라 늘어남) · Enter 등록 · Shift+Enter 줄바꿈 · [취소][등록] · '파일 첨부 · 자세히 쓰기'(새 탭, 강좌 · 강의 미리 골라짐). 등록하면 이동 없이 '질문을 등록했어요' 3초 · 관련 질문 맨 위에 추가. 관련 질문은 상태 배지 · 제목 · 강의 이름(이 강의는 보라), 누르면 새 탭. 버튼 줄의 [질문하기][관련 질문]은 뺌",
@@ -3189,7 +3189,7 @@ ta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftK
     status: "제안",
     kind: "마크업",
     layer: "화면별",
-    screens: ["a-player"],
+    screens: ["a-player", "a-player-doc", "a-player-doc-hwp"],
     title: "강의 보기 — 선생님 링크를 누르면 아래로 작은 창(이동하지 않음)",
     current: "[장현석 선생님 ›]을 누르면 같은 탭에서 선생님 상세로 넘어가 보던 영상이 끊김",
     next: "누르면 버튼 아래 8px 에 320px 창 — 안쪽 20, [사진 44 · 이름 · 담당과목] / 16 / '담당 강좌 7' + 강좌 최대 5개(한 줄씩, 옅은 회색 선, 지금 강좌는 '보는 중') / 16 / [선생님 소개 전체 보기 ↗]. 소개글은 뺌. 강좌 · 전체 보기는 새 탭. 꺾쇠는 아래 방향, 열리면 뒤집힘 · 테두리 보라. 바깥 클릭 · Esc 로 닫힘",
@@ -3248,7 +3248,7 @@ doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hi
     status: "확정",
     kind: "마크업",
     layer: "공통 부품",
-    screens: ["a-main", "a-courses", "a-courses-empty", "a-course-read", "a-player", "a-about", "a-teachers", "a-teachers-empty", "a-teacher-read", "a-teacher-read-empty", "a-qna", "a-qna-empty", "a-qna-read", "a-qna-read-empty", "a-board", "a-board-empty", "a-board-read", "a-board-read-empty"],
+    screens: ["a-main", "a-courses", "a-courses-empty", "a-course-read", "a-player", "a-player-doc", "a-player-doc-hwp", "a-about", "a-teachers", "a-teachers-empty", "a-teacher-read", "a-teacher-read-empty", "a-qna", "a-qna-empty", "a-qna-read", "a-qna-read-empty", "a-board", "a-board-empty", "a-board-read", "a-board-read-empty"],
     title: "사진 없는 선생님 아이콘 — 메인과 같은 선 아이콘으로 통일",
     current: "머리 계정 버튼 · 강의 보기 선생님 링크의 기본 그림(default-person.svg)이 세로 사진용(200×260) 회색 사람이라 동그라미 안에서 머리 · 어깨가 잘려 보임",
     next: "메인 선생님 소개(AM10) · 선생님 목록 · 상세(NT5)와 같은 선 사람 아이콘을 연보라(#F7F3FD) 원 가운데 60% 크기로. 색은 학원 대표색",
@@ -3265,6 +3265,48 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
     markup: "선생님 사진이 없을 때 <img src=default-person.svg> 대신 <span class=\"cl-avatar-ph\"><svg …AM10 아이콘…></svg></span>. 크기는 자리마다(머리 32 · 강의 보기 링크 28 · 드롭다운 44). 아이콘 파일은 lab/img/teacher-placeholder.svg",
     targets: [".cl-avatar-ph"],
     note: "학생 댓글의 기본 그림은 학생 자리라 이번에는 그대로 둠"
+  },
+  {
+    id: "NP3",
+    group: 2,
+    status: "제안",
+    kind: "마크업",
+    layer: "화면별",
+    screens: ["a-player-doc", "a-player-doc-hwp"],
+    title: "문서 강의 — 16:9 칸은 그대로, 안을 문서 미리보기 · 파일 카드로",
+    current: "영상 크기 회색 상자(모서리 14) 가운데에 작은 파일 아이콘 · 파일 이름 · [내려받기]만 있어 칸 절반이 비어 보임",
+    next: "칸 크기(16:9)는 영상과 같게 둬서 강의를 오갈 때 제목 · 버튼 위치가 안 흔들리게. PDF 는 칸 안에서 바로 보기(쪽 넘김 · 확대는 브라우저 PDF 도구, 크게는 [새 창으로 보기]). 미리보기가 안 되는 문서(한글 · 워드 · PPT)와 휴대폰(900 이하)은 파일 카드 — 옅은 회색 바탕 · 모서리 8, 흰 64 칸 파일 아이콘 + 종류 표시(PDF · HWP), 파일 이름 17 · 600, '종류 · 쪽수 · 크기' 13, [내려받기](보라) [새 창으로 열기](흰) 40. 휴대폰은 칸 높이를 내용에 맞춤(최소 260)",
+    css: `/* 문서 강의 — 영상과 같은 16:9 칸을 유지하고, 안을 문서로 채운다 */
+.cl-player__doc { position: relative; aspect-ratio: 16 / 9; display: block; padding: 0; border-radius: var(--cl-radius-sm); overflow: hidden; background: var(--cl-sidebar); color: var(--cl-ink); }
+/* PDF — 칸 안에서 바로 보기(실제는 브라우저 PDF 보기) */
+.cl-docview { position: absolute; inset: 0; display: flex; flex-direction: column; background: #E8E8EB; }
+.cl-docview__bar { flex: none; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; background: #3A3A3D; color: #F5F5F7; font-size: var(--cl-fs-caption); }
+.cl-docview__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.cl-docview__tools { display: inline-flex; align-items: center; gap: 10px; color: #D2D2D7; }
+.cl-docview__sep { width: 1px; height: 16px; background: rgba(255, 255, 255, .2); }
+.cl-docview__pages { flex: 1; overflow: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px; }
+.cl-docview__page { flex: none; width: min(62%, 520px); aspect-ratio: 210 / 297; box-sizing: border-box; padding: 8% 7%; display: flex; flex-direction: column; gap: 10px; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .12); }
+.cl-docview__page .lab-line { display: block; height: 8px; border-radius: 2px; background: #E8E8EB; }
+.cl-docview__page .lab-line[style*="width:0%"] { height: 12px; background: none; }
+/* 파일 카드 — 미리보기가 안 되는 문서(한글 · 워드 · PPT)와 휴대폰 */
+.cl-docfile { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px; text-align: center; }
+.cl-player__doc[data-doc-kind="pdf"] .cl-docfile { display: none; }
+.cl-docfile__icon { position: relative; width: 64px; height: 64px; margin-bottom: 8px; display: grid; place-items: center; border-radius: var(--cl-radius-sm); background: var(--cl-canvas); color: var(--cl-ink-muted); box-shadow: inset 0 0 0 1px var(--cl-hairline); }
+.cl-docfile__icon em { position: absolute; right: -6px; bottom: -6px; height: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: 4px; background: var(--cl-primary); color: #fff; font-style: normal; font-size: var(--cl-fs-micro); font-weight: 600; letter-spacing: .02em; }
+.cl-docfile__name { margin: 0; font-size: var(--cl-fs-body-public); font-weight: 600; color: var(--cl-ink); word-break: keep-all; }
+.cl-docfile__meta { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-docfile__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+.cl-docfile__actions .cl-btn { height: 40px; padding: 0 16px; gap: 6px; }
+.cl-docfile__actions .cl-btn--ghost { background: var(--cl-canvas); }
+@media (max-width: 900px) {
+  .cl-player__doc[data-doc-kind="pdf"] .cl-docview { display: none; }
+  .cl-player__doc[data-doc-kind="pdf"] .cl-docfile { display: flex; }
+  .cl-player__doc { aspect-ratio: auto; min-height: 260px; }
+  .cl-docfile { position: relative; inset: auto; padding: 32px 20px; }
+}`,
+    markup: "content-view.js 문서형(Doc): 확장자가 pdf 이고 화면이 901 이상이면 영상 iframe 자리에 <iframe src=\"{문서 주소}\" title=\"{파일 이름}\"> (영상과 같은 서버라 그대로 열림 — 테스트 사이트에서 확인). 그 밖에는 .cl-docfile 카드. 쪽수는 모르면 빼고 '종류 · 크기'만.",
+    targets: [".cl-player__doc"],
+    note: "실험실의 PDF 칸은 그림(회색 줄)이고 실제는 브라우저 PDF 보기. iOS 는 칸 안 PDF 가 첫 쪽만, 안드로이드 Chrome 은 칸 안에 안 열려서 휴대폰은 카드로 나눔"
   }
 ];
 

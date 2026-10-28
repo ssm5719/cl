@@ -24,3 +24,4 @@
 - 2026.10.28 — 학원 Q&A 상세 `a-qna-read`(a-qna 틀 + s-qna-read 본문, 답변 2개)를 `build_qna_read.py` 로 만듦. NQ4(목록 상태 상자 정사각형) · NQ5(상세 정리) 확정.
 - 2026.10.28 — `a-qna-read-empty`(답변 없음) 추가, 목록의 답변대기 질문이 이 화면으로 감. 같은 `build_qna_read.py` 가 만든다.
 - 2026.10.28 — NF4(게시글 읽기 머리 선 · [목록으로] 오른쪽 아래, Q&A 상세와 같은 규칙) 확정. 댓글 0개면 개수 배지 숨김(NE1).
+- 2026.10.28 — 문서 강의 `a-player-doc`(PDF) · `a-player-doc-hwp`(한글 · 워드) 추가, `build_player_doc.py` 가 a-player 에서 만든다. 영상 화면 · 강좌 상세의 수학수능기출26 이 여기로 연결. NP3(제안).
