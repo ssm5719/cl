@@ -23,6 +23,22 @@
 .cl-btn--sm { height: 28px; padding: 0 10px; font-size: var(--cl-fs-caption); }
 .cl-btn[disabled], .cl-btn[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
 
+/* 알약 모양 — 공개 화면의 작은 동작 버튼(수강신청 · 수강중). 크기 · 색은 종류 그대로, 모서리만 둥글게 */
+.cl-btn--pill { border-radius: var(--cl-radius-pill); }
+/* 되돌리기 버튼 — 평소엔 지금 상태(✓ 수강중)를 조용히 보여 주고, 올리거나 키보드로 고르면 같은 자리 같은 크기에서
+   되돌리는 동작(수강 취소)을 위험 색으로 보여 준다. 누르면 확인 창(cl-dialog--confirm). 두 글자를 겹쳐 둬 폭이 흔들리지 않는다 */
+.cl-btn--undo { display: inline-grid; place-items: center; min-width: 88px; background: var(--cl-canvas); color: var(--cl-ink-2); box-shadow: inset 0 0 0 1px var(--cl-control-border); font-weight: 500; }
+.cl-btn--undo > .cl-btn__now, .cl-btn--undo > .cl-btn__undo { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 4px; }
+.cl-btn--undo .cl-btn__now .cl-icon { color: var(--cl-ink-muted); }
+.cl-btn--undo .cl-btn__undo { visibility: hidden; }
+.cl-btn--undo:hover, .cl-btn--undo:focus-visible { background: var(--cl-canvas); color: var(--cl-danger); box-shadow: inset 0 0 0 1px currentColor; }
+.cl-btn--undo:hover .cl-btn__now, .cl-btn--undo:focus-visible .cl-btn__now { visibility: hidden; }
+.cl-btn--undo:hover .cl-btn__undo, .cl-btn--undo:focus-visible .cl-btn__undo { visibility: visible; }
+@media (hover: none) {
+  .cl-btn--undo:hover { color: var(--cl-ink-2); box-shadow: inset 0 0 0 1px var(--cl-control-border); }
+  .cl-btn--undo:hover .cl-btn__now { visibility: visible; } .cl-btn--undo:hover .cl-btn__undo { visibility: hidden; }
+}
+
 /* ---------- 배지 ---------- */
 .cl-badge { height: 22px; padding: 0 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; font-size: var(--cl-fs-micro); font-weight: 500; white-space: nowrap; }
 .cl-badge--success { background: var(--cl-success-bg); color: var(--cl-success); }

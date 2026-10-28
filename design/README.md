@@ -11,7 +11,9 @@
 | `api/tokens.md` | 토큰 값 전체 표 |
 | `api/components/*.md` | 부품 24개 요약 카드 |
 | `components/<이름>/README.md` | 부품 상세 + `preview.html` 미리보기 |
-| `components/bundle.css` | 미리보기용 CSS 묶음 |
+| `components/bundle.css` | 미리보기용 CSS 묶음 (맨 끝에 학원 공개 화면 부품) |
+| `components/AcademyPublic/README.md` | 학원 공개 화면 전용 부품 — 빈 상태 · 사진 없는 선생님 · 수강 상태 버튼 · 강의 보기 칸 · 문서 강의 |
+| `public-ui-rules.md` | 학원 공개 화면 UI 규칙(글자 · 여백 · 선 · 색 · 움직임 · 이동 · 문장) |
 | `fonts/` | Pretendard Variable |
 
 아이콘 41개와 로고는 디자인시스템 아티팩트의 자산 저장소에 있습니다. 목록과 받는 방법은 `api/assets/Icons.md` · `api/assets/Logos.md` 에 적혀 있고, 화면에서는 모두 인라인 SVG(`stroke="currentColor"`)로 들어가 있습니다.
@@ -167,3 +169,12 @@ Fonts: `tokens.css` loads each font from its file, by path.
 - **Layout**: `PageHead` — 화면 맨 위: 상위 메뉴, 제목, 화면 단위 버튼, 설명 · `Sidebar` — 작업공간 왼쪽 메뉴. 메뉴 검색, 묶음 이름, 메뉴 항목, 아래 바로가기 · `Topbar` — 작업공간 맨 위 고정 줄: 브랜드, 학기, 알림, 계정
 - **Navigation**: `Pagination` — 목록 아래 쪽 번호 · `Tabs` — 한 목록을 상태별로 나눠 볼 때 쓴다(학생 목록: 전체 · 승인 · 대기 · 탈퇴, 강좌 관리: 과목별)
 - **Feedback**: `Toast` — 동작이 끝났다는 것을 화면 아래 가운데에 잠깐 알린다
+
+## 학원 공개 화면
+
+학원 사이트(메인 · 전체강좌 · 강좌 상세 · 강의 보기 · 학원소개 · 선생님 · Q&A · 자유게시판)는 같은 토큰과 부품을 쓰고, 그 위에 공개 화면 규칙을 얹는다. 자세히는 "학원 공개 화면 UI 규칙" 장과 `AcademyPublic` 부품.
+
+- 글자: 화면 제목 `cl-fs-display`(40) · 섹션 `cl-fs-section-pub`(26~32) · 본문 · 목록 제목 `cl-fs-body-public`(17) · 부제 `cl-fs-body-sm-pub`(15) · 버튼 `cl-fs-ui`(14) · 정보 `cl-fs-caption`(13) · 배지 `cl-fs-micro`(12). 직접 적은 크기는 쓰지 않는다.
+- 여백: 묶음 안 8~12, 묶음 사이 24~40. 선은 `cl-hairline` 만, 화면을 테두리 상자로 감싸지 않는다.
+- 빈 상태: 회색 점선 상자 `cl-pub-empty`. 사진 없는 선생님: `cl-primary-wash` 원 + 선 사람 아이콘(`cl-avatar-ph`).
+- 보라는 할 일(주 버튼 · 수강신청 · 고른 것)에만. 이미 된 상태(수강중)는 회색.

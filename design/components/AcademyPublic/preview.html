@@ -1,0 +1,42 @@
+<!-- @dsCard group="Academy" height=520 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>학원 공개 화면 부품</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); background: var(--cl-canvas); color: var(--cl-ink); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-5); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-3); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+.pv-empty { max-width: 520px; }
+.pv-hover { pointer-events: none; }
+</style></head>
+<body class="cl-scope cl-pub-body">
+<div class="pv-stack">
+<div>
+<p class="pv-label">수강 상태 — 수강중(평소) · 수강중(마우스 올림) · 수강신청</p>
+<div class="pv-row">
+<button type="button" class="cl-btn cl-btn--undo cl-btn--pill"><span class="cl-btn__now"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>수강중</span><span class="cl-btn__undo">수강 취소</span></button>
+<button type="button" class="cl-btn cl-btn--undo cl-btn--pill pv-hover" style="background:var(--cl-canvas);color:var(--cl-danger);box-shadow:inset 0 0 0 1px currentColor"><span class="cl-btn__now" style="visibility:hidden">수강중</span><span class="cl-btn__undo" style="visibility:visible">수강 취소</span></button>
+<button type="button" class="cl-btn cl-btn--tint cl-btn--pill"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>수강신청</button>
+</div>
+</div>
+<div>
+<p class="pv-label">사진 없는 선생님 — 32 · 44</p>
+<div class="pv-row">
+<span class="cl-avatar-ph" style="width:32px;height:32px"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="m11.4 93.3c-.1 0-.1 0-.2 0-1.3-.1-2.2-1.2-2.1-2.4 1.3-19.1 19.3-34 40.9-34s39.6 14.9 40.9 33.9c.1 1.3-.9 2.3-2.1 2.4-1.3.1-2.3-.9-2.4-2.1-1.2-16.7-17.2-29.7-36.4-29.7-19.3 0-35.3 13.1-36.4 29.8-.1 1.2-1.1 2.1-2.2 2.1z"></path><path d="m50 52.3c-12.6 0-22.8-10.2-22.8-22.8s10.2-22.8 22.8-22.8 22.8 10.2 22.8 22.8-10.2 22.8-22.8 22.8zm0-41c-10 0-18.2 8.2-18.2 18.2s8.2 18.2 18.2 18.2 18.2-8.2 18.2-18.2-8.2-18.2-18.2-18.2z"></path></svg></span>
+<span class="cl-avatar-ph" style="width:44px;height:44px"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="m11.4 93.3c-.1 0-.1 0-.2 0-1.3-.1-2.2-1.2-2.1-2.4 1.3-19.1 19.3-34 40.9-34s39.6 14.9 40.9 33.9c.1 1.3-.9 2.3-2.1 2.4-1.3.1-2.3-.9-2.4-2.1-1.2-16.7-17.2-29.7-36.4-29.7-19.3 0-35.3 13.1-36.4 29.8-.1 1.2-1.1 2.1-2.2 2.1z"></path><path d="m50 52.3c-12.6 0-22.8-10.2-22.8-22.8s10.2-22.8 22.8-22.8 22.8 10.2 22.8 22.8-10.2 22.8-22.8 22.8zm0-41c-10 0-18.2 8.2-18.2 18.2s8.2 18.2 18.2 18.2 18.2-8.2 18.2-18.2-8.2-18.2-18.2-18.2z"></path></svg></span>
+</div>
+</div>
+<div>
+<p class="pv-label">강의 보기 오른쪽 칸 탭 · 이 강의 질문하기</p>
+<div class="cl-ptabs" role="tablist" style="max-width:340px"><button type="button" class="cl-ptab" role="tab" aria-selected="true">강의 목록 <span class="cl-num">20</span></button><button type="button" class="cl-ptab" role="tab" aria-selected="false">관련 질문 <span class="cl-num">3</span></button></div>
+<div style="margin-top:12px"><button type="button" class="cl-ask-btn"><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>이 강의 질문하기</button></div>
+</div>
+<div class="pv-empty">
+<p class="pv-label">빈 상태</p>
+<div class="cl-pub-empty"><svg class="cl-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg><p class="cl-pub-empty__title">담당 강좌가 없습니다</p></div>
+</div>
+</div>
+</body>
+</html>
