@@ -3316,8 +3316,8 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
     layer: "화면별",
     screens: ["a-courses-s", "a-courses"],
     title: "전체강좌 카드형 · 목록형 — 여백 · 상태 표시 · 칸 맞춤",
-    current: "카드마다 위에 검은 선, 사진 모서리 10, 글자 15.5 · 12.5 직접 적음. '수강중'이 흰 버튼 모양이라 눌러야 할 것처럼 보이고, 카드 · 줄 끝마다 '강의목록 ›' 이 또 있음. 목록형은 줄 66px(위아래 10)로 빽빽하고, 오른쪽 숫자 · 버튼 폭이 줄마다 달라 [수강중] · [+ 수강신청] 이 들쭉날쭉",
-    next: "카드형: 검은 선 없음, 사진 8, 사진 아래 12, 분류 13 · 제목 17 · 600 · 선생님 13, 카드 사이 40 · 24. 목록형: 목록 윗선 옅은 회색, 줄 위아래 20, 사진 120(6), 사진 ↔ 글 20, 제목 ↔ 정보 6, 오른쪽 [강의 56 | 수강생 44 | 좋아요 44] [상태 96] 고정 칸. 공통: '수강중'은 초록 표시(체크 + 글자, 누를 수 없음), '+ 수강신청'만 연보라 버튼 32. '강의목록 ›' 은 뺌(카드 · 줄 전체가 링크)",
+    current: "카드마다 위에 검은 선, 사진 모서리 10, 글자 15.5 · 12.5 직접 적음. [수강중] 을 누르면 수강 취소 확인 창이 뜨는데, 누르기 전에는 그런 일이 생긴다는 표시가 없음(마우스를 올려도 그대로). 카드 · 줄 끝마다 '강의목록 ›' 이 또 있음. 목록형은 줄 66px(위아래 10)로 빽빽하고, 오른쪽 숫자 · 버튼 폭이 줄마다 달라 [수강중] · [+ 수강신청] 이 들쭉날쭉",
+    next: "카드형: 검은 선 없음, 사진 8, 사진 아래 12, 분류 13 · 제목 17 · 600 · 선생님 13, 카드 사이 40 · 24. 목록형: 목록 윗선 옅은 회색, 줄 위아래 20, 사진 120(6), 사진 ↔ 글 20, 제목 ↔ 정보 6, 오른쪽 [강의 56 | 수강생 44 | 좋아요 44] [상태 96] 고정 칸. 공통: [✓ 수강중] 은 초록 버튼 32(최소 88) — 마우스를 올리거나 키보드로 고르면 같은 자리에서 흰 바탕 · 빨간 테두리 '수강 취소'로 바뀌고, 누르면 확인 창('수강을 취소할까요? / 취소하면 이 강좌의 강의를 볼 수 없습니다.' [닫기][수강 취소]). 터치 화면은 바뀌지 않고 바로 확인 창. [+ 수강신청]은 연보라 버튼 32. '강의목록 ›' 은 뺌(카드 · 줄 전체가 링크)",
     css: `/* 전체강좌 카드형 — 카드 위 검은 선 · 겹 상자 없이, 사진 8 · 글자 토큰 · 상태는 오른쪽 아래 하나 */
 .cl-cs-cards { gap: 40px 24px; margin-top: 8px; }
 .cl-cs-rows { margin-top: 8px; }
@@ -3333,8 +3333,14 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
 .cl-cs-stats > span { display: inline-flex; align-items: center; gap: 4px; }
 /* 카드 · 줄 전체가 강좌로 가는 길이라 '강의목록 ›' 은 뺀다 */
 .cl-cs-more { display: none !important; }
-/* 상태 — 수강중은 버튼이 아니라 표시, 수강신청만 버튼 */
-.cl-cs-state { display: inline-flex; align-items: center; gap: 4px; height: 28px; padding: 0 10px; border-radius: var(--cl-radius-pill); background: var(--cl-success-bg); color: var(--cl-success); font-size: var(--cl-fs-caption); font-weight: 500; white-space: nowrap; }
+/* 상태 — [✓ 수강중] 은 누르면 수강 취소. 마우스를 올리거나 키보드로 고르면 '수강 취소'로 바뀌어 무엇이 일어나는지 미리 보인다 */
+.cl-cs-state { position: relative; display: inline-grid; place-items: center; min-width: 88px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-success-bg); color: var(--cl-success); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, box-shadow .15s ease-out; }
+.cl-cs-state > span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 4px; }
+.cl-cs-state__off { visibility: hidden; }
+.cl-cs-state:hover, .cl-cs-state:focus-visible { background: var(--cl-canvas); color: var(--cl-danger, #D93025); box-shadow: inset 0 0 0 1px currentColor; }
+.cl-cs-state:hover .cl-cs-state__on, .cl-cs-state:focus-visible .cl-cs-state__on { visibility: hidden; }
+.cl-cs-state:hover .cl-cs-state__off, .cl-cs-state:focus-visible .cl-cs-state__off { visibility: visible; }
+@media (hover: none) { .cl-cs-state:hover { background: var(--cl-success-bg); color: var(--cl-success); box-shadow: none; } .cl-cs-state:hover .cl-cs-state__on { visibility: visible; } .cl-cs-state:hover .cl-cs-state__off { visibility: hidden; } }
 .cl-cs-apply { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-primary-tint); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 600; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out; }
 .cl-cs-apply:hover { background: #E9DDFB; }
 /* 목록형 — 여유 있게: 줄 위아래 20, 사진 120, 오른쪽 숫자 · 상태는 칸을 고정해 줄마다 같은 자리 */
@@ -3361,7 +3367,7 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
   .cl-cs-row__side { display: flex; } .cl-cs-row__side .cl-cs-stats { display: none; }
   .cl-cs-row__state { width: auto; }
 }
-@media (prefers-reduced-motion: reduce) { .cl-cs-row, .cl-cs-apply { transition: none; } }`,
+@media (prefers-reduced-motion: reduce) { .cl-cs-row, .cl-cs-apply, .cl-cs-state { transition: none; } }`,
     dom: `var list = doc.querySelector('.cl-cs-main [data-list], [data-list]'); var cards = doc.querySelector('.cl-cs-cards'); if (!list || !cards || doc.querySelector('.cl-cs-rows')) return;
 var ul = doc.createElement('ul'); ul.className = 'cl-cs-rows';
 cards.querySelectorAll('.cl-cs-card').forEach(function (c) {
@@ -3381,8 +3387,20 @@ var views = doc.querySelectorAll('.cl-cs-view');
 views.forEach(function (b, i) { b.classList.add('lab-live'); b.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation();
   views.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
   if (/목록/.test(b.getAttribute('aria-label') || '')) list.setAttribute('data-view', 'list'); else list.removeAttribute('data-view');
-  try { parent.postMessage({ labFit: 1 }, '*'); } catch (err) {} }); });`,
-    markup: "course-search.js: 수강중이면 <span class=\"cl-cs-state\">✓ 수강중</span>, 아니면 <button class=\"cl-cs-apply\">+ 수강신청</button> (지금 cl-btn--ghost '수강중' 버튼 대신). .cl-cs-more 를 그리지 않음. 목록형(view=list)의 오른쪽은 .cl-cs-row__side > .cl-cs-stats + .cl-cs-row__state.",
+  try { parent.postMessage({ labFit: 1 }, '*'); } catch (err) {} }); });
+/* 수강 취소 확인 창 — 실제와 같은 문구 */
+if (!doc.getElementById('lab-cancel-dlg')) {
+  var dlg = doc.createElement('dialog'); dlg.id = 'lab-cancel-dlg'; dlg.className = 'cl-dialog cl-dialog--confirm';
+  dlg.innerHTML = '<h2 class="cl-dialog__title">수강을 취소할까요?</h2><p class="cl-dialog__desc">취소하면 이 강좌의 강의를 볼 수 없습니다.</p><div class="cl-dialog__actions"><button type="button" class="cl-btn cl-btn--text cl-btn--lg lab-live" data-close>닫기</button><button type="button" class="cl-btn cl-btn--lg cl-btn--danger lab-live" data-ok>수강 취소</button></div>';
+  doc.body.appendChild(dlg); var target = null;
+  doc.addEventListener('click', function (e) { var s = e.target.closest('.cl-cs-state'); if (!s) return; e.preventDefault(); e.stopPropagation(); target = s; try { dlg.showModal(); } catch (err) { dlg.setAttribute('open', ''); } });
+  dlg.querySelector('[data-close]').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); dlg.close(); });
+  dlg.querySelector('[data-ok]').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); dlg.close();
+    if (!target) return; var name = (target.closest('.cl-cs-card, .cl-cs-row').querySelector('.cl-cs-name') || {}).textContent;
+    doc.querySelectorAll('.cl-cs-card, .cl-cs-row').forEach(function (it) { if ((it.querySelector('.cl-cs-name') || {}).textContent !== name) return; var st = it.querySelector('.cl-cs-state'); if (!st) return;
+      var b = doc.createElement('button'); b.type = 'button'; b.className = 'cl-cs-apply lab-live'; b.innerHTML = '<svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>수강신청'; st.replaceWith(b); }); });
+}`,
+    markup: "course-search.js: 수강중이면 <button class=\"cl-cs-state\"><span class=\"cl-cs-state__on\">✓ 수강중</span><span class=\"cl-cs-state__off\">수강 취소</span></button>(누르면 지금과 같은 수강 취소 확인 창), 아니면 <button class=\"cl-cs-apply\">+ 수강신청</button> (지금 cl-btn--ghost '수강중' 버튼 대신). .cl-cs-more 를 그리지 않음. 목록형(view=list)의 오른쪽은 .cl-cs-row__side > .cl-cs-stats + .cl-cs-row__state.",
     targets: [".cl-cs-cards", ".cl-cs-rows"],
     note: "학생 로그인 화면(a-courses-s)을 새로 만들어 상태를 볼 수 있게 함. 선생님 화면은 상태 칸이 비어 있음"
   }
