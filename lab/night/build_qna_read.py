@@ -17,6 +17,15 @@ i=shell.index('<main'); j=shell.index('</main>')+7
 out=shell[:i]+main+shell[j:]
 out=out.replace('<title>Q&amp;A','<title>Q&amp;A 질문',1)
 open('a-qna-read.html','w').write(out)
+# 답변 없음 변형
+z=re.sub(r'<ol class="cl-thread__list" data-answers="">.*?</ol>','<ol class="cl-thread__list" data-answers=""></ol>',out,flags=re.S)
+z=z.replace('<span class="cl-badge cl-badge--success">답변 2</span>','<span class="cl-badge cl-badge--warning">답변대기</span>')
+z=re.sub(r'(data-answer-count="">)\d+',r'\g<1>0',z)
+open('a-qna-read-empty.html','w').write(z)
 # 목록 → 상세
 q=open('a-qna.html').read().replace('data-lab-go="s-qna-read"','data-lab-go="a-qna-read"'); open('a-qna.html','w').write(q)
+# 목록의 답변대기 질문은 답변 없음 상세로
+q=open('a-qna.html').read()
+q=re.sub(r'(<li class="cl-qna-item"><span class="cl-qna-item__status is-waiting">(?:(?!</li>).)*?)data-lab-go="a-qna-read"',r'\g<1>data-lab-go="a-qna-read-empty"',q,flags=re.S)
+open('a-qna.html','w').write(q)
 print('ok')
