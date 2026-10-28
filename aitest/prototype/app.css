@@ -32,6 +32,7 @@
 button.pt-step { cursor: pointer; background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
 .pt-bar { position: sticky; bottom: 0; z-index: 10; margin: 24px calc(-1 * var(--cl-ws-gutter)) 0; padding: 12px var(--cl-ws-gutter); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: var(--cl-glass); -webkit-backdrop-filter: var(--cl-glass-filter); backdrop-filter: var(--cl-glass-filter); border-top: 1px solid var(--cl-hairline); }
 .pt-bar__summary { flex: 1 1 240px; min-width: 0; }
+.pt-bar__why { margin: 0; color: var(--cl-warning); font-size: 13px; font-weight: 600; }
 .pt-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
 .pt-label { font-weight: 600; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
 .pt-seg .cl-segmented__item { width: auto; padding: 0 14px; }

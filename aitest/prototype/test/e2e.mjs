@@ -385,6 +385,23 @@ step('① 자료: 데모 문항이 있는 지문 표시 · 붙여 넣은 지문�
   await see(page, '.pt-steps [aria-current="step"] >> text=방식');
   assert(await page.isDisabled('[data-a="wiz-next"]'), '데모 문항이 없는데 문제 만들기가 켜져 있음');
   assert((await page.getAttribute('[data-a="wiz-next"]', 'title')).includes('데모 문항'), '이유 안내 없음');
+  await see(page, '.pt-bar__why >> text=고른 지문에 데모 문항이 없어요');
+});
+
+step('다음 버튼이 꺼져 있으면 이유를 바에 글로 보여 준다', async (page) => {
+  await toMethod(page);
+  await page.click('[data-a="grp"][data-v="original"]');
+  assert(await page.isDisabled('[data-a="wiz-next"]'), '묶음이 없는데 문제 만들기가 켜져 있음');
+  await see(page, '.pt-bar__why >> text=어떤 문제를 만들지 하나 이상 골라 주세요');
+  await page.click('[data-a="grp"][data-v="original"]');
+  assert(await page.locator('.pt-bar__why').count() === 0, '켜져 있는데 이유 문구가 남음');
+});
+
+step('① 자료: [데모 문항 있는 지문만 선택]', async (page) => {
+  await open(page, '#new?paper=s-en');
+  await page.click('[data-a="src-demo"]');
+  assert((await barText(page)).includes('고른 지문 4개'), await barText(page));
+  assert(!(await page.isChecked('[data-unit="s-en/u03"] input')), '그림 지문이 골라짐');
 });
 
 step('① 에서 과목을 바꾸면 ② 묶음이 그 과목 기본값으로', async (page) => {
@@ -445,6 +462,15 @@ realStep('실제 데이터: 보관함 → 상세 → 빈칸 지문 4개 → 만�
   assert(await page.locator('[data-a="print"]').count() === 0, '아티팩트에서 인쇄 버튼이 보임');
   await page.click('[data-a="save-done"]');
   await see(page, 'td >> text=완성');
+});
+
+realStep('실제 데이터: 영어 [데모 문항 있는 지문만 선택] → 10개 → 문제 만들기 켜짐', async (page) => {
+  await open(page, '#new');
+  await page.click('[data-a="src-demo"]');
+  assert((await page.textContent('.pt-bar__summary')).includes('고른 지문 10개'), await page.textContent('.pt-bar__summary'));
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=방식');
+  assert(!(await page.isDisabled('[data-a="wiz-next"]')), '문제 만들기가 꺼져 있음');
 });
 
 realStep('실제 데이터: 국어 전체 선택은 그림 지문 2묶음을 뺀다', async (page) => {

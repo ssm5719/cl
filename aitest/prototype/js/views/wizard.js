@@ -99,7 +99,9 @@ export function view(state) {
     return `<li>${n <= wiz.reached && n !== wiz.step && !wiz.generating ? `<button type="button" class="pt-step is-done" data-a="wiz-go" data-v="${n}">${label}</button>` : `<span class="pt-step${n < wiz.reached ? ' is-done' : ''}" ${cur}>${label}</span>`}</li>`;
   }).join('<li class="pt-steps__sep" aria-hidden="true">→</li>')}</ol>`;
   const nextLabel = ['다음: 만들 방식', '문제 만들기', '다음: 인쇄', ''][wiz.step - 1];
-  const bar = `<div class="pt-bar"><div class="pt-bar__summary">${step.summary(wiz, state)}</div>
+  // 꺼진 이유는 마우스를 올려야 보이는 title 만으로는 못 찾는다(터치 · 아티팩트). 바에 글로 보여 준다.
+  const why = ok === true || !nextLabel ? '' : `<p class="pt-bar__why" role="status">${esc(ok)}</p>`;
+  const bar = `<div class="pt-bar"><div class="pt-bar__summary">${step.summary(wiz, state)}</div>${why}
     ${wiz.step > 1 ? `<button type="button" class="cl-btn cl-btn--ghost" data-a="wiz-prev" ${wiz.generating ? 'disabled' : ''}>이전</button>` : ''}
     ${nextLabel ? `<button type="button" class="cl-btn cl-btn--primary" data-a="wiz-next" ${ok === true ? '' : 'disabled'} title="${ok === true ? '' : esc(ok)}">${nextLabel}</button>` : ''}</div>`;
   return `<div class="cl-page pt-wide pt-wizard"><a class="cl-text-btn pt-back" href="#exams">← 시험 출제</a>

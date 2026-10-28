@@ -54,7 +54,7 @@ function libraryView(wiz, state) {
   if (paper) {
     const types = [...new Set(paper.units.filter((u) => !u.has_figure).map((u) => u.type_label))];
     const shown = paper.units.filter((u) => !wiz.typeFilter || u.type_label === wiz.typeFilter);
-    right = `<div class="pt-col pt-col--wide"><div class="cl-toolbar"><button type="button" class="cl-btn cl-btn--ghost cl-btn--sm" data-a="src-all">전체 선택</button><button type="button" class="cl-btn cl-btn--ghost cl-btn--sm" data-a="src-none">선택 해제</button>
+    right = `<div class="pt-col pt-col--wide"><div class="cl-toolbar"><button type="button" class="cl-btn cl-btn--ghost cl-btn--sm" data-a="src-all">전체 선택</button><button type="button" class="cl-btn cl-btn--ghost cl-btn--sm" data-a="src-none">선택 해제</button><button type="button" class="cl-btn cl-btn--tint cl-btn--sm" data-a="src-demo">데모 문항 있는 지문만 선택</button>
       <div class="cl-chips">${['', ...types].map((t) => `<button type="button" class="cl-chip" data-a="src-type" data-v="${esc(t)}" aria-pressed="${wiz.typeFilter === t}">${t ? `${esc(t)}만` : '모든 유형'}</button>`).join('')}</div></div>
       <ul class="pt-units">${shown.map((u) => {
         const key = `${paper.id}/${u.id}`;
@@ -108,6 +108,12 @@ export function onAction(a, el, wiz, state) {
   const paper = allPapers(state).find((p) => p.id === wiz.paperId);
   if (a === 'src-all' && paper) {
     const keys = paper.units.filter((u) => !u.has_figure && (!wiz.typeFilter || u.type_label === wiz.typeFilter)).map((u) => `${paper.id}/${u.id}`);
+    wiz.selected = [...new Set([...wiz.selected, ...keys])];
+    return render();
+  }
+  if (a === 'src-demo' && paper) {
+    const demo = demoKeys(state);
+    const keys = paper.units.filter((u) => !u.has_figure && demo.has(`${paper.id}/${u.id}`) && (!wiz.typeFilter || u.type_label === wiz.typeFilter)).map((u) => `${paper.id}/${u.id}`);
     wiz.selected = [...new Set([...wiz.selected, ...keys])];
     return render();
   }
