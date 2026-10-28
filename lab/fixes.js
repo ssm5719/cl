@@ -468,13 +468,13 @@ const first=doc.querySelector('[data-teacher-manage] tbody tr .cl-row-menu'); if
     title: '행에 마우스를 올리면 아이디 옆 [들어가기]',
     current: '아이디 글자를 누르면 계정 전환 확인창이 뜬다(숨은 동작)',
     next: '아이디는 회색 보통 글자. 행에 마우스를 올리거나 키보드로 행에 들어오면 아이디 오른쪽에 작은 [들어가기] 버튼(log-in 아이콘 + 글자, `cl-btn--ghost --xs`). 누르면 지금과 같은 확인창',
-    css: `.cl-mt-enter { margin-left: 8px; height: 24px; padding: 0 8px; font-size: var(--cl-fs-micro); opacity: 0; transition: opacity var(--cl-dur) var(--cl-ease); }
-.cl-table tbody tr:hover .cl-mt-enter, .cl-table tbody tr:focus-within .cl-mt-enter { opacity: 1; }
-@media (hover: none), (max-width: 900px) { .cl-mt-enter { display: none; } }`,
-    markup: '아이디 칸에 `<button type="button" class="cl-btn cl-btn--ghost cl-btn--xs cl-mt-enter" aria-label="장현석 선생님 계정으로 들어가기">들어가기</button>`. 키보드 · 화면 읽기 프로그램에서도 닿도록 `display:none` 이 아니라 투명도로 숨긴다. 터치 기기 · 모바일은 행 메뉴(⋯)를 쓴다.',
-    dom: `doc.querySelectorAll('[data-teacher-manage] tbody td[data-label="아이디"]').forEach(td=>{const b=doc.createElement('button'); b.type='button'; b.className='cl-btn cl-btn--ghost cl-btn--xs cl-mt-enter';
+    css: `/* [들어가기] — 공통 버튼 ghost · xs + 줄에 올리면 보이기(cl-reveal). 터치 · 모바일은 행 메뉴(⋯)를 쓰므로 숨김 */
+[data-teacher-manage] td[data-label="아이디"] .cl-reveal { margin-left: 8px; }
+@media (hover: none), (max-width: 900px) { [data-teacher-manage] td[data-label="아이디"] .cl-reveal { display: none; } }`,
+    markup: `아이디 칸에 \`<button type="button" class="cl-btn cl-btn--ghost cl-btn--xs cl-reveal" aria-label="장현석 선생님 계정으로 들어가기">들어가기</button>\`. 키보드 · 화면 읽기 프로그램에서도 닿도록 \`display:none\` 이 아니라 투명도로 숨긴다. 터치 기기 · 모바일은 행 메뉴(⋯)를 쓴다.`,
+    dom: `doc.querySelectorAll('[data-teacher-manage] tbody td[data-label="아이디"]').forEach(td=>{const b=doc.createElement('button'); b.type='button'; b.className='cl-btn cl-btn--ghost cl-btn--xs cl-reveal';
   b.innerHTML='<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg>'.replace('width="16" height="16"','width="13" height="13"')+'들어가기'; td.append(b);});
-const r=doc.querySelector('[data-teacher-manage] tbody tr:nth-child(2) .cl-mt-enter'); if(r) r.style.opacity='1';`,
+const r=doc.querySelector('[data-teacher-manage] tbody tr:nth-child(2) .cl-reveal'); if(r) r.style.opacity='1';`,
     targets: ['[data-teacher-manage] tbody tr:nth-child(2) .cl-mt-enter'],
     note: 'C2 와 같이 켜야 합니다. 둘째 행은 마우스를 올린 상태를 보여 주려고 버튼을 늘 보이게 했습니다.'
   },
@@ -523,10 +523,10 @@ doc.querySelectorAll('[data-teacher-read] dd.cl-num').forEach(d=>{const v=d.text
     current: '강좌를 누르면 그 선생님 계정으로 바로 들어간다. 아래 회색 안내 문장으로만 알 수 있다',
     next: '강좌 줄을 누르면 강좌 상세(관리자 화면). 줄 오른쪽에 "선생님 계정으로 열기 →" 글자 링크를 따로 둔다. 안내 문장은 뺀다',
     css: `.cl-mt-course { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; }
-.cl-mt-course__open { grid-column: 2; grid-row: 1 / span 2; align-self: center; display: inline-flex; align-items: center; gap: 4px; font-size: var(--cl-fs-caption); font-weight: 600; color: var(--cl-ink-2); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; }
-.cl-mt-course__open:hover { color: var(--cl-primary-pressed); text-decoration-color: currentColor; }`,
-    markup: '`.cl-mt-course` 를 강좌 상세 링크로 바꾸고, 옆에 `<a class="cl-mt-course__open">선생님 계정으로 열기</a>`(누르면 확인창). `.cl-field__help` "강좌를 누르면 이 선생님 계정으로…" 문장은 지운다.',
-    dom: `doc.querySelectorAll('.cl-mt-course').forEach(c=>{const a=doc.createElement('span'); a.className='cl-mt-course__open'; a.innerHTML='선생님 계정으로 열기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>'; c.append(a);});
+/* [선생님 계정으로 열기] — 공통 글자 링크 cl-link--muted. 여기는 칸 자리 · 글자 크기만 */
+.cl-mt-course > .cl-link { grid-column: 2; grid-row: 1 / span 2; align-self: center; display: inline-flex; align-items: center; gap: 4px; font-size: var(--cl-fs-caption); }`,
+    markup: `\`.cl-mt-course\` 를 강좌 상세 링크로 바꾸고, 옆에 \`<a class="cl-link cl-link--muted">선생님 계정으로 열기</a>\`(누르면 확인창). \`.cl-field__help\` "강좌를 누르면 이 선생님 계정으로…" 문장은 지운다.`,
+    dom: `doc.querySelectorAll('.cl-mt-course').forEach(c=>{const a=doc.createElement('span'); a.className='cl-link cl-link--muted'; a.innerHTML='선생님 계정으로 열기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>'; c.append(a);});
 const help=[...doc.querySelectorAll('.cl-field__help')].find(p=>p.textContent.includes('강좌를 누르면')); if(help) help.remove();`,
     targets: ['.cl-mt-course']
   },
@@ -549,11 +549,11 @@ en.addEventListener('click',e=>{e.preventDefault(); if(doc.querySelector('.lab-d
     title: '선생님 수정: 비밀번호 칸 아래 [비밀번호 초기화]',
     current: '비밀번호 초기화가 상세 화면 버튼 줄에 QR코드 보기와 같은 모양으로 있다',
     next: '수정 화면 비밀번호 칸 도움말 끝에 "또는 [비밀번호 초기화]" 글자 버튼(빨강). 누르면 확인창 → [초기화](위험 버튼)',
-    css: `.cl-pw-reset { margin-left: 4px; padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--cl-danger); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-.cl-pw-reset:hover { color: var(--cl-danger-pressed); }`,
-    markup: '수정 화면 `#mtf-pw` 도움말(`.cl-field__help`)을 "바꿀 때만 입력하세요. 4자 이상 · 또는 <button type=\"button\" class=\"cl-pw-reset\" data-reset-pw>비밀번호 초기화</button>"로 바꾼다. 동작 코드: `read.js` 의 `data-reset-pw` 처리(확인창 + 초기화 요청)를 `form.js` 로 옮기고, 상세 화면 버튼은 지운다(I1). 확인창: 제목 "장현석 선생님 비밀번호를 초기화할까요?", 설명 "임시 비밀번호를 새로 만들고, 로그인되어 있던 기기는 로그아웃됩니다. / 선생님은 임시 비밀번호로 로그인한 뒤 새 비밀번호를 정해야 합니다.", 버튼 [취소] [초기화](`cl-btn--danger`). 지금 확인창 문구 그대로.',
+    css: `/* [비밀번호 초기화] — 공통 글자 링크 cl-link--danger. 여기는 앞 간격만 */
+#mtf-pw ~ .cl-field__help .cl-link, .cl-field__help > .cl-link--danger { margin-left: 4px; }`,
+    markup: `수정 화면 \`#mtf-pw\` 도움말(\`.cl-field__help\`)을 "바꿀 때만 입력하세요. 4자 이상 · 또는 <button type="button" class="cl-link cl-link--danger" data-reset-pw>비밀번호 초기화</button>"로 바꾼다. 동작 코드: \`read.js\` 의 \`data-reset-pw\` 처리(확인창 + 초기화 요청)를 \`form.js\` 로 옮기고, 상세 화면 버튼은 지운다(I1). 확인창: 제목 "장현석 선생님 비밀번호를 초기화할까요?", 설명 "임시 비밀번호를 새로 만들고, 로그인되어 있던 기기는 로그아웃됩니다. / 선생님은 임시 비밀번호로 로그인한 뒤 새 비밀번호를 정해야 합니다.", 버튼 [취소] [초기화](\`cl-btn--danger\`). 지금 확인창 문구 그대로.`,
     dom: `const inp=doc.querySelector('#mtf-pw'); if(!inp) return; const help=inp.parentElement.querySelector('.cl-field__help'); if(!help) return;
-help.innerHTML='바꿀 때만 입력하세요. 4자 이상 · 또는 <button type="button" class="cl-pw-reset lab-live" data-reset-pw>비밀번호 초기화</button>';
+help.innerHTML='바꿀 때만 입력하세요. 4자 이상 · 또는 <button type="button" class="cl-link cl-link--danger lab-live" data-reset-pw>비밀번호 초기화</button>';
 help.querySelector('button').addEventListener('click',e=>{e.preventDefault(); if(doc.querySelector('.lab-dlg')) return;
   const bg=doc.createElement('div'); bg.className='lab-dlg'; bg.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.4);display:grid;place-items:start center;padding-top:160px';
   bg.innerHTML='<div class="cl-dialog cl-dialog--confirm" role="dialog" aria-modal="true" style="position:static;display:block;margin:0;width:440px"><h2 class="cl-dialog__title">장현석 선생님 비밀번호를 초기화할까요?</h2><p class="cl-dialog__desc">임시 비밀번호를 새로 만들고, 로그인되어 있던 기기는 로그아웃됩니다.\\n선생님은 임시 비밀번호로 로그인한 뒤 새 비밀번호를 정해야 합니다.</p><div class="cl-dialog__actions"><button type="button" class="cl-btn cl-btn--text lab-live" data-x>취소</button><button type="button" class="cl-btn cl-btn--danger lab-live" data-x>초기화</button></div></div>';
@@ -925,11 +925,9 @@ doc.querySelectorAll('[data-cms-manage] .cl-row-menu__panel').forEach(p=>{ p.que
     title: '상태 "대기 · 승인" 을 점 + 글자로',
     current: '상태가 맨 글자라 대기와 승인이 같은 모양',
     next: '상태 점 + 글자: 승인은 꽉 찬 점 `cl-success`, 대기는 속이 빈 고리 `cl-warning`. 두 색은 밝기가 거의 같아(흰 바탕 5.95:1 / 5.86:1) 색약이면 구분이 어렵다 — 글자와 점 모양으로도 구분되게 한다',
-    css: `[data-alarm-manage] .cl-ma-state::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: currentColor; vertical-align: middle; }
-[data-alarm-manage] .cl-ma-state--ok { color: var(--cl-success); } [data-alarm-manage] .cl-ma-state--wait { color: var(--cl-warning); }
-[data-alarm-manage] .cl-ma-state--wait::before { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; width: 7px; height: 7px; }`,
-    markup: '상태 글자를 `<span class="cl-ma-state cl-ma-state--ok|wait">` 로. 승인 대기 학생에게도 알림이 간다(확인됨) — 체크박스는 그대로.',
-    dom: `doc.querySelectorAll('[data-alarm-manage] td[data-label="상태"]').forEach(td=>{const t=td.textContent.trim(); td.innerHTML='<span class="cl-ma-state '+(t==='승인'?'cl-ma-state--ok':'cl-ma-state--wait')+'">'+t+'</span>';});`,
+    css: `/* 상태 — 공통 점 + 글자(cl-status --ok 승인 · --wait 대기, 빈 점) */`,
+    markup: `상태 글자를 \`<span class="cl-status cl-status--ok|wait">\` 로. 승인 대기 학생에게도 알림이 간다(확인됨) — 체크박스는 그대로.`,
+    dom: `doc.querySelectorAll('[data-alarm-manage] td[data-label="상태"]').forEach(td=>{const t=td.textContent.trim(); td.innerHTML='<span class="cl-status '+(t==='승인'?'cl-status--ok':'cl-status--wait')+'">'+t+'</span>';});`,
     targets: ['[data-alarm-manage] td[data-label="상태"]']
   },
   {
@@ -1023,11 +1021,10 @@ const s=doc.querySelector('[data-stat-login] [data-summary]'); if(s) s.textConte
     next: '브라우저 칸은 "Chrome 155 · Windows" 요약(대부분의 기록이 100자 넘는 원문이라 요약이 기본), 원문은 툴팁 · 엑셀 다운로드에는 원문 그대로. 줄에 마우스를 올리면(키보드 포커스 포함) 요약 옆에 복사 아이콘 버튼(`aria-label="브라우저 원문 복사"`)이 나타나고, 누르면 원문을 클립보드에 넣고 "복사했습니다" 토스트. 사용자는 Q4 규칙 "사혜인 sahyein1"(아이디 연한 회색 13px). 날짜를 직접 넣으면 기간 칸이 "직접 입력"으로 바뀌고, 기간 칸에서 다른 값을 고르면 날짜 칸이 그 기간으로 채워진다 (정함 · 2026-10-22)',
     css: `[data-stat-detail] .cl-id { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
 [data-stat-detail] td[data-ua] { white-space: nowrap; }
-.cl-ua-copy { display: inline-grid; width: 26px; height: 26px; margin-left: 6px; vertical-align: middle; opacity: 0; transition: opacity var(--cl-dur) var(--cl-ease); }
-tr:hover .cl-ua-copy, .cl-ua-copy:focus-visible { opacity: 1; }
-@media (hover: none) { .cl-ua-copy { opacity: 1; } }`,
-    markup: 'User-Agent 를 브라우저 · OS 로 줄여 보이고 `title` 에 원문. 셀 안에 `<button class="cl-icon-btn cl-ua-copy" aria-label="브라우저 원문 복사">`(16px copy 아이콘) → `navigator.clipboard.writeText(원문)` 후 공통 토스트. 사용자 칸 `{이름}<span class="cl-id"> {아이디}</span>`.',
-    dom: `doc.querySelectorAll('[data-stat-detail] td[data-ua]').forEach(td=>{const ua=td.textContent; const b=(ua.match(/(Edg|Chrome|Firefox|Version)\\/(\\d+)/)||[]); const os=/Windows/.test(ua)?'Windows':/Mac OS/.test(ua)?'macOS':/Android/.test(ua)?'Android':/iPhone|iPad/.test(ua)?'iOS':''; td.title=ua; td.textContent=(b[1]==='Version'?'Safari':b[1]==='Edg'?'Edge':b[1]||'')+' '+(b[2]||'')+' · '+os;; const btn=doc.createElement('button'); btn.type='button'; btn.className='cl-icon-btn cl-ua-copy lab-live'; btn.setAttribute('aria-label','브라우저 원문 복사'); btn.title='원문 복사'; btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'; btn.addEventListener('click',()=>{try{navigator.clipboard.writeText(ua);}catch(e){} let t=doc.getElementById('ua-toast'); if(!t){t=doc.createElement('div'); t.id='ua-toast'; t.style.cssText='position:fixed;left:50%;bottom:32px;transform:translateX(-50%);padding:10px 16px;border-radius:12px;background:var(--cl-ink);color:var(--cl-canvas);font-size:14px;z-index:99'; doc.body.append(t);} t.textContent='복사했습니다'; t.hidden=false; clearTimeout(t._h); t._h=setTimeout(()=>t.hidden=true,1600);}); td.append(btn);});
+/* 복사 버튼 — 공통 아이콘 버튼 xs(26) + 줄에 올리면 보이기(cl-reveal). 여기는 자리만 */
+[data-stat-detail] td[data-ua] .cl-icon-btn { display: inline-grid; margin-left: 6px; vertical-align: middle; }`,
+    markup: `User-Agent 를 브라우저 · OS 로 줄여 보이고 \`title\` 에 원문. 셀 안에 \`<button class="cl-icon-btn cl-icon-btn--xs cl-reveal" aria-label="브라우저 원문 복사">\`(16px copy 아이콘) → \`navigator.clipboard.writeText(원문)\` 후 공통 토스트. 사용자 칸 \`{이름}<span class="cl-id"> {아이디}</span>\`.`,
+    dom: `doc.querySelectorAll('[data-stat-detail] td[data-ua]').forEach(td=>{const ua=td.textContent; const b=(ua.match(/(Edg|Chrome|Firefox|Version)\\/(\\d+)/)||[]); const os=/Windows/.test(ua)?'Windows':/Mac OS/.test(ua)?'macOS':/Android/.test(ua)?'Android':/iPhone|iPad/.test(ua)?'iOS':''; td.title=ua; td.textContent=(b[1]==='Version'?'Safari':b[1]==='Edg'?'Edge':b[1]||'')+' '+(b[2]||'')+' · '+os;; const btn=doc.createElement('button'); btn.type='button'; btn.className='cl-icon-btn cl-icon-btn--xs cl-reveal lab-live'; btn.setAttribute('aria-label','브라우저 원문 복사'); btn.title='원문 복사'; btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'; btn.addEventListener('click',()=>{try{navigator.clipboard.writeText(ua);}catch(e){} let t=doc.getElementById('ua-toast'); if(!t){t=doc.createElement('div'); t.id='ua-toast'; t.style.cssText='position:fixed;left:50%;bottom:32px;transform:translateX(-50%);padding:10px 16px;border-radius:12px;background:var(--cl-ink);color:var(--cl-canvas);font-size:14px;z-index:99'; doc.body.append(t);} t.textContent='복사했습니다'; t.hidden=false; clearTimeout(t._h); t._h=setTimeout(()=>t.hidden=true,1600);}); td.append(btn);});
 doc.querySelectorAll('[data-stat-detail] td[data-label="사용자"]').forEach(td=>{const m=td.textContent.match(/^(.*) \\((.*)\\)$/); if(m){td.textContent=m[1]; const s=doc.createElement('span'); s.className='cl-id'; s.textContent=' '+m[2]; td.append(s);}});`,
     targets: ['[data-stat-detail] td[data-ua]']
   },
@@ -1305,14 +1302,12 @@ doc.querySelectorAll('[data-type-panel]').forEach(p=>{ const blocks=[...p.queryS
     title: '추천 키워드: 눌러도 지워지지 않게',
     current: '키워드 칩 전체가 지우기 버튼이다("키워드를 누르면 지웁니다"). 확인 없이 바로 지워지고, 칩은 보통 "고르기"로 읽혀 실수로 누르기 쉽다. "# 수능대비특강"처럼 # 뒤에 빈칸',
     next: '칩은 글자만(누를 수 없음), 오른쪽 × 아이콘 버튼만 지운다(`aria-label="수능대비특강 지우기"`, hover 때 빨강). 지운 뒤 5초 동안 토스트 "수능대비특강 지웠습니다 [되돌리기]". 표기 "#수능대비특강". 설명 "첫 화면 키워드 줄에 나옵니다. 4개"',
-    css: `.cl-mm-kw { display: inline-flex; align-items: center; gap: 2px; height: 30px; padding: 0 4px 0 12px; border-radius: var(--cl-radius-pill); background: var(--cl-hover); color: var(--cl-ink); font-size: var(--cl-fs-ui); }
-.cl-mm-kw__x { width: 24px; height: 24px; border: 0; border-radius: var(--cl-radius-pill); background: transparent; color: var(--cl-ink-muted); display: grid; place-items: center; cursor: pointer; }
-.cl-mm-kw__x:hover { background: var(--cl-danger-bg); color: var(--cl-danger); }`,
-    markup: '`<button class="cl-chip">` 를 `<span class="cl-mm-kw">#{키워드}<button class="cl-mm-kw__x" aria-label="{키워드} 지우기">×아이콘</button></span>` 로. 지우기는 공통 토스트의 되돌리기와 함께.',
+    css: `/* 추천 키워드 — 공통 지울 수 있는 칩(cl-tag · cl-tag__x). 칩을 눌러도 지워지지 않고 ✕ 만 지운다 */`,
+    markup: `\`<button class="cl-chip">\` 를 \`<span class="cl-tag">#{키워드}<button class="cl-tag__x" aria-label="{키워드} 지우기">×아이콘</button></span>\` 로. 지우기는 공통 토스트의 되돌리기와 함께.`,
     dom: `const box=doc.querySelector('[data-keywords]'); if(!box) return; const words=[...box.querySelectorAll('.cl-chip')].map(c=>c.textContent.replace('#','').trim());
 const x='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
-box.innerHTML=words.map(w=>'<span class="cl-mm-kw">#'+w+'<button type="button" class="cl-mm-kw__x lab-live" aria-label="'+w+' 지우기">'+x+'</button></span>').join('');
-box.querySelectorAll('.cl-mm-kw__x').forEach(b=>b.addEventListener('click',()=>{const k=b.parentElement; k.hidden=true; let t=doc.getElementById('kw-toast'); if(!t){t=doc.createElement('div'); t.id='kw-toast'; t.style.cssText='position:fixed;left:50%;bottom:32px;transform:translateX(-50%);display:flex;gap:12px;align-items:center;padding:10px 16px;border-radius:12px;background:var(--cl-ink);color:var(--cl-canvas);font-size:14px;z-index:99'; doc.body.append(t);} t.innerHTML=k.textContent+' 지웠습니다 <button type="button" class="lab-live" style="border:0;background:none;color:#B78AF7;font:inherit;font-weight:600;cursor:pointer">되돌리기</button>'; t.hidden=false; t.querySelector('button').onclick=()=>{k.hidden=false; t.hidden=true;}; clearTimeout(t._h); t._h=setTimeout(()=>t.hidden=true,5000);}));
+box.innerHTML=words.map(w=>'<span class="cl-tag">#'+w+'<button type="button" class="cl-tag__x lab-live" aria-label="'+w+' 지우기">'+x+'</button></span>').join('');
+box.querySelectorAll('.cl-tag__x').forEach(b=>b.addEventListener('click',()=>{const k=b.parentElement; k.hidden=true; let t=doc.getElementById('kw-toast'); if(!t){t=doc.createElement('div'); t.id='kw-toast'; t.style.cssText='position:fixed;left:50%;bottom:32px;transform:translateX(-50%);display:flex;gap:12px;align-items:center;padding:10px 16px;border-radius:12px;background:var(--cl-ink);color:var(--cl-canvas);font-size:14px;z-index:99'; doc.body.append(t);} t.innerHTML=k.textContent+' 지웠습니다 <button type="button" class="lab-live" style="border:0;background:none;color:#B78AF7;font:inherit;font-weight:600;cursor:pointer">되돌리기</button>'; t.hidden=false; t.querySelector('button').onclick=()=>{k.hidden=false; t.hidden=true;}; clearTimeout(t._h); t._h=setTimeout(()=>t.hidden=true,5000);}));
 const help=box.parentElement.querySelector('.cl-field__help'); if(help) help.textContent='첫 화면 키워드 줄에 나옵니다. '+words.length+'개';`,
     note: '× 를 눌러 보세요. 토스트의 [되돌리기]로 다시 살아납니다.',
     targets: ['[data-keywords]']
@@ -1379,11 +1374,12 @@ const m=r.querySelector('[data-editor-mode]'); if(m){ const s=m.querySelectorAll
     current: '등록 창은 종류(단일 IP) · IP 칸 · [사용] 체크뿐. 관리자가 자기 IP 를 모르면 넣기 어렵고, 첫 규칙을 켜는 순간 다른 곳의 학생은 모두 재생이 막히는데 그 안내가 없다. 체크 이름 "사용"이 무엇을 쓰는지 모호하다',
     next: 'IP 칸 아래 "지금 접속한 IP 203.0.113.24 [넣기]". 등록된 규칙이 0개일 때만 창 아래 주의 상자 "등록하면 이 IP 밖에서는 학생이 콘텐츠를 재생할 수 없습니다." 체크 이름 "바로 적용". 형식이 틀리면 칸 아래 오류(cl-field__error) "123.123.123.10 또는 123.123.123.0/24 형식으로 넣어 주세요"',
     css: `.cl-ip-mine { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
-.cl-ip-warn { margin-top: 12px; padding: 10px 12px; border-radius: var(--cl-radius-sm); background: var(--cl-warning-bg); color: var(--cl-warning); font-size: var(--cl-fs-caption); }`,
-    markup: '서버가 접속 IP 를 내려준다(`REMOTE_ADDR` · 프록시면 `X-Forwarded-For` 첫 값). 규칙 수가 0 일 때만 `.cl-ip-warn`. 체크 라벨 "바로 적용".',
+/* 첫 규칙 경고 — 공통 알림 띠 cl-banner--warning. 여기는 위 간격 · 글자 크기만 */
+[data-lab-dlg] .cl-banner, .cl-dialog .cl-banner--warning { margin: 12px 0 0; font-size: var(--cl-fs-caption); }`,
+    markup: `서버가 접속 IP 를 내려준다(\`REMOTE_ADDR\` · 프록시면 \`X-Forwarded-For\` 첫 값). 규칙 수가 0 일 때만 \`<p class="cl-banner cl-banner--warning">\`. 체크 라벨 "바로 적용".`,
     dom: `const r=doc.querySelector('[data-content-access]'); if(!r||r.querySelector('[data-lab-dlg]')) return;
 const card=doc.createElement('section'); card.className='cl-card'; card.dataset.labDlg=''; card.style.cssText='max-width:440px;margin:24px auto 0;padding:0;box-shadow:var(--cl-shadow-float)';
-card.innerHTML='<div class="cl-dialog__head"><h2 class="cl-dialog__title">허용 IP 등록 <span class="cl-muted" style="font-size:12px;font-weight:400">(창 미리보기)</span></h2></div><div class="cl-dialog__body"><div class="cl-field"><label class="cl-field__label">종류</label><span class="cl-selectbox"><button type="button" class="cl-select cl-selectbox__control"><span class="cl-selectbox__label">단일 IP</span></button></span></div><div class="cl-field" style="margin-top:12px"><label class="cl-field__label">IP · IP 대역</label><input class="cl-input" placeholder="예: 123.123.123.10 또는 123.123.123.0/24"><p class="cl-ip-mine cl-num">지금 접속한 IP 203.0.113.24 <button type="button" class="cl-btn cl-btn--tint cl-btn--sm lab-live" data-mine>넣기</button></p></div><label class="cl-check" style="margin-top:12px"><input type="checkbox" checked><span>바로 적용</span></label><p class="cl-ip-warn">등록하면 이 IP 밖에서는 학생이 콘텐츠를 재생할 수 없습니다.</p><div class="cl-dialog__actions"><button type="button" class="cl-btn cl-btn--ghost">취소</button><button type="button" class="cl-btn cl-btn--primary">등록</button></div></div>';
+card.innerHTML='<div class="cl-dialog__head"><h2 class="cl-dialog__title">허용 IP 등록 <span class="cl-muted" style="font-size:12px;font-weight:400">(창 미리보기)</span></h2></div><div class="cl-dialog__body"><div class="cl-field"><label class="cl-field__label">종류</label><span class="cl-selectbox"><button type="button" class="cl-select cl-selectbox__control"><span class="cl-selectbox__label">단일 IP</span></button></span></div><div class="cl-field" style="margin-top:12px"><label class="cl-field__label">IP · IP 대역</label><input class="cl-input" placeholder="예: 123.123.123.10 또는 123.123.123.0/24"><p class="cl-ip-mine cl-num">지금 접속한 IP 203.0.113.24 <button type="button" class="cl-btn cl-btn--tint cl-btn--sm lab-live" data-mine>넣기</button></p></div><label class="cl-check" style="margin-top:12px"><input type="checkbox" checked><span>바로 적용</span></label><p class="cl-banner cl-banner--warning">등록하면 이 IP 밖에서는 학생이 콘텐츠를 재생할 수 없습니다.</p><div class="cl-dialog__actions"><button type="button" class="cl-btn cl-btn--ghost">취소</button><button type="button" class="cl-btn cl-btn--primary">등록</button></div></div>';
 r.append(card); card.querySelector('[data-mine]').addEventListener('click',()=>{card.querySelector('.cl-input').value='203.0.113.24';});`,
     note: '실험실에서는 등록 창을 화면 아래에 펼쳐 두었습니다. IP 는 가짜 값입니다. [넣기]를 눌러 보세요.',
     targets: ['[data-lab-dlg]']
@@ -1452,11 +1448,11 @@ card.querySelector('[data-back]').addEventListener('click',()=>set('10'));`,
     next: '그룹 칸은 "lab241 (13명)" 그대로. 회색 글자 대신 선택 칩 "사혜인 sahyein1 ×"(학생 통계 Y1 과 같은 모양, × = 그룹 전체로). 칩 오른쪽에 링크 "학생 통계에서 보기 →"(로그인 이력 · 기간까지 보는 화면). 오른쪽 두 카드 제목은 "사혜인 기간별 로그인" · "사혜인 수강 강좌"',
     css: `[data-stat-group] .cl-mst-selected { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 4px 0 12px; border-radius: var(--cl-radius-pill); background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
 [data-stat-group] .cl-mst-selected .cl-id { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); margin-left: 4px; }
-[data-stat-group] .cl-gs-link { margin-left: 8px; font-size: var(--cl-fs-caption); color: var(--cl-primary-pressed); text-decoration: none; }
-[data-stat-group] .cl-gs-link:hover { text-decoration: underline; text-underline-offset: 3px; }`,
-    markup: '학생을 골라도 그룹 콤보박스 값은 유지(지금은 지워짐 — 상태 갱신 때 입력값을 다시 그리지 않는 버그로 보임). `[data-scope]` 를 학생 통계의 `.cl-mst-selected` 칩으로: `<strong>{이름}</strong><span class="cl-id">{아이디}</span><button class="cl-icon-btn" aria-label="그룹 전체 보기">×</button>`. 옆에 `<a class="cl-gs-link" href="/manager/stat/user?usr={아이디}">학생 통계에서 보기 →</a>`.',
+/* [학생 통계에서 보기] — 공통 글자 링크 cl-link. 여기는 자리 · 글자 크기만 */
+[data-stat-group] .cl-mst-selected + .cl-link, [data-stat-group] [data-scope] ~ .cl-link { margin-left: 8px; font-size: var(--cl-fs-caption); }`,
+    markup: `학생을 골라도 그룹 콤보박스 값은 유지(지금은 지워짐 — 상태 갱신 때 입력값을 다시 그리지 않는 버그로 보임). \`[data-scope]\` 를 학생 통계의 \`.cl-mst-selected\` 칩으로: \`<strong>{이름}</strong><span class="cl-id">{아이디}</span><button class="cl-icon-btn" aria-label="그룹 전체 보기">×</button>\`. 옆에 \`<a class="cl-link" href="/manager/stat/user?usr={아이디}">학생 통계에서 보기 →</a>\`.`,
     dom: `const r=doc.querySelector('[data-stat-group-student]'); if(!r) return; const inp=r.querySelector('.cl-mst-group'); if(inp) inp.value='lab241 (13명)';
-const sc=r.querySelector('[data-scope]'); if(sc){ const c=doc.createElement('span'); c.className='cl-mst-selected'; c.innerHTML='<strong>사혜인</strong><span class="cl-id">sahyein1</span><button type="button" class="cl-icon-btn lab-live" aria-label="그룹 전체 보기" title="그룹 전체 보기" data-lab-go="group-stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>'; const a=doc.createElement('a'); a.href='#'; a.className='cl-gs-link'; a.dataset.labGo='user-stat'; a.textContent='학생 통계에서 보기 →'; sc.replaceWith(c); c.after(a); }`,
+const sc=r.querySelector('[data-scope]'); if(sc){ const c=doc.createElement('span'); c.className='cl-mst-selected'; c.innerHTML='<strong>사혜인</strong><span class="cl-id">sahyein1</span><button type="button" class="cl-icon-btn lab-live" aria-label="그룹 전체 보기" title="그룹 전체 보기" data-lab-go="group-stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>'; const a=doc.createElement('a'); a.href='#'; a.className='cl-link'; a.dataset.labGo='user-stat'; a.textContent='학생 통계에서 보기 →'; sc.replaceWith(c); c.after(a); }`,
     note: '× 는 그룹 전체(그룹 통계 화면)로, "학생 통계에서 보기"는 학생 통계로 이동합니다.',
     targets: ['[data-stat-group] .cl-mst-selected', '.cl-mst-group']
   },
@@ -2500,9 +2496,26 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     title: '분류가 여섯 개를 넘으면 접고 [분류 더보기]로 전체강좌에 보내기',
     current: '분류를 모두 펼친다. 10개면 세 줄, 섹션 높이가 1,100px 을 넘어 메인에서 분류만 화면 하나를 먹는다. 분류는 강좌를 찾아가는 길목이지 메인의 주인공이 아니다',
     next: '여섯 개(3열 두 줄)까지만 보이고, 나머지는 메인에 그리지 않는다. 둘째 줄에서 **20px 아래** 가운데에 [분류 더보기] 캡슐 버튼을 둔다 — 카드와 겹치지 않는다. 그림자는 `--cl-shadow-float`. 누르면 **전체강좌 화면(`/user/course/search`)으로 넘어간다** — 거기에는 분류 필터가 왼쪽 열로 이미 있어 분류가 몇 개든 다 보인다. 마우스를 올리면 화살표가 4px 오른쪽으로 — 넘어가는 버튼임을 손짓으로 알린다',
-    css: `/* 분류가 많아도 메인이 길어지지 않게 여섯 개까지만 */\n.cl-home-cats > :nth-child(n + 7) { display: none; }\n/* [분류 더보기] — 둘째 줄에서 20px 아래, 가운데 */\n.cl-home-cats-more { display: flex; justify-content: center; margin-top: 20px; }\n.cl-scope .cl-home-more-btn {\n  height: 40px; padding: 0 20px;\n  border: 0; border-radius: var(--cl-radius-pill);\n  background: var(--cl-canvas); color: var(--cl-ink);\n  display: inline-flex; align-items: center; gap: 6px;\n  font-size: var(--cl-fs-body-public); font-weight: 600;\n  box-shadow: var(--cl-shadow-float);\n  text-decoration: none; cursor: pointer;\n  transition: background-color 150ms ease-out;\n}\n.cl-scope .cl-home-more-btn:hover { background: var(--cl-hover); }\n.cl-home-more-btn__arrow { transition: transform 150ms ease-out; }\n.cl-scope .cl-home-more-btn:hover .cl-home-more-btn__arrow { transform: translateX(4px); }\n@media (prefers-reduced-motion: reduce) {\n  .cl-scope .cl-home-more-btn, .cl-home-more-btn__arrow { transition: none; }\n  .cl-scope .cl-home-more-btn:hover .cl-home-more-btn__arrow { transform: none; }\n}`,
-    dom: `const cats = doc.querySelector('.cl-home-cats');\nif (cats && cats.children.length > 6 && !cats.parentNode.querySelector('.cl-home-cats-more')) {\n  const wrap = doc.createElement('div');\n  wrap.className = 'cl-home-cats-more';\n  const a = doc.createElement('a');\n  a.className = 'cl-home-more-btn';\n  a.href = '/user/course/search';\n  const label = doc.createElement('span');\n  label.textContent = '분류 더보기';\n  a.append(label);\n  a.insertAdjacentHTML('beforeend', '<svg class="cl-home-more-btn__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>');\n  wrap.append(a);\n  cats.after(wrap);\n}`,
-    markup: '`.cl-home-cats` 에 분류를 최대 6개만 그리고, 7개 이상이면 그 바로 뒤에 `<div class="cl-home-cats-more"><a class="cl-home-more-btn" href="/user/course/search">분류 더보기 →</a></div>` 를 둔다. 6개 이하면 버튼을 그리지 않는다. 지금은 CSS 로 7번째부터 숨기지만, 실제로는 서버에서 6개만 내려주고 전체 개수를 함께 주는 쪽이 낫다 — 그러면 숨은 카드를 괜히 그리지 않는다.',
+    css: `/* 분류가 많아도 메인이 길어지지 않게 여섯 개까지만 */
+.cl-home-cats > :nth-child(n + 7) { display: none; }
+/* [분류 더보기] — 둘째 줄에서 20px 아래, 가운데. 버튼은 공통 cl-btn--float + 화살표 cl-btn__arrow */
+.cl-home-cats-more { display: flex; justify-content: center; margin-top: 20px; }
+.cl-home-cats-more > .cl-btn { height: var(--cl-h-control-lg); padding: 0 20px; font-size: var(--cl-fs-body-public); }`,
+    dom: `const cats = doc.querySelector('.cl-home-cats');
+if (cats && cats.children.length > 6 && !cats.parentNode.querySelector('.cl-home-cats-more')) {
+  const wrap = doc.createElement('div');
+  wrap.className = 'cl-home-cats-more';
+  const a = doc.createElement('a');
+  a.className = 'cl-btn cl-btn--float cl-btn--pill';
+  a.href = '/user/course/search';
+  const label = doc.createElement('span');
+  label.textContent = '분류 더보기';
+  a.append(label);
+  a.insertAdjacentHTML('beforeend', '<svg class="cl-btn__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>');
+  wrap.append(a);
+  cats.after(wrap);
+}`,
+    markup: `\`.cl-home-cats\` 에 분류를 최대 6개만 그리고, 7개 이상이면 그 바로 뒤에 \`<div class="cl-home-cats-more"><a class="cl-btn cl-btn--float cl-btn--pill" href="/user/course/search">분류 더보기 →</a></div>\` 를 둔다. 6개 이하면 버튼을 그리지 않는다. 지금은 CSS 로 7번째부터 숨기지만, 실제로는 서버에서 6개만 내려주고 전체 개수를 함께 주는 쪽이 낫다 — 그러면 숨은 카드를 괜히 그리지 않는다.`,
     targets: ['.cl-home-cats'],
     note: '펼치기(그 자리에서 열기)가 아니라 **화면 이동**이다 — 분류를 다 보려는 사람은 결국 강좌를 찾는 중이고, 전체강좌에는 분류 필터와 정렬이 같이 있어 메인에서 열어 주는 것보다 할 수 있는 일이 많다. 버튼은 카드 아래 20px 로 띄웠다. 링크라 `<a>` 로 두었다 — 새 탭으로 열거나 주소를 복사할 수 있어야 한다. [정할 것] 여섯 개가 맞는지 — 3열 두 줄 기준이다. 지금 두 학원은 분류가 2~4개라 이 건이 켜져도 화면이 달라지지 않는다.'
   },
@@ -2668,7 +2681,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     title: '강좌 상세 글자 위계 — 공개 화면 글자 단계 여섯 칸으로',
     current: '강의 제목이 **21px** 로 탭(17~21)보다 크거나 같고, 버튼(관련질문 · 공유하기 · 좋아요)은 15px · 600 으로 강의 제목만큼 굵다. 숫자 15 · 메타 13 · 공유 13 · 시간 14 · 진도 12.5 가 모두 직접 적은 값이다. 큰 글자가 여러 군데라 어디부터 읽을지 순서가 서지 않는다',
     next: '공개 화면 전체에 쓸 **글자 단계 여섯 칸**에 맞춘다. 강의 제목 21 → 17 · 600, 버튼 15 · 600 → 14 · 500 · 높이 36, 순번 14, 메타 · 공유 · 진도 13. 굵기는 세 단계만 — 700 은 제목급, 600 은 누르는 제목 · 탭 · 값, 500 은 버튼, 나머지 400\n\n| 역할 | 토큰 | 크기 | 굵기 |\n|---|---|---|---|\n| 화면 제목 | `--cl-fs-display` | 40 (모바일 28) | 700 |\n| 섹션 제목 | `--cl-fs-section-pub` | 26~32 | 700 |\n| 본문 · 목록 제목 · 탭 | `--cl-fs-body-public` | 17 | 400 본문 / 600 제목 · 탭 |\n| 부제 · 필터 항목 | `--cl-fs-body-sm-pub` | 15 | 400 |\n| 버튼 · 도구 · 정보 | `--cl-fs-ui` | 14 | 500 버튼 / 400 |\n| 메타 · 위치 · 개수 | `--cl-fs-caption` | 13 | 400 |',
-    css: `/* 글자 위계 — 공개 화면 글자 단계(토큰)로만 쓴다 */\n.cl-scope .cl-cd-pill { height: 36px; padding: 0 14px; font-size: var(--cl-fs-ui); font-weight: 500; }\n.cl-cd-row { padding: 18px 0; }\n.cl-cd-row__num { font-size: var(--cl-fs-ui); }\n.cl-cd-row__title { font-size: var(--cl-fs-body-public); line-height: 1.4; letter-spacing: -0.01em; }\n.cl-cd-row__meta, .cl-cd-row__share { font-size: var(--cl-fs-caption); }\n.cl-cd-row__desc, .cl-cd-row__dur { font-size: var(--cl-fs-ui); }\n.cl-cd-progress__text { font-size: var(--cl-fs-caption); }\n.cl-lecture-card__title { font-size: var(--cl-fs-body-public); }\n@media (max-width: 900px) { .cl-cd-row__num { font-size: var(--cl-fs-caption); } .cl-cd-row__title { font-size: var(--cl-fs-body-sm-pub); } }`,
+    css: `/* 글자 위계 — 공개 화면 글자 단계(토큰)로만 쓴다 */\n/* 알약 버튼 크기는 공통 cl-btn--md (NX1) */\n.cl-cd-row { padding: 18px 0; }\n.cl-cd-row__num { font-size: var(--cl-fs-ui); }\n.cl-cd-row__title { font-size: var(--cl-fs-body-public); line-height: 1.4; letter-spacing: -0.01em; }\n.cl-cd-row__meta, .cl-cd-row__share { font-size: var(--cl-fs-caption); }\n.cl-cd-row__desc, .cl-cd-row__dur { font-size: var(--cl-fs-ui); }\n.cl-cd-progress__text { font-size: var(--cl-fs-caption); }\n.cl-lecture-card__title { font-size: var(--cl-fs-body-public); }\n@media (max-width: 900px) { .cl-cd-row__num { font-size: var(--cl-fs-caption); } .cl-cd-row__title { font-size: var(--cl-fs-body-sm-pub); } }`,
     targets: ['.cl-cd-list', '.cl-cd__pills'],
     note: '**나머지 화면은 이 표대로 맞추면 된다.** 학원 메인 · 전체강좌는 이미 이 단계다(AM3 · AC1). 학원소개 · 선생님소개 · Q&A · 자유게시판도 들어가 보시면 같은 표로 맞춘다 — 화면마다 새 크기를 만들지 않는다. 표는 `design/api/tokens.md` 의 \'공개 화면 글자 단계\'에도 적어 두었다.'
   },
@@ -2771,7 +2784,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     title: "학원소개 본문 — 큰 제목 · 사진 모서리 · 버튼 · 정보 줄",
     current: "큰 제목 40px 이 띠 제목 바로 아래 또 있고 띠 부제와 같은 문장이 두 번. 사진 모서리 16, 블로그 · 유튜브 버튼 40 · 15 · 600, [+1장 더 보기] hover 없음, 주소 · 전화 줄 15px · 간격 6",
     next: "소개 글과 연락처(주소 · 전화 · 블로그 · 유튜브)를 두 묶음으로 — 사이 40px(간격 16 + 24), 가르는 선은 검정 대신 옅은 회색, 선 아래 여백 16 → 24. 큰 제목 26~32(섹션 제목), 같은 문장이면 띠 부제 숨김, 사진 모서리 8 · 사진 사이 16(메인 소개 사진도 같이), 버튼 36 · 14 · 500, 더 보기 14 + hover 밑줄, 정보 줄 14 · 간격 8",
-    css: `.cl-about { padding-top: 40px; }\n.cl-about__headline { font-size: var(--cl-fs-section-pub); letter-spacing: -0.025em; }\n.cl-about__photo { border-radius: var(--cl-radius-sm); }\n/* 사진 사이 12 → 16 — 학원 메인 소개 사진 묶음도 같은 간격으로 */\n.cl-about__gallery, .cl-home-gallery { gap: var(--cl-space-4); }\n/* 소개 글 마지막 문단의 아래 여백은 빼서, 선까지 거리가 늘 40 이 되게 */\n.cl-about__desc .toastui-editor-contents > :last-child, .cl-about__desc .toastui-editor-contents > div > :last-child { margin-bottom: 0; }\n/* 소개 글 · 연락처 두 묶음 — 사이 40px, 검은 선 대신 옅은 회색 선 */\n.cl-about__info { margin-top: 24px; padding-top: 24px; border-top-color: var(--cl-hairline); gap: 8px 16px; font-size: var(--cl-fs-ui); }\n.cl-about__info dd { font-weight: 500; }\n.cl-about__broken { font-size: var(--cl-fs-ui); }\n.cl-about__sns .cl-home-pill { height: 36px; padding: 0 14px; font-size: var(--cl-fs-ui); font-weight: 500; }\n.cl-about__more { font-size: var(--cl-fs-ui); text-underline-offset: 3px; }\n.cl-about__more:hover { text-decoration: underline; }\n.cl-lightbox__count { font-size: var(--cl-fs-caption); font-variant-numeric: tabular-nums; }`,
+    css: `.cl-about { padding-top: 40px; }\n.cl-about__headline { font-size: var(--cl-fs-section-pub); letter-spacing: -0.025em; }\n.cl-about__photo { border-radius: var(--cl-radius-sm); }\n/* 사진 사이 12 → 16 — 학원 메인 소개 사진 묶음도 같은 간격으로 */\n.cl-about__gallery, .cl-home-gallery { gap: var(--cl-space-4); }\n/* 소개 글 마지막 문단의 아래 여백은 빼서, 선까지 거리가 늘 40 이 되게 */\n.cl-about__desc .toastui-editor-contents > :last-child, .cl-about__desc .toastui-editor-contents > div > :last-child { margin-bottom: 0; }\n/* 소개 글 · 연락처 두 묶음 — 사이 40px, 검은 선 대신 옅은 회색 선 */\n.cl-about__info { margin-top: 24px; padding-top: 24px; border-top-color: var(--cl-hairline); gap: 8px 16px; font-size: var(--cl-fs-ui); }\n.cl-about__info dd { font-weight: 500; }\n.cl-about__broken { font-size: var(--cl-fs-ui); }\n.cl-about__more { font-size: var(--cl-fs-ui); text-underline-offset: 3px; }\n.cl-about__more:hover { text-decoration: underline; }\n.cl-lightbox__count { font-size: var(--cl-fs-caption); font-variant-numeric: tabular-nums; }`,
     dom: `var sub = doc.querySelector('.cl-pub-band__sub'), h = doc.querySelector('.cl-about__headline');\nif (sub && h && sub.textContent.trim() === h.textContent.trim()) sub.hidden = true;`,
     targets: [".cl-about"],
     note: "야간 검수 리포트"
@@ -2984,19 +2997,12 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     variants: "전체강좌는 검색 · 분류로 0건이 되는 경우도 같다",
     current: "목록이 비면 글자 한 줄만 있거나(댓글 · 담당 강좌) 아무것도 없음. 화면마다 모양이 다름",
     next: "목록 자리에 회색 점선(1px · #D2D2D7) 상자, 모서리 8, 가운데 아이콘 28 + 문장 15 · 500(+ 필요하면 설명 13). 목록은 최소 높이 240, 댓글은 작게(위아래 32). 바탕은 칠하지 않음 — 상자 없는 화면에서 회색 덩어리로 튀지 않게",
-    css: `/* 학원 공개 화면 빈 상태 — 회색 점선 상자, 가운데 아이콘 · 문장 */
-.cl-pub-empty { min-height: 240px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 48px 20px; border: 1px dashed var(--cl-control-border); border-radius: var(--cl-radius-sm); background: none; color: var(--cl-ink-muted); text-align: center; }
-.cl-pub-empty .cl-icon { color: var(--cl-ink-faint); margin-bottom: 4px; }
-.cl-pub-empty__title { margin: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 500; color: var(--cl-ink-muted); }
-.cl-pub-empty__desc { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-faint); }
-.cl-pub-empty--sm { min-height: 0; padding: 32px 20px; }
-.cl-pub-empty--sm .cl-icon { width: 24px; height: 24px; }
-/* 목록 자리와 위 간격 */
-.cl-cs-main > .cl-pub-empty, [data-list] > .cl-pub-empty { margin-top: 16px; }
-.cl-comments .cl-pub-empty { margin: 8px 0 16px; }
-.cl-comments:has(> .cl-pub-empty) .cl-comments__title .cl-num { display: none; }`,
-    markup: "목록이 비었을 때 <div class=\"cl-pub-empty\"><svg …/><p class=\"cl-pub-empty__title\">아직 질문이 없습니다</p><p class=\"cl-pub-empty__desc\">…</p></div>. 문장: 전체강좌 '조건에 맞는 강좌가 없습니다 / 검색어나 분류를 바꿔 보세요', 선생님 '등록된 선생님이 없습니다', 선생님 상세 '담당 강좌가 없습니다', Q&A '아직 질문이 없습니다 / 강의를 듣다 궁금한 점이 생기면 질문해 주세요', 자유게시판 '아직 게시글이 없습니다', 댓글 '아직 댓글이 없습니다'(cl-pub-empty--sm). 비었을 때는 쪽 번호를 숨김.",
-    targets: [".cl-pub-empty"],
+    css: `/* 학원 공개 화면 빈 상태 — 공통 빈 상태의 점선 변형(cl-empty cl-empty--line, 작은 자리는 + cl-empty--sm). 여기는 자리별 간격만 */
+.cl-cs-main > .cl-empty--line, [data-list] > .cl-empty--line { margin-top: 16px; }
+.cl-comments .cl-empty--line { margin: 8px 0 16px; }
+.cl-comments:has(> .cl-empty--line) .cl-comments__title .cl-num { display: none; }`,
+    markup: "목록이 비었을 때 <div class=\"cl-empty cl-empty--line\"><svg …/><p class=\"cl-empty__title\">아직 질문이 없습니다</p><p class=\"cl-empty__desc\">…</p></div>. 문장: 전체강좌 '조건에 맞는 강좌가 없습니다 / 검색어나 분류를 바꿔 보세요', 선생님 '등록된 선생님이 없습니다', 선생님 상세 '담당 강좌가 없습니다', Q&A '아직 질문이 없습니다 / 강의를 듣다 궁금한 점이 생기면 질문해 주세요', 자유게시판 '아직 게시글이 없습니다', 댓글 '아직 댓글이 없습니다'(cl-empty--sm). 비었을 때는 쪽 번호를 숨김.",
+    targets: [".cl-empty--line"],
     note: "디자인 시스템 Empty(아이콘 · 제목 · 설명 가운데)를 공개 화면용으로 — 아이콘 상자 대신 점선 테두리"
   },
   {
@@ -3041,8 +3047,8 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
 .cl-thread .cl-thread__answer-meta { min-height: 32px; }
 /* 답변 없음 — 회색 판 대신 빈 상태(NE1 작은 크기), 개수 배지 숨김 */
 .cl-thread .cl-thread__list:not(:has(li)) { display: none; }
-.cl-thread__answers:has(> .cl-pub-empty) .cl-comments__title .cl-num { display: none; }
-.cl-thread__answers > .cl-pub-empty { margin: 0; }
+.cl-thread__answers:has(> .cl-empty--line) .cl-comments__title .cl-num { display: none; }
+.cl-thread__answers > .cl-empty--line { margin: 0; }
 .cl-thread .cl-thread__answer-body .toastui-editor-contents { background: none; }
 .cl-thread .cl-thread__answer-body p:first-child { margin-top: 0; }
 .cl-thread .cl-thread__answer-body p:last-child { margin-bottom: 0; }
@@ -3060,9 +3066,9 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
 var badge = q.querySelector('.cl-post__head > .cl-badge'), meta = q.querySelector('.cl-post__meta');
 if (badge && meta) { var c = badge.cloneNode(true); var sp = meta.querySelector('.cl-toolbar__spacer'); meta.insertBefore(c, sp || null); }
 var list = doc.querySelector('.cl-thread__list');
-if (list && !list.querySelector('li') && !doc.querySelector('.cl-thread__answers > .cl-pub-empty')) {
-  var e = doc.createElement('div'); e.className = 'cl-pub-empty cl-pub-empty--sm';
-  e.innerHTML = '<svg class="cl-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><p class="cl-pub-empty__title">아직 답변이 없습니다</p>';
+if (list && !list.querySelector('li') && !doc.querySelector('.cl-thread__answers > .cl-empty--line')) {
+  var e = doc.createElement('div'); e.className = 'cl-empty cl-empty--line cl-empty--sm';
+  e.innerHTML = '<svg class="cl-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><p class="cl-empty__title">아직 답변이 없습니다</p>';
   list.after(e);
 }
 doc.querySelectorAll('.cl-thread__answer').forEach(function (li) { var a = li.querySelector('.cl-thread__answer-meta > .cl-thread__a'); if (a) li.insertBefore(a, li.firstChild); });
@@ -3101,92 +3107,65 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
     title: "강의 보기 — 질문하기 · 관련 질문을 페이지 이동 없이 오른쪽 칸에서",
     current: "[질문하기] · [관련 질문]을 누르면 같은 탭에서 다른 화면으로 넘어가 보던 영상이 끊김",
     next: "오른쪽 칸 머리를 [강의 목록 20 | 관련 질문 3] 탭으로(검색 · 정렬은 강의 목록 탭에 그대로). 지금 보는 강의 제목 아래 [이 강의 질문하기] → 누르면 그 자리에 짧은 입력칸(2줄, 내용에 따라 늘어남) · Enter 등록 · Shift+Enter 줄바꿈 · [취소][등록] · '파일 첨부 · 자세히 쓰기'(새 탭, 강좌 · 강의 미리 골라짐). 등록하면 이동 없이 '질문을 등록했어요' 3초 · 관련 질문 맨 위에 추가. 관련 질문은 상태 배지 · 제목 · 강의 이름(이 강의는 보라), 누르면 새 탭. 버튼 줄의 [질문하기][관련 질문]은 뺌",
-    css: `/* 오른쪽 칸 — [강의 목록 | 관련 질문] 탭. 검색 · 정렬은 강의 목록 탭 그대로 */
+    css: `/* 오른쪽 칸 — 머리를 줄 탭(공통 cl-tabs--line + cl-count)으로. 검색 · 정렬은 강의 목록 탭 그대로 */
 .cl-playlist__head { padding: 16px 20px 16px; gap: 16px; }
-.cl-ptabs { display: flex; gap: 24px; margin: 0; border-bottom: 1px solid var(--cl-hairline); }
+.cl-playlist__head > .cl-tabs { margin: 0; }
 .cl-playlist__item { padding: 14px 20px; }
-.cl-ptab { position: relative; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0; border: 0; background: none; font: inherit; font-size: var(--cl-fs-body-sm-pub); font-weight: 500; color: var(--cl-ink-muted); cursor: pointer; }
-.cl-ptab[aria-selected="true"] { color: var(--cl-ink); font-weight: 600; }
-.cl-ptab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; border-radius: var(--cl-radius-hair); background: var(--cl-primary); }
-.cl-ptab .cl-num { height: 20px; min-width: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); font-weight: 500; background: var(--cl-hover); color: var(--cl-ink-muted); }
-.cl-ptab[aria-selected="true"] .cl-num { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
 .cl-playlist__head .cl-playlist__title { display: none; }
 .cl-player-page__aside[data-tab="qna"] .cl-playlist__tools, .cl-player-page__aside[data-tab="qna"] .cl-playlist { display: none; }
-.cl-player-page__aside:not([data-tab="qna"]) .cl-prelated { display: none; }
-/* 지금 보는 강의 — 제목 아래 [질문하기]. 묶음 안 12, 바깥 20 */
+/* 관련 질문 칸 — 안은 공통 작은 목록(cl-mini-list) */
+.cl-player-page__aside [data-panel="qna"] { display: flex; flex-direction: column; min-height: 0; overflow: auto; }
+.cl-player-page__aside:not([data-tab="qna"]) [data-panel="qna"] { display: none; }
+/* 지금 보는 강의 — 연보라 판 안에 [이 강의 질문하기](cl-btn--line) → 짧은 입력(cl-composer). 묶음 안 12, 바깥 20 */
 .cl-playlist li.has-ask { background: var(--cl-primary-tint); }
 .cl-playlist li.has-ask > .cl-playlist__item { padding: 16px 20px 0; background: none; }
 .cl-playlist__ask { padding: 12px 20px 20px 52px; }
-.cl-ask-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px var(--cl-primary-line); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; cursor: pointer; transition: box-shadow .15s ease-out; }
-.cl-ask-btn:hover { box-shadow: inset 0 0 0 1px var(--cl-primary); }
-.cl-ask-btn[hidden] { display: none; }
-@media (prefers-reduced-motion: reduce) { .cl-ask-btn { transition: none; } }
-/* 짧은 질문 입력 — 입력칸 아래 한 줄: [자세히 쓰기 ↗] … [취소][등록] */
-.cl-ask { display: flex; flex-direction: column; gap: 12px; }
-.cl-ask[hidden] { display: none; }
-.cl-ask textarea { width: 100%; box-sizing: border-box; min-height: 88px; max-height: 180px; padding: 12px 14px; border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6; resize: none; field-sizing: content; }
-.cl-ask textarea::placeholder { color: var(--cl-ink-faint); }
-.cl-ask textarea:focus { outline: none; border-color: var(--cl-primary); box-shadow: 0 0 0 3px rgba(144, 74, 232, .15); }
-.cl-ask__row { display: flex; align-items: center; gap: 8px; }
-.cl-ask__more { display: inline-flex; align-items: center; gap: 4px; margin-right: auto; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-decoration: none; }
-.cl-ask__more:hover { color: var(--cl-ink); text-decoration: underline; text-underline-offset: 3px; }
-.cl-ask__row .cl-btn { height: 32px; padding: 0 14px; font-size: var(--cl-fs-caption); }
-.cl-ask__done { margin: 12px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-success); }
-/* 관련 질문 탭 */
-.cl-prelated { display: flex; flex-direction: column; min-height: 0; overflow: auto; }
-.cl-prelated__list { margin: 0; padding: 0; list-style: none; }
-.cl-prelated__item { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 6px; padding: 16px 20px; border-bottom: 1px solid var(--cl-hairline); color: var(--cl-ink); text-decoration: none; }
-.cl-prelated__item:hover { background: var(--cl-row-hover); }
-.cl-prelated__item { grid-template-columns: 64px minmax(0, 1fr); }
-.cl-prelated__item .cl-badge { grid-row: 1 / span 2; align-self: start; justify-content: center; width: 64px; box-sizing: border-box; }
-.cl-prelated__title { font-size: var(--cl-fs-ui); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cl-prelated__meta { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cl-prelated__here { color: var(--cl-primary-pressed); font-weight: 500; }
-.cl-prelated__all { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 16px 20px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-align: center; }
+.cl-playlist__ask > .cl-btn[hidden] { display: none; }
 /* 버튼 줄의 질문하기 · 관련 질문은 오른쪽 칸으로 옮겼으니 뺀다 */
 .cl-player-info .cl-cd__pills > .is-moved { display: none; }`,
-    dom: `var aside = doc.querySelector('.cl-player-page__aside'); if (!aside || aside.querySelector('.cl-ptabs')) return;
+    dom: `var aside = doc.querySelector('.cl-player-page__aside'); if (!aside || aside.querySelector('.cl-tabs--line')) return;
 var IC = function (p) { return '<svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + p + '</svg>'; };
 var MSG = '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path><path d="M12 8v8"></path><path d="M8 12h8"></path>';
 var EXT = '<path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>';
 var fit = function () { try { parent.postMessage({ labFit: 1 }, '*'); } catch (e) {} };
 /* 버튼 줄의 질문하기 · 관련 질문 → 오른쪽 칸으로 */
 doc.querySelectorAll('.cl-player-info .cl-cd__pills > *').forEach(function (b) { var t = b.textContent.trim(); if (t === '질문하기' || t === '관련 질문') b.classList.add('is-moved'); });
-/* 탭 */
+/* 탭 — 공통 줄 탭 */
 var head = aside.querySelector('.cl-playlist__head'), cnt = (aside.querySelector('[data-count]') || {}).textContent || '';
-var tabs = doc.createElement('div'); tabs.className = 'cl-ptabs'; tabs.setAttribute('role', 'tablist');
-tabs.innerHTML = '<button type="button" class="cl-ptab lab-live" role="tab" aria-selected="true" data-t="list">강의 목록 <span class="cl-num">' + cnt + '</span></button><button type="button" class="cl-ptab lab-live" role="tab" aria-selected="false" data-t="qna">관련 질문 <span class="cl-num" data-rel-count>3</span></button>';
+var tabs = doc.createElement('div'); tabs.className = 'cl-tabs cl-tabs--line'; tabs.setAttribute('role', 'tablist');
+tabs.innerHTML = '<button type="button" class="cl-tab lab-live" role="tab" aria-selected="true" data-t="list">강의 목록 <span class="cl-count">' + cnt + '</span></button><button type="button" class="cl-tab lab-live" role="tab" aria-selected="false" data-t="qna">관련 질문 <span class="cl-count" data-rel-count>3</span></button>';
 head.insertBefore(tabs, head.firstChild);
-tabs.addEventListener('click', function (e) { var b = e.target.closest('.cl-ptab'); if (!b) return; e.preventDefault(); e.stopPropagation();
-  tabs.querySelectorAll('.cl-ptab').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+tabs.addEventListener('click', function (e) { var b = e.target.closest('.cl-tab'); if (!b) return; e.preventDefault(); e.stopPropagation();
+  tabs.querySelectorAll('.cl-tab').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
   if (b.dataset.t === 'qna') aside.setAttribute('data-tab', 'qna'); else aside.removeAttribute('data-tab'); fit(); });
-/* 관련 질문 */
-var rel = doc.createElement('div'); rel.className = 'cl-prelated'; rel.setAttribute('role', 'tabpanel');
-var Q = [['is-waiting','warning','답변대기','6분쯤 나오는 공식이 왜 이렇게 바뀌는지 모르겠어요','이 강의 · 사혜인 · 3일 전',1],['','success','답변 1','판별식 문제에서 등호가 들어가는 경우','판별식으로 근 판단하기 · 탁유원 · 1주 전',0],['','success','답변 2','이 강의는 언제까지 볼 수 있나요?','강좌 전체 · 사혜인 · 2년 전',0]];
-rel.innerHTML = '<ul class="cl-prelated__list" data-rel-list>' + Q.map(function (q) { var m = q[5] ? q[4].replace('이 강의', '<span class="cl-prelated__here">이 강의</span>') : q[4];
-  return '<li><a class="cl-prelated__item" href="#" target="_blank"><span class="cl-badge cl-badge--' + q[1] + '">' + q[2] + '</span><span class="cl-prelated__title">' + q[3] + '</span><span class="cl-prelated__meta">' + m + '</span></a></li>'; }).join('') +
-  '</ul><a class="cl-prelated__all" href="#" target="_blank">Q&amp;A 에서 이 강좌 질문 모두 보기 ' + IC(EXT) + '</a>';
+/* 관련 질문 — 공통 작은 목록 */
+var rel = doc.createElement('div'); rel.setAttribute('data-panel', 'qna'); rel.setAttribute('role', 'tabpanel');
+var Q = [['warning','답변대기','6분쯤 나오는 공식이 왜 이렇게 바뀌는지 모르겠어요','이 강의 · 사혜인 · 3일 전',1],['success','답변 1','판별식 문제에서 등호가 들어가는 경우','판별식으로 근 판단하기 · 탁유원 · 1주 전',0],['success','답변 2','이 강의는 언제까지 볼 수 있나요?','강좌 전체 · 사혜인 · 2년 전',0]];
+var row = function (tone, badge, title, meta) { return '<li><a class="cl-mini-list__item" href="#" target="_blank"><span class="cl-badge cl-badge--' + tone + '">' + badge + '</span><span class="cl-mini-list__title">' + title + '</span><span class="cl-mini-list__meta">' + meta + '</span></a></li>'; };
+rel.innerHTML = '<ul class="cl-mini-list" data-rel-list>' + Q.map(function (q) { return row(q[0], q[1], q[2], q[4] ? q[3].replace('이 강의', '<span class="cl-mini-list__mark">이 강의</span>') : q[3]); }).join('') +
+  '</ul><a class="cl-mini-list__foot" href="#" target="_blank">Q&amp;A 에서 이 강좌 질문 모두 보기 ' + IC(EXT) + '</a>';
 head.after(rel);
-/* 지금 보는 강의 아래 [질문하기] + 짧은 입력 */
+/* 지금 보는 강의 아래 [이 강의 질문하기] + 짧은 입력 */
 var cur = aside.querySelector('.cl-playlist__item.is-current'); if (!cur) return; var li = cur.closest('li'); li.classList.add('has-ask');
 var box = doc.createElement('div'); box.className = 'cl-playlist__ask';
-box.innerHTML = '<button type="button" class="cl-ask-btn lab-live">' + IC(MSG) + '이 강의 질문하기</button>' +
-  '<form class="cl-ask" hidden novalidate><textarea rows="3" maxlength="500" placeholder="이 강의에서 궁금한 점을 적어 주세요&#10;Enter 등록 · Shift+Enter 줄바꿈" aria-label="질문 내용"></textarea>' +
-  '<div class="cl-ask__row"><a class="cl-ask__more" href="#" target="_blank">파일 첨부 · 자세히 쓰기 ' + IC(EXT) + '</a><button type="button" class="cl-btn cl-btn--ghost lab-live" data-cancel>취소</button><button type="submit" class="cl-btn cl-btn--primary lab-live">등록</button></div></form>';
+box.innerHTML = '<button type="button" class="cl-btn cl-btn--line cl-btn--pill lab-live">' + IC(MSG) + '이 강의 질문하기</button>' +
+  '<form class="cl-composer" hidden novalidate><textarea class="cl-composer__input" rows="3" maxlength="500" placeholder="이 강의에서 궁금한 점을 적어 주세요&#10;Enter 등록 · Shift+Enter 줄바꿈" aria-label="질문 내용"></textarea>' +
+  '<div class="cl-composer__row"><a class="cl-composer__more" href="#" target="_blank">파일 첨부 · 자세히 쓰기 ' + IC(EXT) + '</a><button type="button" class="cl-btn cl-btn--ghost lab-live" data-cancel>취소</button><button type="submit" class="cl-btn cl-btn--primary lab-live">등록</button></div></form>';
 li.appendChild(box);
-var btn = box.querySelector('.cl-ask-btn'), form = box.querySelector('.cl-ask'), ta = form.querySelector('textarea');
+var btn = box.querySelector('.cl-btn--line'), form = box.querySelector('.cl-composer'), ta = form.querySelector('textarea');
 var open = function (on) { form.hidden = !on; btn.hidden = on; if (on) setTimeout(function () { ta.focus(); }, 0); fit(); };
 btn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); open(true); });
 form.querySelector('[data-cancel]').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); ta.value = ''; open(false); });
 var submit = function () { var v = ta.value.trim(); if (!v) { ta.focus(); return; }
   var list = rel.querySelector('[data-rel-list]'), c = tabs.querySelector('[data-rel-count]');
-  var it = doc.createElement('li'); it.innerHTML = '<a class="cl-prelated__item" href="#" target="_blank"><span class="cl-badge cl-badge--warning">답변대기</span><span class="cl-prelated__title"></span><span class="cl-prelated__meta"><span class="cl-prelated__here">이 강의</span> · 나 · 방금</span></a>';
-  it.querySelector('.cl-prelated__title').textContent = v.split('\\n')[0].slice(0, 60); list.insertBefore(it, list.firstChild); c.textContent = String(+c.textContent + 1);
+  var it = doc.createElement('div'); it.innerHTML = row('warning', '답변대기', '', '<span class="cl-mini-list__mark">이 강의</span> · 나 · 방금'); it = it.firstChild;
+  it.querySelector('.cl-mini-list__title').textContent = v.split('\\n')[0].slice(0, 60); list.insertBefore(it, list.firstChild); c.textContent = String(+c.textContent + 1);
   ta.value = ''; form.hidden = true; btn.hidden = false;
-  var done = doc.createElement('p'); done.className = 'cl-ask__done'; done.textContent = '질문을 등록했어요 · 관련 질문 탭에서 볼 수 있어요'; box.appendChild(done); setTimeout(function () { done.remove(); fit(); }, 3000); fit(); };
+  var done = doc.createElement('p'); done.className = 'cl-composer__done'; done.textContent = '질문을 등록했어요 · 관련 질문 탭에서 볼 수 있어요'; box.appendChild(done); setTimeout(function () { done.remove(); fit(); }, 3000); fit(); };
 form.addEventListener('submit', function (e) { e.preventDefault(); e.stopPropagation(); submit(); });
 ta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); submit(); } });`,
-    markup: "content-view.js: 질문 등록은 질문하기 페이지와 같은 POST /api/boards { cos, cnt, title, content } — title 은 입력 첫 줄 앞 60자, content 는 전체. 관련 질문은 GET /api/boards?type=cmnt&course={cos} (qna-list.js 와 같은 주소), 응답의 cnt_uid 가 지금 강의면 '이 강의'. 편집기 · 첨부는 이 칸에 두지 않으므로 Toast UI 를 더 불러올 필요 없음.",
+    markup: `공통 부품만 쓴다 — 탭 <div class="cl-tabs cl-tabs--line" role="tablist"><button class="cl-tab" role="tab" aria-selected="true">강의 목록 <span class="cl-count">20</span></button>…</div> · 질문 버튼 <button class="cl-btn cl-btn--line cl-btn--pill"> · 입력 <form class="cl-composer"><textarea class="cl-composer__input"> + <div class="cl-composer__row"><a class="cl-composer__more">…</a><button class="cl-btn cl-btn--ghost">취소</button><button class="cl-btn cl-btn--primary">등록</button></div> · 관련 질문 <div data-panel="qna"><ul class="cl-mini-list"><li><a class="cl-mini-list__item"><span class="cl-badge">…</span><span class="cl-mini-list__title">…</span><span class="cl-mini-list__meta">…</span></a></li></ul><a class="cl-mini-list__foot">…</a></div>.
+content-view.js: 질문 등록은 질문하기 페이지와 같은 POST /api/boards { cos, cnt, title, content } — title 은 입력 첫 줄 앞 60자, content 는 전체. 관련 질문은 GET /api/boards?type=cmnt&course={cos} (qna-list.js 와 같은 주소), 응답의 cnt_uid 가 지금 강의면 '이 강의'. 편집기 · 첨부는 이 칸에 두지 않으므로 Toast UI 를 더 불러올 필요 없음.`,
     targets: [".cl-player-page__aside"],
     note: "실험실에서 탭 · [이 강의 질문하기] · 등록(가짜)이 동작함. [정할 것] '이 강의 질문만' 거르려면 서버에 강의(cnt) 조건 추가 필요 — 지금은 강좌 전체를 보여 주고 강의 이름으로 구분. 짧은 입력은 서식 없는 글로 저장됨(줄바꿈은 <br>)"
   },
@@ -3200,52 +3179,41 @@ ta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftK
     title: "강의 보기 — 선생님 링크를 누르면 아래로 작은 창(이동하지 않음)",
     current: "[장현석 선생님 ›]을 누르면 같은 탭에서 선생님 상세로 넘어가 보던 영상이 끊김",
     next: "누르면 버튼 아래 8px 에 320px 창 — 안쪽 20, [사진 44 · 이름 · 담당과목] / 16 / '담당 강좌 7' + 강좌 최대 5개(한 줄씩, 옅은 회색 선, 지금 강좌는 '보는 중') / 16 / [선생님 소개 전체 보기 ↗]. 소개글은 뺌. 강좌 · 전체 보기는 새 탭. 꺾쇠는 아래 방향, 열리면 뒤집힘 · 테두리 보라. 바깥 클릭 · Esc 로 닫힘",
-    css: `/* 강의 보기 선생님 — 누르면 아래로 작은 창(이동하지 않음). 안쪽 20 · 묶음 사이 16 */
+    css: `/* 강의 보기 선생님 — 누르면 아래로 공통 작은 창(cl-popover__panel--start --card)이 열린다(이동하지 않음) */
 .cl-scope .cl-player-teacher { position: relative; cursor: pointer; border: 0; font: inherit; font-size: var(--cl-fs-ui); font-weight: 500; }
 .cl-player-teacher > .cl-icon { transition: transform .15s ease-out; }
-.cl-scope .cl-player-teacher[aria-expanded="true"] { box-shadow: inset 0 0 0 1px var(--cl-primary); color: var(--cl-primary-pressed); }
+.cl-scope .cl-player-teacher[aria-expanded="true"] { outline: none; box-shadow: inset 0 0 0 1px var(--cl-primary); color: var(--cl-primary-pressed); }
 .cl-player-teacher[aria-expanded="true"] > .cl-icon { transform: rotate(180deg); color: inherit; }
-.cl-tpop-wrap { position: relative; display: inline-flex; }
 .cl-player-teacher:focus:not(:focus-visible) { outline: none; }
-.cl-player-teacher[aria-expanded="true"] { outline: none; }
-.cl-tpop { position: absolute; top: calc(100% + 8px); left: 0; z-index: 30; width: 320px; max-width: calc(100vw - 40px); box-sizing: border-box; padding: 20px; border: 1px solid var(--cl-hairline); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); box-shadow: 0 8px 24px rgba(0, 0, 0, .08); }
-.cl-tpop[hidden] { display: none; }
-.cl-tpop__head { display: flex; align-items: center; gap: 12px; }
-.cl-tpop__head .cl-avatar-ph, .cl-tpop__head img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
-.cl-tpop__name { margin: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 600; color: var(--cl-ink); }
-.cl-tpop__subject { margin: 2px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
-.cl-tpop__label { margin: 20px 0 8px; display: flex; align-items: center; gap: 6px; font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink-muted); }
-.cl-tpop__label .cl-num { height: 20px; min-width: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); background: var(--cl-hover); }
-.cl-tpop__list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--cl-hairline); }
-.cl-tpop__list a { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--cl-hairline); font-size: var(--cl-fs-ui); color: var(--cl-ink); text-decoration: none; }
-.cl-tpop__list a span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cl-tpop__list a:hover span { color: var(--cl-primary-pressed); }
-.cl-tpop__now { flex: none; height: 20px; padding: 0 8px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); font-weight: 500; background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
-.cl-tpop__all { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 16px; height: 36px; border-radius: var(--cl-radius-sm); background: var(--cl-hover); font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink); text-decoration: none; }
-.cl-tpop__all:hover { background: var(--cl-row-hover); }
+/* 작은 창 맨 아래 [선생님 소개 전체 보기] — 목록과 16 */
+.cl-popover__panel--card > .cl-btn--block { margin-top: 16px; }
 @media (prefers-reduced-motion: reduce) { .cl-player-teacher > .cl-icon { transition: none; } }`,
-    dom: `var a = doc.querySelector('.cl-player-teacher'); if (!a || a.closest('.cl-tpop-wrap')) return;
+    dom: `var a = doc.querySelector('.cl-player-teacher'); if (!a || a.closest('.cl-popover')) return;
 var EXT = '<svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>';
 var chev = a.querySelector('.cl-icon'); if (chev) chev.innerHTML = '<path d="m6 9 6 6 6-6"></path>';
-var name = (a.querySelector('span:not(.cl-comment__avatar):not(.cl-avatar-ph)') || a).textContent.trim();
+var name = (a.querySelector('span:not(.cl-comment__avatar):not(.cl-avatar)') || a).textContent.trim();
 var btn = doc.createElement('button'); btn.type = 'button'; btn.className = a.className + ' lab-live'; btn.innerHTML = a.innerHTML;
 btn.setAttribute('aria-haspopup', 'dialog'); btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-label', name + ' 정보 열기');
-var wrap = doc.createElement('span'); wrap.className = 'cl-tpop-wrap'; a.replaceWith(wrap); wrap.appendChild(btn);
+var wrap = doc.createElement('span'); wrap.className = 'cl-popover cl-popover--inline'; a.replaceWith(wrap); wrap.appendChild(btn);
 var av = btn.querySelector('.cl-comment__avatar'); var avHtml = av ? av.innerHTML : '';
+/* 사진 · 아이콘을 44 아바타로 */
+var tmp = doc.createElement('div'); tmp.innerHTML = avHtml; var ph = tmp.firstElementChild;
+if (ph) { ph.classList.add('cl-avatar', 'cl-avatar--lg'); avHtml = ph.outerHTML; }
 var C = ['중학교1학년수학복습', '공통수학', '함수', '무한히 계속 더했지만 유한이 된다?', '이차방정식의 근과 계수의 관계'];
 var now = '공통수학';
-var pop = doc.createElement('div'); pop.className = 'cl-tpop'; pop.hidden = true; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', name);
-pop.innerHTML = '<div class="cl-tpop__head">' + avHtml + '<div><p class="cl-tpop__name">' + name + '</p><p class="cl-tpop__subject">수학</p></div></div>' +
-  '<p class="cl-tpop__label">담당 강좌 <span class="cl-num">7</span></p><ul class="cl-tpop__list">' +
-  C.map(function (c) { return '<li><a href="#" target="_blank"><span>' + c + '</span>' + (c === now ? '<em class="cl-tpop__now" style="font-style:normal">보는 중</em>' : '') + '</a></li>'; }).join('') +
-  '</ul><a class="cl-tpop__all" href="#" target="_blank">선생님 소개 전체 보기 ' + EXT + '</a>';
+var pop = doc.createElement('div'); pop.className = 'cl-popover__panel cl-popover__panel--start cl-popover__panel--card'; pop.hidden = true; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', name);
+pop.innerHTML = '<div class="cl-person">' + avHtml + '<div><p class="cl-person__name">' + name + '</p><p class="cl-person__sub">수학</p></div></div>' +
+  '<p class="cl-subhead">담당 강좌 <span class="cl-count">7</span></p><ul class="cl-link-list">' +
+  C.map(function (c) { return '<li><a class="cl-link-list__item" href="#" target="_blank"><span class="cl-link-list__text">' + c + '</span>' + (c === now ? '<span class="cl-badge cl-badge--info">보는 중</span>' : '') + '</a></li>'; }).join('') +
+  '</ul><a class="cl-btn cl-btn--soft cl-btn--md cl-btn--block" href="#" target="_blank">선생님 소개 전체 보기 ' + EXT + '</a>';
 wrap.appendChild(pop);
 var fit = function () { try { parent.postMessage({ labFit: 1 }, '*'); } catch (e) {} };
 var set = function (on) { pop.hidden = !on; btn.setAttribute('aria-expanded', String(on)); fit(); };
 btn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); set(pop.hidden); });
 doc.addEventListener('click', function (e) { if (!wrap.contains(e.target)) set(false); });
 doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) { set(false); btn.focus(); } });`,
-    markup: "content-view.js: 링크(a) 대신 버튼. 처음 열 때 GET /api/teachers/{tea_uid} (이름 · 과목 · 사진) 와 GET /api/courses/teacher/{tea_uid}?page=0 (teacher-read.js 와 같은 주소) 를 불러와 5개만 그림. 지금 강좌(cos_uid 같음)는 '보는 중'.",
+    markup: `공통 부품만 쓴다 — <span class="cl-popover cl-popover--inline"><button class="cl-player-teacher" aria-expanded="false">…</button><div class="cl-popover__panel cl-popover__panel--start cl-popover__panel--card" role="dialog" hidden><div class="cl-person"><img class="cl-avatar cl-avatar--lg"><div><p class="cl-person__name">이름</p><p class="cl-person__sub">과목</p></div></div><p class="cl-subhead">담당 강좌 <span class="cl-count">7</span></p><ul class="cl-link-list"><li><a class="cl-link-list__item"><span class="cl-link-list__text">강좌</span><span class="cl-badge cl-badge--info">보는 중</span></a></li></ul><a class="cl-btn cl-btn--soft cl-btn--md cl-btn--block">선생님 소개 전체 보기</a></div></span>.
+content-view.js: 링크(a) 대신 버튼. 처음 열 때 GET /api/teachers/{tea_uid} (이름 · 과목 · 사진) 와 GET /api/courses/teacher/{tea_uid}?page=0 (teacher-read.js 와 같은 주소) 를 불러와 5개만 그림. 지금 강좌(cos_uid 같음)는 '보는 중'.`,
     targets: [".cl-player-teacher"],
     note: "실험실에서 열고 닫힘. 휴대폰에서도 같은 자리 아래로 열림(너비 화면 - 40)"
   },
@@ -3262,17 +3230,15 @@ doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hi
     variants: "사진이 있으면 그 사진 그대로",
     current: "머리 계정 버튼 · 강의 보기 선생님 링크의 기본 그림(default-person.svg)이 세로 사진용(200×260) 회색 사람이라 동그라미 안에서 머리 · 어깨가 잘려 보임",
     next: "메인 선생님 소개(AM10) · 선생님 목록 · 상세(NT5)와 같은 선 사람 아이콘을 연보라(#F7F3FD) 원 가운데 60% 크기로. 색은 학원 대표색",
-    css: `/* 사진 없는 선생님 — 잘린 회색 사람 그림 대신 메인(AM10)과 같은 선 아이콘, 연보라 원 */
-.cl-avatar-ph { display: inline-grid; place-items: center; flex: none; box-sizing: border-box; border-radius: 50%; background: var(--cl-primary-wash); color: var(--cl-primary); overflow: hidden; }
-.cl-avatar-ph > svg { width: 60%; height: 60%; margin-top: -4%; }
-.cl-ws-account .cl-avatar-ph { width: 32px; height: 32px; }
-.cl-comment__avatar .cl-avatar-ph { width: 100%; height: 100%; }`,
+    css: `/* 사진 없는 선생님 — 잘린 회색 사람 그림 대신 메인(AM10)과 같은 선 아이콘, 연보라 원. 공통 Avatar 의 --ph 변형 */
+.cl-ws-account .cl-avatar--ph { width: 32px; height: 32px; }
+.cl-comment__avatar > .cl-avatar--ph { width: 100%; height: 100%; }`,
     dom: `var ICON = '<svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true" focusable="false"><path d="m11.4 93.3c-.1 0-.1 0-.2 0-1.3-.1-2.2-1.2-2.1-2.4 1.3-19.1 19.3-34 40.9-34s39.6 14.9 40.9 33.9c.1 1.3-.9 2.3-2.1 2.4-1.3.1-2.3-.9-2.4-2.1-1.2-16.7-17.2-29.7-36.4-29.7-19.3 0-35.3 13.1-36.4 29.8-.1 1.2-1.1 2.1-2.2 2.1z"></path><path d="m50 52.3c-12.6 0-22.8-10.2-22.8-22.8s10.2-22.8 22.8-22.8 22.8 10.2 22.8 22.8-10.2 22.8-22.8 22.8zm0-41c-10 0-18.2 8.2-18.2 18.2s8.2 18.2 18.2 18.2 18.2-8.2 18.2-18.2-8.2-18.2-18.2-18.2z"></path></svg>';
-/* 선생님 자리만: 머리 계정 버튼(선생님 로그인) · 강의 보기 선생님 링크 · 선생님 드롭다운 */
-doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teacher img[src*="default-person"], .cl-player-info__teacher-link img[src*="default-person"], .cl-tpop img[src*="default-person"]').forEach(function (img) {
-  var s = doc.createElement('span'); s.className = 'cl-avatar-ph' + (img.classList.contains('cl-avatar') ? ' cl-avatar' : ''); s.innerHTML = ICON; img.replaceWith(s);
+/* 선생님 자리만: 머리 계정 버튼(선생님 로그인) · 강의 보기 선생님 링크 · 선생님 작은 창 */
+doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teacher img[src*="default-person"], .cl-player-info__teacher-link img[src*="default-person"], .cl-person img[src*="default-person"]').forEach(function (img) {
+  var s = doc.createElement('span'); s.className = (img.className.replace(/\bcl-avatar(--ph)?\b/g, '') + ' cl-avatar cl-avatar--ph').replace(/\s+/g, ' ').trim(); s.innerHTML = ICON; img.replaceWith(s);
 });`,
-    markup: "선생님 사진이 없을 때 <img src=default-person.svg> 대신 <span class=\"cl-avatar-ph\"><svg …AM10 아이콘…></svg></span>. 크기는 자리마다(머리 32 · 강의 보기 링크 28 · 드롭다운 44). 아이콘 파일은 lab/img/teacher-placeholder.svg",
+    markup: `선생님 사진이 없을 때 <img src=default-person.svg> 대신 공통 아바타 <span class="cl-avatar cl-avatar--ph"><svg …AM10 아이콘…></svg></span>. 크기는 아바타 크기 변형으로(기본 28 · --md 32 머리 · --lg 44 작은 창 · --fill 칸 가득). 아이콘 파일은 lab/img/teacher-placeholder.svg`,
     targets: [".cl-avatar-ph"],
     note: "학생 댓글의 기본 그림은 학생 자리라 이번에는 그대로 둠"
   },
@@ -3289,35 +3255,22 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
     variants: "PDF 는 PC 에서 미리보기, 그 밖 · 휴대폰은 파일 카드",
     current: "영상 크기 회색 상자(모서리 14) 가운데에 작은 파일 아이콘 · 파일 이름 · [내려받기]만 있어 칸 절반이 비어 보임",
     next: "칸 크기(16:9)는 영상과 같게 둬서 강의를 오갈 때 제목 · 버튼 위치가 안 흔들리게. PDF 는 칸 안에서 바로 보기(쪽 넘김 · 확대는 브라우저 PDF 도구, 크게는 [새 창으로 보기]). 미리보기가 안 되는 문서(한글 · 워드 · PPT)와 휴대폰(900 이하)은 파일 카드 — 옅은 회색 바탕 · 모서리 8, 흰 64 칸 파일 아이콘 + 종류 표시(PDF · HWP), 파일 이름 17 · 600, '종류 · 쪽수 · 크기' 13, [내려받기](보라) [새 창으로 열기](흰) 40. 휴대폰은 칸 높이를 내용에 맞춤(최소 260)",
-    css: `/* 문서 강의 — 영상과 같은 16:9 칸을 유지하고, 안을 문서로 채운다 */
+    css: `/* 문서 강의 — 영상과 같은 16:9 칸을 유지하고, 안을 공통 문서 보기(cl-docview) · 파일 카드(cl-filecard)로 채운다 */
 .cl-player__doc { position: relative; aspect-ratio: 16 / 9; display: block; padding: 0; border-radius: var(--cl-radius-sm); overflow: hidden; background: var(--cl-sidebar); color: var(--cl-ink); }
-/* PDF — 칸 안에서 바로 보기(실제는 브라우저 PDF 보기) */
-.cl-docview { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--cl-disabled-bg); }
-.cl-docview__bar { flex: none; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; background: var(--cl-surface-dark); color: var(--cl-on-ink-2); font-size: var(--cl-fs-caption); }
-.cl-docview__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
-.cl-docview__tools { display: inline-flex; align-items: center; gap: 10px; color: var(--cl-control-border); }
-.cl-docview__sep { width: 1px; height: 16px; background: rgba(255, 255, 255, .2); }
-.cl-docview__pages { flex: 1; overflow: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px; }
-.cl-docview__page { flex: none; width: min(62%, 520px); aspect-ratio: 210 / 297; box-sizing: border-box; padding: 8% 7%; display: flex; flex-direction: column; gap: 10px; background: var(--cl-canvas); box-shadow: 0 1px 3px rgba(0, 0, 0, .12); }
+.cl-player__doc > .cl-docview, .cl-player__doc > .cl-filecard { position: absolute; inset: 0; }
+/* PDF 는 칸 안에서 바로 보기, 그 밖은 파일 카드 */
+.cl-player__doc[data-doc-kind="pdf"] > .cl-filecard { display: none; }
+/* 실험실 전용 — 쪽 안 글줄 그림(실제는 PDF) */
 .cl-docview__page .lab-line { display: block; height: 8px; border-radius: var(--cl-radius-hair); background: var(--cl-disabled-bg); }
 .cl-docview__page .lab-line[style*="width:0%"] { height: 12px; background: none; }
-/* 파일 카드 — 미리보기가 안 되는 문서(한글 · 워드 · PPT)와 휴대폰 */
-.cl-docfile { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px; text-align: center; }
-.cl-player__doc[data-doc-kind="pdf"] .cl-docfile { display: none; }
-.cl-docfile__icon { position: relative; width: 64px; height: 64px; margin-bottom: 8px; display: grid; place-items: center; border-radius: var(--cl-radius-sm); background: var(--cl-canvas); color: var(--cl-ink-muted); box-shadow: inset 0 0 0 1px var(--cl-hairline); }
-.cl-docfile__icon em { position: absolute; right: -6px; bottom: -6px; height: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-xs); background: var(--cl-primary); color: var(--cl-on-ink); font-style: normal; font-size: var(--cl-fs-micro); font-weight: 600; letter-spacing: .02em; }
-.cl-docfile__name { margin: 0; font-size: var(--cl-fs-body-public); font-weight: 600; color: var(--cl-ink); word-break: keep-all; }
-.cl-docfile__meta { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
-.cl-docfile__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
-.cl-docfile__actions .cl-btn { height: 40px; padding: 0 16px; gap: 6px; }
-.cl-docfile__actions .cl-btn--ghost { background: var(--cl-canvas); }
+/* 휴대폰 — PDF 도 파일 카드로, 칸 높이는 글에 맞춤 */
 @media (max-width: 900px) {
-  .cl-player__doc[data-doc-kind="pdf"] .cl-docview { display: none; }
-  .cl-player__doc[data-doc-kind="pdf"] .cl-docfile { display: flex; }
+  .cl-player__doc[data-doc-kind="pdf"] > .cl-docview { display: none; }
+  .cl-player__doc[data-doc-kind="pdf"] > .cl-filecard { display: flex; }
   .cl-player__doc { aspect-ratio: auto; min-height: 260px; }
-  .cl-docfile { position: relative; inset: auto; padding: 32px 20px; }
+  .cl-player__doc > .cl-filecard { position: relative; inset: auto; padding: 32px 20px; }
 }`,
-    markup: "content-view.js 문서형(Doc): 확장자가 pdf 이고 화면이 901 이상이면 영상 iframe 자리에 <iframe src=\"{문서 주소}\" title=\"{파일 이름}\"> (영상과 같은 서버라 그대로 열림 — 테스트 사이트에서 확인). 그 밖에는 .cl-docfile 카드. 쪽수는 모르면 빼고 '종류 · 크기'만.",
+    markup: `content-view.js 문서형(Doc): 확장자가 pdf 이고 화면이 901 이상이면 영상 iframe 자리에 <iframe src="{문서 주소}" title="{파일 이름}"> (영상과 같은 서버라 그대로 열림 — 테스트 사이트에서 확인). 그 밖에는 공통 파일 카드 .cl-filecard(__icon · __ext · __name · __meta · __actions). 쪽수는 모르면 빼고 '종류 · 크기'만.`,
     targets: [".cl-player__doc"],
     note: "실험실의 PDF 칸은 그림(회색 줄)이고 실제는 브라우저 PDF 보기. iOS 는 칸 안 PDF 가 첫 쪽만, 안드로이드 Chrome 은 칸 안에 안 열려서 휴대폰은 카드로 나눔"
   },
@@ -3439,11 +3392,7 @@ if (!doc.getElementById('lab-cancel-dlg')) {
 .cl-home[data-preset="dashboard"] .cl-home-tile__head:has(.cl-home-tile__sub) { align-items: flex-start; }
 .cl-home[data-preset="dashboard"] .cl-home-tile__title { font-size: var(--cl-fs-lead); }
 .cl-home[data-preset="dashboard"] .cl-home-tile__sub { margin-top: 6px; font-size: var(--cl-fs-body-sm-pub); }
-.cl-home[data-preset="dashboard"] .cl-home-tile__more { width: 32px; height: 32px; background: var(--cl-hover); }
-.cl-home[data-preset="dashboard"] .cl-home-tile__more:hover { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
-/* 선생님 칸(검은 판)은 그대로 — 더보기 원만 그 판에 맞게, 줄 글자는 토큰으로 */
-.cl-home[data-preset="dashboard"] .cl-home-tile--teachers .cl-home-tile__more { background: rgba(255, 255, 255, .12); color: var(--cl-canvas); }
-.cl-home[data-preset="dashboard"] .cl-home-tile--teachers .cl-home-tile__more:hover { background: rgba(255, 255, 255, .2); color: var(--cl-canvas); }
+/* 선생님 칸(검은 판)은 그대로 — 더보기 원은 공통 아이콘 버튼 --on-dark(NX1), 줄 글자는 토큰으로 */
 .cl-home[data-preset="dashboard"] .cl-home-tile__row { font-size: var(--cl-fs-body-sm-pub); }
 .cl-home[data-preset="dashboard"] .cl-home-tile__row span { font-size: var(--cl-fs-caption); }
 /* 공개강좌 — 과목 칩은 한 줄(넘치면 옆으로 밀기), 사진 모서리 8, 글자 토큰 */
@@ -3483,7 +3432,52 @@ if (!doc.getElementById('lab-cancel-dlg')) {
 }`,
     targets: [".cl-home[data-preset=dashboard]"],
     note: "관리자 메인페이지 설정에서 '대시보드 페이지'를 고른 학원의 첫 화면(.cl-home[data-preset=dashboard]). 확인: 관리자 → 메인페이지 설정 → 대시보드 페이지 → 미리보기(/manager/main/preview?type=dashboard) 또는 학원 /user/main. 배너 · 선생님 · 공개강좌를 끈 학원도 같은 규칙(타일 자리만 바뀜). 실험실 화면은 테스트 사이트 마크업 그대로(사진만 회색 칸). 로그인 페이지 유형은 대상 아님. 2026.10.28 배치 변경 · 선생님 칸 흰색은 빼고 확정"
-  }
+  },
+  {
+    id: "NX1",
+    group: 1,
+    status: "확정",
+    kind: "마크업",
+    layer: "공통",
+    screens: ["a-main", "a-main-dash", "a-about", "a-course-read", "a-player", "a-player-doc", "a-player-doc-hwp", "a-teacher-read", "a-teacher-read-empty"],
+    title: "공개 화면 버튼 · 링크를 공통 Button · IconButton 으로 — 화면 전용 버튼 7종 정리",
+    current: "같은 알약 버튼이 화면마다 다른 클래스(.cl-cd-pill · .cl-home-pill · .cl-home-btn · .cl-home-slider__ctl · .cl-home-tile__more · .cl-home-more)로 따로 만들어져 높이 36 · 40 · 44 · 48, 글자 14 · 15 · 17 이 섞여 있음",
+    next: "모양은 공통 부품 하나로: 회색 알약 cl-btn--soft(+ --md 36 · --xl 48 · --pill), 둥근 아이콘 cl-icon-btn--round --soft(--lg 44), 진한 판 위 --on-dark, 더보기 cl-more-link. 학원 SNS 알약은 학원소개와 같은 36 으로 맞춤(메인 40 → 36)",
+    css: `/* 공개 화면 버튼 · 링크를 공통 부품으로 — 모양은 components.css 의 공통 Button · IconButton · 더보기 링크, 여기는 놓인 자리 규칙만 */
+/* 학원 SNS 알약 — 로고가 있으면 왼쪽을 줄여 로고를 원 안에 */
+.cl-btn:has(> .cl-home-pill__logo) { padding-left: 7px; gap: 8px; }
+/* 메인의 [전체 보기 ›] · [학원소개 보기 ›] — 글자 17, 누르는 높이 44 */
+.cl-home .cl-more-link { min-height: var(--cl-touch); font-size: var(--cl-fs-body-public); }`,
+    dom: `/* 화면 전용 버튼 클래스 → 공통 부품 클래스. 실제 화면에서는 마크업의 class 를 바로 바꾼다 */
+var MAP = [
+  ['.cl-cd-pill', 'cl-cd-pill', 'cl-btn cl-btn--soft cl-btn--md cl-btn--pill'],
+  ['.cl-home-pill', 'cl-home-pill', 'cl-btn cl-btn--soft cl-btn--md cl-btn--pill'],
+  ['.cl-home-btn--soft', 'cl-home-btn cl-home-btn--soft', 'cl-btn cl-btn--soft cl-btn--xl cl-btn--pill'],
+  ['.cl-home-btn', 'cl-home-btn', 'cl-btn cl-btn--xl cl-btn--pill'],
+  ['.cl-home-slider__ctl', 'cl-home-slider__ctl', 'cl-icon-btn cl-icon-btn--round cl-icon-btn--soft cl-icon-btn--lg'],
+  ['.cl-home-tile__more', 'cl-home-tile__more', 'cl-icon-btn cl-icon-btn--round cl-icon-btn--soft'],
+  ['.cl-home-more', 'cl-home-more', 'cl-more-link']
+];
+MAP.forEach(function (m) { doc.querySelectorAll(m[0]).forEach(function (el) {
+  m[1].split(' ').forEach(function (c) { el.classList.remove(c); });
+  m[2].split(' ').forEach(function (c) { el.classList.add(c); });
+}); });
+/* 진한 판 위 — 대시보드 선생님 칸 더보기 원 · 기본 메인 아래 CTA 의 보조 버튼 */
+doc.querySelectorAll('.cl-home-tile--teachers .cl-icon-btn--soft').forEach(function (el) { el.classList.replace('cl-icon-btn--soft', 'cl-icon-btn--on-dark'); });
+doc.querySelectorAll('.cl-home[data-preset="default"] .cl-home-cta .cl-btn--soft').forEach(function (el) { el.classList.replace('cl-btn--soft', 'cl-btn--on-dark'); });`,
+    markup: `class 만 바꾼다(모양 CSS 는 공통 부품에 있음). 바꾼 뒤 public.css 에서 아래 옛 규칙을 지운다.
+| 지금 class | 바꿀 class | 쓰는 곳 |
+| .cl-cd-pill | cl-btn cl-btn--soft cl-btn--md cl-btn--pill | 강좌 상세 · 강의 보기 · 선생님 상세의 공유 · 좋아요 · 새 창 버튼 (.cl-like-btn 은 상태용으로 그대로 둠) |
+| .cl-home-pill | cl-btn cl-btn--soft cl-btn--md cl-btn--pill | 학원 메인 · 학원소개 SNS 알약 |
+| .cl-home-btn (+ cl-btn--primary) | cl-btn cl-btn--primary cl-btn--xl cl-btn--pill | 메인 첫 칸 · 아래 CTA 주 버튼 |
+| .cl-home-btn.cl-home-btn--soft | cl-btn cl-btn--soft cl-btn--xl cl-btn--pill (진한 CTA 안은 cl-btn--on-dark) | 메인 보조 버튼 |
+| .cl-home-slider__ctl | cl-icon-btn cl-icon-btn--round cl-icon-btn--soft cl-icon-btn--lg | 메인 가로 목록 ‹ › |
+| .cl-home-tile__more | cl-icon-btn cl-icon-btn--round cl-icon-btn--soft (검은 선생님 칸은 cl-icon-btn--on-dark) | 대시보드 타일 더보기 원 |
+| .cl-home-more | cl-more-link | 메인 섹션 [전체 보기 ›] |
+지울 옛 규칙: public.css 의 .cl-home-more · .cl-home-btn · .cl-home-btn--soft · .cl-home-pill · .cl-home-slider__ctl · .cl-cd-pill · .cl-home-tile__more 와 그 :hover · .is-alt · :disabled 줄.`,
+    targets: [".cl-btn--soft", ".cl-icon-btn--soft", ".cl-more-link"],
+    note: "보이는 모양은 그대로(메인 SNS 알약만 40 → 36, 15 → 14). 새 화면에서 이 클래스들을 다시 만들지 않는다 — design/components/Button/README.md 표를 본다",
+  },
 ];
 
 /* 개발 확인 메모 — 화면 수정이 아니라 권한 · 데이터를 정해야 하는 것. 개발자 전달 탭과 요청서에 따로 나온다. */

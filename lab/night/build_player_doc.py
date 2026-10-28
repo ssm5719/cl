@@ -22,10 +22,10 @@ def doc(kind, name, ext, meta):
                 '<span class="cl-docview__tools"><span class="cl-num">1 / 40</span><span class="cl-docview__sep"></span>' + I(MINUS, 14) + '<span class="cl-num">100%</span>' + I(PLUS, 14) + '</span></div>'
                 '<div class="cl-docview__pages">' + page(1) + page(2) + '</div>'
                 '<!-- 실험실: 실제는 이 칸에 브라우저 PDF 보기(iframe, 영상과 같은 자리 · 같은 서버) --></div>')
-    card = ('<div class="cl-docfile">'
-            '<span class="cl-docfile__icon">' + I(FILE, 28) + '<em>' + ext + '</em></span>'
-            '<p class="cl-docfile__name">' + name + '</p><p class="cl-docfile__meta">' + meta + '</p>'
-            '<div class="cl-docfile__actions"><a class="cl-btn cl-btn--primary" href="#" download>' + I(DL) + '내려받기</a>'
+    card = ('<div class="cl-filecard">'
+            '<span class="cl-filecard__icon">' + I(FILE, 28) + '<em class="cl-filecard__ext">' + ext + '</em></span>'
+            '<p class="cl-filecard__name">' + name + '</p><p class="cl-filecard__meta">' + meta + '</p>'
+            '<div class="cl-filecard__actions"><a class="cl-btn cl-btn--primary" href="#" download>' + I(DL) + '내려받기</a>'
             '<a class="cl-btn cl-btn--ghost" href="#" target="_blank">' + I(EXT) + '새 창으로 열기</a></div></div>')
     return f'<div class="cl-player" data-player=""><div class="cl-player__doc" data-doc-kind="{kind}">{view}{card}</div></div>'
 def build(out, kind, name, ext, meta, title='수학수능기출26', cur='02'):

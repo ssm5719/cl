@@ -469,3 +469,166 @@ html.lenis, html.lenis body { height: auto; }
     .cl-selbar { left: 16px; right: 16px; bottom: 16px; transform: none; }
     .cl-selbar strong { flex: 1; }
 }
+
+/* ==========================================================================
+   공통 부품 v1.3 — 화면마다 따로 만들던 모양을 한 벌로 (2026.10.28)
+   새 화면은 아래 부품을 먼저 쓰고, 없을 때만 화면 전용 클래스를 만든다. 크기 · 색은 토큰만.
+   ========================================================================== */
+
+/* ---------- 버튼 종류 더하기 ---------- */
+/* 옅은 회색 — 공개 화면 보조 동작(공유 · 좋아요 · 더보기 · 분류 알약). 회색 판 위에서는 흰색 */
+.cl-btn--soft { background: var(--cl-parchment); color: var(--cl-ink); }
+.cl-btn--soft:hover { background: var(--cl-hover); }
+.is-alt .cl-btn--soft, .cl-btn--soft.on-gray { background: var(--cl-canvas); }
+/* 먹색 — 공개 화면 머리의 주 동작(로그인 등) */
+.cl-btn--dark { background: var(--cl-ink); color: var(--cl-on-ink); }
+.cl-btn--dark:hover { background: var(--cl-surface-dark-hover); }
+/* 흰 바탕 + 연보라 테두리 + 보라 글자 — 연보라 판 위의 작은 동작(이 강의 질문하기) */
+.cl-btn--line { background: var(--cl-canvas); color: var(--cl-primary-pressed); box-shadow: inset 0 0 0 1px var(--cl-primary-line); font-weight: 500; }
+.cl-btn--line:hover { background: var(--cl-canvas); box-shadow: inset 0 0 0 1px var(--cl-primary); }
+/* 크기 — 기본 32 · sm 28 · xs 26 에 더해 md 36 · lg 44(터치) · xl 48 */
+.cl-btn--md { height: 36px; padding: 0 14px; font-size: var(--cl-fs-ui); font-weight: 500; }
+.cl-btn--xl { height: 48px; padding: 0 22px; font-size: var(--cl-fs-body-public); }
+.cl-btn--block { display: flex; width: 100%; }
+/* 떠 있는 흰 버튼 — 회색 판 위 '분류 더보기' 처럼 목록 끝에 하나만 */
+.cl-btn--float { background: var(--cl-canvas); color: var(--cl-ink); box-shadow: var(--cl-shadow-float); }
+.cl-btn--float:hover { background: var(--cl-hover); }
+/* 진한 판 위 — 투명 바탕 · 흰 테두리 · 흰 글자 */
+.cl-btn--on-dark, .cl-btn--on-dark:hover { background: transparent; color: var(--cl-on-ink); box-shadow: inset 0 0 0 1px var(--cl-on-ink); }
+/* 버튼 끝 화살표 — 올리면 4px 앞으로 */
+.cl-btn__arrow { flex: none; transition: transform var(--cl-dur) var(--cl-ease); }
+.cl-btn:hover .cl-btn__arrow { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) { .cl-btn__arrow { transition: none; } .cl-btn:hover .cl-btn__arrow { transform: none; } }
+
+/* 아이콘 버튼 — 둥근 모양 · 회색 바탕 · 크기 */
+.cl-icon-btn--round { border-radius: var(--cl-radius-pill); }
+.cl-icon-btn--soft { background: var(--cl-parchment); color: var(--cl-ink); }
+.cl-icon-btn--soft:hover { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+.cl-icon-btn--soft:disabled { background: var(--cl-parchment); color: var(--cl-ink-faint); opacity: 1; }
+.cl-icon-btn--xs { width: 26px; height: 26px; }
+.cl-icon-btn--md { width: 36px; height: 36px; }
+.cl-icon-btn--lg { width: 44px; height: 44px; }
+/* 진한 판 위 — 흰 12% 원, 올리면 20% */
+.cl-icon-btn--on-dark { background: rgba(255, 255, 255, .12); color: var(--cl-on-ink); }
+.cl-icon-btn--on-dark:hover { background: rgba(255, 255, 255, .2); }
+
+/* ---------- 글자 링크 ---------- */
+/* 본문 속 동작 링크 — 평소 밑줄 없음, 올리면 밑줄. --muted 회색에서 보라로, --danger 빨강(비밀번호 초기화 등) */
+.cl-link { padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--cl-primary-pressed); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; cursor: pointer; }
+.cl-link:hover { text-decoration-color: currentColor; }
+.cl-link--muted { color: var(--cl-ink-2); }
+.cl-link--muted:hover { color: var(--cl-primary-pressed); }
+.cl-link--danger { color: var(--cl-danger); text-decoration-color: currentColor; }
+.cl-link--danger:hover { color: var(--cl-danger-pressed); }
+/* 더보기 › — 글자 크기는 놓인 자리를 따른다 */
+.cl-more-link { display: inline-flex; align-items: center; gap: 2px; font-weight: 600; color: var(--cl-primary-pressed); text-decoration: none; white-space: nowrap; }
+.cl-more-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- 숫자 알약 · 상태 점 · 지울 수 있는 칩 ---------- */
+/* 탭 · 작은 제목 옆 개수. 고른 탭 안에서는 연보라 */
+.cl-count { height: 20px; min-width: 20px; padding: 0 6px; box-sizing: border-box; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); background: var(--cl-hover); color: var(--cl-ink-muted); font-size: var(--cl-fs-micro); font-weight: 500; font-variant-numeric: tabular-nums; }
+[aria-selected="true"] > .cl-count, .cl-count--active { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+/* 점 + 글자 상태 — 표 안 '승인 · 대기 · 꺼짐'. 배지보다 조용하게 */
+.cl-status { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.cl-status::before { content: ""; width: 6px; height: 6px; flex: none; border-radius: var(--cl-radius-pill); background: currentColor; }
+.cl-status--ok { color: var(--cl-success); }
+.cl-status--wait { color: var(--cl-warning); }
+.cl-status--wait::before { width: 7px; height: 7px; background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; }
+.cl-status--off { color: var(--cl-ink-muted); }
+/* 지울 수 있는 칩 — 추천 키워드 등. 칩을 눌러도 지워지지 않고 ✕ 만 지운다 */
+.cl-tag { height: 30px; padding: 0 4px 0 12px; display: inline-flex; align-items: center; gap: 2px; border-radius: var(--cl-radius-pill); background: var(--cl-hover); color: var(--cl-ink); font-size: var(--cl-fs-ui); }
+.cl-tag__x { width: 24px; height: 24px; border: 0; border-radius: var(--cl-radius-pill); background: transparent; color: var(--cl-ink-muted); display: grid; place-items: center; cursor: pointer; }
+.cl-tag__x:hover { background: var(--cl-danger-bg); color: var(--cl-danger); }
+
+/* ---------- 줄에 올리면 보이는 동작 ---------- */
+/* 표 · 목록 줄에 올리거나 키보드로 들어가면 나타나는 작은 버튼(복사 · 들어가기). 터치 화면은 늘 보인다 */
+.cl-reveal { opacity: 0; transition: opacity var(--cl-dur) var(--cl-ease); }
+:is(tr, li, .cl-row):is(:hover, :focus-within) .cl-reveal, .cl-reveal:focus-visible { opacity: 1; }
+@media (hover: none) { .cl-reveal { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .cl-reveal { transition: none; } }
+
+/* ---------- 줄 탭 (공개 화면 · 오른쪽 칸 머리) ---------- */
+/* 기본 탭과 같은 구조, 고른 탭 밑줄만 보라 2px · 탭 사이 24 · 글자 15 */
+.cl-tabs--line { gap: 24px; border-bottom-color: var(--cl-hairline); overflow: visible; }
+.cl-tabs--line .cl-tab { position: relative; padding: 0; border-bottom: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 500; }
+.cl-tabs--line .cl-tab[aria-selected="true"] { font-weight: 600; }
+.cl-tabs--line .cl-tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; border-radius: var(--cl-radius-hair); background: var(--cl-primary); }
+
+/* ---------- 짧은 입력 (질문 · 댓글 빠르게 쓰기) ---------- */
+/* 3줄(88)부터 글에 맞춰 늘어나는 입력칸 + 아래 한 줄 [보조 링크 … 취소 · 등록] */
+.cl-composer { display: flex; flex-direction: column; gap: 12px; }
+.cl-composer[hidden] { display: none; }
+.cl-composer__input { width: 100%; box-sizing: border-box; min-height: 88px; max-height: 180px; padding: 12px 14px; border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); color: var(--cl-ink); font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6; resize: none; field-sizing: content; }
+.cl-composer__input::placeholder { color: var(--cl-ink-faint); }
+.cl-composer__input:focus { outline: none; border-color: var(--cl-primary); box-shadow: 0 0 0 3px var(--cl-primary-tint); }
+.cl-composer__row { display: flex; align-items: center; gap: 8px; }
+.cl-composer__more { margin-right: auto; display: inline-flex; align-items: center; gap: 4px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-decoration: none; }
+.cl-composer__more:hover { color: var(--cl-ink); text-decoration: underline; text-underline-offset: 3px; }
+.cl-composer__done { margin: 12px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-success); }
+
+/* ---------- 작은 목록 (오른쪽 칸 · 작은 창 안) ---------- */
+/* 줄마다 [배지 64 | 제목 / 정보], 줄 사이 선. --plain 은 배지 없이 */
+.cl-mini-list { margin: 0; padding: 0; list-style: none; }
+.cl-mini-list__item { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 12px; row-gap: 6px; padding: 16px 20px; border-bottom: 1px solid var(--cl-hairline); color: var(--cl-ink); text-decoration: none; }
+.cl-mini-list__item:hover { background: var(--cl-row-hover); }
+.cl-mini-list__item > .cl-badge { grid-row: 1 / span 2; align-self: start; justify-content: center; width: 64px; box-sizing: border-box; }
+.cl-mini-list--plain .cl-mini-list__item { grid-template-columns: minmax(0, 1fr); }
+.cl-mini-list__title { font-size: var(--cl-fs-ui); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-mini-list__meta { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-mini-list__mark { color: var(--cl-primary-pressed); font-weight: 500; }
+.cl-mini-list__foot { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 16px 20px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-decoration: none; }
+.cl-mini-list__foot:hover { color: var(--cl-ink); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- 작은 창 더하기 · 사람 카드 · 링크 목록 ---------- */
+/* 여는 버튼 왼쪽 끝에 맞춰 열리는 카드형 작은 창 (선생님 작은 창 등) */
+.cl-popover--inline { display: inline-flex; }
+.cl-popover__panel--start { left: 0; right: auto; }
+.cl-popover__panel--card { top: calc(100% + 8px); z-index: 30; width: 320px; max-width: calc(100vw - 40px); box-sizing: border-box; padding: 20px; border-radius: var(--cl-radius-sm); }
+.cl-popover__panel[hidden] { display: none; }
+/* 사람 — [사진 | 이름 / 과목] */
+.cl-person { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.cl-person__name { margin: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 600; color: var(--cl-ink); }
+.cl-person__sub { margin: 2px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+/* 작은 제목 — '담당 강좌 5' 처럼 목록 위 회색 머리 */
+.cl-subhead { margin: 20px 0 8px; display: flex; align-items: center; gap: 6px; font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink-muted); }
+/* 선으로 나눈 링크 목록 — 한 줄 말줄임, 오른쪽에 배지 하나 */
+.cl-link-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--cl-hairline); }
+.cl-link-list__item { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--cl-hairline); font-size: var(--cl-fs-ui); color: var(--cl-ink); text-decoration: none; }
+.cl-link-list__text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-link-list__item:hover .cl-link-list__text { color: var(--cl-primary-pressed); }
+
+/* ---------- 사진 없는 사람 · 아바타 크기 ---------- */
+/* 사진이 없을 때 — 연보라 원 가운데 선 사람 아이콘(img/teacher-placeholder.svg, 60%) */
+.cl-avatar--ph { background: var(--cl-primary-wash); color: var(--cl-primary); overflow: hidden; box-sizing: border-box; }
+.cl-avatar--ph > svg { width: 60%; height: 60%; margin-top: -4%; }
+.cl-avatar--md { width: 32px; height: 32px; }
+.cl-avatar--lg { width: 44px; height: 44px; }
+.cl-avatar--fill { width: 100%; height: 100%; }
+
+/* ---------- 빈 상태 · 점선 상자 (학원 공개 화면) ---------- */
+/* 회색 점선 1px · 모서리 8 · 바탕 없음. 목록 자리 최소 240. --sm 은 댓글 · 답변처럼 작은 자리 */
+.cl-empty--line { min-height: 240px; box-sizing: border-box; justify-content: center; padding: 48px 20px; border: 1px dashed var(--cl-control-border); border-radius: var(--cl-radius-sm); color: var(--cl-ink-muted); }
+.cl-empty--line > .cl-icon { color: var(--cl-ink-faint); margin-bottom: 4px; }
+.cl-empty--line .cl-empty__title { font-size: var(--cl-fs-body-sm-pub); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-empty--line .cl-empty__desc { font-size: var(--cl-fs-caption); color: var(--cl-ink-faint); }
+.cl-empty--sm { min-height: 0; padding: 32px 20px; }
+.cl-empty--sm > .cl-icon { width: 24px; height: 24px; }
+
+/* ---------- 파일 카드 · 문서 보기 ---------- */
+/* 미리보기가 안 되는 파일(한글 · 워드 · PPT) — [파일 아이콘 + 종류] / 이름 / 종류 · 쪽수 · 크기 / [내려받기][새 창으로 열기] */
+.cl-filecard { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px; text-align: center; }
+.cl-filecard__icon { position: relative; width: 64px; height: 64px; margin-bottom: 8px; display: grid; place-items: center; border-radius: var(--cl-radius-sm); background: var(--cl-canvas); color: var(--cl-ink-muted); box-shadow: inset 0 0 0 1px var(--cl-hairline); }
+.cl-filecard__ext { position: absolute; right: -6px; bottom: -6px; height: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-xs); background: var(--cl-primary); color: var(--cl-on-ink); font-style: normal; font-size: var(--cl-fs-micro); font-weight: 600; letter-spacing: .02em; }
+.cl-filecard__name { margin: 0; font-size: var(--cl-fs-body-public); font-weight: 600; color: var(--cl-ink); word-break: keep-all; }
+.cl-filecard__meta { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-filecard__actions { margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.cl-filecard__actions .cl-btn { height: var(--cl-h-control-lg); padding: 0 16px; }
+.cl-filecard__actions .cl-btn--ghost { background: var(--cl-canvas); }
+/* 문서 바로 보기 칸(PDF) — 먹색 머리 줄 + 회색 바탕 위 쪽들. 실제는 브라우저 PDF 보기(iframe) */
+.cl-docview { display: flex; flex-direction: column; background: var(--cl-disabled-bg); }
+.cl-docview__bar { flex: none; height: 44px; padding: 0 16px; display: flex; align-items: center; gap: 12px; background: var(--cl-surface-dark); color: var(--cl-on-ink-2); font-size: var(--cl-fs-caption); }
+.cl-docview__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.cl-docview__tools { display: inline-flex; align-items: center; gap: 10px; color: var(--cl-control-border); }
+.cl-docview__sep { width: 1px; height: 16px; background: rgba(255, 255, 255, .2); }
+.cl-docview__pages { flex: 1; overflow: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px; }
+.cl-docview__page { flex: none; width: min(62%, 520px); aspect-ratio: 210 / 297; box-sizing: border-box; padding: 8% 7%; display: flex; flex-direction: column; gap: 10px; background: var(--cl-canvas); box-shadow: 0 1px 3px rgba(0, 0, 0, .12); }

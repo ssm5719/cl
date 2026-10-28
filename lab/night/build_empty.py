@@ -15,8 +15,8 @@ IC={
  'msg':'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>',
 }
 def empty(icon,title,desc=None,extra=''):
-    d=f'<p class="cl-pub-empty__desc">{desc}</p>' if desc else ''
-    return f'<div class="cl-pub-empty{extra}">{SVG.format(IC[icon])}<p class="cl-pub-empty__title">{title}</p>{d}</div>'
+    d=f'<p class="cl-empty__desc">{desc}</p>' if desc else ''
+    return f'<div class="cl-empty cl-empty--line{extra}">{SVG.format(IC[icon])}<p class="cl-empty__title">{title}</p>{d}</div>'
 def cut(s,start_pat,tag):
     i=s.index(start_pat); depth=0; k=i
     for m in re.finditer(rf'<(/?){tag}\b[^>]*>',s[i:]):
@@ -47,7 +47,7 @@ s=re.sub(r'게시글 \d+개','게시글 0개',s)
 open('a-board-empty.html','w').write(nopag(s))
 # 게시글 읽기 — 댓글 없음
 s=open('a-board-read.html').read(); a,b=cut(s,'<ul class="cl-comments__list"','ul')
-s=a+empty('msg','아직 댓글이 없습니다',extra=' cl-pub-empty--sm')+b
+s=a+empty('msg','아직 댓글이 없습니다',extra=' cl-empty--sm')+b
 s=re.sub(r'(cl-comments__title">댓글 <span class="cl-num">)\d+',r'\g<1>0',s)
 open('a-board-read-empty.html','w').write(s)
 # 선생님 상세 — 담당 강좌 없음: 박채원 선생님(목록에서 박채원 카드가 여기로 옴)

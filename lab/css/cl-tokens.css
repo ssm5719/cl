@@ -67,6 +67,8 @@
   --cl-fs-list-title: 26px;     /* 목차형 강좌명 600 / -0.02em */
   --cl-fs-lead: 19px;
   --cl-fs-body-public: 17px;    /* 400 / 1.6 / -0.01em */
+  --cl-fs-body-sm-pub: 15px;    /* 공개 화면 작은 본문 · 탭 · 이름 */
+  --cl-fs-section-pub: clamp(26px, 2.2vw, 32px);  /* 공개 화면 섹션 제목 */
   /* 작업공간 (1a 조밀한 그리드) */
   --cl-fs-page-title: 22px;     /* 700 / 1.35 / -0.025em */
   --cl-fs-section-title: 15px;  /* 700 */
