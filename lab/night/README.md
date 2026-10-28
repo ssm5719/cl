@@ -21,3 +21,4 @@
 
 - 2026.10.28 — 확정 후보 8개(NB1 · NB2 · NT1 · NT3 · NQ1 · NQ2 · NF1 · NF2)를 `fixes.js` 에 `확정`으로 넣고, 화면 6개 · `public-add.css` 를 실험실에 반영. 정할 것 4개(NT2 · NT4 · NQ3 · NF3)는 이 폴더의 `fixes-night.js` 에만 있다.
 - 2026.10.28 — 빈 화면 6개(`a-courses-empty` · `a-teachers-empty` · `a-teacher-read-empty` · `a-qna-empty` · `a-board-empty` · `a-board-read-empty`)와 `NE1`(점선 빈 상태) 추가. 빈 화면은 `build_empty.py` 가 기본 화면에서 만든다 — 기본 화면을 고치면 다시 실행. 규칙은 `design/components/Empty/README.md` "학원 공개 화면".
+- 2026.10.28 — 학원 Q&A 상세 `a-qna-read`(a-qna 틀 + s-qna-read 본문, 답변 2개)를 `build_qna_read.py` 로 만듦. NQ4(목록 상태 상자 정사각형) · NQ5(상세 정리) 확정.
