@@ -1967,6 +1967,7 @@ textarea.cl-input { font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6;
 /* ==========================================================================
    학원 공개 화면 부품 (2026.10.28) — 실험실 fixes.js 에서 옮김. 규칙: public-ui-rules.md
    버튼(수강중 · 수강신청)은 위 Button 의 cl-btn--undo · cl-btn--tint · cl-btn--pill 을 쓴다.
+   NM1(대시보드형)은 실험실 css/public.css 의 대시보드 기본 규칙 위에 얹는다.
    ========================================================================== */
 
 /* --- NS1 [확정] 선생님 상세 · Q&A · 자유게시판 — 학원소개처럼 여유 있게 --- */
@@ -2241,3 +2242,61 @@ textarea.cl-input { font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6;
   .cl-cs-row__state { width: auto; }
 }
 @media (prefers-reduced-motion: reduce) { .cl-cs-row { transition: none; } }
+
+/* --- NM1 [확정] 학원 메인 · 대시보드형 — 실험실 규칙에 맞춘 타일 --- */
+/* 학원 메인 · 대시보드형 — 지금 실험실 규칙(글자 토큰 · 모서리 8 · 옅은 선 · 보라는 할 일에만)에 맞춘다 */
+.cl-home[data-preset="dashboard"] .cl-home-bento { gap: var(--cl-space-5); }
+.cl-home[data-preset="dashboard"] .cl-home-tile { padding: 32px; border-radius: var(--cl-radius-sm); }
+.cl-home[data-preset="dashboard"] .cl-home-tile--hero { padding: 40px; gap: 32px; }
+.cl-home[data-preset="dashboard"] .cl-home-tile--banner { padding: 0; }
+/* 첫 칸 — 화면 제목 단계(40), 사진 모서리는 칸과 같은 8 */
+.cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__title { font-size: var(--cl-fs-display); letter-spacing: -0.03em; }
+.cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__sub { font-size: var(--cl-fs-body-public); color: var(--cl-ink-muted); }
+.cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__media { border-radius: var(--cl-radius-sm); }
+/* 칸 머리 — 제목 19 · 700, 부제 15, 더보기 원 32 */
+.cl-home[data-preset="dashboard"] .cl-home-tile__head { margin-bottom: 16px; align-items: center; }
+.cl-home[data-preset="dashboard"] .cl-home-tile__head:has(.cl-home-tile__sub) { align-items: flex-start; }
+.cl-home[data-preset="dashboard"] .cl-home-tile__title { font-size: var(--cl-fs-lead); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__sub { margin-top: 6px; font-size: var(--cl-fs-body-sm-pub); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__more { width: 32px; height: 32px; background: var(--cl-hover); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__more:hover { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+/* 선생님 칸(검은 판)은 그대로 — 더보기 원만 그 판에 맞게, 줄 글자는 토큰으로 */
+.cl-home[data-preset="dashboard"] .cl-home-tile--teachers .cl-home-tile__more { background: rgba(255, 255, 255, .12); color: var(--cl-canvas); }
+.cl-home[data-preset="dashboard"] .cl-home-tile--teachers .cl-home-tile__more:hover { background: rgba(255, 255, 255, .2); color: var(--cl-canvas); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__row { font-size: var(--cl-fs-body-sm-pub); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__row span { font-size: var(--cl-fs-caption); }
+/* 공개강좌 — 과목 칩은 한 줄(넘치면 옆으로 밀기), 사진 모서리 8, 글자 토큰 */
+.cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-home-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -32px 20px; padding: 0 32px 2px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 48px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 48px), transparent 100%); }
+.cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-home-chips::-webkit-scrollbar { display: none; }
+.cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-chip { flex: none; }
+.cl-home[data-preset="dashboard"] .cl-home-ccards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.cl-home[data-preset="dashboard"] .cl-home-ccard { gap: 4px; }
+.cl-home[data-preset="dashboard"] .cl-home-ccard .cl-home-course__thumb { height: auto; aspect-ratio: 16 / 9; border-radius: var(--cl-radius-sm); margin-bottom: 12px; }
+.cl-home[data-preset="dashboard"] .cl-home-ccard__cat { font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-home[data-preset="dashboard"] .cl-home-ccard__title { font-size: var(--cl-fs-body-public); }
+.cl-home[data-preset="dashboard"] .cl-home-ccard__teacher { font-size: var(--cl-fs-caption); }
+/* 공지 · 자유게시판 줄 — 15 · 날짜 13, 첫 줄 위에 옅은 선 */
+.cl-home[data-preset="dashboard"] .cl-home-news__list { border-top: 1px solid var(--cl-hairline); }
+.cl-home[data-preset="dashboard"] .cl-home-news__row { padding: 12px 0; border-bottom-color: var(--cl-hairline); }
+.cl-home[data-preset="dashboard"] .cl-home-news__link { font-size: var(--cl-fs-body-sm-pub); }
+.cl-home[data-preset="dashboard"] .cl-home-news__link:hover { text-decoration: none; }
+.cl-home[data-preset="dashboard"] .cl-home-news__date { font-size: var(--cl-fs-caption); }
+@media (max-width: 1023px) {
+  .cl-home[data-preset="dashboard"] .cl-home-tile--hero { padding: 32px; }
+}
+@media (max-width: 767px) {
+  .cl-home[data-preset="dashboard"] { padding-top: 16px; }
+  .cl-home[data-preset="dashboard"] .cl-home-bento { gap: var(--cl-space-4); }
+  .cl-home[data-preset="dashboard"] .cl-home-tile, .cl-home[data-preset="dashboard"] .cl-home-tile--hero { padding: 24px 20px; }
+  .cl-home[data-preset="dashboard"] .cl-home-tile--banner { padding: 0; }
+  .cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-home-chips { margin: 0 -20px 16px; padding: 0 20px 2px; }
+  .cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__title { font-size: var(--cl-fs-display); }
+  /* 휴대폰 공개강좌 — 메인 대표 강좌와 같은 작은 사진 목록 */
+  .cl-home[data-preset="dashboard"] .cl-home-ccards { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .cl-home[data-preset="dashboard"] .cl-home-ccards > :first-child { grid-column: auto; }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard { display: grid; grid-template-columns: 96px minmax(0, 1fr); grid-template-areas: "thumb cat" "thumb title" "thumb teacher"; column-gap: 14px; row-gap: 2px; align-content: center; padding: 12px 0; border-top: 1px solid var(--cl-hairline); }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard .cl-home-course__thumb { grid-area: thumb; width: 96px; margin: 0; border-radius: 6px; align-self: center; }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard__cat { grid-area: cat; }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard__title { grid-area: title; font-size: var(--cl-fs-body-sm-pub); }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard__teacher { grid-area: teacher; }
+}

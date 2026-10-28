@@ -3398,25 +3398,18 @@ if (!doc.getElementById('lab-cancel-dlg')) {
   {
     id: "NM1",
     group: 1,
-    status: "제안",
+    status: "확정",
     kind: "CSS",
     layer: "화면별",
     screens: ["a-main-dash"],
     title: "학원 메인 · 대시보드형 — 실험실 규칙에 맞춘 타일",
     current: "테스트 사이트 대시보드형: 타일 모서리 16 · 안쪽 28/36, 첫 칸 제목 56(기본형 화면 제목 40 과 다름) · 안 사진 모서리 8 과 어긋남, 타일 제목 21 · 부제 15 · 줄 15/14 직접 적음, 선생님 칸만 검은 판(다른 칸은 흰색) · 사진 없는 칸은 보라 아이콘이 검은 판 위에 뜸, 과목 칩 19개가 3줄로 쌓여 강좌보다 먼저 보임, 강좌 사진 모서리 12, 타일 사이 16",
-    next: "배치: 공개강좌를 한 줄 전체로, 그 아래 [선생님 | 자유게시판] 반반(왼쪽 두 칸이 높아 강좌 칸 아래가 비던 것 해결 — 강좌 3개가 같은 폭 16:9). 타일 모서리 8 · 안쪽 32(첫 칸 40) · 사이 24. 첫 칸 제목 40(cl-fs-display) · 부제 17 회색. 타일 제목 19(cl-fs-lead) · 부제 15 · 더보기 원 32. 선생님 칸 흰 바탕 — 얼굴 52 겹침(흰 테두리 3) · 줄 15 · 과목 13 회색 · 옅은 선. 과목 칩 한 줄(넘치면 옆으로 밀기 · 양끝 흐림). 강좌 사진 16:9 · 모서리 8, 분류 13 회색 · 제목 17 · 선생님 13. 공지 · 자유게시판 줄 15 · 날짜 13, 위아래 옅은 선. 휴대폰은 안쪽 24 · 20, 사이 16, 공개강좌는 사진 96 작은 목록",
+    next: "타일 모서리 8 · 안쪽 32(첫 칸 40) · 사이 24. 첫 칸 제목 40(cl-fs-display) · 부제 17 회색. 타일 제목 19(cl-fs-lead) · 부제 15 · 더보기 원 32. 과목 칩 한 줄(넘치면 옆으로 밀기 · 양끝 흐림). 강좌 3개 같은 폭 · 사진 16:9 · 모서리 8, 분류 13 회색 · 제목 17 · 선생님 13. 공지 · 자유게시판 줄 15 · 날짜 13, 위아래 옅은 선. 휴대폰은 안쪽 24 · 20, 사이 16, 공개강좌는 사진 96 작은 목록. 배치(타일 자리)와 선생님 칸(검은 판)은 지금 그대로",
     css: `/* 학원 메인 · 대시보드형 — 지금 실험실 규칙(글자 토큰 · 모서리 8 · 옅은 선 · 보라는 할 일에만)에 맞춘다 */
 .cl-home[data-preset="dashboard"] .cl-home-bento { gap: var(--cl-space-5); }
 .cl-home[data-preset="dashboard"] .cl-home-tile { padding: 32px; border-radius: var(--cl-radius-sm); }
 .cl-home[data-preset="dashboard"] .cl-home-tile--hero { padding: 40px; gap: 32px; }
 .cl-home[data-preset="dashboard"] .cl-home-tile--banner { padding: 0; }
-/* 배치 — 공개강좌를 한 줄 전체로, 그 아래 [선생님 | 자유게시판] 반반. 왼쪽 두 칸이 높아 강좌 칸 아래가 비던 것을 없앤다 */
-@media (min-width: 1024px) {
-  .cl-home[data-preset="dashboard"] .cl-home-bento { grid-template-areas: "h h h h h h h b b b b b" "h h h h h h h n n n n n" "c c c c c c c c c c c c" "t t t t t t f f f f f f"; }
-  .cl-home[data-preset="dashboard"] .cl-home-bento:not(:has([data-sec="banner"]:not([hidden]))) { grid-template-areas: "h h h h h h h n n n n n" "h h h h h h h n n n n n" "c c c c c c c c c c c c" "t t t t t t f f f f f f"; }
-  .cl-home[data-preset="dashboard"] .cl-home-bento:not(:has([data-sec="teachers"]:not([hidden]))) { grid-template-areas: "h h h h h h h b b b b b" "h h h h h h h n n n n n" "c c c c c c c c c c c c" "f f f f f f f f f f f f"; }
-  .cl-home[data-preset="dashboard"] .cl-home-bento:not(:has([data-sec="featured"]:not([hidden]))) { grid-template-areas: "h h h h h h h b b b b b" "h h h h h h h n n n n n" "t t t t t t f f f f f f"; }
-}
 /* 첫 칸 — 화면 제목 단계(40), 사진 모서리는 칸과 같은 8 */
 .cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__title { font-size: var(--cl-fs-display); letter-spacing: -0.03em; }
 .cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__sub { font-size: var(--cl-fs-body-public); color: var(--cl-ink-muted); }
@@ -3428,17 +3421,11 @@ if (!doc.getElementById('lab-cancel-dlg')) {
 .cl-home[data-preset="dashboard"] .cl-home-tile__sub { margin-top: 6px; font-size: var(--cl-fs-body-sm-pub); }
 .cl-home[data-preset="dashboard"] .cl-home-tile__more { width: 32px; height: 32px; background: var(--cl-hover); }
 .cl-home[data-preset="dashboard"] .cl-home-tile__more:hover { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
-/* 선생님 칸 — 검은 판 대신 다른 칸과 같은 흰 칸. 줄은 옅은 회색 선, 과목은 회색 */
-.cl-home[data-preset="dashboard"] .cl-home-tile--teachers { background: var(--cl-canvas); color: var(--cl-ink); }
-.cl-home[data-preset="dashboard"] .cl-home-tile--teachers .cl-home-tile__more { background: var(--cl-hover); color: var(--cl-ink); }
-.cl-home[data-preset="dashboard"] .cl-home-faces { margin: 0 0 16px; }
-.cl-home[data-preset="dashboard"] .cl-home-faces .cl-home-teacher__photo { width: 52px; height: 52px; border: 3px solid var(--cl-canvas); background: var(--cl-primary-wash); }
-.cl-home[data-preset="dashboard"] .cl-home-faces .cl-home-teacher__photo + .cl-home-teacher__photo { margin-left: -12px; }
-.cl-home[data-preset="dashboard"] .cl-home-faces .cl-home-teacher__icon { width: 26px; height: 26px; }
-.cl-home[data-preset="dashboard"] .cl-home-tile__row { padding: 12px 0; border-top: 1px solid var(--cl-hairline); color: var(--cl-ink); font-size: var(--cl-fs-body-sm-pub); }
-.cl-home[data-preset="dashboard"] .cl-home-tile__row strong { font-weight: 500; }
-.cl-home[data-preset="dashboard"] .cl-home-tile__row span { color: var(--cl-ink-muted); font-size: var(--cl-fs-caption); }
-.cl-home[data-preset="dashboard"] .cl-home-tile__row:hover strong { text-decoration: none; color: var(--cl-primary-pressed); }
+/* 선생님 칸(검은 판)은 그대로 — 더보기 원만 그 판에 맞게, 줄 글자는 토큰으로 */
+.cl-home[data-preset="dashboard"] .cl-home-tile--teachers .cl-home-tile__more { background: rgba(255, 255, 255, .12); color: var(--cl-canvas); }
+.cl-home[data-preset="dashboard"] .cl-home-tile--teachers .cl-home-tile__more:hover { background: rgba(255, 255, 255, .2); color: var(--cl-canvas); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__row { font-size: var(--cl-fs-body-sm-pub); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__row span { font-size: var(--cl-fs-caption); }
 /* 공개강좌 — 과목 칩은 한 줄(넘치면 옆으로 밀기), 사진 모서리 8, 글자 토큰 */
 .cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-home-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -32px 20px; padding: 0 32px 2px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 48px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 48px), transparent 100%); }
 .cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-home-chips::-webkit-scrollbar { display: none; }
@@ -3475,7 +3462,7 @@ if (!doc.getElementById('lab-cancel-dlg')) {
   .cl-home[data-preset="dashboard"] .cl-home-ccard__teacher { grid-area: teacher; }
 }`,
     targets: [".cl-home[data-preset=dashboard]"],
-    note: "관리자 메인페이지 설정에서 '대시보드 페이지'를 고른 학원의 첫 화면. 실험실 화면은 테스트 사이트 마크업 그대로(사진만 회색 칸). 로그인 페이지 유형은 대상 아님"
+    note: "관리자 메인페이지 설정에서 '대시보드 페이지'를 고른 학원의 첫 화면(.cl-home[data-preset=dashboard]). 확인: 관리자 → 메인페이지 설정 → 대시보드 페이지 → 미리보기(/manager/main/preview?type=dashboard) 또는 학원 /user/main. 배너 · 선생님 · 공개강좌를 끈 학원도 같은 규칙(타일 자리만 바뀜). 실험실 화면은 테스트 사이트 마크업 그대로(사진만 회색 칸). 로그인 페이지 유형은 대상 아님. 2026.10.28 배치 변경 · 선생님 칸 흰색은 빼고 확정"
   }
 ];
 
