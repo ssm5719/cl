@@ -125,3 +125,7 @@ button.pt-step { cursor: pointer; background: var(--cl-primary-tint); color: var
 .pt-q-lead { margin: 0 0 6px; font-weight: 700; }
 .pt-q-passage { padding: 10px 12px; border: 1px solid #999; white-space: pre-wrap; overflow-wrap: anywhere; }
 .pt-q--passage { break-inside: auto; }
+.pt-armed { background: var(--cl-danger-bg) !important; color: var(--cl-danger) !important; }
+body { background: #fff; }
+html[data-theme="dark"] body { background: #1c1c1e; }
+.pt-print-note { margin: 0; padding: 10px 12px; border-radius: var(--cl-radius-sm); background: var(--cl-row-hover); }

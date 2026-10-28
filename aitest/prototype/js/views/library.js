@@ -1,5 +1,5 @@
 // 시험 보관함: 목록(시험지별 · 지문별) · 시험지 상세 · 시험지 올리기(데모) · 지문 추가.
-import { render, toast } from '../app.js';
+import { render, toast, go } from '../app.js';
 import { SUBJECTS, KINDS, GRADES } from '../constants.js';
 import { ME, esc, badge, firstLine, pageHead, allPapers, paperMeta } from '../ui.js';
 
@@ -43,7 +43,7 @@ function list(state) {
 
 function paperTable(papers) {
   return `<div class="cl-table-wrap"><table class="cl-table"><thead><tr><th>시험지</th><th>과목</th><th>학년</th><th class="cl-table__num">지문</th><th class="cl-table__num">그림 지문</th><th>올린 사람 · 날짜</th><th>동작</th></tr></thead><tbody>
-    ${papers.map((p) => `<tr><td><a class="cl-table__title" href="#/library/${p.id}">${esc(p.title)}</a><span class="cl-table__sub">${esc(paperMeta(p))}</span></td>
+    ${papers.map((p) => `<tr><td><a class="cl-table__title" href="#paper-${p.id}">${esc(p.title)}</a><span class="cl-table__sub">${esc(paperMeta(p))}</span></td>
       <td>${p.subject}</td><td>${p.grade}</td><td class="cl-table__num">${p.units.length}</td><td class="cl-table__num">${p.units.filter((u) => u.has_figure).length}</td>
       <td>${p.by === ME ? '나' : esc(p.by)}<span class="cl-table__sub">${p.date}</span></td>
       <td class="cl-table__nowrap">${p.kind === '직접 추가' ? '<span class="pt-kind">직접 추가</span> ' : ''}${p.by === ME ? `<button type="button" class="cl-btn cl-btn--ghost cl-btn--sm" data-a="demo-only">수정</button> <button type="button" class="cl-btn cl-btn--ghost cl-btn--sm" data-a="demo-only">삭제</button>` : '<span class="pt-sub">함께 보기</span>'}</td></tr>`).join('')}
@@ -77,9 +77,9 @@ function unitBadges(u) {
 
 function detail(state, id) {
   const p = findPaper(state, id);
-  if (!p) return `<div class="cl-page">${pageHead('시험 보관함', '시험지를 찾을 수 없어요')}<a class="cl-text-btn" href="#/library">← 보관함으로</a></div>`;
-  const actions = `<a class="cl-btn cl-btn--primary" href="#/new?paper=${p.id}">이 시험지로 만들기</a>`;
-  return `<div class="cl-page pt-wide"><a class="cl-text-btn pt-back" href="#/library">← 시험 보관함</a>${pageHead(`${p.subject} · ${paperMeta(p)}`, p.title, actions)}
+  if (!p) return `<div class="cl-page">${pageHead('시험 보관함', '시험지를 찾을 수 없어요')}<a class="cl-text-btn" href="#library">← 보관함으로</a></div>`;
+  const actions = `<button type="button" class="cl-btn cl-btn--primary" data-a="make-paper" data-v="${p.id}">이 시험지로 만들기</button>`;
+  return `<div class="cl-page pt-wide"><a class="cl-text-btn pt-back" href="#library">← 시험 보관함</a>${pageHead(`${p.subject} · ${paperMeta(p)}`, p.title, actions)}
     <p class="pt-lead">올린 사람 ${p.by === ME ? '나' : esc(p.by)} · ${p.date} · 지문 ${p.units.length}개 (그림 지문 ${p.units.filter((u) => u.has_figure).length}개)</p>
     <div class="cl-table-wrap"><table class="cl-table"><thead><tr><th>번호</th><th>유형</th><th>첫 줄</th><th>표시</th><th></th></tr></thead><tbody>
     ${p.units.map((u) => `<tr><td class="cl-table__nowrap">${esc(u.numbers)}번</td><td class="cl-table__nowrap">${esc(u.type_label)}</td><td>${esc(firstLine(u.passage || u.questions[0]?.stem))}</td><td class="cl-table__nowrap">${unitBadges(u)}</td>
@@ -93,7 +93,7 @@ const up = (state) => (state.ui.upload ||= { stage: 'pick', paperId: null });
 
 function upload(state) {
   const u = up(state);
-  const head = `<a class="cl-text-btn pt-back" href="#/library">← 시험 보관함</a>${pageHead('시험 보관함', '시험지 올리기')}`;
+  const head = `<a class="cl-text-btn pt-back" href="#library">← 시험 보관함</a>${pageHead('시험 보관함', '시험지 올리기')}`;
   if (u.stage === 'splitting') {
     return `<div class="cl-page pt-wide">${head}<div class="cl-card pt-panel pt-center"><div class="cl-loading"><span class="cl-loading__spinner" aria-hidden="true"></span></div>
       <p><strong>지문을 나누고 있어요 (약 2분)</strong></p><p class="pt-sub">다른 화면으로 나가도 계속 나누고, 끝나면 알려 드려요.</p></div></div>`;
@@ -127,8 +127,9 @@ export function onAction(a, el, state) {
   const v = ui(state);
   if (a === 'lib-view') { v.view = el.dataset.v; return render(); }
   if (a === 'lib-subject') { v.subject = el.dataset.v; return render(); }
-  if (a === 'make-unit') { location.hash = `#/new?units=${el.dataset.v}`; return; }
-  if (a === 'go-upload') { state.ui.upload = { stage: 'pick', paperId: null }; location.hash = '#/upload'; return; }
+  if (a === 'make-unit') { state.ui.newPreset = { units: el.dataset.v }; state.ui.wiz = null; return go('#new'); }
+  if (a === 'make-paper') { state.ui.newPreset = { paper: el.dataset.v }; state.ui.wiz = null; return go('#new'); }
+  if (a === 'go-upload') { state.ui.upload = { stage: 'pick', paperId: null }; location.hash = '#upload'; return; }
   if (a === 'demo-only' || a === 'up-edit') return toast('데모에서는 보기만 돼요');
   if (a === 'add-passage') { v.adding = true; return render(); }
   if (a === 'ap-cancel') { v.adding = false; return render(); }
@@ -146,7 +147,7 @@ export function onAction(a, el, state) {
     const id = u.paperId;
     state.ui.upload = { stage: 'pick', paperId: null };
     toast('보관함에 저장했어요 (데모: 이미 있는 시험지를 보여 줘요)');
-    location.hash = `#/library/${id}`;
+    location.hash = `#paper-${id}`;
   }
 }
 

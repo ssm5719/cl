@@ -11,14 +11,15 @@
 <link rel="stylesheet" href="app.css">
 <link rel="stylesheet" href="print.css">
 </head>
-<body class="cl-scope cl-ws-body">
+<body>
+<div class="cl-scope cl-ws-body">
 <a class="cl-skip" href="#app">본문으로 건너뛰기</a>
 <div class="cl-ws" data-role="teacher">
   <header class="cl-ws-topbar">
     <button type="button" class="cl-ws-topbar__menu cl-icon-btn" aria-label="메뉴 열기" aria-controls="cl-ws-sidebar" aria-expanded="false" data-a="drawer-open">
       <svg class="cl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
-    <a class="cl-ws-brand" href="#/exams">
+    <a class="cl-ws-brand" href="#exams">
       <span class="cl-ws-brand__mark" aria-hidden="true">C</span>
       <span class="cl-ws-brand__text"><span class="cl-ws-brand__name">클라우드러닝</span><span class="cl-ws-brand__area">선생님</span></span>
     </a>
@@ -30,7 +31,7 @@
         <div class="cl-popover__panel cl-menu" role="menu" hidden>
           <span class="cl-menu__item pt-muted" role="menuitem" aria-disabled="true">강좌 생성</span>
           <span class="cl-menu__item pt-muted" role="menuitem" aria-disabled="true">과제 만들기</span>
-          <a class="cl-menu__item" role="menuitem" href="#/new">시험지 만들기</a>
+          <a class="cl-menu__item" role="menuitem" href="#new">시험지 만들기</a>
         </div>
       </div>
       <button type="button" class="cl-ws-account" aria-label="계정">
@@ -57,8 +58,8 @@
       </div>
       <div class="cl-ws-nav__group">
         <div class="cl-ws-nav__label">나의 시험 <span class="pt-new">새 메뉴</span></div>
-        <a class="cl-ws-nav__item" href="#/exams" data-nav="exams">시험 출제</a>
-        <a class="cl-ws-nav__item" href="#/library" data-nav="library">시험 보관함</a>
+        <a class="cl-ws-nav__item" href="#exams" data-nav="exams">시험 출제</a>
+        <a class="cl-ws-nav__item" href="#library" data-nav="library">시험 보관함</a>
       </div>
       <div class="cl-ws-nav__group">
         <div class="cl-ws-nav__label">나의 정보</div>
@@ -66,8 +67,8 @@
       </div>
     </div>
     <div class="cl-ws-rail">
-      <a class="cl-ws-rail__item" href="#/exams" title="시험 출제" aria-label="시험 출제" data-nav="exams">출제</a>
-      <a class="cl-ws-rail__item" href="#/library" title="시험 보관함" aria-label="시험 보관함" data-nav="library">보관</a>
+      <a class="cl-ws-rail__item" href="#exams" title="시험 출제" aria-label="시험 출제" data-nav="exams">출제</a>
+      <a class="cl-ws-rail__item" href="#library" title="시험 보관함" aria-label="시험 보관함" data-nav="library">보관</a>
     </div>
   </nav>
   <div class="cl-ws-backdrop" hidden data-a="drawer-close"></div>
@@ -75,7 +76,8 @@
   <main id="app" class="cl-ws-main" tabindex="-1"></main>
 </div>
 <div class="pt-toast" role="status" aria-live="polite" hidden></div>
-<script src="data/data.js"></script>
+</div>
+<script src="data/data.js" charset="utf-8"></script>
 <script type="module" src="js/app.js"></script>
 </body>
 </html>

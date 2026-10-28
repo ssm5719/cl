@@ -20,7 +20,9 @@ export function defaultSettings() {
 
 function newWiz(state, r) {
   const papers = allPapers(state);
-  const q = r.query || {};
+  // 보관함에서 '이 지문으로 만들기' 등으로 넘어온 선택(state.ui.newPreset)을 한 번만 쓴다. 쿼리는 로컬 검사용.
+  const q = { ...(r.query || {}), ...(state.ui.newPreset || {}) };
+  state.ui.newPreset = null;
   const preset = (q.units || '').split(',').filter(Boolean);
   const paper = papers.find((p) => p.id === (q.paper || preset[0]?.split('/')[0]));
   const subject = paper?.subject || '영어';
@@ -69,7 +71,7 @@ export function saveDraft(wiz, state, status = 'draft') {
   const { examId, ...rest } = wiz;
   const sourceLabel = [...new Set(unitsOf(wiz, state).map((u) => u.paperTitle))].join(' · ');
   state.store.saveExam({ id: examId, title, subject: wiz.subject, status, step: wiz.step, count: wiz.items.length, source: wiz.selected, sourceLabel, wiz: rest });
-  const target = `#/new/${examId}`;
+  const target = `#new-${examId}`;
   if (location.hash !== target) {
     history.replaceState(null, '', target);
     state.ui.wizHash = target;
@@ -98,7 +100,7 @@ export function view(state) {
   const bar = `<div class="pt-bar"><div class="pt-bar__summary">${step.summary(wiz, state)}</div>
     ${wiz.step > 1 ? '<button type="button" class="cl-btn cl-btn--ghost" data-a="wiz-prev">이전</button>' : ''}
     ${nextLabel ? `<button type="button" class="cl-btn cl-btn--primary" data-a="wiz-next" ${ok === true ? '' : 'disabled'} title="${ok === true ? '' : esc(ok)}">${nextLabel}</button>` : ''}</div>`;
-  return `<div class="cl-page pt-wide pt-wizard"><a class="cl-text-btn pt-back" href="#/exams">← 시험 출제</a>
+  return `<div class="cl-page pt-wide pt-wizard"><a class="cl-text-btn pt-back" href="#exams">← 시험 출제</a>
     <div class="cl-page__head"><p class="cl-page__parent">시험 출제</p><h1 class="cl-page__title">새 시험지 만들기</h1></div>
     ${stepper}${step.view(wiz, state)}${bar}</div>`;
 }

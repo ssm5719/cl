@@ -15,7 +15,10 @@ const PORT = 8099;
 const URL0 = `http://127.0.0.1:${PORT}/${BASE.replace(/^\/|\/?$/g, '')}/`;
 
 const scenarios = [];
-export const step = (name, fn) => scenarios.push({ name, fn });
+const REAL = BASE.includes('dist');
+// 예시 데이터 시나리오는 저장소 화면에서, 실제 데이터 시나리오는 dist(아티팩트 묶음)에서만 돈다.
+export const step = (name, fn) => { if (!REAL) scenarios.push({ name, fn }); };
+const realStep = (name, fn) => { if (REAL) scenarios.push({ name, fn }); };
 
 function assert(cond, msg) { if (!cond) throw new Error(msg); }
 async function noHScroll(page) {
@@ -36,17 +39,17 @@ const ctx = { assert, noHScroll, open, see };
 step('사이드바로 보관함 · 출제 화면 이동', async (page) => {
   await open(page);
   await page.click('.cl-ws-nav >> text=시험 보관함');
-  assert(page.url().endsWith('#/library'), `주소가 #/library 가 아님: ${page.url()}`);
+  assert(page.url().endsWith('#library'), `주소가 #library 가 아님: ${page.url()}`);
   await see(page, 'h1:has-text("시험 보관함")');
   await page.click('.cl-ws-nav >> text=시험 출제');
-  assert(page.url().endsWith('#/exams'), '주소가 #/exams 가 아님');
+  assert(page.url().endsWith('#exams'), '주소가 #exams 가 아님');
   await page.waitForSelector('.cl-ws-nav [data-nav="exams"][aria-current="page"]', { timeout: 2000 });
 });
 
 step('세 너비에서 가로 스크롤 없음', async (page) => {
   for (const w of [1440, 1024, 390]) {
     await page.setViewportSize({ width: w, height: 900 });
-    for (const h of ['#/exams', '#/library', '#/new']) {
+    for (const h of ['#exams', '#library', '#new']) {
       await open(page, h);
       assert(await noHScroll(page), `${w}px ${h} 에서 가로 스크롤`);
     }
@@ -56,7 +59,7 @@ step('세 너비에서 가로 스크롤 없음', async (page) => {
 
 
 step('보관함: 과목 필터 · 지문별 보기 · 함께 보기', async (page) => {
-  await open(page, '#/library');
+  await open(page, '#library');
   await see(page, 'td >> text=2026 내신 대비 예시 · 고2 영어');
   assert(await page.isVisible('td >> text=함께 보기'), '남이 올린 시험지에 함께 보기 없음');
   await page.click('[data-a="lib-subject"][data-v="국어"]');
@@ -67,17 +70,18 @@ step('보관함: 과목 필터 · 지문별 보기 · 함께 보기', async (pag
 });
 
 step('보관함: 시험지 상세에서 이 지문으로 만들기', async (page) => {
-  await open(page, '#/library');
+  await open(page, '#library');
   await page.click('a >> text=2026 내신 대비 예시 · 고2 영어');
   await see(page, 'h1:has-text("2026 내신 대비 예시 · 고2 영어")');
-  assert(page.url().includes('#/library/s-en'), page.url());
+  assert(page.url().includes('#paper-s-en'), page.url());
   assert(await page.isVisible('.cl-badge >> text=그림 필요'), '그림 지문 배지 없음');
   await page.click('[data-a="make-unit"] >> nth=0');
-  await page.waitForFunction(() => location.hash.startsWith('#/new?units='));
+  await page.waitForFunction(() => location.hash === '#new');
+  await see(page, '.pt-basket >> text=18번');
 });
 
 step('보관함: 시험지 올리기 → 나누기 결과 확인 → 저장', async (page) => {
-  await open(page, '#/library');
+  await open(page, '#library');
   await page.click('[data-a="go-upload"]');
   await see(page, 'h1:has-text("시험지 올리기")');
   await page.click('[data-a="up-file"] >> nth=0');
@@ -88,11 +92,11 @@ step('보관함: 시험지 올리기 → 나누기 결과 확인 → 저장', as
   await page.click('[data-a="up-edit"] >> nth=0');
   await see(page, '.pt-toast >> text=데모에서는 보기만 돼요');
   await page.click('[data-a="up-save"]');
-  await page.waitForFunction(() => location.hash.startsWith('#/library/'));
+  await page.waitForFunction(() => location.hash.startsWith('#paper-'));
 });
 
 step('보관함: 지문 추가 → 직접 추가 행', async (page) => {
-  await open(page, '#/library');
+  await open(page, '#library');
   await page.click('[data-a="add-passage"]');
   await page.fill('[data-a="ap-title"]', '교과서 3과 본문');
   await page.fill('[data-a="ap-text"]', 'Reading opens doors to new worlds. It helps us understand people who are different from us.');
@@ -105,7 +109,7 @@ step('보관함: 지문 추가 → 직접 추가 행', async (page) => {
 const barText = (page) => page.textContent('.pt-bar__summary');
 
 step('① 자료: 전체 선택은 그림 지문을 빼고, 0개면 다음 비활성', async (page) => {
-  await open(page, '#/new?paper=s-en');
+  await open(page, '#new?paper=s-en');
   await see(page, '.pt-steps [aria-current="step"] >> text=자료');
   assert(await page.isDisabled('[data-a="wiz-next"]'), '고른 지문이 없는데 다음이 켜져 있음');
   await page.click('[data-a="src-all"]');
@@ -116,7 +120,7 @@ step('① 자료: 전체 선택은 그림 지문을 빼고, 0개면 다음 비�
 });
 
 step('① 자료: 주소로 고른 지문 · 바구니에서 빼고 되돌리기', async (page) => {
-  await open(page, '#/new?units=s-en/u02');
+  await open(page, '#new?units=s-en/u02');
   await see(page, '.pt-basket >> text=22번');
   assert((await barText(page)).includes('고른 지문 1개'), await barText(page));
   await page.click('.pt-basket [data-a="basket-remove"]');
@@ -126,7 +130,7 @@ step('① 자료: 주소로 고른 지문 · 바구니에서 빼고 되돌리기
 });
 
 step('① 자료: 지문 붙여넣기 · 권리 확인은 처음 한 번만 · 작성 중 저장', async (page) => {
-  await open(page, '#/new');
+  await open(page, '#new');
   await page.click('[data-a="src-tab"][data-v="paste"]');
   await page.fill('[data-a="paste-title"] >> nth=0', '교과서 1과');
   await page.fill('[data-a="paste-text"] >> nth=0', 'Good habits are built one small step at a time.');
@@ -139,15 +143,15 @@ step('① 자료: 지문 붙여넣기 · 권리 확인은 처음 한 번만 · �
   await see(page, '.pt-steps [aria-current="step"] >> text=방식');
   const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('cl-exam-proto:exams') || '[]'));
   assert(saved.some((e) => e.status === 'draft'), '작성 중 시험지가 저장되지 않음');
-  await open(page, '#/exams');
-  await open(page, '#/new');
+  await open(page, '#exams');
+  await open(page, '#new');
   await page.click('[data-a="src-tab"][data-v="paste"]');
   assert(!(await page.isVisible('[data-a="rights"]')), '두 번째에도 권리 확인을 받음');
 });
 
 
 async function toMethod(page, units = 's-en/u01,s-en/u02,s-en/u04') {
-  await open(page, `#/new?units=${units}`);
+  await open(page, `#new?units=${units}`);
   await page.click('[data-a="wiz-next"]');
   await see(page, '.pt-steps [aria-current="step"] >> text=방식');
 }
@@ -185,7 +189,7 @@ step('② 방식: 총 문항 수 · 지문별 개수 · 자세히 설정', async
 
 step('② 방식: 붙여 넣은 지문만이면 원래 유형 그대로 비활성', async (page) => {
   await page.goto('about:blank');
-  await open(page, '#/new');
+  await open(page, '#new');
   await page.click('[data-a="src-tab"][data-v="paste"]');
   await page.fill('[data-a="paste-title"]', '교과서 1과');
   await page.fill('[data-a="paste-text"]', 'Good habits are built one small step at a time.');
@@ -204,7 +208,7 @@ step('② 방식: 문제 만들기 → 진행 → ③ 검토', async (page) => {
 
 
 async function toReview(page) {
-  await open(page, '#/new?units=s-en/u02,s-en/u04');
+  await open(page, '#new?units=s-en/u02,s-en/u04');
   await page.click('[data-a="wiz-next"]');
   await page.click('[data-a="grp"][data-v="original"]');
   for (const g of ['main', 'blank', 'writing']) await page.click(`[data-a="grp"][data-v="${g}"]`);
@@ -250,7 +254,7 @@ step('③ 검토: 고치기 · 다시 만들기 · 빼기 · 순서 · 서술형
 
 // 원래 유형 그대로 · 지문당 1문항이면 예시 데이터에서 정답이 ③ ③ ② 로 몰린다.
 async function toPrint(page) {
-  await open(page, '#/new?units=s-en/u01,s-en/u02,s-en/u04');
+  await open(page, '#new?units=s-en/u01,s-en/u02,s-en/u04');
   await page.click('[data-a="wiz-next"]');
   await page.click('[data-a="per-unit"][data-v="1"]');
   await page.click('[data-a="wiz-next"]');
@@ -282,26 +286,30 @@ step('④ 인쇄: 탭 · 단 · 정답 위치 · 출처 · 정답 섞기 · 인�
 });
 
 step('만든 시험지 목록: 저장 · 다시 인쇄 · 이어서 고치기 · 복사 · 삭제 · 처음으로', async (page) => {
-  await open(page, '#/exams');
+  await open(page, '#exams');
   await see(page, 'text=아직 만든 시험지가 없어요');
   await toPrint(page);
   await page.fill('[data-a="title"]', '10월 변형 1회');
   await page.click('[data-a="save-done"]');
-  await page.waitForFunction(() => location.hash === '#/exams');
+  await page.waitForFunction(() => location.hash === '#exams');
   await see(page, 'tr:has-text("10월 변형 1회") >> text=완성');
   await page.click('tr:has-text("10월 변형 1회") [data-a="ex-print"]');
   await see(page, '.pt-steps [aria-current="step"] >> text=인쇄');
-  await open(page, '#/exams');
+  await open(page, '#exams');
   await page.click('tr:has-text("10월 변형 1회") [data-a="ex-edit"]');
   await see(page, '.pt-steps [aria-current="step"] >> text=검토');
-  await open(page, '#/exams');
+  await open(page, '#exams');
   await page.click('tr:has-text("10월 변형 1회") [data-a="ex-copy"]');
   await see(page, 'td >> text=10월 변형 1회 (복사)');
   await page.fill('[data-a="ex-q"]', '복사');
   assert(await page.locator('tbody tr').count() === 1, '검색이 안 됨');
   await page.fill('[data-a="ex-q"]', '');
   await page.click('tr:has-text("10월 변형 1회 (복사)") [data-a="ex-del"]');
+  await see(page, 'tr:has-text("10월 변형 1회 (복사)") [data-a="ex-del"]:has-text("한 번 더 누르면 삭제")');
+  await page.click('tr:has-text("10월 변형 1회 (복사)") [data-a="ex-del"]');
   await page.waitForSelector('td >> text=10월 변형 1회 (복사)', { state: 'detached' });
+  await page.click('[data-a="demo-reset"]');
+  await see(page, '[data-a="demo-reset"]:has-text("한 번 더 누르면 처음으로")');
   await page.click('[data-a="demo-reset"]');
   await see(page, 'text=아직 만든 시험지가 없어요');
 });
@@ -320,7 +328,7 @@ step('모든 단계 · 세 너비에서 가로 스크롤 없음', async (page) =
 
 
 step('④ 인쇄: 지문은 같은 지문 문항 묶음마다 한 번만, [1~2] 머리말과 함께', async (page) => {
-  await open(page, '#/new?units=s-en/u01');
+  await open(page, '#new?units=s-en/u01');
   await page.click('[data-a="wiz-next"]');
   await page.click('[data-a="grp"][data-v="detail"]');
   await page.click('[data-a="wiz-next"]');
@@ -329,6 +337,38 @@ step('④ 인쇄: 지문은 같은 지문 문항 묶음마다 한 번만, [1~2] 
   const text = await page.textContent('.pt-sheet');
   assert(text.split('Starting next Monday').length - 1 === 1, '지문이 한 번 인쇄되지 않음');
   assert(text.includes('[1~2] 다음 글을 읽고 물음에 답하시오.'), '[1~2] 머리말 없음');
+});
+
+
+realStep('실제 데이터: 보관함 → 상세 → 빈칸 지문 4개 → 만들기 → 검토 → 인쇄 안내 → 저장', async (page) => {
+  await open(page);
+  await see(page, 'text=아직 만든 시험지가 없어요');
+  await open(page, '#library');
+  await page.click('a >> text=2026 10월 고2 학력평가 영어');
+  await see(page, '.cl-badge >> text=그림 필요');
+  await page.click('[data-a="make-paper"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=자료');
+  await page.click('[data-a="src-type"][data-v="빈칸"]');
+  await page.click('[data-a="src-all"]');
+  assert((await barText(page)).includes('고른 지문 4개'), await barText(page));
+  await page.click('[data-a="wiz-next"]');
+  await page.click('[data-a="grp"][data-v="original"]');
+  for (const g of ['main', 'blank', 'writing']) await page.click(`[data-a="grp"][data-v="${g}"]`);
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=검토', 8000);
+  await see(page, '.pt-notes >> text=데모 문항이 없어요');
+  await see(page, '.pt-src mark');
+  await page.click('[data-a="wiz-next"]');
+  await see(page, 'text=링크로 연 화면에서는 인쇄가 막혀 있어요');
+  assert(await page.locator('[data-a="print"]').count() === 0, '아티팩트에서 인쇄 버튼이 보임');
+  await page.click('[data-a="save-done"]');
+  await see(page, 'td >> text=완성');
+});
+
+realStep('실제 데이터: 국어 전체 선택은 그림 지문 2묶음을 뺀다', async (page) => {
+  await open(page, '#new?paper=r-ko');
+  await page.click('[data-a="src-all"]');
+  assert((await barText(page)).includes('고른 지문 13개'), await barText(page));
 });
 
 // ---------------------------------------------------------------- 실행
@@ -343,14 +383,15 @@ try {
     page.setDefaultTimeout(5000);
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
-    page.on('dialog', (d) => d.accept());
+    // 아티팩트 화면에서는 confirm() 이 항상 false 다. 같은 조건으로 검사한다.
+    page.on('dialog', (d) => d.dismiss());
     try {
       await s.fn(page, ctx);
       if (errors.length) throw new Error('페이지 오류: ' + errors.join(' | '));
       console.log(`ok   ${s.name}`);
     } catch (e) {
       failed++;
-      console.log(`FAIL ${s.name}\n     ${e.message.split('\n')[0]}`);
+      console.log(`FAIL ${s.name}\n     ${e.message.split('\n').slice(0, 3).join(' / ')}`);
     }
     await page.close();
   }

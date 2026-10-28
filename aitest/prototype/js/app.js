@@ -7,19 +7,31 @@ import { createStore } from './store.js';
 
 const VIEWS = { exams, library, paper: library, upload: library, new: wizard };
 
+// 주소는 '#이름' 또는 '#이름-id' 만 쓴다(아티팩트 링크 규칙). '#new?…' 쿼리는 로컬 검사용으로만 읽는다.
+const NAMES = ['exams', 'library', 'upload', 'paper', 'new'];
+
 export function route(hash) {
   const raw = String(hash || '').replace(/^#\/?/, '');
   const [path, qs = ''] = raw.split('?');
   const query = Object.fromEntries(new URLSearchParams(qs));
-  const [head, id] = path.split('/').filter(Boolean);
-  if (head === 'library' && id) return { name: 'paper', params: { paperId: id }, query };
-  if (head === 'library') return { name: 'library', params: {}, query };
-  if (head === 'upload') return { name: 'upload', params: {}, query };
-  if (head === 'new') return { name: 'new', params: id ? { examId: id } : {}, query };
-  return { name: 'exams', params: {}, query };
+  const name = NAMES.find((n) => path === n || path.startsWith(`${n}-`)) || 'exams';
+  const id = path.length > name.length ? path.slice(name.length + 1) : '';
+  if (name === 'paper') return { name, params: { paperId: id }, query };
+  if (name === 'new') return { name, params: id ? { examId: id } : {}, query };
+  return { name, params: {}, query };
+}
+
+export function href(name, id) {
+  return id ? `#${name}-${id}` : `#${name}`;
 }
 
 export const state = { data: null, store: null, ui: {} };
+
+// 같은 주소로 다시 가면 hashchange 가 일어나지 않으므로 직접 다시 그린다.
+export function go(hash) {
+  if (location.hash === hash) render();
+  else location.hash = hash;
+}
 
 export function render() {
   const r = route(location.hash);
@@ -32,6 +44,17 @@ export function render() {
     else a.removeAttribute('aria-current');
   });
   view.afterRender?.(state, r);
+}
+
+// 지우기처럼 되돌릴 수 없는 버튼: 첫 번째 누름은 글을 바꿔 묻고, 4초 안에 다시 누르면 실행한다.
+export function armed(el, ask) {
+  if (el.dataset.armed === '1') return true;
+  const label = el.textContent;
+  el.dataset.armed = '1';
+  el.textContent = ask;
+  el.classList.add('pt-armed');
+  setTimeout(() => { if (el.isConnected) { el.dataset.armed = ''; el.textContent = label; el.classList.remove('pt-armed'); } }, 4000);
+  return false;
 }
 
 export function toast(msg) {
@@ -68,10 +91,11 @@ function shellAction(a, el) {
   if (a === 'drawer-open') { setDrawer(true); return true; }
   if (a === 'drawer-close') { setDrawer(false); return true; }
   if (a === 'demo-reset') {
-    if (!confirm('데모에서 만든 시험지와 붙여 넣은 지문을 모두 지울까요?')) return true;
+    // 아티팩트 화면에서는 confirm() 이 막혀 있어, 한 번 더 누르게 해서 확인한다.
+    if (!armed(el, '한 번 더 누르면 처음으로')) return true;
     state.store.reset();
     state.ui = {};
-    location.hash = '#/exams';
+    location.hash = '#exams';
     render();
     toast('데모를 처음 상태로 되돌렸어요');
     return true;

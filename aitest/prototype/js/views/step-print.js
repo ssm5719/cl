@@ -80,7 +80,7 @@ export function view(wiz, state) {
     <label class="cl-check"><input type="checkbox" data-a="show-name" ${p.showNameBox ? 'checked' : ''}> 학원명 · 이름 칸</label>
     <div class="pt-dist"><span class="pt-label">정답 분포</span> ${distLine}
       ${needsShuffle(wiz.items) ? '<p class="pt-sub">한 번호에 정답이 몰려 있어요.</p><button type="button" class="cl-btn cl-btn--tint cl-btn--sm" data-a="shuffle">정답 위치 섞기</button>' : ''}</div>
-    <div class="pt-actions pt-actions--col"><button type="button" class="cl-btn cl-btn--ghost" data-a="print">인쇄 / PDF 저장</button><button type="button" class="cl-btn cl-btn--primary" data-a="save-done">저장하고 목록으로</button></div></div>`;
+    <div class="pt-actions pt-actions--col">${globalThis.PT_ARTIFACT ? '<p class="pt-sub pt-print-note">링크로 연 화면에서는 인쇄가 막혀 있어요. 실제 서비스에서는 이 자리의 [인쇄 / PDF 저장] 으로 위 미리보기 그대로 A4 로 찍혀요.</p>' : '<button type="button" class="cl-btn cl-btn--ghost" data-a="print">인쇄 / PDF 저장</button>'}<button type="button" class="cl-btn cl-btn--primary" data-a="save-done">저장하고 목록으로</button></div></div>`;
   const tabs = `<div class="cl-tabs" role="tablist">${[['paper', '문제지'], ['answers', '정답 · 해설지']].map(([k, l]) => `<button type="button" class="cl-tab" role="tab" data-a="sheet" data-v="${k}" aria-selected="${p.sheet === k}">${l}</button>`).join('')}</div>`;
   return `<div class="pt-print">${settings}<div class="pt-preview">${tabs}${p.sheet === 'answers' ? answerSheet(wiz) : paperSheet(wiz, state)}</div></div>`;
 }
@@ -103,7 +103,7 @@ export function onAction(a, el, wiz, state) {
   else if (a === 'save-done') {
     saveDraft(wiz, state, 'done');
     state.ui.wiz = null;
-    location.hash = '#/exams';
+    location.hash = '#exams';
     return toast('저장했어요');
   } else return undefined;
   return render();

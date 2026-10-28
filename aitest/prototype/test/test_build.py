@@ -15,6 +15,7 @@ def copy_tree():
     tmp = Path(tempfile.mkdtemp())
     (tmp / 'lab').mkdir()
     shutil.copytree(REPO / 'lab' / 'css', tmp / 'lab' / 'css')
+    shutil.copytree(REPO / 'lab' / 'fonts', tmp / 'lab' / 'fonts')
     dst = tmp / 'aitest' / 'prototype'
     shutil.copytree(HERE, dst, ignore=shutil.ignore_patterns('dist', 'real.json', 'node_modules'))
     return dst
@@ -50,8 +51,18 @@ class BuildTest(unittest.TestCase):
         html = (d / 'dist' / 'index.html').read_text(encoding='utf-8')
         self.assertNotIn('../../lab/css', html)
         self.assertTrue((d / 'dist' / 'css' / 'teacher.css').exists())
+        # base.css 가 ../fonts/ 로 글꼴을 부른다.
+        self.assertTrue((d / 'dist' / 'fonts' / 'PretendardVariable.woff2').exists())
         self.assertTrue((d / 'dist' / 'js' / 'views').is_dir())
         self.assertIn('"demo": "real"', (d / 'dist' / 'data' / 'data.js').read_text(encoding='utf-8').replace('"demo":"real"', '"demo": "real"'))
+        # 아티팩트는 문서 틀(doctype · html · head · body)을 스스로 씌우므로 화면 파일에는 내용만 둔다.
+        low = html.lower()
+        for tag in ('<!doctype', '<html', '<head>', '<body', '</body>', '</html>'):
+            self.assertNotIn(tag, low)
+        self.assertIn('<title>시험 출제 프로토타입</title>', html)
+        self.assertIn('class="cl-scope cl-ws-body"', html)
+        # 아티팩트 화면에서는 인쇄가 막혀 있어 인쇄 버튼 대신 안내를 보인다.
+        self.assertIn('window.PT_ARTIFACT = true', (d / 'dist' / 'data' / 'data.js').read_text(encoding='utf-8'))
         # 저장소 쪽 data.js 는 예시 그대로
         self.assertIn('"sample"', (d / 'data' / 'data.js').read_text(encoding='utf-8'))
 
