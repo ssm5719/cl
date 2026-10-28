@@ -1,0 +1,8 @@
+/* 프로토타입에서 새로 더하는 부품. 값은 --cl-* 토큰만 쓴다. */
+.pt-muted { color: var(--cl-ink-faint); pointer-events: none; }
+.pt-new { margin-left: 6px; padding: 1px 6px; border-radius: var(--cl-radius-pill); background: var(--cl-primary-tint); color: var(--cl-primary-pressed); font-size: var(--cl-fs-micro); font-weight: 700; }
+.pt-demo-tag { font-size: var(--cl-fs-micro); color: var(--cl-ink-muted); padding: 2px 8px; border: 1px dashed var(--cl-control-border); border-radius: var(--cl-radius-pill); white-space: nowrap; }
+.pt-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 90; padding: 10px 16px; border-radius: var(--cl-radius-sm); background: var(--cl-ink); color: var(--cl-canvas); font-size: var(--cl-fs-ui); box-shadow: var(--cl-shadow-float); }
+.pt-toast[hidden] { display: none; }
+.cl-ws-backdrop[hidden] { display: none; }
+@media (max-width: 900px) { .pt-demo-tag { display: none; } }

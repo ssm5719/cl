@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>시험 출제 프로토타입</title>
+<link rel="stylesheet" href="../../lab/css/cl-tokens.css">
+<link rel="stylesheet" href="../../lab/css/base.css">
+<link rel="stylesheet" href="../../lab/css/components.css">
+<link rel="stylesheet" href="../../lab/css/teacher.css">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="print.css">
+</head>
+<body class="cl-scope cl-ws-body">
+<a class="cl-skip" href="#app">본문으로 건너뛰기</a>
+<div class="cl-ws" data-role="teacher">
+  <header class="cl-ws-topbar">
+    <button type="button" class="cl-ws-topbar__menu cl-icon-btn" aria-label="메뉴 열기" aria-controls="cl-ws-sidebar" aria-expanded="false" data-a="drawer-open">
+      <svg class="cl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <a class="cl-ws-brand" href="#/exams">
+      <span class="cl-ws-brand__mark" aria-hidden="true">C</span>
+      <span class="cl-ws-brand__text"><span class="cl-ws-brand__name">클라우드러닝</span><span class="cl-ws-brand__area">선생님</span></span>
+    </a>
+    <div class="cl-ws-topbar__actions">
+      <span class="pt-demo-tag" data-demo-tag>데모 · 이 브라우저에만 저장</span>
+      <button type="button" class="cl-text-btn" data-a="demo-reset">데모 처음으로</button>
+      <div class="cl-popover" data-popover>
+        <button type="button" class="cl-btn cl-btn--primary cl-btn--sm cl-ws-create__btn" aria-haspopup="menu" aria-expanded="false" data-a="popover">+ 새로 만들기</button>
+        <div class="cl-popover__panel cl-menu" role="menu" hidden>
+          <span class="cl-menu__item pt-muted" role="menuitem" aria-disabled="true">강좌 생성</span>
+          <span class="cl-menu__item pt-muted" role="menuitem" aria-disabled="true">과제 만들기</span>
+          <a class="cl-menu__item" role="menuitem" href="#/new">시험지 만들기</a>
+        </div>
+      </div>
+      <button type="button" class="cl-ws-account" aria-label="계정">
+        <span class="cl-avatar cl-avatar--tint" aria-hidden="true">김</span><span class="cl-ws-account__name">김지수</span>
+      </button>
+    </div>
+  </header>
+
+  <nav id="cl-ws-sidebar" class="cl-ws-sidebar" aria-label="작업공간 메뉴">
+    <div class="cl-ws-sidebar__drawer-head">
+      <span class="cl-ws-brand__name">클라우드러닝</span>
+      <button type="button" class="cl-icon-btn" aria-label="메뉴 닫기" data-a="drawer-close">✕</button>
+    </div>
+    <div class="cl-ws-profile">
+      <span class="cl-avatar cl-avatar--tint" aria-hidden="true">김</span>
+      <span class="cl-ws-profile__text"><span class="cl-ws-profile__name">김지수 선생님</span><span class="cl-ws-profile__id">담당 영어 · 국어</span></span>
+    </div>
+    <div class="cl-ws-nav">
+      <div class="cl-ws-nav__group">
+        <div class="cl-ws-nav__label">나의 강좌</div>
+        <span class="cl-ws-nav__item pt-muted">강좌 관리</span>
+        <span class="cl-ws-nav__item pt-muted">수강 관리</span>
+        <span class="cl-ws-nav__item pt-muted">과제 관리</span>
+      </div>
+      <div class="cl-ws-nav__group">
+        <div class="cl-ws-nav__label">나의 시험 <span class="pt-new">새 메뉴</span></div>
+        <a class="cl-ws-nav__item" href="#/exams" data-nav="exams">시험 출제</a>
+        <a class="cl-ws-nav__item" href="#/library" data-nav="library">시험 보관함</a>
+      </div>
+      <div class="cl-ws-nav__group">
+        <div class="cl-ws-nav__label">나의 정보</div>
+        <span class="cl-ws-nav__item pt-muted">나의 정보</span>
+      </div>
+    </div>
+    <div class="cl-ws-rail">
+      <a class="cl-ws-rail__item" href="#/exams" title="시험 출제" aria-label="시험 출제" data-nav="exams">출제</a>
+      <a class="cl-ws-rail__item" href="#/library" title="시험 보관함" aria-label="시험 보관함" data-nav="library">보관</a>
+    </div>
+  </nav>
+  <div class="cl-ws-backdrop" hidden data-a="drawer-close"></div>
+
+  <main id="app" class="cl-ws-main" tabindex="-1"></main>
+</div>
+<div class="pt-toast" role="status" aria-live="polite" hidden></div>
+<script src="data/data.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

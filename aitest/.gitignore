@@ -4,3 +4,5 @@ inputs/
 __pycache__/
 review-*.json
 review-*.csv
+prototype/data/real.json
+prototype/dist/
