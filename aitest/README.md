@@ -149,6 +149,9 @@ python aitest.py all --name eng-naesin --subject 영어 --preset set3 inputs/교
 | `review_template.html` | 선생님 검토 화면 틀 |
 | `mock/split.json` | `--mock` 용 가짜 시험지(직접 쓴 예문) |
 | `sample/review-demo.html` | 가짜 데이터로 만든 검토 화면 견본 |
+| `results/` | 실제 시험지로 돌린 테스트 결과 정리 (1차 · 유형 묶음 2차) |
+| `docs/` | 시험 출제 프로토타입 설계(`specs/`) · 구현 계획(`plans/`) |
+| `prototype/` | 시험 출제 · 시험 보관함 프로토타입 화면 — [`prototype/README.md`](prototype/README.md) |
 | `outputs/<이름>/` | 실행 결과: `split.json` · `items.json` · `calls.jsonl` · `review.html` · `report.md` |
 
 지시문을 고쳐 다시 돌릴 때는 `--name` 을 바꾸세요(예: `eng-0926-v2`). 같은 이름에 `generate --force` 로 덮으면 이미 받은 검토 기록과 문항이 맞지 않게 됩니다.
