@@ -50,8 +50,16 @@ s=open('a-board-read.html').read(); a,b=cut(s,'<ul class="cl-comments__list"','u
 s=a+empty('msg','아직 댓글이 없습니다',extra=' cl-pub-empty--sm')+b
 s=re.sub(r'(cl-comments__title">댓글 <span class="cl-num">)\d+',r'\g<1>0',s)
 open('a-board-read-empty.html','w').write(s)
-# 선생님 상세 — 담당 강좌 없음 (같은 부품으로)
-s=open('a-teacher-read-empty.html').read()
-s=re.sub(r'<div class="cl-teacher__course-empty">.*?</div>',empty('book','담당 강좌가 없습니다',extra=' cl-teacher__course-empty'),s,flags=re.S)
+# 선생님 상세 — 담당 강좌 없음: 박채원 선생님(목록에서 박채원 카드가 여기로 옴)
+s=open('a-teacher-read.html').read(); a,c=cut(s,'<ul class="cl-teacher__course-list"','ul')
+s=a+empty('book','담당 강좌가 없습니다',extra=' cl-teacher__course-empty')+c
+s=re.sub(r'(cl-teacher__courses-title">담당 강좌 <span class="cl-num">)\d+',r'\g<1>0',s)
+s=re.sub(r'<div class="cl-teacher__more">.*?</div>','<div class="cl-teacher__more"></div>',s,flags=re.S)
+s=s.replace('<title>장현석 선생님','<title>박채원 선생님',1)
+s=s.replace('<span data-band-crumb-last="">장현석</span>','<span data-band-crumb-last="">박채원</span>')
+s=s.replace('<span class="cl-teacher__avatar"><span class="cl-teacher__avatar-initial" aria-hidden="true">장</span></span><h2 class="cl-teacher__name">장현석 선생님</h2>',
+            '<span class="cl-teacher__avatar"><img src="../img/teacher-f.jpg" alt=""></span><h2 class="cl-teacher__name">박채원 선생님</h2>')
+s=re.sub(r'<dl class="cl-teacher__info">.*?</dl>','<dl class="cl-teacher__info"><div><dt>담당과목</dt><dd>동영상녹화</dd></div></dl>',s,flags=re.S)
+assert '박채원 선생님</h2>' in s
 open('a-teacher-read-empty.html','w').write(s)
 print('ok')
