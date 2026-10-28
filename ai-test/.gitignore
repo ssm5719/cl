@@ -1,0 +1,6 @@
+outputs/
+inputs/
+.venv/
+__pycache__/
+review-*.json
+review-*.csv
