@@ -77,7 +77,7 @@ color: #904ae8;
 | `--cl-primary-pressed` | #7a35d0 | 주 버튼 눌림. 회백색 · 연보라 위 링크, 활성 메뉴 글자, 연보라 배지 글자로도 쓴다. 흰 배경 6.47:1, cl-primary-tint 위 5.61:1. |
 | `--cl-primary-on-dark` | #b78af7 | 어두운 배경 위 링크 · 강조. #272729 위 5.67:1. 차트 두 번째 계열(다운로드) 막대에도 쓴다. |
 | `--cl-primary-tint` | #f3ecfd | 선택된 행, 정보 배지 배경, 상단 바 학기 칩, 연보라 버튼(cl-btn--tint) 배경. |
-| `--cl-primary-wash` | #f7f3fd | 사진 없는 선생님 칸 · 아이콘 원 바탕(`cl-avatar-ph`). tint 보다 한 단계 옅다. 다크 #241d33. (2026.10.28) |
+| `--cl-primary-wash` | #f7f3fd | 사진 없는 선생님 칸 · 아이콘 원 바탕(`cl-avatar cl-avatar--ph`). tint 보다 한 단계 옅다. 다크 #241d33. (2026.10.28) |
 | `--cl-primary-line` | #e4d7f8 | 연보라 판 위 흰 버튼의 테두리(강의 보기 [이 강의 질문하기]). 다크 #3a2d52. (2026.10.28) |
 | `--cl-control-border` | #d2d2d7 | 입력 칸 · 검색 칸 · 선택 칸 · 칩의 1px 테두리. |
 | `--cl-grid-head` | #ededf0 | 표 머리 아래 선, 탭 줄 아래 선, 상단 바 아래 선, 대시보드 구역 나누는 선. |

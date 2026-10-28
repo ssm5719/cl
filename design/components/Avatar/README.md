@@ -9,4 +9,4 @@
 
 ## 학원 공개 화면 — 사진 없는 선생님 (2026.10.28)
 
-사진이 없으면 `cl-avatar-ph`: `--cl-primary-wash` 원 가운데에 메인(AM10) 선 사람 아이콘 60%. 세로 사진용 회색 그림(`default-person.svg`)은 원 안에서 머리가 잘려 쓰지 않는다. 자세히는 [`../AcademyPublic/README.md`](../AcademyPublic/README.md).
+사진이 없으면 `cl-avatar cl-avatar--ph`(2026.10.28 `cl-avatar-ph` 에서 바꿈): `--cl-primary-wash` 원 가운데에 메인(AM10) 선 사람 아이콘 60%. 세로 사진용 회색 그림(`default-person.svg`)은 원 안에서 머리가 잘려 쓰지 않는다. 크기 변형: 기본 28 · `--md` 32(머리 계정) · `--lg` 44(작은 창 사람 카드) · `--fill`(칸 가득). 자세히는 [`../AcademyPublic/README.md`](../AcademyPublic/README.md).

@@ -1,5 +1,14 @@
 # 변경 기록
 
+## v1.3 — 2026.10.28 (밤) · 공통 부품 정리
+
+- 규칙: 모든 화면은 CSS · 디자인시스템 안의 부품만 쓴다. README 에 "공통 부품 먼저" 장과 부품 표.
+- 새 부품 6개(문서 + 미리보기): Link(`cl-link` · `cl-more-link`) · Status(`cl-count` · `cl-status` · `cl-tag` · `cl-reveal`) · Composer(`cl-composer`) · MiniList(`cl-mini-list`) · Popover(카드형 · `cl-person` · `cl-subhead` · `cl-link-list`) · FileCard(`cl-filecard` · `cl-docview`).
+- 기존 부품 변형 추가: Button `--soft · --dark · --line · --float · --on-dark · --md · --xl · --block · __arrow`, IconButton `--round · --soft · --on-dark · --xs · --md · --lg`, Tabs `--line`, Empty `--line · --sm`(옛 `cl-pub-empty`), Avatar `--ph · --md · --lg · --fill`(옛 `cl-avatar-ph`).
+- 화면 전용 클래스 → 공통: `cl-ptabs` · `cl-ask*` · `cl-prelated*` · `cl-tpop*` · `cl-docfile*` · `cl-pub-empty*` · `cl-avatar-ph` · `cl-cd-pill` · `cl-home-pill` · `cl-home-btn*` · `cl-home-more(-btn)` · `cl-home-slider__ctl` · `cl-home-tile__more` · `cl-ua-copy` · `cl-mt-enter` · `cl-mt-course__open` · `cl-gs-link` · `cl-pw-reset` · `cl-mm-kw` · `cl-ma-state` · `cl-ip-warn`. 바꾸는 표는 Button README.
+- 토큰: 글자 고정 단계 `cl-fs-10 ~ cl-fs-72`(20개), 모서리 `cl-radius-3xs`(2) · `cl-radius-xl`(16), 색 `cl-on-ink-2` · `cl-on-ink-muted` · `cl-on-ink-faint` · `cl-surface-dark-hover` · `cl-disabled-bg` · `cl-media-bg`. 실험실 CSS · 수정안 · 화면의 직접 쓴 px · hex 430곳을 토큰으로(반 픽셀 글자는 가까운 단계로).
+- `components/bundle.css` 를 `design/build_bundle.js` 로 다시 만듦 — student.css · public.css 와 제안 항목까지 포함.
+
 ## v1.2 — 2026.10.28 (오후)
 
 - 학원 메인 대시보드형(NM1) 확정 — AcademyPublic 에 한 장, CSS 묶음에 추가. 배치 · 선생님 검은 칸은 그대로.

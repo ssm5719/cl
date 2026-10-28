@@ -9,9 +9,9 @@
 | `audit.md` | 점검 · 수정 목록. 아직 정할 것 포함 |
 | `tokens.css` · `tokens.json` | 토큰. CSS 는 `var(--cl-…)` 로 읽습니다 |
 | `api/tokens.md` | 토큰 값 전체 표 |
-| `api/components/*.md` | 부품 24개 요약 카드 |
+| `api/components/*.md` | 부품 요약 카드(아티팩트가 만든다) |
 | `components/<이름>/README.md` | 부품 상세 + `preview.html` 미리보기 |
-| `components/bundle.css` | 미리보기용 CSS 묶음 (맨 끝에 학원 공개 화면 부품) |
+| `components/bundle.css` | CSS 묶음 — 실험실 CSS 전부 + 확정 · 제안 수정안. `node build_bundle.js` 로 만든다 |
 | `components/AcademyPublic/README.md` | 학원 공개 화면 전용 부품 — 빈 상태 · 사진 없는 선생님 · 수강 상태 버튼 · 강의 보기 칸 · 문서 강의 |
 | `public-ui-rules.md` | 학원 공개 화면 UI 규칙(글자 · 여백 · 선 · 색 · 움직임 · 이동 · 문장) |
 | `fonts/` | Pretendard Variable |
@@ -78,7 +78,7 @@
 
 기본 줄높이 1.5, 자간 -0.005em. 코드는 크기를 `cl-fs-page-title` · `cl-fs-section-title` · `cl-fs-ui` · `cl-fs-table-head` · `cl-fs-caption` · `cl-fs-micro` 로 읽는다. 터치 기기의 입력 칸만 16px 로 올린다(iOS 확대 방지).
 
-"코드에 직접 적은 크기" 묶음은 토큰 밖에서 쓰이고 있는 크기다. 새 화면에는 쓰지 않는다.
+"코드에 직접 적은 크기" 묶음은 토큰 밖에서 쓰이던 크기다. 2026.10.28 부터 CSS 의 글자 크기는 모두 변수로 읽는다 — 위 의미 토큰이 맞지 않는 자리는 고정 단계 `cl-fs-10` · `11` · `12` · `13` · `14` · `15` · `16` · `17` · `18` · `19` · `20` · `21` · `22` · `24` · `26` · `28` · `32` · `40` · `56` · `72` 를 쓴다(공개 · 작업공간 어디서나 같은 값, 반 픽셀 없음). `font-size: 14px` 처럼 직접 적지 않는다.
 
 ## 간격 · 크기
 
@@ -90,7 +90,7 @@
 
 ## 반경 · 테두리 · 그림자
 
-- 반경: 체크박스 `cl-radius-xs`(4), 버튼 · 입력 칸 `cl-radius-sm`(8), 카드 `cl-radius-md`(10), 떠 있는 패널 · 대화상자 · 토스트 `cl-radius-lg`(12), 칩 · 아바타 · 진도 막대 `cl-radius-pill`. 배지 · 메뉴 항목 · 보기 전환 칸은 6px.
+- 반경: 체크박스 `cl-radius-xs`(4), 버튼 · 입력 칸 `cl-radius-sm`(8), 카드 `cl-radius-md`(10), 떠 있는 패널 · 대화상자 · 토스트 `cl-radius-lg`(12), 큰 사진 · 메인 타일 `cl-radius-xl`(16), 칩 · 아바타 · 진도 막대 `cl-radius-pill`. 배지 · 메뉴 항목 · 보기 전환 칸 · 작은 썸네일 `cl-radius-2xs`(6), 진행 막대 끝 · 탭 밑줄 `cl-radius-3xs`(2). 모서리도 px 를 직접 적지 않는다.
 - 테두리는 1px 실선이 기본이다. 테두리 버튼은 border 대신 `cl-ring`(1px 링)을 쓴다.
 - 그림자는 화면 위에 뜨는 것에만: 메뉴 · 대화상자 · 토스트 `cl-shadow-float`, 일괄 작업 바 `cl-shadow-bulkbar`. 카드에는 그림자를 쓰지 않는다.
 - 포커스는 `cl-primary` 2px 실선, 2px 띄운다(`cl-focus-offset`).
@@ -176,5 +176,26 @@ Fonts: `tokens.css` loads each font from its file, by path.
 
 - 글자: 화면 제목 `cl-fs-display`(40) · 섹션 `cl-fs-section-pub`(26~32) · 본문 · 목록 제목 `cl-fs-body-public`(17) · 부제 `cl-fs-body-sm-pub`(15) · 버튼 `cl-fs-ui`(14) · 정보 `cl-fs-caption`(13) · 배지 `cl-fs-micro`(12). 직접 적은 크기는 쓰지 않는다.
 - 여백: 묶음 안 8~12, 묶음 사이 24~40. 선은 `cl-hairline` 만, 화면을 테두리 상자로 감싸지 않는다.
-- 빈 상태: 회색 점선 상자 `cl-pub-empty`. 사진 없는 선생님: `cl-primary-wash` 원 + 선 사람 아이콘(`cl-avatar-ph`).
+- 빈 상태: 회색 점선 상자 `cl-empty cl-empty--line`. 사진 없는 선생님: `cl-primary-wash` 원 + 선 사람 아이콘(`cl-avatar cl-avatar--ph`).
 - 보라는 할 일(주 버튼 · 수강신청 · 고른 것)에만. 이미 된 상태(수강중)는 회색.
+
+## 공통 부품 먼저 (2026.10.28)
+
+관리자 · 선생님 · 학생 · 학원 화면 모두 **CSS(`components/bundle.css`)와 이 디자인시스템에 있는 부품만** 쓴다. 새 화면 · 새 상태를 만들 때 순서:
+
+1. 아래 공통 부품에서 같은 모양을 찾는다 — 종류(modifier)만 붙여 쓴다.
+2. 비슷한 것이 있으면 그것으로 대신한다(크기가 2~4px 다른 정도는 공통 크기에 맞춘다).
+3. 모양이나 내용이 정말 다를 때만 새 부품을 만들고, 실험실 `lab/css/components.css` 와 여기(`components/<이름>/README.md` + `preview.html`)에 같이 등록한다. 화면 전용 클래스는 놓는 자리(간격 · 칸 배치)만 정한다.
+
+| 부품 | 클래스 | 문서 |
+| --- | --- | --- |
+| Button | `cl-btn` + `--primary · --tint · --ghost · --text · --danger · --soft · --dark · --line · --float · --on-dark · --undo`, 크기 `--xs · --sm · --md · --lg · --xl · --block`, `--pill`, `cl-btn__arrow` / `cl-icon-btn` + `--round · --soft · --on-dark`, `--xs · --md · --lg` | Button |
+| Link | `cl-link` (`--muted · --danger`) · `cl-more-link` | Link |
+| Status | `cl-count` · `cl-status --ok/--wait/--off` · `cl-tag` + `__x` · `cl-reveal` | Status |
+| Tabs | `cl-tabs` / 줄 탭 `cl-tabs--line` | Tabs |
+| Composer | `cl-composer` (`__input · __row · __more · __done`) | Composer |
+| MiniList | `cl-mini-list` (`__item · __title · __meta · __mark · __foot`, `--plain`) | MiniList |
+| Popover | `cl-popover` (`--inline`) · `__panel --start --card` · `cl-person` · `cl-subhead` · `cl-link-list` | Popover |
+| FileCard | `cl-filecard` · `cl-docview` | FileCard |
+| Empty | `cl-empty` / 점선 `--line` · 작게 `--sm` | Empty |
+| Avatar | `cl-avatar` / `--tint · --ph`, `--md · --lg · --fill` | Avatar |

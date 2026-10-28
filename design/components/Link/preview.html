@@ -1,0 +1,19 @@
+<!-- @dsCard group="Actions" height=260 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Link</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-5); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-3); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+.pv-box { max-width: 360px; border: 1px solid var(--cl-hairline); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); }
+</style></head>
+<body class="cl-scope cl-pub-body">
+<div class="pv-stack">
+<div><p class="pv-label">동작 링크</p><div class="pv-row"><a class="cl-link" href="#">학생 통계에서 보기</a><a class="cl-link cl-link--muted" href="#">선생님 계정으로 열기 <svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><button class="cl-link cl-link--danger" type="button">비밀번호 초기화</button></div></div>
+<div><p class="pv-label">더보기</p><div class="pv-row"><a class="cl-more-link" href="#">전체 보기 <svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a><a class="cl-more-link" href="#" style="font-size:var(--cl-fs-body-public)">학원소개 보기 <svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a></div></div>
+</div>
+</body>
+</html>

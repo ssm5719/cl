@@ -585,6 +585,7 @@ html.lenis, html.lenis body { height: auto; }
 .cl-popover__panel--start { left: 0; right: auto; }
 .cl-popover__panel--card { top: calc(100% + 8px); z-index: 30; width: 320px; max-width: calc(100vw - 40px); box-sizing: border-box; padding: 20px; border-radius: var(--cl-radius-sm); }
 .cl-popover__panel[hidden] { display: none; }
+.cl-popover__panel--card > .cl-btn--block { margin-top: 16px; }
 /* 사람 — [사진 | 이름 / 과목] */
 .cl-person { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .cl-person__name { margin: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 600; color: var(--cl-ink); }

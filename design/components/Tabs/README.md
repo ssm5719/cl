@@ -9,7 +9,11 @@
 
 ## 학원 공개 화면의 좁은 칸 탭 (2026.10.28)
 
-강의 보기 오른쪽 칸 `cl-ptabs`: 글자 15 · 500(고른 탭 600), 아래 2px 보라 선, 탭 사이 24, 숫자 배지 20(고른 탭은 연보라). 강좌 상세 탭(AD2)과 같은 말투.
+줄 탭 `cl-tabs cl-tabs--line`(안의 탭은 그대로 `cl-tab`): 글자 `cl-fs-body-sm-pub`(15) 500, 고른 탭 600 + 아래 2px `cl-primary` 선, 탭 사이 24, 줄 아래 1px `cl-hairline`. 개수는 숫자 알약 `cl-count`(20 높이 · 알약 · `cl-hover`, 고른 탭 안에서는 연보라). 강의 보기 오른쪽 칸 [강의 목록 | 관련 질문] 에 쓴다. 2026.10.28 에 `cl-ptabs` · `cl-ptab` 에서 바꿨다.
+
+```html
+<div class="cl-tabs cl-tabs--line" role="tablist"><button class="cl-tab" role="tab" aria-selected="true">강의 목록 <span class="cl-count">20</span></button><button class="cl-tab" role="tab" aria-selected="false">관련 질문 <span class="cl-count">3</span></button></div>
+```
 
 ## 지금 어긋난 곳
 

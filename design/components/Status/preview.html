@@ -1,0 +1,21 @@
+<!-- @dsCard group="Status" height=300 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Status</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-5); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-3); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+.pv-box { max-width: 360px; border: 1px solid var(--cl-hairline); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); }
+</style></head>
+<body class="cl-scope cl-pub-body">
+<div class="pv-stack">
+<div><p class="pv-label">숫자 알약</p><div class="pv-row"><span class="cl-count">20</span><span class="cl-count cl-count--active">3</span></div></div>
+<div><p class="pv-label">점 + 글자</p><div class="pv-row"><span class="cl-status cl-status--ok">승인</span><span class="cl-status cl-status--wait">대기</span><span class="cl-status cl-status--off">꺼짐</span></div></div>
+<div><p class="pv-label">지울 수 있는 칩</p><div class="pv-row"><span class="cl-tag">#수능<button class="cl-tag__x" type="button" aria-label="수능 지우기"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></span><span class="cl-tag">#내신<button class="cl-tag__x" type="button" aria-label="내신 지우기"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></span></div></div>
+<div><p class="pv-label">올리면 보이는 동작 (줄에 마우스를 올려 보세요)</p><ul style="margin:0;padding:0;list-style:none"><li class="pv-row" style="padding:8px 0">Chrome 141 · Windows <button class="cl-icon-btn cl-icon-btn--xs cl-reveal" aria-label="원문 복사"><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></li></ul></div>
+</div>
+</body>
+</html>

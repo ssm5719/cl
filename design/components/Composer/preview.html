@@ -1,0 +1,19 @@
+<!-- @dsCard group="Forms" height=300 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Composer</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-stack { display: flex; flex-direction: column; gap: var(--cl-space-5); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cl-space-3); }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+.pv-box { max-width: 360px; border: 1px solid var(--cl-hairline); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); }
+</style></head>
+<body class="cl-scope cl-pub-body">
+<div class="pv-stack">
+<div><p class="pv-label">접힘</p><button class="cl-btn cl-btn--line cl-btn--pill" type="button"><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>이 강의 질문하기</button></div>
+<div style="max-width:360px"><p class="pv-label">펼침</p><form class="cl-composer" onsubmit="return false"><textarea class="cl-composer__input" rows="3" placeholder="이 강의에서 궁금한 점을 적어 주세요&#10;Enter 등록 · Shift+Enter 줄바꿈"></textarea><div class="cl-composer__row"><a class="cl-composer__more" href="#">파일 첨부 · 자세히 쓰기 <svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></a><button class="cl-btn cl-btn--ghost" type="button">취소</button><button class="cl-btn cl-btn--primary">등록</button></div></form></div>
+</div>
+</body>
+</html>

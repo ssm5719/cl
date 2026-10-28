@@ -3185,8 +3185,6 @@ content-view.js: 질문 등록은 질문하기 페이지와 같은 POST /api/boa
 .cl-scope .cl-player-teacher[aria-expanded="true"] { outline: none; box-shadow: inset 0 0 0 1px var(--cl-primary); color: var(--cl-primary-pressed); }
 .cl-player-teacher[aria-expanded="true"] > .cl-icon { transform: rotate(180deg); color: inherit; }
 .cl-player-teacher:focus:not(:focus-visible) { outline: none; }
-/* 작은 창 맨 아래 [선생님 소개 전체 보기] — 목록과 16 */
-.cl-popover__panel--card > .cl-btn--block { margin-top: 16px; }
 @media (prefers-reduced-motion: reduce) { .cl-player-teacher > .cl-icon { transition: none; } }`,
     dom: `var a = doc.querySelector('.cl-player-teacher'); if (!a || a.closest('.cl-popover')) return;
 var EXT = '<svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>';
