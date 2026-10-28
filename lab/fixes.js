@@ -2920,7 +2920,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     screens: ["a-teacher-read"],
     title: "선생님 상세 — [프로필 | 담당 강좌] 두 열, 상자 없이",
     current: "프로필 · 강좌가 각각 테두리 상자, 최대 860px(1200 화면에서 오른쪽 340px 빈칸), 강좌 줄은 글자만",
-    next: "1200 을 [프로필 320 | 담당 강좌] 두 열로 — 테두리 상자는 없애고 사이 64 로만 나눔. 프로필은 사진 160 · 이름 · 정보 · 버튼 세로, 스크롤해도 따라옴. 강좌는 썸네일 128(16:9) + 제목 · 정보, 줄 사이 옅은 회색 선, hover 는 제목만 보라. 900 이하 한 열 · 사진 88",
+    next: "1200 을 [프로필 320 | 담당 강좌] 두 열로 — 테두리 상자는 없애고 사이 64 로만 나눔. 프로필은 사진 160 · 이름 · 정보 · 버튼 세로(이름 아래 선은 빼고 여백 24 만), 스크롤해도 따라옴. 강좌는 썸네일 128(16:9) + 제목 · 정보, 줄 사이 옅은 회색 선, hover 는 제목만 보라. 900 이하 한 열 · 사진 88",
     css: `/* 두 열 — [프로필 320 | 담당 강좌], 상자 테두리 없이 */
 @media (min-width: 901px) {
   .cl-teacher { display: grid; grid-template-columns: 320px minmax(0, 1fr); column-gap: 64px; align-items: start; }
@@ -2932,7 +2932,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
 .cl-teacher .cl-teacher__head { flex-direction: column; align-items: flex-start; gap: 20px; }
 .cl-teacher .cl-teacher__avatar { width: 160px; border-radius: var(--cl-radius-sm); }
 .cl-teacher .cl-teacher__name { margin: 0; }
-.cl-teacher .cl-teacher__info { margin-top: 20px; padding-top: 20px; gap: 12px; }
+.cl-teacher .cl-teacher__info { margin-top: 24px; padding-top: 0; border-top: 0; gap: 12px; }
 .cl-teacher .cl-cd__pills { margin-top: 24px; }
 /* 담당 강좌 — 제목 아래 옅은 회색 선으로만 줄 구분, 썸네일 128 */
 .cl-teacher .cl-teacher__courses-title { padding: 0 0 16px; }
