@@ -54,6 +54,53 @@ step('세 너비에서 가로 스크롤 없음', async (page) => {
   await page.setViewportSize({ width: 1440, height: 900 });
 });
 
+
+step('보관함: 과목 필터 · 지문별 보기 · 함께 보기', async (page) => {
+  await open(page, '#/library');
+  await see(page, 'td >> text=2026 내신 대비 예시 · 고2 영어');
+  assert(await page.isVisible('td >> text=함께 보기'), '남이 올린 시험지에 함께 보기 없음');
+  await page.click('[data-a="lib-subject"][data-v="국어"]');
+  await page.waitForSelector('td >> text=2026 내신 대비 예시 · 고2 영어', { state: 'detached' });
+  await page.click('[data-a="lib-subject"][data-v="전체"]');
+  await page.click('[data-a="lib-view"][data-v="unit"]');
+  await see(page, 'text=그림 필요');
+});
+
+step('보관함: 시험지 상세에서 이 지문으로 만들기', async (page) => {
+  await open(page, '#/library');
+  await page.click('a >> text=2026 내신 대비 예시 · 고2 영어');
+  await see(page, 'h1:has-text("2026 내신 대비 예시 · 고2 영어")');
+  assert(page.url().includes('#/library/s-en'), page.url());
+  assert(await page.isVisible('.cl-badge >> text=그림 필요'), '그림 지문 배지 없음');
+  await page.click('[data-a="make-unit"] >> nth=0');
+  await page.waitForFunction(() => location.hash.startsWith('#/new?units='));
+});
+
+step('보관함: 시험지 올리기 → 나누기 결과 확인 → 저장', async (page) => {
+  await open(page, '#/library');
+  await page.click('[data-a="go-upload"]');
+  await see(page, 'h1:has-text("시험지 올리기")');
+  await page.click('[data-a="up-file"] >> nth=0');
+  await page.click('[data-a="up-start"]');
+  await see(page, 'text=지문을 나누고 있어요');
+  await see(page, 'h2:has-text("나누기 결과 확인")', 5000);
+  assert(await page.isVisible('.cl-badge >> text=그림 필요'), '그림 필요 배지 없음');
+  await page.click('[data-a="up-edit"] >> nth=0');
+  await see(page, '.pt-toast >> text=데모에서는 보기만 돼요');
+  await page.click('[data-a="up-save"]');
+  await page.waitForFunction(() => location.hash.startsWith('#/library/'));
+});
+
+step('보관함: 지문 추가 → 직접 추가 행', async (page) => {
+  await open(page, '#/library');
+  await page.click('[data-a="add-passage"]');
+  await page.fill('[data-a="ap-title"]', '교과서 3과 본문');
+  await page.fill('[data-a="ap-text"]', 'Reading opens doors to new worlds. It helps us understand people who are different from us.');
+  await page.click('[data-a="ap-save"]');
+  await see(page, 'td >> text=교과서 3과 본문');
+  assert(await page.isVisible('td >> text=직접 추가'), '종류 직접 추가 없음');
+});
+
 // ---------------------------------------------------------------- 실행
 
 const server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: ROOT, stdio: 'ignore' });
@@ -63,6 +110,7 @@ let failed = 0;
 try {
   for (const s of scenarios) {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    page.setDefaultTimeout(5000);
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
     page.on('dialog', (d) => d.accept());
