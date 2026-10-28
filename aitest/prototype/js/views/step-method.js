@@ -4,6 +4,7 @@ import { GROUPS, ORIGINAL, FORMS, LEVELS, LEVEL_LABEL, RULES } from '../constant
 import { countSummary, allocate, generate } from '../generator.js';
 import { esc } from '../ui.js';
 import { unitsOf, goStep, rerenderKeepFocus } from './wizard.js';
+import { flaggedFirst } from './step-review.js';
 
 const PROGRESS_MS = 600;
 
@@ -58,7 +59,8 @@ export async function next(wiz, state) {
     wiz.generating.done = i;
     render();
   }
-  wiz.items = result.items;
+  wiz.items = flaggedFirst(result.items);
+  wiz.cur = null;
   wiz.notes = result.notes;
   wiz.generating = null;
   return goStep(wiz, state, 3);

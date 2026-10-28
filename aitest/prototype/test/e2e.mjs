@@ -202,6 +202,51 @@ step('② 방식: 문제 만들기 → 진행 → ③ 검토', async (page) => {
   await see(page, '.pt-steps [aria-current="step"] >> text=검토', 6000);
 });
 
+
+async function toReview(page) {
+  await open(page, '#/new?units=s-en/u02,s-en/u04');
+  await page.click('[data-a="wiz-next"]');
+  await page.click('[data-a="grp"][data-v="original"]');
+  for (const g of ['main', 'blank', 'writing']) await page.click(`[data-a="grp"][data-v="${g}"]`);
+  await page.click('[data-a="per-unit"][data-v="3"]');
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=검토', 6000);
+}
+
+step('③ 검토: 요약 · 주의 문항이 맨 위 · 근거 강조 · 배지 · 대신 쓴 문항', async (page) => {
+  await toReview(page);
+  await see(page, '.pt-review-sum:has-text("6문항 · 주의 2")');
+  const first = await page.getAttribute('.pt-ilist li >> nth=0', 'data-flagged');
+  assert(first === '1', '첫 행이 주의 문항이 아님');
+  await page.click('.pt-ilist [data-a="pick"] >> nth=0');
+  assert(await page.isVisible('.pt-icard .cl-badge >> text=/다시 풀었더니 답이 다름|원래 정답 노출 의심/'), '주의 배지 없음');
+  await see(page, '.pt-src mark');
+  await page.click('[data-a="filter-todo"]');
+  await page.click('[data-a="mark-done"]');
+  assert(await page.locator('.pt-ilist li').count() === 5, '확인함 표시한 문항이 확인 필요 목록에서 빠지지 않음');
+  await page.click('[data-a="filter-todo"]');
+  await see(page, 'text=데모: 미리 만든 문항으로 대신 보여 줘요');
+});
+
+step('③ 검토: 고치기 · 다시 만들기 · 빼기 · 순서 · 서술형', async (page) => {
+  await toReview(page);
+  await page.click('[data-a="edit"]');
+  await page.fill('[data-a="edit-stem"]', '고친 발문입니다');
+  await page.click('[data-a="edit-save"]');
+  await see(page, '.pt-icard >> text=고친 발문입니다');
+  await page.click('[data-a="regen"]');
+  await see(page, '.pt-toast:has-text("다시 만들었어요"), .pt-toast:has-text("더 만들 데모 문항이 없어요")');
+  const firstId = await page.getAttribute('.pt-ilist li >> nth=0', 'data-id');
+  await page.click('.pt-ilist li >> nth=0 >> [data-a="move-down"]');
+  const ids = await page.$$eval('.pt-ilist li', (ls) => ls.map((l) => l.dataset.id));
+  assert(ids[1] === firstId, `순서 바꾸기 안 됨: ${firstId} / ${ids.join(',')}`);
+  await page.click('[data-a="remove"]');
+  await see(page, '.pt-review-sum >> text=5문항');
+  await page.click('.pt-ilist li:has-text("서술형") [data-a="pick"] >> nth=0');
+  await see(page, '.pt-icard >> text=모범 답안');
+  await see(page, '.pt-icard >> text=채점 기준');
+});
+
 // ---------------------------------------------------------------- 실행
 
 const server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: ROOT, stdio: 'ignore' });

@@ -87,7 +87,10 @@ export async function generate(units, settings, subject, pool, exclude = []) {
   for (const slot of slots) {
     const free = pool.filter((it) => keyOf(it) === slot.unitKey && !used.has(it.id));
     const exact = free.filter((it) => it.group === slot.group);
-    const pick = exact.find((it) => !slot.subtype || it.subtype === slot.subtype) || exact[0] || free[0];
+    // 서술형은 형태와 관계없다. 객관식은 고른 형태(5지 · 4지 · OX)가 같은 문항을 먼저 쓴다.
+    const formOk = (it) => !settings.form || it.form === '서답' || it.form === settings.form;
+    const pick = exact.find((it) => formOk(it) && (!slot.subtype || it.subtype === slot.subtype))
+      || exact.find(formOk) || exact[0] || free.find(formOk) || free[0];
     if (!pick) {
       const msg = TEXT.noDemoItems(byKey[slot.unitKey].numbers);
       if (!notes.includes(msg)) notes.push(msg);
@@ -98,7 +101,7 @@ export async function generate(units, settings, subject, pool, exclude = []) {
     if (slot.changed && !flags.includes('type_changed')) flags.push('type_changed');
     items.push({
       ...pick, id: `g${Date.now().toString(36)}${++seq}`, poolId: pick.id, flags,
-      note: exact.includes(pick) ? pick.note : TEXT.demoSubstitute,
+      note: exact.includes(pick) && formOk(pick) ? pick.note : TEXT.demoSubstitute,
     });
   }
   await new Promise((r) => setTimeout(r, 0));

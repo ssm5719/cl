@@ -102,3 +102,17 @@ test('위치를 고르는 문항(선택지가 ①~⑤)은 섞지 않는다', () 
   const pos = mc('p', 2, { choices: ['①', '②', '③', '④', '⑤'] });
   assert.deepEqual(shuffleAnswers([pos, pos, pos], 3).map((i) => i.answer), [2, 2, 2]);
 });
+
+test('고른 형태(OX)와 같은 풀 문항을 먼저 쓰고, 없으면 대신 쓰며 데모 문구', async () => {
+  const pool = [mc('i1', 1), mc('i2', 1, { form: 'OX', choices: ['O', 'X'] })];
+  const ox = await generate([unit('u1')], { groups: ['main'], form: 'OX', countMode: 'perUnit', perUnit: 1, subtypes: {} }, '영어', pool);
+  assert.equal(ox.items[0].poolId, 'i2');
+  const four = await generate([unit('u1')], { groups: ['main'], form: '4지', countMode: 'perUnit', perUnit: 1, subtypes: {} }, '영어', [mc('i1', 1)]);
+  assert.equal(four.items[0].note, '데모: 미리 만든 문항으로 대신 보여 줘요');
+});
+
+test('다시 만들기는 이미 쓴 풀 문항을 빼고 고른다', async () => {
+  const pool = [mc('i1', 1), mc('i2', 2)];
+  const { items } = await generate([unit('u1')], { groups: ['main'], countMode: 'perUnit', perUnit: 1, subtypes: {} }, '영어', pool, ['i1']);
+  assert.equal(items[0].poolId, 'i2');
+});
