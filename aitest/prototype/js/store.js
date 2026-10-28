@@ -1,7 +1,9 @@
 // 데모 저장소: 보는 사람의 브라우저(localStorage)에만 둔다. 막혀 있으면 메모리로만 동작한다.
 const KEY = { exams: 'cl-exam-proto:exams', pasted: 'cl-exam-proto:pasted', rights: 'cl-exam-proto:rights' };
 
-export function createStore(storage = globalThis.localStorage) {
+export function createStore(storage) {
+  // 막힌 iframe 에서는 localStorage 를 읽기만 해도 예외가 난다.
+  if (storage === undefined) { try { storage = globalThis.localStorage; } catch (e) { storage = null; } }
   const mem = { exams: [], pasted: [] };
   let persistent = true;
   const read = (name) => {
@@ -23,10 +25,11 @@ export function createStore(storage = globalThis.localStorage) {
   return {
     get persistent() { return persistent; },
     listExams: () => [...mem.exams].sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || ''))),
-    getExam: (id) => mem.exams.find((e) => e.id === id) || null,
+    // 화면이 고치는 객체와 저장된 객체가 섞이지 않게 넣고 꺼낼 때 복사한다.
+    getExam: (id) => { const e = mem.exams.find((x) => x.id === id); return e ? structuredClone(e) : null; },
     saveExam(exam) {
       const now = new Date().toISOString();
-      const next = { createdAt: now, ...exam, updatedAt: now };
+      const next = { createdAt: now, ...structuredClone(exam), updatedAt: now };
       mem.exams = [...mem.exams.filter((e) => e.id !== exam.id), next];
       write('exams');
       return next;

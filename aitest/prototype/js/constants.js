@@ -51,6 +51,10 @@ export const TEXT = {
   figureBlocked: '그림이 있어 자동 출제에서 빠져요',
   demoSubstitute: '데모: 미리 만든 문항으로 대신 보여 줘요',
   noDemoItems: (numbers) => `${numbers}번은 데모 문항이 없어요`,
+  demoHas: '데모 문항 있음',
+  demoNone: '데모 문항 없음',
+  demoPaste: '데모에서는 붙여 넣은 지문으로 문항이 나오지 않아요. 실제 서비스에서는 AI가 바로 만들어요.',
+  demoNoneSelected: '고른 지문에 데모 문항이 없어요. 보관함에서 데모 문항 있는 지문을 함께 골라 주세요',
 };
 
 export const CIRCLED = ['①', '②', '③', '④', '⑤'];

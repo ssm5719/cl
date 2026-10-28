@@ -1,8 +1,8 @@
 // ① 자료 고르기: [보관함에서] 시험지 → 지문 고르기 / [지문 붙여넣기].
 import { render } from '../app.js';
 import { SUBJECTS, TEXT } from '../constants.js';
-import { esc, firstLine, allPapers, paperMeta } from '../ui.js';
-import { goStep, rerenderKeepFocus } from './wizard.js';
+import { esc, firstLine, allPapers, paperMeta, badge, demoKeys } from '../ui.js';
+import { goStep, rerenderKeepFocus, defaultSettings } from './wizard.js';
 
 const pasteValid = (wiz) => wiz.paste.filter((p) => p.title.trim() && p.text.trim());
 
@@ -58,8 +58,9 @@ function libraryView(wiz, state) {
       <div class="cl-chips">${['', ...types].map((t) => `<button type="button" class="cl-chip" data-a="src-type" data-v="${esc(t)}" aria-pressed="${wiz.typeFilter === t}">${t ? `${esc(t)}만` : '모든 유형'}</button>`).join('')}</div></div>
       <ul class="pt-units">${shown.map((u) => {
         const key = `${paper.id}/${u.id}`;
+        const demo = u.has_figure ? '' : demoKeys(state).has(key) ? ` ${badge(TEXT.demoHas, 'info')}` : ` <span class="pt-sub">· ${TEXT.demoNone}</span>`;
         return `<li class="pt-unit${u.has_figure ? ' is-off' : ''}" data-unit="${key}"><label class="cl-check"><input type="checkbox" data-a="src-unit" data-v="${key}" ${wiz.selected.includes(key) ? 'checked' : ''} ${u.has_figure ? 'disabled' : ''}>
-          <span><strong>${esc(u.numbers)}번</strong> <span class="pt-sub">${esc(u.type_label)}</span><span class="pt-unit__line">${esc(firstLine(u.passage || u.questions[0]?.stem, 90))}</span>
+          <span><strong>${esc(u.numbers)}번</strong> <span class="pt-sub">${esc(u.type_label)}</span>${demo}<span class="pt-unit__line">${esc(firstLine(u.passage || u.questions[0]?.stem, 90))}</span>
           ${u.has_figure ? `<span class="pt-unit__why">${TEXT.figureBlocked}</span>` : ''}</span></label></li>`;
       }).join('')}</ul></div>`;
   }
@@ -83,6 +84,7 @@ function pasteView(wiz, state) {
     <label class="pt-field">지문 <textarea class="cl-textarea" data-a="paste-text" data-i="${i}" rows="5" placeholder="지문을 붙여 넣으세요">${esc(p.text)}</textarea></label></div>`).join('');
   const rights = state.store.rightsAgreed() ? '' : `<label class="cl-check pt-rights"><input type="checkbox" data-a="rights" ${wiz.rights ? 'checked' : ''}> <span><strong>(처음 한 번)</strong> 이 자료를 수업 목적으로 쓸 권리가 있음을 확인합니다.</span></label>`;
   return `<p class="pt-lead">교과서 · 부교재 지문을 붙여 넣어 바로 문제를 만들어요. 붙여 넣은 지문에는 '원래 문항'이 없어서 '원래 유형 그대로'는 쓸 수 없어요.</p>
+    <p class="pt-sub pt-demo-note">${TEXT.demoPaste}</p>
     ${rows}<button type="button" class="cl-btn cl-btn--ghost" data-a="paste-add">+ 지문 추가</button>
     <label class="cl-check"><input type="checkbox" data-a="paste-lib" ${wiz.pasteToLibrary ? 'checked' : ''}> 보관함에도 저장</label>${rights}`;
 }
@@ -95,6 +97,9 @@ export function onAction(a, el, wiz, state) {
     wiz.selected = [];
     wiz.paperId = allPapers(state).find((p) => p.subject === v)?.id || null;
     wiz.typeFilter = '';
+    // 묶음은 과목마다 달라 ② 설정을 그 과목 기본값으로 되돌린다.
+    wiz.settings = defaultSettings();
+    wiz.groupsTouched = false;
     return render();
   }
   if (a === 'src-tab') { wiz.tab = v; return render(); }

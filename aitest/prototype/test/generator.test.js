@@ -116,3 +116,18 @@ test('다시 만들기는 이미 쓴 풀 문항을 빼고 고른다', async () =
   const { items } = await generate([unit('u1')], { groups: ['main'], countMode: 'perUnit', perUnit: 1, subtypes: {} }, '영어', pool, ['i1']);
   assert.equal(items[0].poolId, 'i2');
 });
+
+test('정답 섞기: 발문에 ①~⑤ 표시가 있는 문항(어법 개수 등)은 해설 번호가 선택지가 아니라서 섞지 않는다', () => {
+  const it = { id: 'g', stem: '밑줄 친 ①~⑤ 중 어법상 틀린 것의 개수는? ① went ② go ③ is ④ are ⑤ was', choices: ['1개', '2개', '3개', '4개', '5개'], answer: 2,
+    explanation: '②와 ④가 틀렸다. ①③⑤는 맞다.' };
+  const out = shuffleAnswers([it, it, it], 2);
+  out.forEach((o) => { assert.equal(o.answer, 2); assert.equal(o.explanation, it.explanation); assert.deepEqual(o.choices, it.choices); });
+});
+
+test('정답 섞기: 순서가 정해진 선택지(1개~5개, (A)-(C)-(B) 순서)는 섞지 않는다', () => {
+  const count = { id: 'c', stem: '틀린 것의 개수는?', choices: ['1개', '2개', '3개', '4개', '5개'], answer: 3, explanation: '세 곳이 틀렸다.' };
+  const order = { id: 'o', stem: '주어진 글 다음에 이어질 순서로 가장 적절한 것은?', choices: ['(A)-(C)-(B)', '(B)-(A)-(C)', '(B)-(C)-(A)', '(C)-(A)-(B)', '(C)-(B)-(A)'], answer: 3, explanation: '③ 이 맞다.' };
+  for (const seed of [1, 2, 3, 4]) {
+    shuffleAnswers([count, order], seed).forEach((o, i) => assert.equal(o.answer, [count, order][i].answer));
+  }
+});

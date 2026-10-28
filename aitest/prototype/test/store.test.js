@@ -62,3 +62,27 @@ test('자료 권리 확인은 한 번 받으면 기억한다', () => {
   createStore(s).reset();
   assert.equal(createStore(s).rightsAgreed(), true, '데모 처음으로는 권리 확인까지 지우지 않음');
 });
+
+test('localStorage 를 읽기만 해도 예외가 나는 환경(막힌 iframe)에서도 메모리로 동작한다', () => {
+  const had = Object.getOwnPropertyDescriptor(globalThis, 'localStorage');
+  Object.defineProperty(globalThis, 'localStorage', { configurable: true, get() { throw new Error('SecurityError'); } });
+  try {
+    const st = createStore();
+    assert.equal(st.persistent, false);
+    st.saveExam(exam('e1'));
+    assert.equal(st.listExams().length, 1);
+  } finally {
+    if (had) Object.defineProperty(globalThis, 'localStorage', had); else delete globalThis.localStorage;
+  }
+});
+
+test('저장한 뒤 넘긴 객체를 바꿔도 저장된 값은 그대로다', () => {
+  const s = memoryStorage();
+  const st = createStore(s);
+  const e = exam('e1', { wiz: { items: [{ id: 'a' }, { id: 'b' }] } });
+  st.saveExam(e);
+  e.wiz.items.pop();
+  assert.equal(st.getExam('e1').wiz.items.length, 2);
+  st.getExam('e1').wiz.items.pop();
+  assert.equal(st.getExam('e1').wiz.items.length, 2);
+});

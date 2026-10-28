@@ -340,6 +340,88 @@ step('④ 인쇄: 지문은 같은 지문 문항 묶음마다 한 번만, [1~2] 
 });
 
 
+// ---------------------------------------------------------------- 최종 리뷰에서 나온 경우
+
+step('③ · ④ 에서 고친 내용은 새로 고쳐도 남는다', async (page) => {
+  await toReview(page);
+  await page.click('[data-a="remove"]');
+  await page.click('[data-a="edit"]');
+  await page.fill('[data-a="edit-stem"]', '새로 고침 뒤에도 남는 발문');
+  await page.click('[data-a="edit-save"]');
+  await page.reload();
+  await see(page, '.pt-review-sum >> text=5문항');
+  await see(page, 'text=새로 고침 뒤에도 남는 발문');
+  await page.click('[data-a="wiz-next"]');
+  await page.fill('[data-a="title"]', '남는 제목');
+  await page.click('[data-a="cols"][data-v="1"]');
+  await page.reload();
+  await see(page, '.pt-steps [aria-current="step"] >> text=인쇄');
+  assert(await page.inputValue('[data-a="title"]') === '남는 제목', '제목이 남지 않음');
+  assert(await page.getAttribute('[data-a="cols"][data-v="1"]', 'aria-pressed') === 'true', '1단이 남지 않음');
+});
+
+step('② 문제 만드는 중에는 이전 · 단계 이동이 막히고, 다른 메뉴로 가면 그 화면에 남는다', async (page) => {
+  await toMethod(page);
+  await page.click('[data-a="wiz-next"]');
+  await see(page, 'text=/지문 3개 중 \\d개 완료/');
+  assert(await page.locator('[data-a="wiz-go"]').count() === 0, '만드는 중에 단계 이동 버튼이 있음');
+  assert(await page.isDisabled('[data-a="wiz-prev"]'), '만드는 중에 이전이 켜져 있음');
+  await page.click('.cl-ws-nav >> text=시험 보관함');
+  await page.waitForTimeout(2500);
+  assert(page.url().endsWith('#library'), `만들기 화면으로 끌려감: ${page.url()}`);
+  assert(await page.isVisible('h1:has-text("시험 보관함")'), '보관함 화면이 아님');
+});
+
+step('① 자료: 데모 문항이 있는 지문 표시 · 붙여 넣은 지문만이면 ② 에서 알려 줌', async (page) => {
+  await open(page, '#new?paper=s-en');
+  await see(page, '[data-unit="s-en/u01"] >> text=데모 문항 있음');
+  assert(!(await page.isVisible('[data-unit="s-en/u03"] >> text=데모 문항 있음')), '그림 지문에 데모 표시');
+  await page.click('[data-a="src-tab"][data-v="paste"]');
+  await see(page, 'text=데모에서는 붙여 넣은 지문으로 문항이 나오지 않아요');
+  await page.fill('[data-a="paste-title"]', '교과서 1과');
+  await page.fill('[data-a="paste-text"]', 'Good habits are built one small step at a time.');
+  if (await page.isVisible('[data-a="rights"]')) await page.check('[data-a="rights"]');
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=방식');
+  assert(await page.isDisabled('[data-a="wiz-next"]'), '데모 문항이 없는데 문제 만들기가 켜져 있음');
+  assert((await page.getAttribute('[data-a="wiz-next"]', 'title')).includes('데모 문항'), '이유 안내 없음');
+});
+
+step('① 에서 과목을 바꾸면 ② 묶음이 그 과목 기본값으로', async (page) => {
+  await toMethod(page);
+  await page.click('[data-a="grp"][data-v="original"]');
+  await page.click('[data-a="grp"][data-v="blank"]');
+  await page.click('[data-a="wiz-go"][data-v="1"]');
+  await page.click('[data-a="src-subject"][data-v="국어"]');
+  await page.click('[data-a="src-all"]');
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=방식');
+  assert(await page.getAttribute('[data-a="grp"][data-v="original"]', 'aria-pressed') === 'true', '원래 유형 그대로가 기본으로 돌아오지 않음');
+  assert(!(await page.textContent('.pt-bar__summary')).includes('빈칸'), '다른 과목 묶음이 남음');
+});
+
+step('① 에서 고른 지문을 바꾸면 ③ · ④ 로 바로 건너뛸 수 없다', async (page) => {
+  await toReview(page);
+  await page.click('[data-a="wiz-go"][data-v="1"]');
+  await page.click('.pt-basket [data-a="basket-remove"] >> nth=0');
+  assert(await page.locator('[data-a="wiz-go"][data-v="3"]').count() === 0, '지문을 바꿨는데 ③ 으로 건너뛸 수 있음');
+});
+
+step('완성한 시험지를 다시 열어 보기만 해도 완성 그대로', async (page) => {
+  await toPrint(page);
+  await page.fill('[data-a="title"]', '완성 유지');
+  await page.click('[data-a="save-done"]');
+  await page.waitForFunction(() => location.hash === '#exams');
+  await page.click('tr:has-text("완성 유지") [data-a="ex-print"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=인쇄');
+  await page.click('[data-a="wiz-prev"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=검토');
+  await page.click('.cl-ws-nav >> text=시험 출제');
+  await see(page, 'tr:has-text("완성 유지")');
+  const badge = await page.textContent('tr:has-text("완성 유지") .cl-badge');
+  assert(badge.trim() === '완성', `상태가 바뀜: ${badge}`);
+});
+
 realStep('실제 데이터: 보관함 → 상세 → 빈칸 지문 4개 → 만들기 → 검토 → 인쇄 안내 → 저장', async (page) => {
   await open(page);
   await see(page, 'text=아직 만든 시험지가 없어요');

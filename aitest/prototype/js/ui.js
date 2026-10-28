@@ -5,6 +5,8 @@ export const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&am
 // 데이터 글에 들어 있는 <u>밑줄</u> 만 살린다.
 export const rich = (s) => esc(s).replace(/&lt;(\/?)u&gt;/g, '<$1u>');
 
+// 데모 문항 풀에 문항이 있는 지문('paperId/unitId').
+export const demoKeys = (state) => new Set((state.data?.pool || []).map((it) => `${it.paperId}/${it.unitId}`));
 export const badge = (text, tone = 'neutral') => `<span class="cl-badge cl-badge--${tone}">${esc(text)}</span>`;
 
 export const firstLine = (s, n = 60) => {

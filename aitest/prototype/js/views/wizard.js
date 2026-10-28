@@ -66,9 +66,11 @@ export function unitsOf(wiz, state) {
   }).filter(Boolean);
 }
 
-export function saveDraft(wiz, state, status = 'draft') {
+// status 를 주지 않으면 저장된 상태(완성 · 작성 중)를 그대로 둔다. 열어 보기만 해도 '작성 중'으로 돌아가지 않게.
+export function saveDraft(wiz, state, status) {
+  status ||= state.store.getExam(wiz.examId)?.status || 'draft';
   const title = wiz.title || `${wiz.subject} 변형 시험지 ${new Date().toISOString().slice(5, 10).replace('-', '/')}`;
-  const { examId, ...rest } = wiz;
+  const { examId, generating, ...rest } = wiz;
   const sourceLabel = [...new Set(unitsOf(wiz, state).map((u) => u.paperTitle))].join(' · ');
   state.store.saveExam({ id: examId, title, subject: wiz.subject, status, step: wiz.step, count: wiz.items.length, source: wiz.selected, sourceLabel, wiz: rest });
   const target = `#new-${examId}`;
@@ -94,20 +96,30 @@ export function view(state) {
     const n = i + 1;
     const cur = n === wiz.step ? 'aria-current="step"' : '';
     const label = `${'①②③④'[i]} ${l}`;
-    return `<li>${n <= wiz.reached && n !== wiz.step ? `<button type="button" class="pt-step is-done" data-a="wiz-go" data-v="${n}">${label}</button>` : `<span class="pt-step${n < wiz.reached ? ' is-done' : ''}" ${cur}>${label}</span>`}</li>`;
+    return `<li>${n <= wiz.reached && n !== wiz.step && !wiz.generating ? `<button type="button" class="pt-step is-done" data-a="wiz-go" data-v="${n}">${label}</button>` : `<span class="pt-step${n < wiz.reached ? ' is-done' : ''}" ${cur}>${label}</span>`}</li>`;
   }).join('<li class="pt-steps__sep" aria-hidden="true">→</li>')}</ol>`;
   const nextLabel = ['다음: 만들 방식', '문제 만들기', '다음: 인쇄', ''][wiz.step - 1];
   const bar = `<div class="pt-bar"><div class="pt-bar__summary">${step.summary(wiz, state)}</div>
-    ${wiz.step > 1 ? '<button type="button" class="cl-btn cl-btn--ghost" data-a="wiz-prev">이전</button>' : ''}
+    ${wiz.step > 1 ? `<button type="button" class="cl-btn cl-btn--ghost" data-a="wiz-prev" ${wiz.generating ? 'disabled' : ''}>이전</button>` : ''}
     ${nextLabel ? `<button type="button" class="cl-btn cl-btn--primary" data-a="wiz-next" ${ok === true ? '' : 'disabled'} title="${ok === true ? '' : esc(ok)}">${nextLabel}</button>` : ''}</div>`;
   return `<div class="cl-page pt-wide pt-wizard"><a class="cl-text-btn pt-back" href="#exams">← 시험 출제</a>
     <div class="cl-page__head"><p class="cl-page__parent">시험 출제</p><h1 class="cl-page__title">새 시험지 만들기</h1></div>
     ${stepper}${step.view(wiz, state)}${bar}</div>`;
 }
 
+// ① 에서 지문 · 과목을 바꾸면 만든 문항이 맞지 않으니 ③ · ④ 로 건너뛰지 못하게 한다.
+// ③ · ④ 에서 고친 내용은 바로 저장한다(새로 고쳐도 남게).
+const mark = (wiz) => `${wiz.subject}|${wiz.selected.join(',')}`;
+function afterChange(wiz, state, before) {
+  if (state.ui.wiz !== wiz) return;
+  if (wiz.step === 1 && mark(wiz) !== before && wiz.reached > 2) { wiz.reached = 2; render(); }
+  if (wiz.step >= 3) saveDraft(wiz, state);
+}
+
 export async function onAction(a, el, state) {
   const wiz = wizOf(state);
   const step = STEPS[wiz.step - 1];
+  if (wiz.generating && (a === 'wiz-go' || a === 'wiz-prev')) return;
   if (a === 'wiz-go') return goStep(wiz, state, Number(el.dataset.v));
   if (a === 'wiz-prev') return goStep(wiz, state, wiz.step - 1);
   if (a === 'wiz-next') {
@@ -115,12 +127,17 @@ export async function onAction(a, el, state) {
     if (step.next) return step.next(wiz, state);
     return goStep(wiz, state, wiz.step + 1);
   }
-  return step.onAction?.(a, el, wiz, state);
+  const before = mark(wiz);
+  const r = await step.onAction?.(a, el, wiz, state);
+  afterChange(wiz, state, before);
+  return r;
 }
 
 export function onInput(a, el, state) {
   const wiz = wizOf(state);
+  const before = mark(wiz);
   STEPS[wiz.step - 1].onInput?.(a, el, wiz, state);
+  afterChange(wiz, state, before);
 }
 
 // 입력 중 다시 그려도 입력 칸 커서를 지킨다.

@@ -44,6 +44,9 @@ export function planDistribution(units, settings, subject) {
 
 const isObjective = (it) => (it.choices || []).length >= 4 && it.answer > 0;
 const isPosition = (it) => it.choices.every((c) => CIRCLED.includes(String(c).trim()));
+// 해설의 ①~⑤ 가 선택지가 아니라 발문의 밑줄 표시를 가리키거나(어법 개수 등), 선택지 순서가 정해진 문항(1개~5개, (A)-(B)-(C) 순서)은 섞지 않는다.
+const ORDERED = /^\s*(\d+\s*개|\([A-E]\)(\s*[-–]\s*\([A-E]\))+)\s*$/;
+const keepOrder = (it) => /[①②③④⑤]/.test(String(it.stem || '')) || it.choices.every((c) => ORDERED.test(String(c)));
 
 export function answerDistribution(items) {
   const d = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -61,7 +64,7 @@ export function needsShuffle(items) {
 export function shuffleAnswers(items, seed) {
   let k = 0;
   return items.map((it) => {
-    if (!isObjective(it) || isPosition(it)) return it;
+    if (!isObjective(it) || isPosition(it) || keepOrder(it)) return it;
     const len = it.choices.length;
     const target = ((k++ + seed) % len) + 1;
     if (target === it.answer) return it;

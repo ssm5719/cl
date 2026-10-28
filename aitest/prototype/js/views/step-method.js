@@ -1,8 +1,8 @@
 // ② 만들 방식: 유형 묶음 칩 · 세부 유형 · 형태 · 난이도 · 문항 수 · 자세히 설정 → 문제 만들기.
 import { render } from '../app.js';
-import { GROUPS, ORIGINAL, FORMS, LEVELS, LEVEL_LABEL, RULES } from '../constants.js';
+import { GROUPS, ORIGINAL, FORMS, LEVELS, LEVEL_LABEL, RULES, TEXT } from '../constants.js';
 import { countSummary, allocate, generate } from '../generator.js';
-import { esc } from '../ui.js';
+import { esc, demoKeys } from '../ui.js';
 import { unitsOf, goStep, rerenderKeepFocus } from './wizard.js';
 import { flaggedFirst } from './step-review.js';
 
@@ -23,6 +23,10 @@ function totalOf(wiz, state) {
 function originalAllowed(wiz, state) { return unitsOf(wiz, state).some((u) => !isPasted(u)); }
 function normalize(wiz, state) {
   const s = wiz.settings;
+  // 과목을 바꾼 뒤 남은 다른 과목 묶음 키는 버린다.
+  const known = new Set(['original', ...GROUPS[wiz.subject].map((g) => g.key)]);
+  s.groups = s.groups.filter((g) => known.has(g));
+  s.subtypes = Object.fromEntries(Object.entries(s.subtypes || {}).filter(([g]) => known.has(g)));
   if (!originalAllowed(wiz, state)) s.groups = s.groups.filter((g) => g !== 'original');
   if (s.form === 'OX') s.groups = s.groups.filter((g) => g !== 'writing');
   if (!s.groups.length && wiz.groupsTouched !== true) s.groups = [GROUPS[wiz.subject][0].key];
@@ -41,6 +45,8 @@ export function summary(wiz, state) {
 
 export function canNext(wiz, state) {
   if (wiz.generating) return '만드는 중이에요';
+  const demo = demoKeys(state);
+  if (!unitsOf(wiz, state).some((u) => demo.has(u.unitKey))) return TEXT.demoNoneSelected;
   if (!wiz.settings.groups.length) return '어떤 문제를 만들지 하나 이상 골라 주세요';
   if (totalOf(wiz, state) < 1) return '문항 수를 1개 이상으로 정해 주세요';
   return true;
@@ -55,7 +61,8 @@ export async function next(wiz, state) {
   const result = await generate(units, wiz.settings, wiz.subject, state.data.pool);
   for (let i = 1; i <= working.length; i++) {
     await new Promise((r) => setTimeout(r, PROGRESS_MS));
-    if (state.ui.wiz !== wiz) return;
+    // 만드는 중에 다른 화면으로 갔으면 끌고 돌아오지 않는다.
+    if (state.ui.wiz !== wiz || location.hash !== state.ui.wizHash) { wiz.generating = null; return; }
     wiz.generating.done = i;
     render();
   }
