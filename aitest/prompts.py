@@ -85,6 +85,8 @@ GEN_SYSTEM_COMMON = """너는 한국 학원에서 내신 · 모의고사 대비 
 - 원래 문항의 발문과 선택지를 그대로 베끼지 않는다.
 - 선택지는 5개, answer 는 정답 선택지의 번호(1~5)다. 서답형이면 choices 를 비우고 answer 를 0 으로 두며 answer_text 에 모범 답을 적는다.
 - explanation 에는 정답 근거와, 오답 선택지 가운데 헷갈리기 쉬운 것이 왜 틀렸는지를 짧게 적는다.
+- 요청에 형태(4지 · OX · 서답형)가 따로 적혀 있으면 위의 '선택지 5개'보다 그 형태를 따른다.
+- subtype 에는 세부 유형 이름, form 에는 5지 · 4지 · OX · 서답 중 하나를 적고, rubric 은 서답형에만 채운다(객관식은 빈 배열).
 """
 
 GEN_SYSTEM_READING = """- evidence 에는 정답의 근거가 되는 문장을 지문에서 한 글자도 바꾸지 말고 그대로 옮긴다(1~3개).
@@ -116,6 +118,36 @@ PRESETS = {
 
 DEFAULT_PRESET = {"영어": "same_type", "국어": "same_type", "수학": "twin"}
 
+# 유형 묶음 출제 (프로토타입 ② 만들 방식의 칩 하나 = 묶음 하나). 키는 prototype/js/constants.js 의 GROUPS 와 같다.
+# 세부 유형을 고르지 않았으면 묶음 안에서 지문에 맞는 세부 유형을 골라 subtype 에 적는다.
+_WRITING = ("서답형으로 만든다. choices 는 빈 배열, answer 는 0, answer_text 에 모범 답안, "
+            "rubric 에 채점 기준을 2~3개({point, criterion}) 적는다. 조건(글자 수 · 단어 수 · 쓸 말)을 발문에 분명히 적는다.")
+GROUP_PRESETS = {
+    "영어": {
+        "main": "대의 파악 문항(주제 · 제목 · 요지 · 주장 · 목적 중 지문에 맞는 것). 요지 · 주장 · 목적은 한국어 선택지, 주제 · 제목은 영어 선택지로 쓴다(수능 관례).",
+        "detail": "세부 내용 문항(내용 일치 · 내용 불일치 · 답할 수 없는 질문). 선택지는 한국어로, 지문 순서대로 배열한다.",
+        "blank": "빈칸 추론 문항(한 단어 또는 구/절). 지문의 핵심 문장 하나를 ________ 로 바꿔 발문에 지문 전체를 다시 싣는다. 원래 문항의 빈칸이 있으면 원래 정답으로 채우지 말고, 원래 빈칸을 그대로 두지도 말고, 다른 문장을 빈칸으로 만든다.",
+        "flow": "글의 흐름 문항(순서 · 순서(처음 · 끝 고정) · 문장 삽입 · 무관한 문장). 지문을 다시 나누거나 위치 표시를 새로 달아 발문에 지문 전체를 싣는다. 원래 문항에서 빼냈던 문장은 쓰지 않는다.",
+        "summary": "(A)(B) 요약문 완성 문항. 요약문은 새로 쓰고, 지문에 그대로 나온 낱말이 정답이 되지 않게 바꿔 쓴 말로 고른다.",
+        "grammar": "어법 · 어휘 문항(어법 밑줄 · 어법 개수 · 어휘 밑줄 · 어휘 개수 · 의미가 같은 것 · 고난도 내신형). 밑줄은 <u>...</u> 와 ①~⑤ 로 새로 표시해 발문에 지문 전체를 싣는다.",
+        "writing": "서술형 문항(요약문 빈칸 쓰기 · 어법 틀린 곳 고치기 · 조건 영작 · 주제문 쓰기). " + _WRITING,
+    },
+    "국어": {
+        "fact": "사실적 읽기 문항(내용 일치 · 세부 정보 확인). '적절하지 않은 것'은 <u>않은</u> 으로 표시한다.",
+        "infer": "추론적 읽기 문항(내용 추론 · 견해 비교 · 전제 · 이유).",
+        "apply": "<보기> 적용 · 비판 문항(구체적 사례 적용 · 외적 준거 감상). 새 <보기>를 만들어 발문 안에 넣는다.",
+        "vocab": "어휘 문항(문맥상 의미 · 바꿔 쓰기). 지문의 낱말에 ⓐ~ⓔ 를 새로 붙일 때는 해당 구절을 발문에 인용한다.",
+        "lit": "문학 표현 · 감상 문항(표현상 특징 · 시어 · 시구 의미 · 인물 태도). 해석이 갈릴 수 있는 선택지는 피한다.",
+        "writing": "서술형 문항(요약 쓰기 · 근거 찾아 쓰기). " + _WRITING,
+    },
+}
+
+FORM_LINE = {
+    "5지": "객관식은 5지 선다(선택지 5개)로 만든다.",
+    "4지": "객관식은 4지 선다(선택지 4개)로 만든다.",
+    "OX": "OX 문항으로 만든다. choices 는 [\"O\", \"X\"], answer 는 1(O) 또는 2(X).",
+}
+
 GEN_USER = """[자료] {exam_name} · {numbers}번 · {type_label}
 
 {unit_text}
@@ -139,9 +171,21 @@ GEN_SCHEMA = {
                     "answer_text": {"type": "string"},
                     "explanation": {"type": "string"},
                     "evidence": {"type": "array", "items": {"type": "string"}},
+                    "subtype": {"type": "string", "description": "세부 유형. 묶음 출제일 때 묶음의 세부 유형 목록 중 하나"},
+                    "form": {"type": "string", "enum": ["5지", "4지", "OX", "서답"]},
+                    "rubric": {
+                        "type": "array",
+                        "description": "서답형 채점 기준. 객관식이면 빈 배열",
+                        "items": {
+                            "type": "object",
+                            "properties": {"point": {"type": "integer"}, "criterion": {"type": "string"}},
+                            "required": ["point", "criterion"],
+                            "additionalProperties": False,
+                        },
+                    },
                 },
                 "required": ["type_label", "stem", "choices", "answer", "answer_text",
-                             "explanation", "evidence"],
+                             "explanation", "evidence", "subtype", "form", "rubric"],
                 "additionalProperties": False,
             },
         },
