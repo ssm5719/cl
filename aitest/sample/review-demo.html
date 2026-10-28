@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 출제 문항 검토</title>
+<style>
+/* 배치: 위 고정 막대(검토자 · 탭 · 진행) → 탭 본문. 문항 검토는 왼쪽 지문, 오른쪽 문항 · 판정 두 열. */
+:root {
+  --bg: #F5F5F7; --panel: #FFFFFF; --fg: #1D1D1F; --muted: #5E5E63; --line: #E0E0E3; --soft: #EFEFF2;
+  --accent: #904AE8; --accent-ink: #7A35D0; --accent-tint: #F3ECFD; --on-accent: #FFFFFF;
+  --ok: #137333; --ok-bg: #E6F4EA; --warn: #9A5200; --warn-bg: #FEF3E0; --bad: #C5221F; --bad-bg: #FCE8E6;
+  --mark: #FFE58A;
+  --font: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #161618; --panel: #1F1F22; --fg: #EDEDF0; --muted: #A1A1A8; --line: #34343A; --soft: #2A2A2F;
+  --accent: #A57CF5; --accent-ink: #C09AF8; --accent-tint: #2E2440; --on-accent: #161618;
+  --ok: #4CC38A; --ok-bg: #16301F; --warn: #F0A040; --warn-bg: #33270F; --bad: #FF6B5E; --bad-bg: #3A1C1A;
+  --mark: #6B5A12; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.6 var(--font); }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.top { position: sticky; top: 0; z-index: 10; background: var(--panel); border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.top h1 { margin: 0; font-size: 16px; }
+.top .sub { color: var(--muted); font-size: 13px; }
+.grow { flex: 1; }
+.who { display: flex; gap: 6px; align-items: center; font-size: 13px; }
+.who input { height: 32px; width: 140px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.who input.need { border-color: var(--bad); }
+.tabs { display: flex; gap: 2px; padding: 0 16px; background: var(--panel); border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tabs button { height: 44px; padding: 0 14px; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--muted); font-weight: 600; white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--fg); }
+.tabs .n { font-weight: 500; font-size: 12px; margin-left: 4px; }
+main { max-width: 1280px; margin: 0 auto; padding: 20px 16px 80px; }
+.banner { padding: 10px 14px; border-radius: 8px; background: var(--warn-bg); color: var(--warn); font-weight: 600; margin-bottom: 16px; }
+.hint { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 6px; background: var(--soft); color: var(--muted); white-space: nowrap; }
+.badge.ok { background: var(--ok-bg); color: var(--ok); }
+.badge.warn { background: var(--warn-bg); color: var(--warn); }
+.badge.bad { background: var(--bad-bg); color: var(--bad); }
+.badge.accent { background: var(--accent-tint); color: var(--accent-ink); }
+.row { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.btn { height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); font-weight: 600; }
+.btn:hover { border-color: var(--fg); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn[disabled] { opacity: .4; cursor: not-allowed; }
+.chip { height: 30px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); font-size: 13px; }
+.chip[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--panel); }
+textarea { width: 100%; min-height: 56px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); resize: vertical; }
+.passage { white-space: pre-wrap; overflow-wrap: anywhere; }
+mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2px; }
+details > summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+
+/* 지문 나누기 */
+.units { display: flex; flex-direction: column; gap: 10px; }
+.unit-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.unit-head b { font-size: 15px; }
+.unit .q { margin-top: 8px; font-size: 14px; }
+.unit .q ol { margin: 4px 0 0; padding-left: 22px; }
+.unit .judge { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+
+/* 문항 검토 */
+.bar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 12px; }
+.prog { font-weight: 700; font-variant-numeric: tabular-nums; }
+.timer { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+.dots { display: flex; flex-wrap: wrap; gap: 4px; }
+.dots button { width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); font-size: 11px; padding: 0; font-variant-numeric: tabular-nums; }
+.dots button.asis { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); }
+.dots button.edit { background: var(--warn-bg); border-color: var(--warn); color: var(--warn); }
+.dots button.reject { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+.dots button[aria-current="true"] { outline: 2px solid var(--fg); outline-offset: 1px; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.two > .card { display: flex; flex-direction: column; gap: 12px; }
+.src { position: sticky; top: 112px; max-height: calc(100vh - 130px); overflow: auto; }
+.lab { font-size: 12px; font-weight: 700; color: var(--muted); }
+.stem { font-weight: 600; white-space: pre-wrap; overflow-wrap: anywhere; }
+.choices { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.choices li { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; overflow-wrap: anywhere; }
+.choices li.right { border: 2px solid var(--fg); font-weight: 700; }
+.ans { background: var(--soft); border-radius: 8px; padding: 10px 12px; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ev { margin: 0; padding-left: 18px; font-size: 14px; }
+.ev li.miss { color: var(--bad); }
+.verdicts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.verdicts button { min-height: 48px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); font-weight: 700; }
+.verdicts button small { display: block; font-weight: 500; font-size: 11px; color: var(--muted); }
+.verdicts button[aria-pressed="true"].asis { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); }
+.verdicts button[aria-pressed="true"].edit { background: var(--warn-bg); border-color: var(--warn); color: var(--warn); }
+.verdicts button[aria-pressed="true"].reject { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+.auto { border: 1px dashed var(--line); border-radius: 8px; padding: 10px 12px; font-size: 13px; display: flex; flex-direction: column; gap: 4px; }
+.nav { display: flex; gap: 8px; justify-content: space-between; }
+.keys { color: var(--muted); font-size: 12px; }
+
+/* 내보내기 */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.stats div { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.stats b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+.field { display: flex; flex-direction: column; gap: 6px; max-width: 520px; margin-bottom: 16px; }
+.field input { height: 36px; width: 120px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+
+@media (max-width: 900px) {
+  .two { grid-template-columns: 1fr; }
+  .src { position: static; max-height: 40vh; }
+  .who input { width: 110px; }
+}
+</style>
+</head>
+<body>
+<div class="top">
+  <div>
+    <h1 id="title">AI 출제 문항 검토</h1>
+    <div class="sub" id="subtitle"></div>
+  </div>
+  <div class="grow"></div>
+  <label class="who">검토하는 선생님 <input id="reviewer" placeholder="이름" autocomplete="name"></label>
+</div>
+<nav class="tabs" role="tablist" aria-label="검토 단계">
+  <button role="tab" data-tab="units">① 지문 나누기 확인<span class="n" id="n-units"></span></button>
+  <button role="tab" data-tab="items">② 문항 검토<span class="n" id="n-items"></span></button>
+  <button role="tab" data-tab="export">③ 결과 내려받기</button>
+</nav>
+<main id="main"></main>
+
+<script>
+(function () {
+const DATA = {"run": {"name": "demo", "subject": "영어", "exam_name": "모의 데이터", "exam_title": "모의 데이터 · 영어 (흐름 확인용, 실제 시험지 아님)", "model": "mock", "preset": "same_type", "mock": true}, "units": [{"numbers": "18", "type_label": "글의 목적", "passage": "Dear Residents, The community garden on Maple Street will reopen next month after the repairs to its water system. To make the garden a better place for everyone, we are looking for volunteers who can spend two hours a week watering plants and cleaning the paths. No experience is needed, and all tools will be provided. If you are interested, please sign up at the community center by Friday. We look forward to growing together with you. Sincerely, Linda Park", "questions": [{"number": "18", "stem": "다음 글의 목적으로 가장 적절한 것은?", "choices": ["정원 개장 일정 변경을 알리려고", "정원 자원봉사자를 모집하려고", "정원 도구 기부를 요청하려고", "정원 수리 비용을 안내하려고", "정원 이용 규칙을 설명하려고"]}], "has_figure": false, "figure_desc": "", "confidence": "high", "note": "", "id": "u01"}, {"numbers": "22", "type_label": "글의 요지", "passage": "Many students believe that reading a chapter several times is the best way to remember it. However, research shows that simply rereading creates a feeling of familiarity rather than real understanding. A more effective approach is to close the book and try to recall the main ideas on your own. This effort to retrieve information strengthens memory far more than passive review. Mistakes made during recall are also useful, because they show exactly which parts need more attention. In short, testing yourself is not just a way to check learning; it is a way to learn.", "questions": [{"number": "22", "stem": "다음 글의 요지로 가장 적절한 것은?", "choices": ["반복해서 읽는 것이 가장 효과적인 학습법이다.", "스스로 떠올려 보는 연습이 기억을 강화한다.", "실수를 줄이는 것이 학습의 핵심이다.", "교재를 덮고 공부하면 이해가 떨어진다.", "시험은 학습 결과를 확인하는 도구일 뿐이다."]}], "has_figure": false, "figure_desc": "", "confidence": "high", "note": "", "id": "u02"}, {"numbers": "25", "type_label": "도표", "passage": "The graph above shows the percentage of teenagers who used each type of device to read news in 2020 and 2025.", "questions": [{"number": "25", "stem": "다음 도표의 내용과 일치하지 않는 것은?", "choices": ["①", "②", "③", "④", "⑤"]}], "has_figure": true, "figure_desc": "기기별(스마트폰 · 태블릿 · 노트북 · 종이 신문) 청소년 뉴스 이용 비율 막대그래프, 2020년과 2025년 비교", "confidence": "low", "note": "막대 위 숫자 일부가 흐림", "id": "u03"}, {"numbers": "31", "type_label": "빈칸", "passage": "When people face a difficult choice, they often look for more information, hoping it will make the decision easier. Yet beyond a certain point, additional information tends to increase confusion instead of reducing it. Each new detail adds another factor to compare, and the mind struggles to weigh them all. Experienced decision makers therefore learn to ________. They identify the two or three factors that matter most and deliberately ignore the rest. This does not mean they are careless; it means they understand that clarity often comes from leaving things out.", "questions": [{"number": "31", "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?", "choices": ["gather as many facts as possible", "limit what they pay attention to", "delay decisions until they are certain", "ask others to decide for them", "trust their first impressions"]}], "has_figure": false, "figure_desc": "", "confidence": "high", "note": "", "id": "u04"}], "items": [{"type_label": "모의 · 내용 일치", "stem": "[모의 데이터 u01-1] 윗글의 내용과 일치하는 것은?", "choices": ["선택지 가", "선택지 나", "선택지 다", "선택지 라", "선택지 마"], "answer": 1, "answer_text": "", "explanation": "모의 데이터라 해설이 없습니다.", "evidence": ["Dear Residents, The community garden on Maple Street will reopen next month after the repairs to its water system."], "id": "u01-1", "unit_id": "u01", "preset": "same_type", "gen_seconds": 0.0, "auto": {"evidence_ok": true, "solve_match": true, "solve_answer": 1, "solve_answer_text": "", "issues": [], "reason": "모의 검사", "pass": true}}, {"type_label": "모의 · 내용 일치", "stem": "[모의 데이터 u01-2] 윗글의 내용과 일치하는 것은?", "choices": ["선택지 가", "선택지 나", "선택지 다", "선택지 라", "선택지 마"], "answer": 2, "answer_text": "", "explanation": "모의 데이터라 해설이 없습니다.", "evidence": ["This sentence is not in the passage."], "id": "u01-2", "unit_id": "u01", "preset": "same_type", "gen_seconds": 0.0, "auto": {"evidence_ok": false, "solve_match": true, "solve_answer": 2, "solve_answer_text": "", "issues": [], "reason": "모의 검사", "pass": false}}, {"type_label": "모의 · 내용 일치", "stem": "[모의 데이터 u02-1] 윗글의 내용과 일치하는 것은?", "choices": ["선택지 가", "선택지 나", "선택지 다", "선택지 라", "선택지 마"], "answer": 1, "answer_text": "", "explanation": "모의 데이터라 해설이 없습니다.", "evidence": ["Many students believe that reading a chapter several times is the best way to remember it."], "id": "u02-1", "unit_id": "u02", "preset": "same_type", "gen_seconds": 0.0, "auto": {"evidence_ok": true, "solve_match": true, "solve_answer": 1, "solve_answer_text": "", "issues": [], "reason": "모의 검사", "pass": true}}, {"type_label": "모의 · 내용 일치", "stem": "[모의 데이터 u02-2] 윗글의 내용과 일치하는 것은?", "choices": ["선택지 가", "선택지 나", "선택지 다", "선택지 라", "선택지 마"], "answer": 2, "answer_text": "", "explanation": "모의 데이터라 해설이 없습니다.", "evidence": ["This sentence is not in the passage."], "id": "u02-2", "unit_id": "u02", "preset": "same_type", "gen_seconds": 0.0, "auto": {"evidence_ok": false, "solve_match": true, "solve_answer": 2, "solve_answer_text": "", "issues": [], "reason": "모의 검사", "pass": false}}, {"type_label": "모의 · 내용 일치", "stem": "[모의 데이터 u04-1] 윗글의 내용과 일치하는 것은?", "choices": ["선택지 가", "선택지 나", "선택지 다", "선택지 라", "선택지 마"], "answer": 1, "answer_text": "", "explanation": "모의 데이터라 해설이 없습니다.", "evidence": ["When people face a difficult choice, they often look for more information, hoping it will make the decision easier."], "id": "u04-1", "unit_id": "u04", "preset": "same_type", "gen_seconds": 0.0, "auto": {"evidence_ok": true, "solve_match": true, "solve_answer": 1, "solve_answer_text": "", "issues": [], "reason": "모의 검사", "pass": true}}, {"type_label": "모의 · 내용 일치", "stem": "[모의 데이터 u04-2] 윗글의 내용과 일치하는 것은?", "choices": ["선택지 가", "선택지 나", "선택지 다", "선택지 라", "선택지 마"], "answer": 2, "answer_text": "", "explanation": "모의 데이터라 해설이 없습니다.", "evidence": ["This sentence is not in the passage."], "id": "u04-2", "unit_id": "u04", "preset": "same_type", "gen_seconds": 0.0, "auto": {"evidence_ok": false, "solve_match": true, "solve_answer": 2, "solve_answer_text": "", "issues": [], "reason": "모의 검사", "pass": false}}]};
+const KEY = 'aitest-review:' + (DATA ? DATA.run.name : 'none');
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NUM = ['①','②','③','④','⑤','⑥','⑦'];
+const UNIT_REASONS = ['경계가 틀림', '글자 누락 · 오타', '유형 이름 틀림', '그림 설명 부족', '빠진 단위 있음'];
+const ITEM_REASONS = ['정답 오류', '복수 정답', '지문 근거 없음', '선택지 어색', '발문 어색', '난이도 안 맞음', '원래 문항과 너무 비슷', '형식 · 오탈자', '기타'];
+const VERDICTS = [['asis', '그대로 사용', '1'], ['edit', '고쳐서 사용', '2'], ['reject', '사용 불가', '3']];
+
+if (!DATA) { $('#main').innerHTML = '<p>데이터가 없습니다. <code>python aitest.py review</code> 로 만든 파일을 여세요.</p>'; return; }
+
+const units = Object.fromEntries(DATA.units.map((u) => [u.id, u]));
+const items = DATA.items;
+
+function loadState() {
+  try { const v = localStorage.getItem(KEY); if (v) return JSON.parse(v); } catch (e) {}
+  return null;
+}
+const S = loadState() || { reviewer: '', tab: 'units', idx: 0, units: {}, items: {}, manual_minutes: null };
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+// 타이머: 문항이 화면에 있고 탭이 보일 때만 센다. 처음 판정을 누르면 멈춘다.
+const T = { id: null, ms: 0, from: null };
+function timerStart(id) {
+  T.id = id; T.ms = 0; T.from = document.hidden ? null : performance.now();
+}
+function timerNow() { return T.ms + (T.from != null ? performance.now() - T.from : 0); }
+document.addEventListener('visibilitychange', () => {
+  if (T.id == null) return;
+  if (document.hidden && T.from != null) { T.ms += performance.now() - T.from; T.from = null; }
+  else if (!document.hidden && T.from == null) T.from = performance.now();
+});
+setInterval(() => { const el = $('#timer'); if (el && T.id && !(S.items[T.id] && S.items[T.id].seconds)) el.textContent = Math.round(timerNow() / 1000) + '초'; }, 500);
+
+// 근거 문장 표시: 지문 안에서 찾으면 노란 형광, 못 찾으면 빨간 글씨로 따로 보여 준다.
+function passageHtml(text, evidence) {
+  let html = esc(text).replace(/&lt;(\/?)u&gt;/g, '<$1u>');
+  const missing = [];
+  (evidence || []).forEach((e) => {
+    const needle = esc(e).replace(/&lt;(\/?)u&gt;/g, '<$1u>');
+    const at = needle ? html.indexOf(needle) : -1;
+    if (at >= 0) html = html.slice(0, at) + '<mark>' + needle + '</mark>' + html.slice(at + needle.length);
+    else missing.push(e);
+  });
+  return { html, missing };
+}
+
+function render() {
+  $('#title').textContent = 'AI 출제 문항 검토 · ' + DATA.run.exam_name;
+  $('#subtitle').textContent = `${DATA.run.subject} · 출제 방식 ${DATA.run.preset} · 모델 ${DATA.run.model} · 실행 ${DATA.run.name}`;
+  $('#reviewer').value = S.reviewer;
+  $('#reviewer').classList.toggle('need', !S.reviewer);
+  document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === S.tab)));
+  const uDone = Object.values(S.units).filter((v) => v.ok != null).length;
+  const iDone = Object.values(S.items).filter((v) => v.verdict).length;
+  $('#n-units').textContent = `${uDone}/${DATA.units.length}`;
+  $('#n-items').textContent = `${iDone}/${items.length}`;
+  const head = DATA.run.mock ? '<div class="banner">모의 데이터입니다. 흐름 확인용이며 실제 AI 결과가 아닙니다.</div>' : '';
+  $('#main').innerHTML = head + (S.tab === 'units' ? viewUnits() : S.tab === 'items' ? viewItems() : viewExport());
+  if (S.tab === 'items') {
+    const it = items[S.idx];
+    if (it && T.id !== it.id) timerStart(it.id);
+  }
+}
+
+function viewUnits() {
+  return `<p class="hint">원본 시험지 PDF를 옆에 열어 두고, AI가 지문 · 문항을 맞게 나눴는지 확인하세요. 글자를 하나하나 대조할 필요는 없고, 지문 경계 · 빠진 문장 · 유형 이름 위주로 봐 주세요.</p>
+  <div class="units">${DATA.units.map((u) => {
+    const v = S.units[u.id] || {};
+    const used = items.some((it) => it.unit_id === u.id);
+    return `<section class="card unit" aria-label="${esc(u.numbers)}번">
+      <div class="unit-head"><b>${esc(u.numbers)}번</b><span class="badge accent">${esc(u.type_label)}</span>
+        ${u.has_figure ? '<span class="badge warn">그림 · 도표 포함</span>' : ''}
+        ${u.confidence === 'low' ? '<span class="badge bad">AI: 확실하지 않음</span>' : ''}
+        ${used ? '' : '<span class="badge">문항 만들기에 안 씀</span>'}</div>
+      ${u.note ? `<p class="hint" style="margin:6px 0 0">AI 메모: ${esc(u.note)}</p>` : ''}
+      ${u.passage ? `<details><summary>지문 보기 (${u.passage.length}자)</summary><p class="passage">${passageHtml(u.passage).html}</p></details>` : ''}
+      ${u.figure_desc ? `<p class="hint" style="margin:6px 0 0">그림 설명: ${esc(u.figure_desc)}</p>` : ''}
+      ${u.questions.map((q) => `<div class="q"><b>${esc(q.number)}.</b> <span class="passage">${esc(q.stem)}</span>${q.choices.length ? `<ol>${q.choices.map((c) => `<li>${esc(c)}</li>`).join('')}</ol>` : ''}</div>`).join('')}
+      <div class="judge">
+        <div class="row"><span class="lab">나누기</span>
+          <button class="chip" data-a="unitOk" data-id="${u.id}" data-v="1" aria-pressed="${v.ok === true}">맞음</button>
+          <button class="chip" data-a="unitOk" data-id="${u.id}" data-v="0" aria-pressed="${v.ok === false}">틀림</button></div>
+        ${v.ok === false ? `<div class="row">${UNIT_REASONS.map((r) => `<button class="chip" data-a="unitReason" data-id="${u.id}" data-v="${esc(r)}" aria-pressed="${(v.reasons || []).includes(r)}">${esc(r)}</button>`).join('')}</div>
+        <textarea data-a="unitMemo" data-id="${u.id}" placeholder="무엇이 틀렸는지 (선택)">${esc(v.memo || '')}</textarea>` : ''}
+      </div></section>`;
+  }).join('')}</div>`;
+}
+
+function viewItems() {
+  if (!items.length) return '<p>만든 문항이 없습니다.</p>';
+  if (!S.reviewer) return '<div class="card"><p style="margin:0">위쪽에 검토하는 선생님 이름을 먼저 적어 주세요. 이름을 적으면 문항별 검토 시간을 재기 시작합니다.</p></div>';
+  const it = items[S.idx], u = units[it.unit_id], v = S.items[it.id] || {};
+  const p = passageHtml(u.passage || '', it.evidence);
+  const qs = u.questions.map((q) => `<div><span class="lab">원래 ${esc(q.number)}번</span><div class="passage">${esc(q.stem)}</div></div>`).join('');
+  const choices = (it.choices || []).length
+    ? `<ol class="choices">${it.choices.map((c, i) => `<li class="${i + 1 === it.answer ? 'right' : ''}">${NUM[i] || i + 1} ${esc(c)}</li>`).join('')}</ol>` : '';
+  const answer = (it.choices || []).length ? `정답 ${NUM[it.answer - 1] || it.answer}` : `정답 ${esc(it.answer_text)}`;
+  const a = it.auto;
+  const autoHtml = !a ? '' : !v.verdict
+    ? '<div class="auto"><span class="lab">자동 검사</span><span>판정을 고르면 보여요 (먼저 보면 판단이 쏠리기 때문)</span></div>'
+    : `<div class="auto"><span class="lab">자동 검사 — ${a.pass ? '<span class="badge ok">통과</span>' : '<span class="badge bad">걸림</span>'}</span>
+        ${a.error ? `<span>오류: ${esc(a.error)}</span>` : ''}
+        ${a.evidence_ok == null ? '' : `<span>근거 문장이 지문에 그대로 있음: ${a.evidence_ok ? '예' : '<b>아니요</b>'}</span>`}
+        ${a.solve_match == null ? '' : `<span>정답 숨기고 다시 풀기: ${a.solve_match ? '같은 답' : `<b>다른 답</b> (${(it.choices || []).length ? (NUM[a.solve_answer - 1] || a.solve_answer) : esc(a.solve_answer_text)})`}</span>`}
+        ${(a.issues || []).length ? `<span>지적: ${a.issues.map(esc).join(' · ')}</span>` : ''}
+        ${a.reason ? `<span class="hint" style="margin:0">${esc(a.reason)}</span>` : ''}</div>`;
+  return `<div class="bar">
+      <span class="prog">${S.idx + 1} / ${items.length}</span>
+      <span class="timer" id="timer">${v.seconds ? `검토 ${v.seconds}초` : ''}</span>
+      <div class="grow"></div>
+      <div class="dots" aria-label="문항 바로 가기">${items.map((x, i) => `<button data-a="jump" data-v="${i}" class="${(S.items[x.id] || {}).verdict || ''}" aria-current="${i === S.idx}" aria-label="${i + 1}번 문항">${i + 1}</button>`).join('')}</div>
+    </div>
+    <div class="two">
+      <section class="card src" aria-label="자료">
+        <div class="row"><span class="lab">자료 · ${esc(u.numbers)}번 ${esc(u.type_label)}</span></div>
+        ${u.passage ? `<div class="passage">${p.html}</div>` : ''}
+        ${u.figure_desc ? `<p class="hint" style="margin:0">그림 설명: ${esc(u.figure_desc)}</p>` : ''}
+        <details><summary>원래 문항 보기</summary>${qs}</details>
+      </section>
+      <section class="card" aria-label="AI가 만든 문항">
+        <div class="row"><span class="badge accent">${esc(it.type_label)}</span><span class="badge">AI 생성 · ${esc(it.id)}</span></div>
+        <div class="stem">${esc(it.stem)}</div>
+        ${choices}
+        <div class="ans"><b>${answer}</b>\n${esc(it.explanation)}</div>
+        ${(it.evidence || []).length && DATA.run.subject !== '수학' ? `<div><span class="lab">근거 문장 (왼쪽 지문에 노란색)</span>${p.missing.length ? `<ul class="ev">${p.missing.map((e) => `<li class="miss">지문에서 찾지 못함: ${esc(e)}</li>`).join('')}</ul>` : ''}</div>` : ''}
+        <div class="verdicts">${VERDICTS.map(([k, l, key]) => `<button class="${k}" data-a="verdict" data-v="${k}" aria-pressed="${v.verdict === k}">${l}<small>${key} 키</small></button>`).join('')}</div>
+        ${v.verdict && v.verdict !== 'asis' ? `<div class="row">${ITEM_REASONS.map((r) => `<button class="chip" data-a="itemReason" data-v="${esc(r)}" aria-pressed="${(v.reasons || []).includes(r)}">${esc(r)}</button>`).join('')}</div>
+          <textarea data-a="itemMemo" placeholder="${v.verdict === 'edit' ? '어디를 어떻게 고쳐야 하는지' : '왜 쓸 수 없는지'} (선택)">${esc(v.memo || '')}</textarea>` : ''}
+        ${autoHtml}
+        <div class="nav">
+          <button class="btn" data-a="prev" ${S.idx === 0 ? 'disabled' : ''}>← 이전</button>
+          <span class="keys">1 · 2 · 3 판정, Enter 다음</span>
+          <button class="btn primary" data-a="next" ${S.idx === items.length - 1 ? 'disabled' : ''}>다음 →</button>
+        </div>
+      </section>
+    </div>`;
+}
+
+function viewExport() {
+  const vs = Object.values(S.items).filter((v) => v.verdict);
+  const c = (k) => vs.filter((v) => v.verdict === k).length;
+  const uv = Object.values(S.units).filter((v) => v.ok != null);
+  const secs = vs.map((v) => v.seconds).filter(Boolean).sort((a, b) => a - b);
+  const med = secs.length ? secs[Math.floor(secs.length / 2)] : null;
+  return `<div class="stats">
+      <div>지문 나누기 맞음<b>${uv.filter((v) => v.ok).length} / ${uv.length}</b></div>
+      <div>그대로 사용<b>${c('asis')}</b></div>
+      <div>고쳐서 사용<b>${c('edit')}</b></div>
+      <div>사용 불가<b>${c('reject')}</b></div>
+      <div>검토 시간 중앙값<b>${med != null ? med + '초' : '-'}</b></div>
+    </div>
+    <label class="field">이 과목에서 이런 문항을 선생님이 직접 만들면, 1문항에 보통 몇 분 걸리나요?
+      <input type="number" min="0" step="0.5" data-a="manual" value="${S.manual_minutes ?? ''}" placeholder="분"></label>
+    <div class="row">
+      <button class="btn primary" data-a="exportJson">결과 내려받기 (JSON)</button>
+      <button class="btn" data-a="exportCsv">표로 내려받기 (CSV)</button>
+      <div class="grow"></div>
+      <button class="btn" data-a="clear">이 브라우저의 기록 지우기</button>
+    </div>
+    <p class="hint" style="margin-top:12px">기록은 이 브라우저에만 저장됩니다. 다 보셨으면 JSON 을 내려받아 담당자에게 보내 주세요. 중간에 닫아도 같은 브라우저로 다시 열면 이어서 할 수 있어요.</p>`;
+}
+
+function payload() {
+  return { run: DATA.run.name, reviewer: S.reviewer, exported_at: new Date().toISOString(),
+           manual_minutes: S.manual_minutes, units: S.units, items: S.items };
+}
+function download(name, text, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type }));
+  a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function csv() {
+  const q = (s) => '"' + String(s == null ? '' : s).replace(/"/g, '""') + '"';
+  const rows = [['문항', '단위', '유형', '판정', '이유', '검토초', '메모']];
+  items.forEach((it) => { const v = S.items[it.id] || {}; rows.push([it.id, units[it.unit_id].numbers, it.type_label, v.verdict || '', (v.reasons || []).join(' · '), v.seconds || '', v.memo || '']); });
+  return '﻿' + rows.map((r) => r.map(q).join(',')).join('\n');
+}
+
+function setVerdict(k) {
+  const it = items[S.idx];
+  const v = S.items[it.id] || (S.items[it.id] = {});
+  if (!v.seconds && T.id === it.id) v.seconds = Math.max(1, Math.round(timerNow() / 1000));
+  v.verdict = k;
+  if (k === 'asis') { v.reasons = []; }
+  save(); render();
+}
+function go(i) { S.idx = Math.max(0, Math.min(items.length - 1, i)); save(); render(); window.scrollTo(0, 0); }
+
+document.addEventListener('click', (e) => {
+  const tab = e.target.closest('.tabs button');
+  if (tab) { S.tab = tab.dataset.tab; save(); render(); return; }
+  const b = e.target.closest('[data-a]');
+  if (!b || b.tagName === 'TEXTAREA' || b.tagName === 'INPUT') return;
+  const a = b.dataset.a, id = b.dataset.id, val = b.dataset.v;
+  if (a === 'unitOk') { const v = S.units[id] || (S.units[id] = {}); v.ok = val === '1'; if (v.ok) v.reasons = []; }
+  else if (a === 'unitReason') { const v = S.units[id]; v.reasons = toggle(v.reasons, val); }
+  else if (a === 'verdict') return setVerdict(val);
+  else if (a === 'itemReason') { const v = S.items[items[S.idx].id]; v.reasons = toggle(v.reasons, val); }
+  else if (a === 'jump') return go(Number(val));
+  else if (a === 'prev') return go(S.idx - 1);
+  else if (a === 'next') return go(S.idx + 1);
+  else if (a === 'exportJson') return download(`review-${DATA.run.name}-${S.reviewer || 'noname'}.json`, JSON.stringify(payload(), null, 2), 'application/json');
+  else if (a === 'exportCsv') return download(`review-${DATA.run.name}-${S.reviewer || 'noname'}.csv`, csv(), 'text/csv');
+  else if (a === 'clear') { if (!confirm('이 브라우저에 저장된 검토 기록을 모두 지울까요? 내려받지 않은 기록은 되살릴 수 없어요.')) return; S.units = {}; S.items = {}; S.idx = 0; T.id = null; }
+  save(); render();
+});
+document.addEventListener('input', (e) => {
+  const a = e.target.dataset.a;
+  if (a === 'unitMemo') S.units[e.target.dataset.id].memo = e.target.value;
+  else if (a === 'itemMemo') S.items[items[S.idx].id].memo = e.target.value;
+  else if (a === 'manual') S.manual_minutes = e.target.value === '' ? null : Number(e.target.value);
+  else if (e.target.id === 'reviewer') {
+    const had = !!S.reviewer; S.reviewer = e.target.value.trim(); save();
+    if (!had && S.reviewer && S.tab === 'items') render();
+    e.target.classList.toggle('need', !S.reviewer);
+    return;
+  }
+  save();
+});
+document.addEventListener('keydown', (e) => {
+  if (S.tab !== 'items' || !S.reviewer || e.target.matches('input, textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
+  const hit = VERDICTS.find((x) => x[2] === e.key);
+  if (hit) { e.preventDefault(); setVerdict(hit[0]); }
+  else if (e.key === 'Enter' || e.key === 'ArrowRight') { e.preventDefault(); go(S.idx + 1); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); go(S.idx - 1); }
+});
+function toggle(list, x) { list = list || []; return list.includes(x) ? list.filter((y) => y !== x) : [...list, x]; }
+
+render();
+})();
+</script>
+</body>
+</html>

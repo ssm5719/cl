@@ -1,0 +1,41 @@
+{
+  "exam_title": "모의 데이터 · 영어 (흐름 확인용, 실제 시험지 아님)",
+  "units": [
+    {
+      "numbers": "18",
+      "type_label": "글의 목적",
+      "passage": "Dear Residents, The community garden on Maple Street will reopen next month after the repairs to its water system. To make the garden a better place for everyone, we are looking for volunteers who can spend two hours a week watering plants and cleaning the paths. No experience is needed, and all tools will be provided. If you are interested, please sign up at the community center by Friday. We look forward to growing together with you. Sincerely, Linda Park",
+      "questions": [
+        {"number": "18", "stem": "다음 글의 목적으로 가장 적절한 것은?", "choices": ["정원 개장 일정 변경을 알리려고", "정원 자원봉사자를 모집하려고", "정원 도구 기부를 요청하려고", "정원 수리 비용을 안내하려고", "정원 이용 규칙을 설명하려고"]}
+      ],
+      "has_figure": false, "figure_desc": "", "confidence": "high", "note": ""
+    },
+    {
+      "numbers": "22",
+      "type_label": "글의 요지",
+      "passage": "Many students believe that reading a chapter several times is the best way to remember it. However, research shows that simply rereading creates a feeling of familiarity rather than real understanding. A more effective approach is to close the book and try to recall the main ideas on your own. This effort to retrieve information strengthens memory far more than passive review. Mistakes made during recall are also useful, because they show exactly which parts need more attention. In short, testing yourself is not just a way to check learning; it is a way to learn.",
+      "questions": [
+        {"number": "22", "stem": "다음 글의 요지로 가장 적절한 것은?", "choices": ["반복해서 읽는 것이 가장 효과적인 학습법이다.", "스스로 떠올려 보는 연습이 기억을 강화한다.", "실수를 줄이는 것이 학습의 핵심이다.", "교재를 덮고 공부하면 이해가 떨어진다.", "시험은 학습 결과를 확인하는 도구일 뿐이다."]}
+      ],
+      "has_figure": false, "figure_desc": "", "confidence": "high", "note": ""
+    },
+    {
+      "numbers": "25",
+      "type_label": "도표",
+      "passage": "The graph above shows the percentage of teenagers who used each type of device to read news in 2020 and 2025.",
+      "questions": [
+        {"number": "25", "stem": "다음 도표의 내용과 일치하지 않는 것은?", "choices": ["①", "②", "③", "④", "⑤"]}
+      ],
+      "has_figure": true, "figure_desc": "기기별(스마트폰 · 태블릿 · 노트북 · 종이 신문) 청소년 뉴스 이용 비율 막대그래프, 2020년과 2025년 비교", "confidence": "low", "note": "막대 위 숫자 일부가 흐림"
+    },
+    {
+      "numbers": "31",
+      "type_label": "빈칸",
+      "passage": "When people face a difficult choice, they often look for more information, hoping it will make the decision easier. Yet beyond a certain point, additional information tends to increase confusion instead of reducing it. Each new detail adds another factor to compare, and the mind struggles to weigh them all. Experienced decision makers therefore learn to ________. They identify the two or three factors that matter most and deliberately ignore the rest. This does not mean they are careless; it means they understand that clarity often comes from leaving things out.",
+      "questions": [
+        {"number": "31", "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?", "choices": ["gather as many facts as possible", "limit what they pay attention to", "delay decisions until they are certain", "ask others to decide for them", "trust their first impressions"]}
+      ],
+      "has_figure": false, "figure_desc": "", "confidence": "high", "note": ""
+    }
+  ]
+}
