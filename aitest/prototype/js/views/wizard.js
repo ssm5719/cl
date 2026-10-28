@@ -35,7 +35,9 @@ function newWiz(state, r) {
 }
 
 function fromExam(exam) {
-  return { ...newWizShape(), ...exam.wiz, examId: exam.id };
+  const wiz = { ...newWizShape(), ...exam.wiz, examId: exam.id };
+  wiz.reached = Math.max(wiz.reached || 1, wiz.step || 1);
+  return wiz;
 }
 function newWizShape() {
   return { removed: [], typeFilter: '', paperQ: '', paste: [{ title: '', text: '' }], notes: [] };
@@ -65,7 +67,8 @@ export function unitsOf(wiz, state) {
 export function saveDraft(wiz, state, status = 'draft') {
   const title = wiz.title || `${wiz.subject} 변형 시험지 ${new Date().toISOString().slice(5, 10).replace('-', '/')}`;
   const { examId, ...rest } = wiz;
-  state.store.saveExam({ id: examId, title, subject: wiz.subject, status, step: wiz.step, count: wiz.items.length, source: wiz.selected, wiz: rest });
+  const sourceLabel = [...new Set(unitsOf(wiz, state).map((u) => u.paperTitle))].join(' · ');
+  state.store.saveExam({ id: examId, title, subject: wiz.subject, status, step: wiz.step, count: wiz.items.length, source: wiz.selected, sourceLabel, wiz: rest });
   const target = `#/new/${examId}`;
   if (location.hash !== target) {
     history.replaceState(null, '', target);

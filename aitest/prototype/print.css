@@ -1,0 +1,10 @@
+/* 인쇄: 화면 틀은 숨기고 #print-root(문제지 + 정답 별지)만 A4 로 찍는다. */
+#print-root { display: none; }
+@media print {
+  @page { size: A4; margin: 15mm; }
+  body > *:not(#print-root) { display: none !important; }
+  #print-root { display: block; }
+  #print-root .pt-sheet { box-shadow: none; border: 0; padding: 0; max-width: none; aspect-ratio: auto; }
+  #print-root .pt-sheet--answers { break-before: page; }
+  #print-root .pt-q { break-inside: avoid; }
+}

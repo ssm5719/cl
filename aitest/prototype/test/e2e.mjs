@@ -247,6 +247,90 @@ step('③ 검토: 고치기 · 다시 만들기 · 빼기 · 순서 · 서술형
   await see(page, '.pt-icard >> text=채점 기준');
 });
 
+
+// 원래 유형 그대로 · 지문당 1문항이면 예시 데이터에서 정답이 ③ ③ ② 로 몰린다.
+async function toPrint(page) {
+  await open(page, '#/new?units=s-en/u01,s-en/u02,s-en/u04');
+  await page.click('[data-a="wiz-next"]');
+  await page.click('[data-a="per-unit"][data-v="1"]');
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=검토', 6000);
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=인쇄');
+}
+const cols = (page) => page.$eval('.pt-sheet__body', (el) => getComputedStyle(el).columnCount);
+
+step('④ 인쇄: 탭 · 단 · 정답 위치 · 출처 · 정답 섞기 · 인쇄 호출', async (page) => {
+  await toPrint(page);
+  await page.click('[data-a="cols"][data-v="1"]');
+  assert(await cols(page) === '1' || await cols(page) === 'auto', '1단이 아님');
+  await page.click('[data-a="cols"][data-v="2"]');
+  assert(await cols(page) === '2', '2단이 아님');
+  await page.click('[data-a="answer-at"][data-v="below"]');
+  await see(page, '.pt-sheet .pt-q-answer');
+  await page.click('[data-a="answer-at"][data-v="none"]');
+  assert(await page.locator('.pt-sheet .pt-q-answer').count() === 0, '정답 빼기가 안 됨');
+  await see(page, '.pt-sheet >> text=2026 내신 대비 예시 · 고2 영어 22번 변형');
+  await page.click('[data-a="sheet"][data-v="answers"]');
+  await see(page, '.pt-sheet >> text=정답 · 해설');
+  await see(page, '[data-a="shuffle"]');
+  await page.click('[data-a="shuffle"]');
+  await page.waitForSelector('[data-a="shuffle"]', { state: 'detached' });
+  await page.evaluate(() => { window.__printed = 0; window.print = () => { window.__printed++; }; });
+  await page.click('[data-a="print"]');
+  assert(await page.evaluate(() => window.__printed) === 1, '인쇄가 호출되지 않음');
+});
+
+step('만든 시험지 목록: 저장 · 다시 인쇄 · 이어서 고치기 · 복사 · 삭제 · 처음으로', async (page) => {
+  await open(page, '#/exams');
+  await see(page, 'text=아직 만든 시험지가 없어요');
+  await toPrint(page);
+  await page.fill('[data-a="title"]', '10월 변형 1회');
+  await page.click('[data-a="save-done"]');
+  await page.waitForFunction(() => location.hash === '#/exams');
+  await see(page, 'tr:has-text("10월 변형 1회") >> text=완성');
+  await page.click('tr:has-text("10월 변형 1회") [data-a="ex-print"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=인쇄');
+  await open(page, '#/exams');
+  await page.click('tr:has-text("10월 변형 1회") [data-a="ex-edit"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=검토');
+  await open(page, '#/exams');
+  await page.click('tr:has-text("10월 변형 1회") [data-a="ex-copy"]');
+  await see(page, 'td >> text=10월 변형 1회 (복사)');
+  await page.fill('[data-a="ex-q"]', '복사');
+  assert(await page.locator('tbody tr').count() === 1, '검색이 안 됨');
+  await page.fill('[data-a="ex-q"]', '');
+  await page.click('tr:has-text("10월 변형 1회 (복사)") [data-a="ex-del"]');
+  await page.waitForSelector('td >> text=10월 변형 1회 (복사)', { state: 'detached' });
+  await page.click('[data-a="demo-reset"]');
+  await see(page, 'text=아직 만든 시험지가 없어요');
+});
+
+step('모든 단계 · 세 너비에서 가로 스크롤 없음', async (page) => {
+  for (const w of [1440, 1024, 390]) {
+    await page.setViewportSize({ width: w, height: 900 });
+    await toPrint(page);
+    assert(await noHScroll(page), `${w}px 인쇄 단계에서 가로 스크롤`);
+    await page.click('[data-a="wiz-go"][data-v="3"]');
+    assert(await noHScroll(page), `${w}px 검토 단계에서 가로 스크롤`);
+    await page.click('[data-a="wiz-go"][data-v="2"]');
+    assert(await noHScroll(page), `${w}px 방식 단계에서 가로 스크롤`);
+  }
+});
+
+
+step('④ 인쇄: 지문은 같은 지문 문항 묶음마다 한 번만, [1~2] 머리말과 함께', async (page) => {
+  await open(page, '#/new?units=s-en/u01');
+  await page.click('[data-a="wiz-next"]');
+  await page.click('[data-a="grp"][data-v="detail"]');
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=검토', 6000);
+  await page.click('[data-a="wiz-next"]');
+  const text = await page.textContent('.pt-sheet');
+  assert(text.split('Starting next Monday').length - 1 === 1, '지문이 한 번 인쇄되지 않음');
+  assert(text.includes('[1~2] 다음 글을 읽고 물음에 답하시오.'), '[1~2] 머리말 없음');
+});
+
 // ---------------------------------------------------------------- 실행
 
 const server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: ROOT, stdio: 'ignore' });
