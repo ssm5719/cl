@@ -2910,6 +2910,58 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
 .cl-post-page .cl-pagination { margin-top: 24px; }`,
     targets: [".cl-teacher", ".cl-qna-list", ".cl-post-list"],
     note: "학원소개(NB2) 여백 기준을 맞춤"
+  },
+  {
+    id: "NT6",
+    group: 2,
+    status: "확정",
+    kind: "마크업",
+    layer: "화면별",
+    screens: ["a-teacher-read"],
+    title: "선생님 상세 — [프로필 | 담당 강좌] 두 열, 상자 없이",
+    current: "프로필 · 강좌가 각각 테두리 상자, 최대 860px(1200 화면에서 오른쪽 340px 빈칸), 강좌 줄은 글자만",
+    next: "1200 을 [프로필 320 | 담당 강좌] 두 열로 — 테두리 상자는 없애고 사이 64 로만 나눔. 프로필은 사진 160 · 이름 · 정보 · 버튼 세로, 스크롤해도 따라옴. 강좌는 썸네일 128(16:9) + 제목 · 정보, 줄 사이 옅은 회색 선, hover 는 제목만 보라. 900 이하 한 열 · 사진 88",
+    css: `/* 두 열 — [프로필 320 | 담당 강좌], 상자 테두리 없이 */
+@media (min-width: 901px) {
+  .cl-teacher { display: grid; grid-template-columns: 320px minmax(0, 1fr); column-gap: 64px; align-items: start; }
+  .cl-teacher .cl-teacher__card:not(.cl-teacher__courses) { position: sticky; top: calc(var(--cl-h-public-header, 72px) + 32px); }
+}
+.cl-teacher .cl-teacher__card { max-width: none; border: 0; border-radius: 0; background: none; padding: 0; }
+/* 프로필 — 사진 · 이름 · 정보 · 버튼 세로로 */
+.cl-teacher .cl-teacher__card:not(.cl-teacher__courses) { gap: 0; }
+.cl-teacher .cl-teacher__head { flex-direction: column; align-items: flex-start; gap: 20px; }
+.cl-teacher .cl-teacher__avatar { width: 160px; border-radius: var(--cl-radius-sm); }
+.cl-teacher .cl-teacher__name { margin: 0; }
+.cl-teacher .cl-teacher__info { margin-top: 20px; padding-top: 20px; gap: 12px; }
+.cl-teacher .cl-cd__pills { margin-top: 24px; }
+/* 담당 강좌 — 제목 아래 옅은 회색 선으로만 줄 구분, 썸네일 128 */
+.cl-teacher .cl-teacher__courses-title { padding: 0 0 16px; }
+.cl-teacher .cl-teacher__course-list { border-top: 1px solid var(--cl-hairline); }
+.cl-teacher .cl-teacher__course { grid-template-columns: 128px minmax(0, 1fr) auto; grid-template-areas: "thumb title go" "thumb meta go"; column-gap: 20px; row-gap: 6px; align-content: center; padding: 16px 0; border-top: 0; border-bottom: 1px solid var(--cl-hairline); }
+.cl-teacher .cl-teacher__course strong { align-self: end; }
+.cl-teacher .cl-teacher__course > span:not(.cl-teacher__course-thumb) { align-self: start; }
+.cl-teacher .cl-teacher__course-thumb { grid-area: thumb; width: 128px; aspect-ratio: 16 / 9; border-radius: var(--cl-radius-2xs); overflow: hidden; background: var(--cl-hover); }
+.cl-teacher .cl-teacher__course-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cl-teacher .cl-teacher__course:hover { background: none; }
+.cl-teacher .cl-teacher__course:hover strong { color: var(--cl-primary); }
+@media (max-width: 900px) {
+  .cl-teacher { gap: 48px; }
+  .cl-teacher .cl-teacher__head { flex-direction: row; align-items: flex-end; gap: 16px; }
+  .cl-teacher .cl-teacher__avatar { width: 88px; }
+}
+@media (max-width: 600px) {
+  .cl-teacher .cl-teacher__course { grid-template-columns: 96px minmax(0, 1fr) auto; column-gap: 14px; }
+  .cl-teacher .cl-teacher__course-thumb { width: 96px; }
+}`,
+    dom: `doc.querySelectorAll('.cl-teacher__course').forEach(function (a) {
+  if (a.querySelector('.cl-teacher__course-thumb')) return;
+  var t = doc.createElement('span'); t.className = 'cl-teacher__course-thumb'; t.setAttribute('aria-hidden', 'true');
+  var img = doc.createElement('img'); img.src = '../img/course-default.png'; img.alt = ''; img.loading = 'lazy';
+  t.appendChild(img); a.insertBefore(t, a.firstChild);
+});`,
+    markup: "강좌 줄 앞에 <span class=\"cl-teacher__course-thumb\"><img src=\"강좌 썸네일(없으면 기본 이미지)\" alt=\"\"></span> 추가.",
+    targets: [".cl-teacher"],
+    note: "강좌가 1~2개여도 줄 목록이라 빈칸이 덜 생김. 야간 NT4(두 열 제안)를 대신함"
   }
 ];
 
