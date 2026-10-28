@@ -2874,6 +2874,42 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     markup: '`.cl-teacher-card__btn` 을 그리지 않는다. 이름은 `<strong class="cl-teacher-card__name"><span class="cl-teacher-card__name-text">조하늘 선생님</span><svg class="cl-icon cl-teacher-card__arrow">→</svg></strong>`. 사진이 없으면 성 한 글자 대신 36px 사람 아이콘(AM10 과 같은 SVG) — 목록 `.cl-teacher-card__photo` · 상세 `.cl-teacher__avatar` 두 곳.',
     targets: ['.cl-teacher-grid'],
     note: '야간 검수 NT2 의 앞부분(버튼 빼기)을 확정한 것이다. NT2 의 나머지(칩 고름 연보라 · 모바일 가로 넘김)는 아직 정할 것으로 남아 있다. 이름은 길면 말줄임(…)이 글자에만 걸리고 화살표는 늘 보이도록 글자를 안쪽 span 으로 감쌌다. 실험실 화면은 사진 대신 \'사진 없음\' 상태로 바꿔 아이콘이 보이게 했다 — 실제로 사진을 올린 선생님은 사진이 그대로 나온다.'
+  },
+  {
+    id: "NS1",
+    group: 3,
+    status: "확정",
+    kind: "CSS",
+    layer: "화면별",
+    screens: ["a-teacher-read", "a-qna", "a-board"],
+    title: "선생님 상세 · Q&A · 자유게시판 — 학원소개처럼 여유 있게",
+    current: "선생님 상세 카드 안 24 · 카드 사이 16 · 정보 줄 간격 8 · 값 600, 강좌 줄 14. Q&A 줄 위아래 16, 게시판 줄 14, 목록 윗선 검정, 도구줄과 목록 사이 16",
+    next: "카드 안 32 · 카드 사이 24 · 정보 위 선 옅은 회색 · 줄 간격 12 · 값 500, 강좌 줄 20. Q&A 줄 24, 게시판 줄 20 · 머리줄 12, 목록 윗선 옅은 회색, 도구줄과 목록 사이 24(Q&A 는 개수 줄 위 24), 쪽 번호 위 24",
+    css: `/* 선생님 상세 — 카드 안 여백 24 → 32, 카드 사이 16 → 24 */
+.cl-teacher { gap: var(--cl-space-5); }
+.cl-teacher__card:not(.cl-teacher__courses) { padding: 32px; gap: 24px; }
+/* 이름 · 정보 두 묶음 — 학원소개와 같이 옅은 회색 선, 선 아래 24 */
+.cl-teacher__info { padding-top: 24px; gap: 12px; border-top-color: var(--cl-hairline); }
+.cl-teacher__info dd { font-weight: 500; }
+.cl-teacher__courses-title { padding: 20px 32px; }
+.cl-teacher__course { padding: 20px 32px; border-top-color: var(--cl-hairline); }
+@media (max-width: 600px) {
+  .cl-teacher__card:not(.cl-teacher__courses) { padding: 24px 20px; }
+  .cl-teacher__card.cl-teacher__courses { padding: 0; }
+  .cl-teacher__courses-title, .cl-teacher__course { padding-left: 20px; padding-right: 20px; }
+}
+/* Q&A · 자유게시판 목록 — 도구줄 아래 24, 목록 윗선 검정 → 옅은 회색, 줄 높이 늘림 */
+.cl-post-toolbar__count { margin-top: 8px; }
+.cl-post-toolbar:not(.cl-post-toolbar--filters) + [data-list] { margin-top: 8px; }
+.cl-qna-list, .cl-post-list { border-top-color: var(--cl-hairline); }
+.cl-qna-item { padding: 24px 8px; border-bottom-color: var(--cl-hairline); }
+.cl-qna-item__body { gap: 6px; }
+.cl-post-row--head { padding-top: 12px; padding-bottom: 12px; }
+.cl-post-row:not(.cl-post-row--head) { padding-top: 20px; padding-bottom: 20px; }
+.cl-post-row { border-bottom-color: var(--cl-hairline); }
+.cl-post-page .cl-pagination { margin-top: 24px; }`,
+    targets: [".cl-teacher", ".cl-qna-list", ".cl-post-list"],
+    note: "학원소개(NB2) 여백 기준을 맞춤"
   }
 ];
 
