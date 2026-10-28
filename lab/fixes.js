@@ -2481,8 +2481,8 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     id: 'AM11', group: 4, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main'],
     title: '사진이 없는 자리 — 연보라 한 단계 밝히기',
     current: '사진이 없으면 연보라(`--cl-primary-tint` #F3ECFD)가 들어간다. 선생님 12명이 모두 사진이 없는 학원에서는 연보라 네모가 화면을 덮는다. 학원 대표색이 \'누를 수 있는 것\'을 뜻하는데 **비어 있는 자리**에 가장 많이 쓰이게 된다',
-    next: '한 단계 밝은 #F7F3FD 로 내린다. 거의 흰색이라 보라 덩어리로 읽히지 않으면서 학원 색의 기운은 남는다. 회색(#F5F5F7)도 재 봤지만 사진을 못 불러온 것처럼 보인다. **바탕색만 바꾸고 무늬는 넣지 않는다**',
-    css: `/* 빈 자리는 연보라를 한 단계 밝혀 거의 흰색으로 — 보라 덩어리로 읽히지 않게 */\n.cl-home-teacher__photo { background: #F7F3FD; }\n.cl-home-hero__media:not(:has(img)),\n.cl-home-banner:not(:has(img)) { background-color: #F7F3FD; }`,
+    next: '한 단계 밝은 var(--cl-primary-wash) 로 내린다. 거의 흰색이라 보라 덩어리로 읽히지 않으면서 학원 색의 기운은 남는다. 회색(#F5F5F7)도 재 봤지만 사진을 못 불러온 것처럼 보인다. **바탕색만 바꾸고 무늬는 넣지 않는다**',
+    css: `/* 빈 자리는 연보라를 한 단계 밝혀 거의 흰색으로 — 보라 덩어리로 읽히지 않게 */\n.cl-home-teacher__photo { background: var(--cl-primary-wash); }\n.cl-home-hero__media:not(:has(img)),\n.cl-home-banner:not(:has(img)) { background-color: var(--cl-primary-wash); }`,
     targets: ['.cl-home-teacher__photo', '.cl-home-hero__media'],
     note: '구름 무늬 안은 접었다 — 빈 자리는 조용한 쪽이 맞고, 지어낸 장식은 한 번 보면 눈에 걸린다. 줄 hover 색(`--cl-row-hover` #FAF7FE)보다 한 칸 진해서, 사진 없는 선생님 카드에 마우스를 올려도 사진칸이 배경에 녹지 않는다. 강좌 썸네일은 기본 이미지가 항상 등록되므로 이 건에서 뺐다. 토큰으로 올릴 값이다 — 두 번째로 쓰는 자리가 생기면 `--cl-empty` 로 올린다.'
   },
@@ -2514,7 +2514,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     css: `/* 줄 hover 값을 하나로 — 공개 #FAF7FE · 전체강좌 #FAFAFC · 작업공간 #FAFAFB 세 값이 쓰이고 있었다 */\n.cl-scope { --cl-row-hover: #FAF7FE; }\n.cl-home-course:hover,\n.cl-qna-item:hover,\n.cl-post-row:not(.cl-post-row--head):hover,\n.cl-teacher__course:hover,\n.cl-cs-row:hover,\n.cl-auth__method:hover { background: var(--cl-row-hover); }\n/* 공통층 전환 목록에 border-color 가 빠져 있어 카드 테두리만 뚝 바뀌었다 */\n.cl-scope :is(button, a) { transition: background var(--cl-dur) var(--cl-ease), color var(--cl-dur) var(--cl-ease), border-color var(--cl-dur) var(--cl-ease), transform var(--cl-dur) var(--cl-ease); }\n/* 카드도 줄처럼 제목이 보라로 — 분류 카드만 빠져 있었다 */\n.cl-home-cat:hover .cl-home-cat__head strong { color: var(--cl-primary-pressed); }`,
     markup: '`#FAF7FE` · `#FAFAFC` 를 직접 적은 곳을 모두 `var(--cl-row-hover)` 로 바꾸고, cl-tokens.css 의 `--cl-row-hover` 값을 #FAFAFB → #FAF7FE 로 고친다. 다크 테마 값(#232326)은 그대로 둔다.',
     targets: ['.cl-home-cats'],
-    note: 'AM11(빈 자리 #FAF7FE)과 값이 겹치던 문제가 있어 AM11 쪽을 #F7F3FD 로 한 칸 내렸다 — 빈 사진이 든 줄에 hover 가 걸려도 사진칸이 배경에 녹지 않는다. 공통층이라 관리자 · 선생님 · 학생 화면의 표 행 hover 가 함께 바뀐다. `border-color` 한 단어를 공통층에 넣는 것이 화면마다 전환을 적는 것보다 낫다 — 분류 카드 · 선생님 카드 · 강좌 카드 · 로그인 수단 카드가 한 번에 맞는다. 시간 값은 이미 `--cl-dur` 150ms · `--cl-ease` ease-out 이라 디자인시스템이 정한 "버튼 · 링크의 색과 크기 변화는 150ms ease-out" 그대로다.'
+    note: 'AM11(빈 자리 #FAF7FE)과 값이 겹치던 문제가 있어 AM11 쪽을 var(--cl-primary-wash) 로 한 칸 내렸다 — 빈 사진이 든 줄에 hover 가 걸려도 사진칸이 배경에 녹지 않는다. 공통층이라 관리자 · 선생님 · 학생 화면의 표 행 hover 가 함께 바뀐다. `border-color` 한 단어를 공통층에 넣는 것이 화면마다 전환을 적는 것보다 낫다 — 분류 카드 · 선생님 카드 · 강좌 카드 · 로그인 수단 카드가 한 번에 맞는다. 시간 값은 이미 `--cl-dur` 150ms · `--cl-ease` ease-out 이라 디자인시스템이 정한 "버튼 · 링크의 색과 크기 변화는 150ms ease-out" 그대로다.'
   },
   {
     id: 'AM15', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-main'],
@@ -2869,7 +2869,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     title: '선생님 목록 — [프로필] 버튼 빼고, 메인과 같은 아이콘 · 칸 크기 하나로',
     current: '카드 전체가 링크인데 [프로필] 가짜 버튼이 또 있고, 버튼 아래 끝이 사진보다 20px 낮다. 사진이 없으면 성 한 글자(40px)가 보라 바탕에 크게 — 메인 선생님 카드(사람 아이콘 · 밝은 연보라)와 다르다. 소개글이 있는 카드와 없는 카드의 높이가 줄마다 다를 수 있다',
     next: '[프로필] 버튼을 빼고 글 묶음을 사진 가운데에 세운다. 마우스를 올리면 이름 옆 10px 에 화살표가 나타난다(AM16 과 같은 모양 · 속도). 사진이 없으면 메인과 같은 36px 사람 아이콘 · 밝은 연보라 바탕(AM10 · AM11) — 선생님 상세의 큰 사진 자리도 같이. 줄 높이를 `grid-auto-rows: 1fr` 로 모든 칸이 같은 높이 · 너비 · 여백(16)',
-    css: `/* 선생님 목록 — 가짜 [프로필] 버튼을 빼고, 메인 선생님 카드(AM10 · AM11 · AM16)와 같은 말투로 */\n.cl-teacher-grid { grid-auto-rows: 1fr; }\n.cl-teacher-card { align-items: center; }\n.cl-teacher-card__btn { display: none; }\n.cl-teacher-card__body { align-self: center; padding-top: 0; }\n.cl-teacher-card__meta { margin-bottom: 0; }\n/* 이름 옆 화살표 — 마우스를 올리면 제자리에서 나타난다 (AM16) */\n.cl-teacher-card__name { display: inline-flex; align-items: center; }\n.cl-teacher-card__name-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }\n.cl-teacher-card__arrow { flex: none; margin-left: 10px; color: var(--cl-primary); opacity: 0; transition: opacity 150ms ease-out; }\n.cl-teacher-card:hover .cl-teacher-card__arrow { opacity: 1; }\n/* 사진 없는 자리 — 메인과 같은 36px 사람 아이콘 · 밝은 연보라 바탕 (AM10 · AM11) */\n.cl-teacher-card__icon, .cl-teacher__avatar-icon { width: 36px; height: 36px; color: var(--cl-primary); }\n.cl-teacher-card__photo:has(.cl-teacher-card__icon), .cl-teacher__avatar:has(.cl-teacher__avatar-icon) { background: #F7F3FD; }\n@media (prefers-reduced-motion: reduce) { .cl-teacher-card__arrow { transition: none; } }`,
+    css: `/* 선생님 목록 — 가짜 [프로필] 버튼을 빼고, 메인 선생님 카드(AM10 · AM11 · AM16)와 같은 말투로 */\n.cl-teacher-grid { grid-auto-rows: 1fr; }\n.cl-teacher-card { align-items: center; }\n.cl-teacher-card__btn { display: none; }\n.cl-teacher-card__body { align-self: center; padding-top: 0; }\n.cl-teacher-card__meta { margin-bottom: 0; }\n/* 이름 옆 화살표 — 마우스를 올리면 제자리에서 나타난다 (AM16) */\n.cl-teacher-card__name { display: inline-flex; align-items: center; }\n.cl-teacher-card__name-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }\n.cl-teacher-card__arrow { flex: none; margin-left: 10px; color: var(--cl-primary); opacity: 0; transition: opacity 150ms ease-out; }\n.cl-teacher-card:hover .cl-teacher-card__arrow { opacity: 1; }\n/* 사진 없는 자리 — 메인과 같은 36px 사람 아이콘 · 밝은 연보라 바탕 (AM10 · AM11) */\n.cl-teacher-card__icon, .cl-teacher__avatar-icon { width: 36px; height: 36px; color: var(--cl-primary); }\n.cl-teacher-card__photo:has(.cl-teacher-card__icon), .cl-teacher__avatar:has(.cl-teacher__avatar-icon) { background: var(--cl-primary-wash); }\n@media (prefers-reduced-motion: reduce) { .cl-teacher-card__arrow { transition: none; } }`,
     dom: `var PERSON = '<path d="m11.4 93.3c-.1 0-.1 0-.2 0-1.3-.1-2.2-1.2-2.1-2.4 1.3-19.1 19.3-34 40.9-34s39.6 14.9 40.9 33.9c.1 1.3-.9 2.3-2.1 2.4-1.3.1-2.3-.9-2.4-2.1-1.2-16.7-17.2-29.7-36.4-29.7-19.3 0-35.3 13.1-36.4 29.8-.1 1.2-1.1 2.1-2.2 2.1z"></path><path d="m50 52.3c-12.6 0-22.8-10.2-22.8-22.8s10.2-22.8 22.8-22.8 22.8 10.2 22.8 22.8-10.2 22.8-22.8 22.8zm0-41c-10 0-18.2 8.2-18.2 18.2s8.2 18.2 18.2 18.2 18.2-8.2 18.2-18.2-8.2-18.2-18.2-18.2z"></path>';\nfunction icon(cls) { return '<svg class="' + cls + '" width="36" height="36" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">' + PERSON + '</svg>'; }\ndoc.querySelectorAll('.cl-teacher-card__photo__initial').forEach(function (el) { el.outerHTML = icon('cl-teacher-card__icon'); });\ndoc.querySelectorAll('.cl-teacher__avatar-initial').forEach(function (el) { el.outerHTML = icon('cl-teacher__avatar-icon'); });\nvar ARROW = '<svg class="cl-icon cl-teacher-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';\ndoc.querySelectorAll('.cl-teacher-card__name').forEach(function (el) {\n  if (el.querySelector('.cl-teacher-card__arrow')) return;\n  var t = doc.createElement('span'); t.className = 'cl-teacher-card__name-text'; t.textContent = el.textContent; el.textContent = ''; el.append(t);\n  el.insertAdjacentHTML('beforeend', ARROW);\n});`,
     markup: '`.cl-teacher-card__btn` 을 그리지 않는다. 이름은 `<strong class="cl-teacher-card__name"><span class="cl-teacher-card__name-text">조하늘 선생님</span><svg class="cl-icon cl-teacher-card__arrow">→</svg></strong>`. 사진이 없으면 성 한 글자 대신 36px 사람 아이콘(AM10 과 같은 SVG) — 목록 `.cl-teacher-card__photo` · 상세 `.cl-teacher__avatar` 두 곳.',
     targets: ['.cl-teacher-grid'],
@@ -2981,9 +2981,9 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     next: "목록 자리에 회색 점선(1px · #D2D2D7) 상자, 모서리 8, 가운데 아이콘 28 + 문장 15 · 500(+ 필요하면 설명 13). 목록은 최소 높이 240, 댓글은 작게(위아래 32). 바탕은 칠하지 않음 — 상자 없는 화면에서 회색 덩어리로 튀지 않게",
     css: `/* 학원 공개 화면 빈 상태 — 회색 점선 상자, 가운데 아이콘 · 문장 */
 .cl-pub-empty { min-height: 240px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 48px 20px; border: 1px dashed var(--cl-control-border); border-radius: var(--cl-radius-sm); background: none; color: var(--cl-ink-muted); text-align: center; }
-.cl-pub-empty .cl-icon { color: #A1A1A6; margin-bottom: 4px; }
+.cl-pub-empty .cl-icon { color: var(--cl-ink-faint); margin-bottom: 4px; }
 .cl-pub-empty__title { margin: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 500; color: var(--cl-ink-muted); }
-.cl-pub-empty__desc { margin: 0; font-size: var(--cl-fs-caption); color: #A1A1A6; }
+.cl-pub-empty__desc { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-faint); }
 .cl-pub-empty--sm { min-height: 0; padding: 32px 20px; }
 .cl-pub-empty--sm .cl-icon { width: 24px; height: 24px; }
 /* 목록 자리와 위 간격 */
@@ -3110,7 +3110,7 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
 .cl-playlist li.has-ask { background: var(--cl-primary-tint); }
 .cl-playlist li.has-ask > .cl-playlist__item { padding: 16px 20px 0; background: none; }
 .cl-playlist__ask { padding: 12px 20px 20px 52px; }
-.cl-ask-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px #E4D7F8; color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; cursor: pointer; transition: box-shadow .15s ease-out; }
+.cl-ask-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px var(--cl-primary-line); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; cursor: pointer; transition: box-shadow .15s ease-out; }
 .cl-ask-btn:hover { box-shadow: inset 0 0 0 1px var(--cl-primary); }
 .cl-ask-btn[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { .cl-ask-btn { transition: none; } }
@@ -3118,7 +3118,7 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
 .cl-ask { display: flex; flex-direction: column; gap: 12px; }
 .cl-ask[hidden] { display: none; }
 .cl-ask textarea { width: 100%; box-sizing: border-box; min-height: 88px; max-height: 180px; padding: 12px 14px; border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6; resize: none; field-sizing: content; }
-.cl-ask textarea::placeholder { color: #A1A1A6; }
+.cl-ask textarea::placeholder { color: var(--cl-ink-faint); }
 .cl-ask textarea:focus { outline: none; border-color: var(--cl-primary); box-shadow: 0 0 0 3px rgba(144, 74, 232, .15); }
 .cl-ask__row { display: flex; align-items: center; gap: 8px; }
 .cl-ask__more { display: inline-flex; align-items: center; gap: 4px; margin-right: auto; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-decoration: none; }
@@ -3253,7 +3253,7 @@ doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hi
     current: "머리 계정 버튼 · 강의 보기 선생님 링크의 기본 그림(default-person.svg)이 세로 사진용(200×260) 회색 사람이라 동그라미 안에서 머리 · 어깨가 잘려 보임",
     next: "메인 선생님 소개(AM10) · 선생님 목록 · 상세(NT5)와 같은 선 사람 아이콘을 연보라(#F7F3FD) 원 가운데 60% 크기로. 색은 학원 대표색",
     css: `/* 사진 없는 선생님 — 잘린 회색 사람 그림 대신 메인(AM10)과 같은 선 아이콘, 연보라 원 */
-.cl-avatar-ph { display: inline-grid; place-items: center; flex: none; box-sizing: border-box; border-radius: 50%; background: #F7F3FD; color: var(--cl-primary); overflow: hidden; }
+.cl-avatar-ph { display: inline-grid; place-items: center; flex: none; box-sizing: border-box; border-radius: 50%; background: var(--cl-primary-wash); color: var(--cl-primary); overflow: hidden; }
 .cl-avatar-ph > svg { width: 60%; height: 60%; margin-top: -4%; }
 .cl-ws-account .cl-avatar-ph { width: 32px; height: 32px; }
 .cl-comment__avatar .cl-avatar-ph { width: 100%; height: 100%; }`,
@@ -3280,7 +3280,7 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
 .cl-player__doc { position: relative; aspect-ratio: 16 / 9; display: block; padding: 0; border-radius: var(--cl-radius-sm); overflow: hidden; background: var(--cl-sidebar); color: var(--cl-ink); }
 /* PDF — 칸 안에서 바로 보기(실제는 브라우저 PDF 보기) */
 .cl-docview { position: absolute; inset: 0; display: flex; flex-direction: column; background: #E8E8EB; }
-.cl-docview__bar { flex: none; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; background: #3A3A3D; color: #F5F5F7; font-size: var(--cl-fs-caption); }
+.cl-docview__bar { flex: none; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; background: var(--cl-surface-dark); color: #F5F5F7; font-size: var(--cl-fs-caption); }
 .cl-docview__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 .cl-docview__tools { display: inline-flex; align-items: center; gap: 10px; color: #D2D2D7; }
 .cl-docview__sep { width: 1px; height: 16px; background: rgba(255, 255, 255, .2); }
@@ -3343,7 +3343,7 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
 .cl-cs-state:hover .cl-cs-state__off, .cl-cs-state:focus-visible .cl-cs-state__off { visibility: visible; }
 @media (hover: none) { .cl-cs-state:hover { background: var(--cl-canvas); color: var(--cl-ink-2); box-shadow: inset 0 0 0 1px var(--cl-control-border); } .cl-cs-state:hover .cl-cs-state__on { visibility: visible; } .cl-cs-state:hover .cl-cs-state__off { visibility: hidden; } }
 .cl-cs-apply { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-primary-tint); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 600; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out; }
-.cl-cs-apply:hover { background: #E9DDFB; }
+.cl-cs-apply:hover { background: var(--cl-primary-tint-hover); }
 /* 목록형 — 여유 있게: 줄 위아래 20, 사진 120, 오른쪽 숫자 · 상태는 칸을 고정해 줄마다 같은 자리 */
 [data-list][data-view="list"] .cl-cs-cards, [data-list]:not([data-view="list"]) .cl-cs-rows { display: none; }
 .cl-cs-rows { border-top: 1px solid var(--cl-hairline); }

@@ -1,5 +1,11 @@
 # 변경 기록
 
+## v1.2 — 2026.10.28 (오후)
+
+- 토큰 2개 추가: `--cl-primary-wash`(#f7f3fd, 사진 없는 선생님 원 바탕) · `--cl-primary-line`(#e4d7f8, 연보라 판 위 흰 버튼 테두리). 실험실에서 직접 적던 #F7F3FD · #E4D7F8 · #E9DDFB · #A1A1A6 · #3A3A3D 를 토큰(wash · line · tint-hover · ink-faint · surface-dark)으로 바꿈.
+- 학원 공개 화면 부품 문서 `components/AcademyPublic/README.md` 와 CSS(`components/bundle.css` 끝) — NE1 · NI1 · NC1 · NQ4 · NQ5 · NF4 · NS1 · NT6(확정), NP1 · NP2 · NP3(제안).
+- Avatar · Button · Tabs README 에 공개 화면 규칙 한 단락씩.
+
 ## v1.1 — 2026.10.28
 
 - 학원 공개 화면 UI 규칙 한 장으로 정리(`api/public-ui-rules.md`) — 글자 · 여백 · 선과 상자 · 색 · 움직임 · 빈 상태 · 사람 아이콘 · 이동 · 문장.

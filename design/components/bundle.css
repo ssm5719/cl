@@ -1945,3 +1945,291 @@ textarea.cl-input { font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6;
 [data-theme="dark"] :is(.cl-chip[aria-pressed="true"], .cl-pagination__page.is-current, .cl-toast, .cl-selbar, .cl-skip) { background: var(--cl-ink); color: var(--cl-canvas); }
 [data-theme="dark"] :is(.cl-selbar__btn, .cl-selbar__close) { color: var(--cl-canvas); }
 [data-theme="dark"] .cl-selbar__btn.is-danger { color: var(--cl-danger-pressed); }
+
+
+/* ==========================================================================
+   학원 공개 화면 부품 (2026.10.28) — 실험실 fixes.js 에서 옮김. 규칙: api/public-ui-rules.md
+   ========================================================================== */
+
+/* --- NS1 [확정] 선생님 상세 · Q&A · 자유게시판 — 학원소개처럼 여유 있게 --- */
+/* 선생님 상세 — 카드 안 여백 24 → 32, 카드 사이 16 → 24 */
+.cl-teacher { gap: var(--cl-space-5); }
+.cl-teacher__card:not(.cl-teacher__courses) { padding: 32px; gap: 24px; }
+/* 이름 · 정보 두 묶음 — 학원소개와 같이 옅은 회색 선, 선 아래 24 */
+.cl-teacher__info { padding-top: 24px; gap: 12px; border-top-color: var(--cl-hairline); }
+.cl-teacher__info dd { font-weight: 500; }
+.cl-teacher__courses-title { padding: 20px 32px; }
+.cl-teacher__course { padding: 20px 32px; border-top-color: var(--cl-hairline); }
+@media (max-width: 600px) {
+  .cl-teacher__card:not(.cl-teacher__courses) { padding: 24px 20px; }
+  .cl-teacher__card.cl-teacher__courses { padding: 0; }
+  .cl-teacher__courses-title, .cl-teacher__course { padding-left: 20px; padding-right: 20px; }
+}
+/* Q&A · 자유게시판 목록 — 도구줄 아래 24, 목록 윗선 검정 → 옅은 회색, 줄 높이 늘림 */
+.cl-post-toolbar__count { margin-top: 8px; }
+.cl-post-toolbar:not(.cl-post-toolbar--filters) + [data-list] { margin-top: 8px; }
+.cl-qna-list, .cl-post-list { border-top-color: var(--cl-hairline); }
+.cl-qna-item { padding: 24px 8px; border-bottom-color: var(--cl-hairline); }
+.cl-qna-item__body { gap: 6px; }
+.cl-post-row--head { padding-top: 12px; padding-bottom: 12px; }
+.cl-post-row:not(.cl-post-row--head) { padding-top: 20px; padding-bottom: 20px; }
+.cl-post-row { border-bottom-color: var(--cl-hairline); }
+.cl-post-page .cl-pagination { margin-top: 24px; }
+
+/* --- NT6 [확정] 선생님 상세 — [프로필 | 담당 강좌] 두 열, 상자 없이 --- */
+/* 두 열 — [프로필 320 | 담당 강좌], 상자 테두리 없이 */
+@media (min-width: 901px) {
+  .cl-teacher { display: grid; grid-template-columns: 320px minmax(0, 1fr); column-gap: 64px; align-items: start; }
+  .cl-teacher .cl-teacher__card:not(.cl-teacher__courses) { position: sticky; top: calc(var(--cl-h-public-header, 72px) + 32px); }
+}
+.cl-teacher .cl-teacher__card { max-width: none; border: 0; border-radius: 0; background: none; padding: 0; }
+/* 프로필 — 사진 · 이름 · 정보 · 버튼 세로로 */
+.cl-teacher .cl-teacher__card:not(.cl-teacher__courses) { gap: 0; }
+.cl-teacher .cl-teacher__head { flex-direction: column; align-items: flex-start; gap: 16px; }
+.cl-teacher .cl-teacher__avatar { width: 160px; border-radius: var(--cl-radius-sm); }
+.cl-teacher .cl-teacher__name { margin: 0; }
+/* [사진 · 이름] 과 [정보 · 버튼] 두 묶음 — 묶음 안 16 · 12, 묶음 사이 40 */
+.cl-teacher .cl-teacher__info { margin-top: 40px; padding-top: 0; border-top: 0; gap: 12px; }
+.cl-teacher .cl-cd__pills { margin-top: 24px; }
+/* 담당 강좌 — 제목 아래 옅은 회색 선으로만 줄 구분, 썸네일 128 */
+.cl-teacher .cl-teacher__courses-title { padding: 0 0 16px; }
+.cl-teacher .cl-teacher__course-list { border-top: 1px solid var(--cl-hairline); }
+.cl-teacher .cl-teacher__course { grid-template-columns: 128px minmax(0, 1fr) auto; grid-template-areas: "thumb title go" "thumb meta go"; column-gap: 20px; row-gap: 6px; align-content: center; padding: 16px 0; border-top: 0; border-bottom: 1px solid var(--cl-hairline); }
+.cl-teacher .cl-teacher__course strong { align-self: end; }
+.cl-teacher .cl-teacher__course > span:not(.cl-teacher__course-thumb) { align-self: start; }
+.cl-teacher .cl-teacher__course-thumb { grid-area: thumb; width: 128px; aspect-ratio: 16 / 9; border-radius: var(--cl-radius-2xs); overflow: hidden; background: var(--cl-hover); }
+.cl-teacher .cl-teacher__course-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cl-teacher .cl-teacher__course:hover { background: none; }
+.cl-teacher .cl-teacher__course:hover strong { color: var(--cl-primary); }
+/* 담당 강좌 없음 — 프로필 높이만큼 늘림(모양은 NE1) */
+.cl-teacher:has(.cl-teacher__course-empty) { align-items: stretch; }
+.cl-teacher .cl-teacher__courses:has(.cl-teacher__course-empty) { display: flex; flex-direction: column; }
+.cl-teacher .cl-teacher__course-empty { flex: 1; }
+.cl-teacher .cl-teacher__courses-title:has(+ .cl-teacher__course-empty) .cl-num { display: none; }
+@media (max-width: 900px) {
+  .cl-teacher { gap: 48px; }
+  .cl-teacher .cl-teacher__head { flex-direction: row; align-items: flex-end; gap: 16px; }
+  .cl-teacher .cl-teacher__avatar { width: 88px; }
+}
+@media (max-width: 600px) {
+  .cl-teacher .cl-teacher__course { grid-template-columns: 96px minmax(0, 1fr) auto; column-gap: 14px; }
+  .cl-teacher .cl-teacher__course-thumb { width: 96px; }
+}
+
+/* --- NE1 [확정] 학원 화면 빈 상태 — 회색 점선 상자 하나로 --- */
+/* 학원 공개 화면 빈 상태 — 회색 점선 상자, 가운데 아이콘 · 문장 */
+.cl-pub-empty { min-height: 240px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 48px 20px; border: 1px dashed var(--cl-control-border); border-radius: var(--cl-radius-sm); background: none; color: var(--cl-ink-muted); text-align: center; }
+.cl-pub-empty .cl-icon { color: var(--cl-ink-faint); margin-bottom: 4px; }
+.cl-pub-empty__title { margin: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-pub-empty__desc { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-faint); }
+.cl-pub-empty--sm { min-height: 0; padding: 32px 20px; }
+.cl-pub-empty--sm .cl-icon { width: 24px; height: 24px; }
+/* 목록 자리와 위 간격 */
+.cl-cs-main > .cl-pub-empty, [data-list] > .cl-pub-empty { margin-top: 16px; }
+.cl-comments .cl-pub-empty { margin: 8px 0 16px; }
+.cl-comments:has(> .cl-pub-empty) .cl-comments__title .cl-num { display: none; }
+
+/* --- NI1 [확정] 사진 없는 선생님 아이콘 — 메인과 같은 선 아이콘으로 통일 --- */
+/* 사진 없는 선생님 — 잘린 회색 사람 그림 대신 메인(AM10)과 같은 선 아이콘, 연보라 원 */
+.cl-avatar-ph { display: inline-grid; place-items: center; flex: none; box-sizing: border-box; border-radius: 50%; background: var(--cl-primary-wash); color: var(--cl-primary); overflow: hidden; }
+.cl-avatar-ph > svg { width: 60%; height: 60%; margin-top: -4%; }
+.cl-ws-account .cl-avatar-ph { width: 32px; height: 32px; }
+.cl-comment__avatar .cl-avatar-ph { width: 100%; height: 100%; }
+
+/* --- NQ4 [확정] Q&A 목록 — 답변대기 · 답변 상자를 정사각형으로 --- */
+.cl-qna-item__status { width: 64px; height: 64px; flex: none; aspect-ratio: 1; gap: 4px; align-self: center; }
+@media (max-width: 900px) { .cl-qna-item__status { width: 52px; height: 52px; } }
+
+/* --- NQ5 [확정] Q&A 상세 — 답변 배지는 글쓴이 줄로 · 답변은 한 판에 · 버튼은 오른쪽 아래 --- */
+/* 머리 — 강좌 · 제목 · [글쓴이 · 시간 · 답변 배지 … 수정 · 삭제] */
+.cl-thread__question .cl-post__head > .cl-badge { display: none; }
+.cl-thread__question .cl-post__meta .cl-badge { margin-left: 4px; }
+.cl-thread__question .cl-post__head { border-bottom-color: var(--cl-hairline); }
+.cl-thread__question .cl-post__body { min-height: 0; padding-bottom: 8px; }
+/* 답변 — 옅은 회색 판 하나에 모으고, 답변마다 [A. 원 | 이름 · 시간 / 본문] */
+.cl-thread__answers { gap: 16px; }
+.cl-thread .cl-thread__list { gap: 0; padding: 4px 24px; border-radius: var(--cl-radius-sm); background: var(--cl-sidebar); }
+.cl-thread .cl-thread__answer, .cl-thread .cl-thread__answer.is-teacher { display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 14px; row-gap: 6px; padding: 20px 0; border: 0; border-radius: 0; background: none; }
+.cl-thread .cl-thread__answer:not(:last-child) { padding-bottom: 20px; border-bottom: 1px solid var(--cl-hairline); }
+.cl-thread .cl-thread__answer > .cl-thread__a { grid-row: 1 / span 2; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--cl-primary-tint); color: var(--cl-primary); font-size: var(--cl-fs-ui); font-weight: 700; }
+.cl-thread .cl-thread__answer-meta, .cl-thread .cl-thread__answer-body { grid-column: 2; }
+.cl-thread .cl-thread__answer-meta { min-height: 32px; }
+/* 답변 없음 — 회색 판 대신 빈 상태(NE1 작은 크기), 개수 배지 숨김 */
+.cl-thread .cl-thread__list:not(:has(li)) { display: none; }
+.cl-thread__answers:has(> .cl-pub-empty) .cl-comments__title .cl-num { display: none; }
+.cl-thread__answers > .cl-pub-empty { margin: 0; }
+.cl-thread .cl-thread__answer-body .toastui-editor-contents { background: none; }
+.cl-thread .cl-thread__answer-body p:first-child { margin-top: 0; }
+.cl-thread .cl-thread__answer-body p:last-child { margin-bottom: 0; }
+/* 답변 쓰기 — 제목 · 버튼 겹침 정리: 버튼은 아래 [목록으로] 옆 오른쪽으로 */
+.cl-thread__write:has(form[hidden]) { display: none; }
+.cl-thread .cl-post-footer { display: flex; justify-content: flex-end; gap: 8px; padding-top: 24px; border-top: 1px solid var(--cl-hairline); }
+.cl-thread .cl-post-footer .cl-btn { height: 40px; }
+@media (max-width: 900px) {
+  .cl-thread .cl-thread__list { padding: 4px 16px; }
+  .cl-thread .cl-thread__answer, .cl-thread .cl-thread__answer.is-teacher { grid-template-columns: 28px minmax(0, 1fr); column-gap: 10px; padding: 16px 0; }
+  .cl-thread .cl-thread__answer > .cl-thread__a { width: 28px; height: 28px; }
+  .cl-thread .cl-thread__answer-meta { min-height: 28px; }
+}
+
+/* --- NF4 [확정] 게시글 읽기 — Q&A 상세와 같은 머리 선 · 버튼 자리 --- */
+/* Q&A 상세(NQ5)와 같은 규칙 — 머리 아래 옅은 회색 선, 버튼은 오른쪽 아래 */
+.cl-pub-main .cl-post__head { border-bottom-color: var(--cl-hairline); }
+.cl-pub-main .cl-comments__list > .cl-comment:last-child { border-bottom: 0; }
+.cl-pub-main .cl-post-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 0; padding-top: 24px; border-top: 1px solid var(--cl-hairline); }
+.cl-pub-main .cl-post-footer .cl-btn { height: 40px; }
+
+/* --- NP1 [제안] 강의 보기 — 질문하기 · 관련 질문을 페이지 이동 없이 오른쪽 칸에서 --- */
+/* 오른쪽 칸 — [강의 목록 | 관련 질문] 탭. 검색 · 정렬은 강의 목록 탭 그대로 */
+.cl-playlist__head { padding: 16px 20px 16px; gap: 16px; }
+.cl-ptabs { display: flex; gap: 24px; margin: 0; border-bottom: 1px solid var(--cl-hairline); }
+.cl-playlist__item { padding: 14px 20px; }
+.cl-ptab { position: relative; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0; border: 0; background: none; font: inherit; font-size: var(--cl-fs-body-sm-pub); font-weight: 500; color: var(--cl-ink-muted); cursor: pointer; }
+.cl-ptab[aria-selected="true"] { color: var(--cl-ink); font-weight: 600; }
+.cl-ptab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; border-radius: 2px; background: var(--cl-primary); }
+.cl-ptab .cl-num { height: 20px; min-width: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); font-weight: 500; background: var(--cl-hover); color: var(--cl-ink-muted); }
+.cl-ptab[aria-selected="true"] .cl-num { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+.cl-playlist__head .cl-playlist__title { display: none; }
+.cl-player-page__aside[data-tab="qna"] .cl-playlist__tools, .cl-player-page__aside[data-tab="qna"] .cl-playlist { display: none; }
+.cl-player-page__aside:not([data-tab="qna"]) .cl-prelated { display: none; }
+/* 지금 보는 강의 — 제목 아래 [질문하기]. 묶음 안 12, 바깥 20 */
+.cl-playlist li.has-ask { background: var(--cl-primary-tint); }
+.cl-playlist li.has-ask > .cl-playlist__item { padding: 16px 20px 0; background: none; }
+.cl-playlist__ask { padding: 12px 20px 20px 52px; }
+.cl-ask-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px var(--cl-primary-line); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; cursor: pointer; transition: box-shadow .15s ease-out; }
+.cl-ask-btn:hover { box-shadow: inset 0 0 0 1px var(--cl-primary); }
+.cl-ask-btn[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .cl-ask-btn { transition: none; } }
+/* 짧은 질문 입력 — 입력칸 아래 한 줄: [자세히 쓰기 ↗] … [취소][등록] */
+.cl-ask { display: flex; flex-direction: column; gap: 12px; }
+.cl-ask[hidden] { display: none; }
+.cl-ask textarea { width: 100%; box-sizing: border-box; min-height: 88px; max-height: 180px; padding: 12px 14px; border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6; resize: none; field-sizing: content; }
+.cl-ask textarea::placeholder { color: var(--cl-ink-faint); }
+.cl-ask textarea:focus { outline: none; border-color: var(--cl-primary); box-shadow: 0 0 0 3px rgba(144, 74, 232, .15); }
+.cl-ask__row { display: flex; align-items: center; gap: 8px; }
+.cl-ask__more { display: inline-flex; align-items: center; gap: 4px; margin-right: auto; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-decoration: none; }
+.cl-ask__more:hover { color: var(--cl-ink); text-decoration: underline; text-underline-offset: 3px; }
+.cl-ask__row .cl-btn { height: 32px; padding: 0 14px; font-size: var(--cl-fs-caption); }
+.cl-ask__done { margin: 12px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-success); }
+/* 관련 질문 탭 */
+.cl-prelated { display: flex; flex-direction: column; min-height: 0; overflow: auto; }
+.cl-prelated__list { margin: 0; padding: 0; list-style: none; }
+.cl-prelated__item { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 6px; padding: 16px 20px; border-bottom: 1px solid var(--cl-hairline); color: var(--cl-ink); text-decoration: none; }
+.cl-prelated__item:hover { background: var(--cl-row-hover); }
+.cl-prelated__item { grid-template-columns: 64px minmax(0, 1fr); }
+.cl-prelated__item .cl-badge { grid-row: 1 / span 2; align-self: start; justify-content: center; width: 64px; box-sizing: border-box; }
+.cl-prelated__title { font-size: var(--cl-fs-ui); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-prelated__meta { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-prelated__here { color: var(--cl-primary-pressed); font-weight: 500; }
+.cl-prelated__all { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 16px 20px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); text-align: center; }
+/* 버튼 줄의 질문하기 · 관련 질문은 오른쪽 칸으로 옮겼으니 뺀다 */
+.cl-player-info .cl-cd__pills > .is-moved { display: none; }
+
+/* --- NP2 [제안] 강의 보기 — 선생님 링크를 누르면 아래로 작은 창(이동하지 않음) --- */
+/* 강의 보기 선생님 — 누르면 아래로 작은 창(이동하지 않음). 안쪽 20 · 묶음 사이 16 */
+.cl-scope .cl-player-teacher { position: relative; cursor: pointer; border: 0; font: inherit; font-size: var(--cl-fs-ui); font-weight: 500; }
+.cl-player-teacher > .cl-icon { transition: transform .15s ease-out; }
+.cl-scope .cl-player-teacher[aria-expanded="true"] { box-shadow: inset 0 0 0 1px var(--cl-primary); color: var(--cl-primary-pressed); }
+.cl-player-teacher[aria-expanded="true"] > .cl-icon { transform: rotate(180deg); color: inherit; }
+.cl-tpop-wrap { position: relative; display: inline-flex; }
+.cl-player-teacher:focus:not(:focus-visible) { outline: none; }
+.cl-player-teacher[aria-expanded="true"] { outline: none; }
+.cl-tpop { position: absolute; top: calc(100% + 8px); left: 0; z-index: 30; width: 320px; max-width: calc(100vw - 40px); box-sizing: border-box; padding: 20px; border: 1px solid var(--cl-hairline); border-radius: var(--cl-radius-sm); background: var(--cl-canvas); box-shadow: 0 8px 24px rgba(0, 0, 0, .08); }
+.cl-tpop[hidden] { display: none; }
+.cl-tpop__head { display: flex; align-items: center; gap: 12px; }
+.cl-tpop__head .cl-avatar-ph, .cl-tpop__head img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+.cl-tpop__name { margin: 0; font-size: var(--cl-fs-body-sm-pub); font-weight: 600; color: var(--cl-ink); }
+.cl-tpop__subject { margin: 2px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-tpop__label { margin: 20px 0 8px; display: flex; align-items: center; gap: 6px; font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-tpop__label .cl-num { height: 20px; min-width: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); background: var(--cl-hover); }
+.cl-tpop__list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--cl-hairline); }
+.cl-tpop__list a { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--cl-hairline); font-size: var(--cl-fs-ui); color: var(--cl-ink); text-decoration: none; }
+.cl-tpop__list a span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-tpop__list a:hover span { color: var(--cl-primary-pressed); }
+.cl-tpop__now { flex: none; height: 20px; padding: 0 8px; display: inline-grid; place-items: center; border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-micro); font-weight: 500; background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+.cl-tpop__all { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 16px; height: 36px; border-radius: var(--cl-radius-sm); background: var(--cl-hover); font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink); text-decoration: none; }
+.cl-tpop__all:hover { background: var(--cl-row-hover); }
+@media (prefers-reduced-motion: reduce) { .cl-player-teacher > .cl-icon { transition: none; } }
+
+/* --- NP3 [제안] 문서 강의 — 16:9 칸은 그대로, 안을 문서 미리보기 · 파일 카드로 --- */
+/* 문서 강의 — 영상과 같은 16:9 칸을 유지하고, 안을 문서로 채운다 */
+.cl-player__doc { position: relative; aspect-ratio: 16 / 9; display: block; padding: 0; border-radius: var(--cl-radius-sm); overflow: hidden; background: var(--cl-sidebar); color: var(--cl-ink); }
+/* PDF — 칸 안에서 바로 보기(실제는 브라우저 PDF 보기) */
+.cl-docview { position: absolute; inset: 0; display: flex; flex-direction: column; background: #E8E8EB; }
+.cl-docview__bar { flex: none; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; background: var(--cl-surface-dark); color: #F5F5F7; font-size: var(--cl-fs-caption); }
+.cl-docview__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.cl-docview__tools { display: inline-flex; align-items: center; gap: 10px; color: #D2D2D7; }
+.cl-docview__sep { width: 1px; height: 16px; background: rgba(255, 255, 255, .2); }
+.cl-docview__pages { flex: 1; overflow: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px; }
+.cl-docview__page { flex: none; width: min(62%, 520px); aspect-ratio: 210 / 297; box-sizing: border-box; padding: 8% 7%; display: flex; flex-direction: column; gap: 10px; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .12); }
+.cl-docview__page .lab-line { display: block; height: 8px; border-radius: 2px; background: #E8E8EB; }
+.cl-docview__page .lab-line[style*="width:0%"] { height: 12px; background: none; }
+/* 파일 카드 — 미리보기가 안 되는 문서(한글 · 워드 · PPT)와 휴대폰 */
+.cl-docfile { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px; text-align: center; }
+.cl-player__doc[data-doc-kind="pdf"] .cl-docfile { display: none; }
+.cl-docfile__icon { position: relative; width: 64px; height: 64px; margin-bottom: 8px; display: grid; place-items: center; border-radius: var(--cl-radius-sm); background: var(--cl-canvas); color: var(--cl-ink-muted); box-shadow: inset 0 0 0 1px var(--cl-hairline); }
+.cl-docfile__icon em { position: absolute; right: -6px; bottom: -6px; height: 20px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: 4px; background: var(--cl-primary); color: #fff; font-style: normal; font-size: var(--cl-fs-micro); font-weight: 600; letter-spacing: .02em; }
+.cl-docfile__name { margin: 0; font-size: var(--cl-fs-body-public); font-weight: 600; color: var(--cl-ink); word-break: keep-all; }
+.cl-docfile__meta { margin: 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-docfile__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+.cl-docfile__actions .cl-btn { height: 40px; padding: 0 16px; gap: 6px; }
+.cl-docfile__actions .cl-btn--ghost { background: var(--cl-canvas); }
+@media (max-width: 900px) {
+  .cl-player__doc[data-doc-kind="pdf"] .cl-docview { display: none; }
+  .cl-player__doc[data-doc-kind="pdf"] .cl-docfile { display: flex; }
+  .cl-player__doc { aspect-ratio: auto; min-height: 260px; }
+  .cl-docfile { position: relative; inset: auto; padding: 32px 20px; }
+}
+
+/* --- NC1 [확정] 전체강좌 카드형 · 목록형 — 여백 · 상태 표시 · 칸 맞춤 --- */
+/* 전체강좌 카드형 — 카드 위 검은 선 · 겹 상자 없이, 사진 8 · 글자 토큰 · 상태는 오른쪽 아래 하나 */
+.cl-cs-cards { gap: 40px 24px; margin-top: 8px; }
+.cl-cs-rows { margin-top: 8px; }
+.cl-cs-card { gap: 12px; padding-top: 0; border-top: 0; }
+.cl-cs-thumb--card { border-radius: var(--cl-radius-sm); }
+.cl-cs-card__link { gap: 4px; }
+.cl-cs-card__link .cl-cs-thumb { margin-bottom: 12px; }
+.cl-cs-meta { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-cs-name { font-size: var(--cl-fs-body-public); font-weight: 600; line-height: 1.4; }
+.cl-cs-teacher { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-cs-card__foot { gap: 8px; min-height: 32px; }
+.cl-cs-stats { display: inline-flex; align-items: center; gap: 12px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); font-variant-numeric: tabular-nums; }
+.cl-cs-stats > span { display: inline-flex; align-items: center; gap: 4px; }
+/* 카드 · 줄 전체가 강좌로 가는 길이라 '강의목록 ›' 은 뺀다 */
+.cl-cs-more { display: none !important; }
+/* 상태 — [✓ 수강중] 은 누르면 수강 취소. 마우스를 올리거나 키보드로 고르면 '수강 취소'로 바뀌어 무엇이 일어나는지 미리 보인다 */
+.cl-cs-state { position: relative; display: inline-grid; place-items: center; min-width: 88px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px var(--cl-control-border); color: var(--cl-ink-2); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, box-shadow .15s ease-out; }
+.cl-cs-state > span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 4px; }
+.cl-cs-state__on .cl-icon { color: var(--cl-ink-muted); }
+.cl-cs-state__off { visibility: hidden; }
+.cl-cs-state:hover, .cl-cs-state:focus-visible { background: var(--cl-canvas); color: var(--cl-danger, #D93025); box-shadow: inset 0 0 0 1px currentColor; }
+.cl-cs-state:hover .cl-cs-state__on, .cl-cs-state:focus-visible .cl-cs-state__on { visibility: hidden; }
+.cl-cs-state:hover .cl-cs-state__off, .cl-cs-state:focus-visible .cl-cs-state__off { visibility: visible; }
+@media (hover: none) { .cl-cs-state:hover { background: var(--cl-canvas); color: var(--cl-ink-2); box-shadow: inset 0 0 0 1px var(--cl-control-border); } .cl-cs-state:hover .cl-cs-state__on { visibility: visible; } .cl-cs-state:hover .cl-cs-state__off { visibility: hidden; } }
+.cl-cs-apply { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-primary-tint); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 600; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out; }
+.cl-cs-apply:hover { background: var(--cl-primary-tint-hover); }
+/* 목록형 — 여유 있게: 줄 위아래 20, 사진 120, 오른쪽 숫자 · 상태는 칸을 고정해 줄마다 같은 자리 */
+[data-list][data-view="list"] .cl-cs-cards, [data-list]:not([data-view="list"]) .cl-cs-rows { display: none; }
+.cl-cs-rows { border-top: 1px solid var(--cl-hairline); }
+.cl-cs-row { gap: 24px; padding: 20px 8px; border-bottom: 1px solid var(--cl-hairline); transition: background-color .15s ease-out; }
+.cl-cs-row:hover { background: var(--cl-row-hover); }
+.cl-cs-row__link { gap: 20px; }
+.cl-cs-thumb--row { width: 120px; border-radius: 6px; overflow: hidden; }
+.cl-cs-thumb--row img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cl-cs-row__text { gap: 6px; }
+.cl-cs-row__text .cl-cs-meta { font-size: var(--cl-fs-caption); }
+.cl-cs-row__side { gap: 24px; }
+.cl-cs-row__side .cl-cs-stats { display: grid; grid-template-columns: 56px 44px 44px; gap: 0; }
+.cl-cs-row__side .cl-cs-stats > span { justify-content: flex-end; }
+.cl-cs-row__state { width: 96px; display: flex; justify-content: flex-end; }
+.cl-cs-row__stats-mobile { font-size: var(--cl-fs-caption); }
+@media (max-width: 900px) {
+  .cl-cs-cards { gap: 32px; }
+  .cl-cs-row { gap: 12px; padding: 16px 0; align-items: flex-start; }
+  .cl-cs-row__link { gap: 14px; }
+  .cl-cs-thumb--row { width: 96px; }
+  .cl-cs-row__text .cl-cs-name { white-space: normal; overflow: visible; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+  .cl-cs-row__side { display: flex; } .cl-cs-row__side .cl-cs-stats { display: none; }
+  .cl-cs-row__state { width: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .cl-cs-row, .cl-cs-apply, .cl-cs-state { transition: none; } }

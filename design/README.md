@@ -11,7 +11,9 @@
 | `api/tokens.md` | 토큰 값 전체 표 |
 | `api/components/*.md` | 부품 24개 요약 카드 |
 | `components/<이름>/README.md` | 부품 상세 + `preview.html` 미리보기 |
-| `components/bundle.css` | 미리보기용 CSS 묶음 |
+| `components/bundle.css` | 미리보기용 CSS 묶음 (맨 끝에 학원 공개 화면 부품) |
+| `components/AcademyPublic/README.md` | 학원 공개 화면 전용 부품 — 빈 상태 · 사진 없는 선생님 · 수강 상태 버튼 · 강의 보기 칸 · 문서 강의 |
+| `api/public-ui-rules.md` | 학원 공개 화면 UI 규칙(글자 · 여백 · 선 · 색 · 움직임 · 이동 · 문장) |
 | `fonts/` | Pretendard Variable |
 
 아이콘 41개와 로고는 디자인시스템 아티팩트의 자산 저장소에 있습니다. 목록과 받는 방법은 `api/assets/Icons.md` · `api/assets/Logos.md` 에 적혀 있고, 화면에서는 모두 인라인 SVG(`stroke="currentColor"`)로 들어가 있습니다.
