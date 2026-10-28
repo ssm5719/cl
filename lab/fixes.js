@@ -2988,7 +2988,8 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
 .cl-pub-empty--sm .cl-icon { width: 24px; height: 24px; }
 /* 목록 자리와 위 간격 */
 .cl-cs-main > .cl-pub-empty, [data-list] > .cl-pub-empty { margin-top: 16px; }
-.cl-comments .cl-pub-empty { margin: 16px 0; }`,
+.cl-comments .cl-pub-empty { margin: 8px 0 16px; }
+.cl-comments:has(> .cl-pub-empty) .cl-comments__title .cl-num { display: none; }`,
     markup: "목록이 비었을 때 <div class=\"cl-pub-empty\"><svg …/><p class=\"cl-pub-empty__title\">아직 질문이 없습니다</p><p class=\"cl-pub-empty__desc\">…</p></div>. 문장: 전체강좌 '조건에 맞는 강좌가 없습니다 / 검색어나 분류를 바꿔 보세요', 선생님 '등록된 선생님이 없습니다', 선생님 상세 '담당 강좌가 없습니다', Q&A '아직 질문이 없습니다 / 강의를 듣다 궁금한 점이 생기면 질문해 주세요', 자유게시판 '아직 게시글이 없습니다', 댓글 '아직 댓글이 없습니다'(cl-pub-empty--sm). 비었을 때는 쪽 번호를 숨김.",
     targets: [".cl-pub-empty"],
     note: "디자인 시스템 Empty(아이콘 · 제목 · 설명 가운데)를 공개 화면용으로 — 아이콘 상자 대신 점선 테두리"
@@ -3064,6 +3065,24 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
     markup: "질문 머리: .cl-post__head 의 답변 배지를 .cl-post__meta 안 시간 뒤로. 답변: .cl-thread__a 를 .cl-thread__answer-meta 밖(li 첫 칸)으로. 답변 쓰기: 섹션 제목 · 버튼을 빼고 .cl-post-footer 에 [목록으로][답변 쓰기] 순서로.",
     targets: [".cl-thread"],
     note: "선생님 로그인 화면이라 답변 2개(임소연 · 장현석)로 두고 흩어짐을 확인. 답변 0개면 회색 판 대신 점선 빈 상태 \"아직 답변이 없습니다\"(NE1 작은 크기) · 배지는 답변대기 · 개수 숨김. 목록의 답변대기 질문을 누르면 이 화면"
+  },
+  {
+    id: "NF4",
+    group: 3,
+    status: "확정",
+    kind: "CSS",
+    layer: "화면별",
+    screens: ["a-board-read", "a-board-read-empty"],
+    title: "게시글 읽기 — Q&A 상세와 같은 머리 선 · 버튼 자리",
+    current: "제목 아래 선이 검정, [목록으로]가 가운데 따로",
+    next: "제목 아래 선 옅은 회색, [목록으로]는 옅은 회색 선 아래 24 · 오른쪽 끝(Q&A 상세 [목록으로][답변 쓰기]와 같은 자리). 마지막 댓글 아래 선은 빼서 선이 두 줄 겹치지 않게",
+    css: `/* Q&A 상세(NQ5)와 같은 규칙 — 머리 아래 옅은 회색 선, 버튼은 오른쪽 아래 */
+.cl-pub-main .cl-post__head { border-bottom-color: var(--cl-hairline); }
+.cl-pub-main .cl-comments__list > .cl-comment:last-child { border-bottom: 0; }
+.cl-pub-main .cl-post-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 0; padding-top: 24px; border-top: 1px solid var(--cl-hairline); }
+.cl-pub-main .cl-post-footer .cl-btn { height: 40px; }`,
+    targets: [".cl-post__head", ".cl-post-footer"],
+    note: "글쓴이가 볼 때 [수정][삭제]가 생기면 지금처럼 제목 줄 오른쪽(공유 · 인쇄 옆)"
   }
 ];
 

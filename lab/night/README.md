@@ -23,3 +23,4 @@
 - 2026.10.28 — 빈 화면 6개(`a-courses-empty` · `a-teachers-empty` · `a-teacher-read-empty` · `a-qna-empty` · `a-board-empty` · `a-board-read-empty`)와 `NE1`(점선 빈 상태) 추가. 빈 화면은 `build_empty.py` 가 기본 화면에서 만든다 — 기본 화면을 고치면 다시 실행. 규칙은 `design/components/Empty/README.md` "학원 공개 화면".
 - 2026.10.28 — 학원 Q&A 상세 `a-qna-read`(a-qna 틀 + s-qna-read 본문, 답변 2개)를 `build_qna_read.py` 로 만듦. NQ4(목록 상태 상자 정사각형) · NQ5(상세 정리) 확정.
 - 2026.10.28 — `a-qna-read-empty`(답변 없음) 추가, 목록의 답변대기 질문이 이 화면으로 감. 같은 `build_qna_read.py` 가 만든다.
+- 2026.10.28 — NF4(게시글 읽기 머리 선 · [목록으로] 오른쪽 아래, Q&A 상세와 같은 규칙) 확정. 댓글 0개면 개수 배지 숨김(NE1).
