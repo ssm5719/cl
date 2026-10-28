@@ -16,9 +16,9 @@ body { padding: var(--cl-space-4); background: var(--cl-canvas); color: var(--cl
 <div>
 <p class="pv-label">수강 상태 — 수강중(평소) · 수강중(마우스 올림) · 수강신청</p>
 <div class="pv-row">
-<button type="button" class="cl-cs-state"><span class="cl-cs-state__on"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>수강중</span><span class="cl-cs-state__off">수강 취소</span></button>
-<button type="button" class="cl-cs-state pv-hover" style="background:var(--cl-canvas);color:var(--cl-danger);box-shadow:inset 0 0 0 1px currentColor"><span class="cl-cs-state__on" style="visibility:hidden">수강중</span><span class="cl-cs-state__off" style="visibility:visible">수강 취소</span></button>
-<button type="button" class="cl-cs-apply"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>수강신청</button>
+<button type="button" class="cl-btn cl-btn--undo cl-btn--pill"><span class="cl-btn__now"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>수강중</span><span class="cl-btn__undo">수강 취소</span></button>
+<button type="button" class="cl-btn cl-btn--undo cl-btn--pill pv-hover" style="background:var(--cl-canvas);color:var(--cl-danger);box-shadow:inset 0 0 0 1px currentColor"><span class="cl-btn__now" style="visibility:hidden">수강중</span><span class="cl-btn__undo" style="visibility:visible">수강 취소</span></button>
+<button type="button" class="cl-btn cl-btn--tint cl-btn--pill"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>수강신청</button>
 </div>
 </div>
 <div>

@@ -1,4 +1,4 @@
-<!-- @dsCard group="Actions" height=230 -->
+<!-- @dsCard group="Actions" height=290 -->
 <!doctype html>
 <html lang="ko">
 <head><meta charset="utf-8"><title>Button</title>
@@ -32,6 +32,11 @@ body { padding: var(--cl-space-4); }
   <button class="cl-btn cl-btn--ghost" aria-disabled="true">엑셀 다운로드</button>
   <button class="cl-icon-btn" aria-label="메뉴"><svg class="cl-icon" width="18" height="18" aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg></button>
   <button class="cl-icon-btn" aria-label="알림"><svg class="cl-icon" width="18" height="18" aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24" width="18"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></button>
+ </div></div>
+  <div><p class="pv-label">알약 · 되돌리기 — 수강신청 · 수강중(평소) · 수강중(올렸을 때)</p><div class="pv-row">
+  <button class="cl-btn cl-btn--tint cl-btn--pill"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>수강신청</button>
+  <button class="cl-btn cl-btn--undo cl-btn--pill"><span class="cl-btn__now"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>수강중</span><span class="cl-btn__undo">수강 취소</span></button>
+  <button class="cl-btn cl-btn--undo cl-btn--pill" style="color:var(--cl-danger);box-shadow:inset 0 0 0 1px currentColor;pointer-events:none"><span class="cl-btn__now" style="visibility:hidden">수강중</span><span class="cl-btn__undo" style="visibility:visible">수강 취소</span></button>
  </div></div>
 </div>
 </body>

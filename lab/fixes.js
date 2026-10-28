@@ -3333,17 +3333,7 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
 .cl-cs-stats > span { display: inline-flex; align-items: center; gap: 4px; }
 /* 카드 · 줄 전체가 강좌로 가는 길이라 '강의목록 ›' 은 뺀다 */
 .cl-cs-more { display: none !important; }
-/* 상태 — [✓ 수강중] 은 누르면 수강 취소. 마우스를 올리거나 키보드로 고르면 '수강 취소'로 바뀌어 무엇이 일어나는지 미리 보인다 */
-.cl-cs-state { position: relative; display: inline-grid; place-items: center; min-width: 88px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px var(--cl-control-border); color: var(--cl-ink-2); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, box-shadow .15s ease-out; }
-.cl-cs-state > span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 4px; }
-.cl-cs-state__on .cl-icon { color: var(--cl-ink-muted); }
-.cl-cs-state__off { visibility: hidden; }
-.cl-cs-state:hover, .cl-cs-state:focus-visible { background: var(--cl-canvas); color: var(--cl-danger, #D93025); box-shadow: inset 0 0 0 1px currentColor; }
-.cl-cs-state:hover .cl-cs-state__on, .cl-cs-state:focus-visible .cl-cs-state__on { visibility: hidden; }
-.cl-cs-state:hover .cl-cs-state__off, .cl-cs-state:focus-visible .cl-cs-state__off { visibility: visible; }
-@media (hover: none) { .cl-cs-state:hover { background: var(--cl-canvas); color: var(--cl-ink-2); box-shadow: inset 0 0 0 1px var(--cl-control-border); } .cl-cs-state:hover .cl-cs-state__on { visibility: visible; } .cl-cs-state:hover .cl-cs-state__off { visibility: hidden; } }
-.cl-cs-apply { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-primary-tint); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 600; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out; }
-.cl-cs-apply:hover { background: var(--cl-primary-tint-hover); }
+/* 상태 버튼은 공통 부품 — cl-btn--undo(수강중 → 수강 취소) · cl-btn--tint(수강신청) + cl-btn--pill (components.css) */
 /* 목록형 — 여유 있게: 줄 위아래 20, 사진 120, 오른쪽 숫자 · 상태는 칸을 고정해 줄마다 같은 자리 */
 [data-list][data-view="list"] .cl-cs-cards, [data-list]:not([data-view="list"]) .cl-cs-rows { display: none; }
 .cl-cs-rows { border-top: 1px solid var(--cl-hairline); }
@@ -3368,13 +3358,13 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
   .cl-cs-row__side { display: flex; } .cl-cs-row__side .cl-cs-stats { display: none; }
   .cl-cs-row__state { width: auto; }
 }
-@media (prefers-reduced-motion: reduce) { .cl-cs-row, .cl-cs-apply, .cl-cs-state { transition: none; } }`,
+@media (prefers-reduced-motion: reduce) { .cl-cs-row { transition: none; } }`,
     dom: `var list = doc.querySelector('.cl-cs-main [data-list], [data-list]'); var cards = doc.querySelector('.cl-cs-cards'); if (!list || !cards || doc.querySelector('.cl-cs-rows')) return;
 var ul = doc.createElement('ul'); ul.className = 'cl-cs-rows';
 cards.querySelectorAll('.cl-cs-card').forEach(function (c) {
   var a = c.querySelector('.cl-cs-card__link'), img = c.querySelector('.cl-cs-thumb img');
   var name = c.querySelector('.cl-cs-name').textContent, meta = c.querySelector('.cl-cs-meta').textContent, t = (c.querySelector('.cl-cs-teacher') || {}).textContent || '';
-  var stats = c.querySelector('.cl-cs-stats'), st = c.querySelector('.cl-cs-state, .cl-cs-apply');
+  var stats = c.querySelector('.cl-cs-stats'), st = c.querySelector('.cl-cs-card__foot .cl-btn');
   var li = doc.createElement('li'); li.className = 'cl-cs-row';
   li.innerHTML = '<a class="cl-cs-row__link" href="#" data-lab-go="' + (a.getAttribute('data-lab-go') || '') + '"><span class="cl-cs-thumb cl-cs-thumb--row"><img src="' + (img ? img.getAttribute('src') : '') + '" alt=""></span><span class="cl-cs-row__text"><strong class="cl-cs-name"></strong><span class="cl-cs-meta"></span><span class="cl-cs-row__stats-mobile"></span></span></a><div class="cl-cs-row__side"></div>';
   li.querySelector('.cl-cs-name').textContent = name; li.querySelector('.cl-cs-meta').textContent = meta + (t ? ' · ' + t : '');
@@ -3394,14 +3384,14 @@ if (!doc.getElementById('lab-cancel-dlg')) {
   var dlg = doc.createElement('dialog'); dlg.id = 'lab-cancel-dlg'; dlg.className = 'cl-dialog cl-dialog--confirm';
   dlg.innerHTML = '<h2 class="cl-dialog__title">수강을 취소할까요?</h2><p class="cl-dialog__desc">취소하면 이 강좌의 강의를 볼 수 없습니다.</p><div class="cl-dialog__actions"><button type="button" class="cl-btn cl-btn--text cl-btn--lg lab-live" data-close>닫기</button><button type="button" class="cl-btn cl-btn--lg cl-btn--danger lab-live" data-ok>수강 취소</button></div>';
   doc.body.appendChild(dlg); var target = null;
-  doc.addEventListener('click', function (e) { var s = e.target.closest('.cl-cs-state'); if (!s) return; e.preventDefault(); e.stopPropagation(); target = s; try { dlg.showModal(); } catch (err) { dlg.setAttribute('open', ''); } });
+  doc.addEventListener('click', function (e) { var s = e.target.closest('.cl-btn--undo'); if (!s) return; e.preventDefault(); e.stopPropagation(); target = s; try { dlg.showModal(); } catch (err) { dlg.setAttribute('open', ''); } });
   dlg.querySelector('[data-close]').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); dlg.close(); });
   dlg.querySelector('[data-ok]').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); dlg.close();
     if (!target) return; var name = (target.closest('.cl-cs-card, .cl-cs-row').querySelector('.cl-cs-name') || {}).textContent;
-    doc.querySelectorAll('.cl-cs-card, .cl-cs-row').forEach(function (it) { if ((it.querySelector('.cl-cs-name') || {}).textContent !== name) return; var st = it.querySelector('.cl-cs-state'); if (!st) return;
-      var b = doc.createElement('button'); b.type = 'button'; b.className = 'cl-cs-apply lab-live'; b.innerHTML = '<svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>수강신청'; st.replaceWith(b); }); });
+    doc.querySelectorAll('.cl-cs-card, .cl-cs-row').forEach(function (it) { if ((it.querySelector('.cl-cs-name') || {}).textContent !== name) return; var st = it.querySelector('.cl-btn--undo'); if (!st) return;
+      var b = doc.createElement('button'); b.type = 'button'; b.className = 'cl-btn cl-btn--tint cl-btn--pill lab-live'; b.innerHTML = '<svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>수강신청'; st.replaceWith(b); }); });
 }`,
-    markup: "course-search.js: 수강중이면 <button class=\"cl-cs-state\"><span class=\"cl-cs-state__on\">✓ 수강중</span><span class=\"cl-cs-state__off\">수강 취소</span></button>(누르면 지금과 같은 수강 취소 확인 창), 아니면 <button class=\"cl-cs-apply\">+ 수강신청</button> (지금 cl-btn--ghost '수강중' 버튼 대신). .cl-cs-more 를 그리지 않음. 목록형(view=list)의 오른쪽은 .cl-cs-row__side > .cl-cs-stats + .cl-cs-row__state.",
+    markup: "course-search.js: 수강중이면 <button class=\"cl-btn cl-btn--undo cl-btn--pill\"><span class=\"cl-btn__now\">✓ 수강중</span><span class=\"cl-btn__undo\">수강 취소</span></button>(누르면 지금과 같은 수강 취소 확인 창 cl-dialog--confirm), 아니면 <button class=\"cl-btn cl-btn--tint cl-btn--pill\">+ 수강신청</button>. 두 버튼 모두 공통 부품(components.css · 디자인시스템 Button). .cl-cs-more 를 그리지 않음. 목록형(view=list)의 오른쪽은 .cl-cs-row__side > .cl-cs-stats + .cl-cs-row__state.",
     targets: [".cl-cs-cards", ".cl-cs-rows"],
     note: "학생 로그인 화면(a-courses-s)을 새로 만들어 상태를 볼 수 있게 함. 선생님 화면은 상태 칸이 비어 있음"
   }

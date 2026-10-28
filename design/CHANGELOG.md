@@ -2,6 +2,7 @@
 
 ## v1.2 — 2026.10.28 (오후)
 
+- Button 에 `cl-btn--pill`(알약 모서리) · `cl-btn--undo`(상태 → 되돌리기, 올리면 위험 색) 추가. 전체강좌 수강중 · 수강신청이 화면 전용 클래스 대신 이것을 쓴다.
 - 토큰 2개 추가: `--cl-primary-wash`(#f7f3fd, 사진 없는 선생님 원 바탕) · `--cl-primary-line`(#e4d7f8, 연보라 판 위 흰 버튼 테두리). 실험실에서 직접 적던 #F7F3FD · #E4D7F8 · #E9DDFB · #A1A1A6 · #3A3A3D 를 토큰(wash · line · tint-hover · ink-faint · surface-dark)으로 바꿈.
 - 학원 공개 화면 부품 문서 `components/AcademyPublic/README.md` 와 CSS(`components/bundle.css` 끝) — NE1 · NI1 · NC1 · NQ4 · NQ5 · NF4 · NS1 · NT6(확정), NP1 · NP2 · NP3(제안).
 - Avatar · Button · Tabs README 에 공개 화면 규칙 한 단락씩.

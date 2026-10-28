@@ -9,8 +9,8 @@ CHECK = '<path d="M20 6 9 17l-5-5"></path>'; PLUS = '<path d="M5 12h14"></path><
 C = [('2027년 수능', '수능 · 2027', 2, 7, 0, 1), ('2026년 수능 기출', '수능 · 2027', 2, 1, 0, 1), ('이차방정식의 근과 계수의 관계', '수능 · 2027', 1, 1, 0, 1),
      ('무한히 계속 더했지만 유한이 된다?', '수능 · 2027', 2, 1, 0, 1), ('함수', '지수/로그 · 지수함수', 2, 0, 0, 0), ('공통수학', '공통수학 · 공통수학1', 2, 0, 0, 0), ('중학교1학년수학복습', '중학수학복습 · 중1', 0, 0, 0, 0)]
 def state(on):
-    return (f'<button type="button" class="cl-cs-state lab-live" aria-label="수강중 · 누르면 수강 취소"><span class="cl-cs-state__on">{I(CHECK, 12)}수강중</span><span class="cl-cs-state__off">수강 취소</span></button>' if on else
-            f'<button type="button" class="cl-cs-apply lab-live">{I(PLUS, 12)}수강신청</button>')
+    return (f'<button type="button" class="cl-btn cl-btn--undo cl-btn--pill lab-live" aria-label="수강중 · 누르면 수강 취소"><span class="cl-btn__now">{I(CHECK, 12)}수강중</span><span class="cl-btn__undo">수강 취소</span></button>' if on else
+            f'<button type="button" class="cl-btn cl-btn--tint cl-btn--pill lab-live">{I(PLUS, 12)}수강신청</button>')
 def card(c):
     n, m, l, st, lk, on = c
     return (f'<li class="cl-cs-card"><a class="cl-cs-card__link" href="#" data-lab-go="a-course-read"><span class="cl-cs-thumb cl-cs-thumb--card"><img src="../img/course-default.png" alt=""></span>'
