@@ -24,5 +24,16 @@ s = s.replace('<span class="cl-pub-hide-mobile">선생님 페이지</span><span 
 s = s.replace('data-lab-go="t-course-read"', 'data-lab-go="s-learn"', 1)
 s = s.replace('<div class="cl-menu__head"><strong>장현석 선생님</strong><span>dkjang</span></div>', '<div class="cl-menu__head"><strong>사혜인 학생</strong><span>sahyein1</span></div>')
 s = s.replace('data-avatar-fallback="장" data-avatar-role="teacher"', 'data-avatar-fallback="사" data-avatar-role="student"')
+
+# 계정 메뉴: 학원 사이트 학생 메뉴(테스트 사이트와 같은 항목 · 순서). 묶음 가르기 · 아이콘 색은 AM17 이 맞춘다
+def ic(p): return '<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + p + '</svg>'
+MI = [('수강중인 강좌', 's-learn', '<circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon>'),
+      ('나의 글 목록', 's-qna', '<path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path>'),
+      ('좋아요 강좌', 's-like-course', HEART),
+      ('나의 정보', 's-info', '<circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="10" r="3"></circle><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path>'),
+      ('이용 매뉴얼', '', '<path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>'),
+      ('고객센터', '', '<path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"></path><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path>')]
+items = ''.join('<a role="menuitem" class="cl-menu__item" href="#"' + (f' data-lab-go="{g}"' if g else '') + f'>{ic(p)}{n}</a>' for n, g, p in MI)
+s = re.sub(r'(<div class="cl-menu__head"><strong>사혜인 학생</strong><span>sahyein1</span></div>).*?(<button type="button" role="menuitem" class="cl-menu__item" data-logout="">)', lambda m: m.group(1) + items + m.group(2), s, count=1, flags=re.S)
 open('a-courses-s.html', 'w').write(s)
 print('ok')
