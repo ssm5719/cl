@@ -130,6 +130,10 @@ const DATA = {"run": {"name": "demo", "subject": "영어", "exam_name": "모의 
 const KEY = 'aitest-review:' + (DATA ? DATA.run.name : 'none');
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// 문항 글에 들어 있는 <u>밑줄</u> 만 살리고 나머지는 글자로 보인다.
+const rich = (s) => esc(s).replace(/&lt;(\/?)u&gt;/g, '<$1u>');
+// 선택지가 이미 ①~⑤ 로 시작하면(위치만 고르는 문항) 번호를 또 붙이지 않는다.
+const choiceLabel = (c, i) => String(c).trim().startsWith(NUM[i]) ? '' : (NUM[i] || i + 1) + ' ';
 const NUM = ['①','②','③','④','⑤','⑥','⑦'];
 const UNIT_REASONS = ['경계가 틀림', '글자 누락 · 오타', '유형 이름 틀림', '그림 설명 부족', '빠진 단위 있음'];
 const ITEM_REASONS = ['정답 오류', '복수 정답', '지문 근거 없음', '선택지 어색', '발문 어색', '난이도 안 맞음', '원래 문항과 너무 비슷', '형식 · 오탈자', '기타'];
@@ -204,7 +208,7 @@ function viewUnits() {
       ${u.note ? `<p class="hint" style="margin:6px 0 0">AI 메모: ${esc(u.note)}</p>` : ''}
       ${u.passage ? `<details><summary>지문 보기 (${u.passage.length}자)</summary><p class="passage">${passageHtml(u.passage).html}</p></details>` : ''}
       ${u.figure_desc ? `<p class="hint" style="margin:6px 0 0">그림 설명: ${esc(u.figure_desc)}</p>` : ''}
-      ${u.questions.map((q) => `<div class="q"><b>${esc(q.number)}.</b> <span class="passage">${esc(q.stem)}</span>${q.choices.length ? `<ol>${q.choices.map((c) => `<li>${esc(c)}</li>`).join('')}</ol>` : ''}</div>`).join('')}
+      ${u.questions.map((q) => `<div class="q"><b>${esc(q.number)}.</b> <span class="passage">${rich(q.stem)}</span>${q.choices.length ? `<ol>${q.choices.map((c) => `<li>${rich(c)}</li>`).join('')}</ol>` : ''}</div>`).join('')}
       <div class="judge">
         <div class="row"><span class="lab">나누기</span>
           <button class="chip" data-a="unitOk" data-id="${u.id}" data-v="1" aria-pressed="${v.ok === true}">맞음</button>
@@ -220,9 +224,9 @@ function viewItems() {
   if (!S.reviewer) return '<div class="card"><p style="margin:0">위쪽에 검토하는 선생님 이름을 먼저 적어 주세요. 이름을 적으면 문항별 검토 시간을 재기 시작합니다.</p></div>';
   const it = items[S.idx], u = units[it.unit_id], v = S.items[it.id] || {};
   const p = passageHtml(u.passage || '', it.evidence);
-  const qs = u.questions.map((q) => `<div><span class="lab">원래 ${esc(q.number)}번</span><div class="passage">${esc(q.stem)}</div></div>`).join('');
+  const qs = u.questions.map((q) => `<div><span class="lab">원래 ${esc(q.number)}번</span><div class="passage">${rich(q.stem)}</div></div>`).join('');
   const choices = (it.choices || []).length
-    ? `<ol class="choices">${it.choices.map((c, i) => `<li class="${i + 1 === it.answer ? 'right' : ''}">${NUM[i] || i + 1} ${esc(c)}</li>`).join('')}</ol>` : '';
+    ? `<ol class="choices">${it.choices.map((c, i) => `<li class="${i + 1 === it.answer ? 'right' : ''}">${choiceLabel(c, i)}${rich(c)}</li>`).join('')}</ol>` : '';
   const answer = (it.choices || []).length ? `정답 ${NUM[it.answer - 1] || it.answer}` : `정답 ${esc(it.answer_text)}`;
   const a = it.auto;
   const autoHtml = !a ? '' : !v.verdict
@@ -248,9 +252,9 @@ function viewItems() {
       </section>
       <section class="card" aria-label="AI가 만든 문항">
         <div class="row"><span class="badge accent">${esc(it.type_label)}</span><span class="badge">AI 생성 · ${esc(it.id)}</span></div>
-        <div class="stem">${esc(it.stem)}</div>
+        <div class="stem">${rich(it.stem)}</div>
         ${choices}
-        <div class="ans"><b>${answer}</b>\n${esc(it.explanation)}</div>
+        <div class="ans"><b>${answer}</b>\n${rich(it.explanation)}</div>
         ${(it.evidence || []).length && DATA.run.subject !== '수학' ? `<div><span class="lab">근거 문장 (왼쪽 지문에 노란색)</span>${p.missing.length ? `<ul class="ev">${p.missing.map((e) => `<li class="miss">지문에서 찾지 못함: ${esc(e)}</li>`).join('')}</ul>` : ''}</div>` : ''}
         <div class="verdicts">${VERDICTS.map(([k, l, key]) => `<button class="${k}" data-a="verdict" data-v="${k}" aria-pressed="${v.verdict === k}">${l}<small>${key} 키</small></button>`).join('')}</div>
         ${v.verdict && v.verdict !== 'asis' ? `<div class="row">${ITEM_REASONS.map((r) => `<button class="chip" data-a="itemReason" data-v="${esc(r)}" aria-pressed="${(v.reasons || []).includes(r)}">${esc(r)}</button>`).join('')}</div>
