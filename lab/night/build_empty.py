@@ -1,4 +1,9 @@
-"""학원 공개 화면 빈 상태 변형 만들기 — screens/<id>-empty.html"""
+"""학원 공개 화면 빈 상태 변형 만들기 — screens/<id>-empty.html
+
+기본 화면(screens/<id>.html)에서 목록 부분만 빈 상태로 바꿔 다시 만든다.
+기본 화면을 고쳤으면 이 파일을 다시 실행: python3 lab/night/build_empty.py
+규칙 · 문장: design/components/Empty/README.md "학원 공개 화면" (실험실 fix NE1)
+"""
 import re, os
 os.chdir(os.path.join(os.path.dirname(__file__), '..', 'screens'))
 SVG='<svg class="cl-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{}</svg>'
