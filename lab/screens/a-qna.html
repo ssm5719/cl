@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#904AE8">
+    <title>Q&A | 클라우드러닝</title>
+    <link rel="stylesheet" href="../css/cl-tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/public.css">
+<link rel="stylesheet" href="../css/lab-frame.css">
+<style>
+/* 실험실 전용 — 실제 화면에서는 관리자가 올린 사진이 들어가는 자리다 */
+.cl-ph { width: 100%; height: 100%; min-height: 0; border-radius: var(--cl-radius-sm); background: var(--cl-hover); box-shadow: inset 0 0 0 1px var(--cl-hairline); color: var(--cl-ink-faint); display: grid; place-items: center; font-size: var(--cl-fs-caption); }
+.cl-home-gallery .cl-ph:first-child { grid-row: 1 / 3; }
+.cl-ph-dot { background: var(--cl-hover); }
+</style>
+</head>
+<body class="cl-scope cl-pub-body">
+<a class="cl-skip" href="#">본문으로 건너뛰기</a>
+<header class="cl-pub-header">
+<div class="cl-pub-header__inner">
+<a class="cl-pub-brand cl-pub-brand--logo-only" href="#">
+<img class="cl-pub-brand__logo" src="../img/image_6acf2b92d8a59.png" alt="">
+<span class="cl-pub-brand__name cl-sr-only">클라우드러닝</span>
+</a>
+<nav class="cl-pub-nav" aria-label="학원 메뉴"><a class="cl-pub-nav__item" href="#">전체강좌</a><a class="cl-pub-nav__item" href="#">학원소개</a><a class="cl-pub-nav__item" href="#">선생님소개</a><a class="cl-pub-nav__item" href="#" aria-current="page">Q&amp;A</a><a class="cl-pub-nav__item" href="#">자유게시판</a></nav>
+<div class="cl-pub-actions">
+<div class="cl-popover" data-popover="">
+<button type="button" class="cl-icon-btn cl-pub-icon-btn cl-ws-alarm" aria-label="알림" aria-haspopup="true" aria-expanded="false" data-popover-trigger="">
+<svg class="cl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg><span class="cl-ws-alarm__dot" data-alarm-dot="" hidden=""></span>
+</button>
+<div class="cl-popover__panel cl-alarm-panel" role="dialog" aria-label="알림" data-popover-panel="" hidden="">
+<div class="cl-alarm-panel__head"><strong>알림</strong><button type="button" class="cl-text-btn" data-alarm-clear="" hidden="">모두 지우기</button></div>
+<ul class="cl-alarm-panel__list" data-alarm-list=""></ul>
+<p class="cl-alarm-panel__empty" data-alarm-empty="">새 알림이 없습니다.</p>
+</div>
+</div>
+<a class="cl-btn cl-btn--primary cl-pub-btn-pill" href="#" data-lab-go="t-course-read"><span class="cl-pub-hide-mobile">선생님 페이지</span><span class="cl-pub-show-mobile">선생님</span><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<div class="cl-popover cl-pub-hide-mobile" data-popover="">
+<button type="button" class="cl-ws-account" aria-haspopup="menu" aria-expanded="false" aria-label="계정 메뉴" data-popover-trigger="">
+<img class="cl-avatar" src="../img/default-person.svg" alt="" data-avatar-fallback="장" data-avatar-role="teacher">
+</button>
+<div class="cl-popover__panel cl-menu" role="menu" data-popover-panel="" hidden="">
+<div class="cl-menu__head"><strong>장현석 선생님</strong><span>dkjang</span></div>
+<a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>강좌 관리</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path></svg>수강 관리</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>진도율 관리</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="10" r="3"></circle><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path></svg>나의 정보</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>사이트 관리</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>이용 매뉴얼</a><a role="menuitem" class="cl-menu__item" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"></path><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path></svg>고객센터</a>
+<button type="button" role="menuitem" class="cl-menu__item" data-logout=""><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>로그아웃</button>
+</div>
+</div>
+<button type="button" class="cl-icon-btn cl-pub-icon-btn cl-pub-show-mobile" aria-label="메뉴 열기" aria-controls="cl-pub-drawer" aria-expanded="false" data-pub-drawer-open=""><svg class="cl-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button>
+</div>
+</div>
+</header>
+
+<main id="cl-main" class="cl-pub-main" tabindex="-1"><div class="cl-pub-band"><div class="cl-pub-wrap"><nav class="cl-pub-band__crumb" aria-label="현재 위치"><a href="#" data-lab-go="a-main">홈</a> <span aria-hidden="true">›</span> <span data-band-crumb-last="">Q&amp;A</span></nav><h1 class="cl-pub-band__title">Q&amp;A</h1><p class="cl-pub-band__sub">강의를 듣다 궁금한 점을 묻고 답해요</p></div></div><div class="cl-pub-wrap cl-post-page"><form class="cl-post-toolbar cl-post-toolbar--filters" role="search"><label class="cl-search"><svg class="cl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><input type="search" placeholder="궁금한 내용을 검색하세요" aria-label="질문 검색"></label><span class="cl-selectbox"><button type="button" class="cl-select cl-selectbox__control cl-selectbox__button" aria-label="답변 여부"><span class="cl-selectbox__label">답변 여부 전체</span><span class="cl-selectbox__sizer" aria-hidden="true"><span>답변 여부 전체</span><span>답변대기</span><span>답변완료</span></span></button></span><span class="cl-selectbox"><input type="text" class="cl-select cl-selectbox__control cl-selectbox__input" role="combobox" aria-label="강좌" placeholder="강좌 전체"></span><div class="cl-segmented cl-post-order" role="group" aria-label="정렬"><button type="button" class="cl-segmented__item cl-segmented__item--text" aria-pressed="true">최신순</button><button type="button" class="cl-segmented__item cl-segmented__item--text" aria-pressed="false">답변 많은 순</button></div><span class="cl-toolbar__spacer"></span><a class="cl-btn cl-btn--primary" href="#"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path></svg>질문하기</a></form><p class="cl-post-toolbar__count">질문 16개</p><div data-list=""><ul class="cl-qna-list"><li class="cl-qna-item"><span class="cl-qna-item__status is-waiting"><svg class="cl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><small>답변대기</small></span><div class="cl-qna-item__body"><div class="cl-qna-item__course"><a href="#">겨울방학 영어 특강</a><span class="cl-lock"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>그룹강좌</span></div><a class="cl-qna-item__title" href="#" data-lab-go="s-qna-read"><span class="cl-clamp-2">PDF</span></a><div class="cl-qna-item__meta"><a class="cl-post-writer is-teacher" href="#"><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>문성호 선생님</a><span>2년 전</span></div></div></li><li class="cl-qna-item"><span class="cl-qna-item__status is-waiting"><svg class="cl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><small>답변대기</small></span><div class="cl-qna-item__body"><div class="cl-qna-item__course"><a href="#">수능 국어 문법 완성</a><span class="cl-lock"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>그룹강좌</span></div><a class="cl-qna-item__title" href="#" data-lab-go="s-qna-read"><span class="cl-clamp-2">더 어려워료</span></a><div class="cl-qna-item__meta"><span class="cl-post-writer"><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>탁유원</span><span>2년 전</span></div></div></li><li class="cl-qna-item"><span class="cl-qna-item__status is-answered"><strong class="cl-num">4</strong><small>답변</small></span><div class="cl-qna-item__body"><div class="cl-qna-item__course"><a href="#">수능 국어 문법 완성</a><span class="cl-lock"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>그룹강좌</span></div><a class="cl-qna-item__title" href="#" data-lab-go="s-qna-read"><span class="cl-clamp-2">주짓수를 더 배우고 싶어요</span></a><div class="cl-qna-item__meta"><span class="cl-post-writer"><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>탁유원</span><span>2년 전</span></div></div></li><li class="cl-qna-item"><span class="cl-qna-item__status is-waiting"><svg class="cl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><small>답변대기</small></span><div class="cl-qna-item__body"><div class="cl-qna-item__course"><a href="#">수능 국어 문법 완성</a><span class="cl-lock"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>그룹강좌</span></div><a class="cl-qna-item__title" href="#" data-lab-go="s-qna-read"><span class="cl-clamp-2">국어 동영상 6분 지점에 질문이 있습니다.</span></a><div class="cl-qna-item__meta"><span class="cl-post-writer"><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>탁유원</span><span>2년 전</span></div></div></li><li class="cl-qna-item"><span class="cl-qna-item__status is-answered"><strong class="cl-num">1</strong><small>답변</small></span><div class="cl-qna-item__body"><div class="cl-qna-item__course"><a href="#">고전 문학 읽기</a><span class="cl-lock"><svg class="cl-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>그룹강좌</span></div><a class="cl-qna-item__title" href="#" data-lab-go="s-qna-read"><span class="cl-clamp-2">이 강의는 언제까제 볼수 있나요?</span></a><div class="cl-qna-item__meta"><span class="cl-post-writer"><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>사혜인</span><span>2년 전</span></div></div></li></ul></div><div data-pagination=""><nav class="cl-pagination" aria-label="페이지"><button type="button" class="cl-pagination__arrow" aria-label="이전 쪽" disabled=""><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"></path></svg></button><button type="button" class="cl-pagination__page is-current" aria-current="page">1</button><button type="button" class="cl-pagination__page">2</button><button type="button" class="cl-pagination__arrow" aria-label="다음 쪽"><svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg></button></nav></div></div></main>
+
+<footer class="cl-pub-footer">
+<div class="cl-pub-footer__inner">
+<div class="cl-pub-footer__brand">
+<img class="cl-pub-footer__logo" src="../img/image_6acf2b92d8a59.png" alt="클라우드러닝">
+<span class="cl-pub-footer__muted">믿음으로 선택한 고객에게 신뢰로 보답해온 랩241</span>
+</div>
+<div class="cl-pub-footer__col">
+<span class="cl-pub-footer__label">연락처</span>
+<span>서울특별시 금천구 가산동 000로 00 리더스타워 0000호</span>                <span class="cl-num">Tel 02-0000-0000</span>
+</div>
+<nav class="cl-pub-footer__col" aria-label="안내">
+<span class="cl-pub-footer__label">안내</span>
+<a href="#">이용약관</a>
+<a href="#" class="cl-pub-footer__strong">개인정보처리방침</a>
+<a href="#">자료실</a>
+<a href="#">문의하기</a>
+<a href="#">학원탈퇴</a>
+</nav>
+<div class="cl-pub-footer__bottom">
+<span>© 2022–2025 Lab241 Co., Ltd. All rights reserved.</span>
+<span class="cl-pub-footer__links">
+<a href="#">클라우드러닝 포털</a>
+<a href="#">Powered by Lab241 · 올댓에듀케이션 소개</a>
+</span>
+</div>
+</div>
+</footer>
+
+<button type="button" class="cl-pub-top" aria-label="맨 위로"><svg class="cl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m18 15-6-6-6 6"></path></svg></button>
+
+<script>
+// 실험실 전용: 실제 화면 post-common.js createRichEditor 와 같은 설정
+(function () { var el = document.querySelector('[data-lab-editor]'); if (!el || !window.toastui) return;
+  new toastui.Editor({ el: el, height: el.style.height || '270px', initialEditType: 'wysiwyg', previewStyle: 'vertical', usageStatistics: false,
+    toolbarItems: [['heading', 'bold', 'italic', 'strike', 'hr'], ['table', 'image', 'link']],
+    initialValue: el.dataset.labValue || '' });
+  setTimeout(function () { try { parent.postMessage({ labFit: 1 }, '*'); } catch (e) {} }, 300);
+})();
+</script>
+</body></html>

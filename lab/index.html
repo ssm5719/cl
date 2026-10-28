@@ -213,7 +213,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   </div>
 </section>
 
-<script src="fixes.js?v=158"></script>
+<script src="fixes.js?v=159"></script>
 <script>
 (function () {
   const SCREENS = [
@@ -235,6 +235,12 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     { id: 'a-courses', name: '학원 전체강좌 (선생님 로그인)', tpl: '목록형' },
     { id: 'a-course-read', name: '학원 강의목록 · 강좌 상세 (선생님 로그인)', tpl: '상세형' },
     { id: 'a-player', name: '학원 강의 보기 · 영상 (선생님 로그인)', tpl: '재생형' },
+    { id: 'a-about', name: '학원소개 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-teachers', name: '학원 선생님 목록 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-teacher-read', name: '학원 선생님 상세 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-qna', name: '학원 Q&A 목록 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-board', name: '학원 자유게시판 목록 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-board-read', name: '학원 자유게시판 읽기 (선생님 로그인)', tpl: '띠형' },
     { id: 'notfound', name: '404 에러', tpl: '상태 화면' }
   ];
   const LAYERS = ['토큰', '공통 틀', '공통 부품', '화면별'];
@@ -373,7 +379,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     doc.querySelectorAll('[data-lab-go]').forEach(a => { a.classList.add('lab-live');
       a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); go(a.dataset.labGo); }, true); });
     // 학원 머리 메뉴 · 로고 → 실험실 화면으로. 아직 없는 화면은 알려만 준다
-    const NAV_A = { '전체강좌': 'a-courses' };
+    const NAV_A = { '전체강좌': 'a-courses', '학원소개': 'a-about', '선생님소개': 'a-teachers', 'Q&A': 'a-qna', '자유게시판': 'a-board' };
     doc.querySelectorAll('.cl-pub-nav__item, .cl-pub-brand').forEach(a => {
       a.classList.add('lab-live');
       a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation();

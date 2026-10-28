@@ -16,3 +16,7 @@
 3. `index.html` SCREENS 에 6줄 추가 (학원 탭), 머리 메뉴 이동표 `NAV_A` 에 학원소개 · 선생님소개 · Q&A · 자유게시판 연결.
 4. `fixes-night.js` 의 배열을 `fixes.js` 끝에 붙이고, 승인된 항목은 `status: '확정'`, 접은 항목은 `'보류'`.
 5. 머리 · 꼬리말 · 글자 단계 fix(AM1 · AM2 · AM8 · AM14 · AM17 · AM18~22 · AC1 · AD1 · AD5 · G7)의 screens 에 새 화면 6개를 더한다.
+
+## 적용 기록
+
+- 2026.10.28 — 확정 후보 8개(NB1 · NB2 · NT1 · NT3 · NQ1 · NQ2 · NF1 · NF2)를 `fixes.js` 에 `확정`으로 넣고, 화면 6개 · `public-add.css` 를 실험실에 반영. 정할 것 4개(NT2 · NT4 · NQ3 · NF3)는 이 폴더의 `fixes-night.js` 에만 있다.
