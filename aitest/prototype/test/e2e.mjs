@@ -145,6 +145,63 @@ step('① 자료: 지문 붙여넣기 · 권리 확인은 처음 한 번만 · �
   assert(!(await page.isVisible('[data-a="rights"]')), '두 번째에도 권리 확인을 받음');
 });
 
+
+async function toMethod(page, units = 's-en/u01,s-en/u02,s-en/u04') {
+  await open(page, `#/new?units=${units}`);
+  await page.click('[data-a="wiz-next"]');
+  await see(page, '.pt-steps [aria-current="step"] >> text=방식');
+}
+
+step('② 방식: 묶음 칩 · 지문당 문항 수 · 세부 유형 · 형태 · 규칙', async (page) => {
+  await toMethod(page);
+  await see(page, '[data-a="grp"][data-v="original"]');
+  await page.click('[data-a="grp"][data-v="original"]');
+  await page.click('[data-a="grp"][data-v="main"]');
+  await page.click('[data-a="grp"][data-v="blank"]');
+  await page.click('[data-a="per-unit"][data-v="2"]');
+  assert((await barText(page)).includes('지문 3개 × 2문항 = 6문항'), await barText(page));
+  await page.click('[data-a="sub-toggle"]');
+  for (const t of ['주제', '제목', '요지', '주장', '목적']) await see(page, `[data-sub-group="main"] >> text=${t}`);
+  await page.click('[data-a="form"][data-v="OX"]');
+  assert(await page.isDisabled('[data-a="grp"][data-v="writing"]'), 'OX 인데 서술형이 켜져 있음');
+  for (const r of ['원래 문항의 정답이 새 문항에 드러나지 않게', '정답 번호 고르게', '고른 지문 안에서만 출제']) await see(page, `text=${r}`);
+});
+
+step('② 방식: 총 문항 수 · 지문별 개수 · 자세히 설정', async (page) => {
+  await toMethod(page);
+  await page.click('[data-a="count-mode"][data-v="total"]');
+  await page.fill('[data-a="total"]', '2');
+  assert((await barText(page)).includes('지문 3개 · 총 2문항'), await barText(page));
+  await see(page, '.pt-alloc >> text=18번 1');
+  await page.fill('[data-a="total"]', '0');
+  assert(await page.isDisabled('[data-a="wiz-next"]'), '총 0문항인데 문제 만들기가 켜져 있음');
+  await page.click('[data-a="count-mode"][data-v="custom"]');
+  await page.fill('[data-a="custom"][data-v="s-en/u01"]', '3');
+  assert((await barText(page)).includes('총 7문항'), await barText(page));
+  await page.click('[data-a="more-toggle"]');
+  await see(page, '[data-a="choice-lang"]');
+  assert(await page.getAttribute('[data-a="request"]', 'maxlength') === '200', '직접 요청 200자 제한 없음');
+});
+
+step('② 방식: 붙여 넣은 지문만이면 원래 유형 그대로 비활성', async (page) => {
+  await page.goto('about:blank');
+  await open(page, '#/new');
+  await page.click('[data-a="src-tab"][data-v="paste"]');
+  await page.fill('[data-a="paste-title"]', '교과서 1과');
+  await page.fill('[data-a="paste-text"]', 'Good habits are built one small step at a time.');
+  if (await page.isVisible('[data-a="rights"]')) await page.check('[data-a="rights"]');
+  await page.click('[data-a="wiz-next"]');
+  assert(await page.isDisabled('[data-a="grp"][data-v="original"]'), '원래 유형 그대로가 켜져 있음');
+  await see(page, 'text=붙여 넣은 지문에는 원래 유형이 없어요');
+});
+
+step('② 방식: 문제 만들기 → 진행 → ③ 검토', async (page) => {
+  await toMethod(page);
+  await page.click('[data-a="wiz-next"]');
+  await see(page, 'text=/지문 3개 중 \\d개 완료/');
+  await see(page, '.pt-steps [aria-current="step"] >> text=검토', 6000);
+});
+
 // ---------------------------------------------------------------- 실행
 
 const server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: ROOT, stdio: 'ignore' });
