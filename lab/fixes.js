@@ -3317,7 +3317,7 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
     screens: ["a-courses-s", "a-courses"],
     title: "전체강좌 카드형 · 목록형 — 여백 · 상태 표시 · 칸 맞춤",
     current: "카드마다 위에 검은 선, 사진 모서리 10, 글자 15.5 · 12.5 직접 적음. [수강중] 을 누르면 수강 취소 확인 창이 뜨는데, 누르기 전에는 그런 일이 생긴다는 표시가 없음(마우스를 올려도 그대로). 카드 · 줄 끝마다 '강의목록 ›' 이 또 있음. 목록형은 줄 66px(위아래 10)로 빽빽하고, 오른쪽 숫자 · 버튼 폭이 줄마다 달라 [수강중] · [+ 수강신청] 이 들쭉날쭉",
-    next: "카드형: 검은 선 없음, 사진 8, 사진 아래 12, 분류 13 · 제목 17 · 600 · 선생님 13, 카드 사이 40 · 24. 목록형: 목록 윗선 옅은 회색, 줄 위아래 20, 사진 120(6), 사진 ↔ 글 20, 제목 ↔ 정보 6, 오른쪽 [강의 56 | 수강생 44 | 좋아요 44] [상태 96] 고정 칸. 공통: [✓ 수강중] 은 흰 바탕 · 보라 테두리 · 보라 글자 버튼 32(최소 88, 체크 아이콘) — 마우스를 올리거나 키보드로 고르면 같은 자리에서 흰 바탕 · 빨간 테두리 '수강 취소'로 바뀌고, 누르면 확인 창('수강을 취소할까요? / 취소하면 이 강좌의 강의를 볼 수 없습니다.' [닫기][수강 취소]). 터치 화면은 바뀌지 않고 바로 확인 창. [+ 수강신청]은 연보라 버튼 32. '강의목록 ›' 은 뺌(카드 · 줄 전체가 링크)",
+    next: "카드형: 검은 선 없음, 사진 8, 사진 아래 12, 분류 13 · 제목 17 · 600 · 선생님 13, 카드 사이 40 · 24. 목록형: 목록 윗선 옅은 회색, 줄 위아래 20, 사진 120(6), 사진 ↔ 글 20, 제목 ↔ 정보 6, 오른쪽 [강의 56 | 수강생 44 | 좋아요 44] [상태 96] 고정 칸. 공통: [✓ 수강중] 은 흰 바탕 · 회색 테두리 · 회색 체크 · 진회색 글자 버튼 32(최소 88) — 할 일이 아닌 상태라 조용하게, 보라는 [+ 수강신청]에만 — 마우스를 올리거나 키보드로 고르면 같은 자리에서 흰 바탕 · 빨간 테두리 '수강 취소'로 바뀌고, 누르면 확인 창('수강을 취소할까요? / 취소하면 이 강좌의 강의를 볼 수 없습니다.' [닫기][수강 취소]). 터치 화면은 바뀌지 않고 바로 확인 창. [+ 수강신청]은 연보라 버튼 32. '강의목록 ›' 은 뺌(카드 · 줄 전체가 링크)",
     css: `/* 전체강좌 카드형 — 카드 위 검은 선 · 겹 상자 없이, 사진 8 · 글자 토큰 · 상태는 오른쪽 아래 하나 */
 .cl-cs-cards { gap: 40px 24px; margin-top: 8px; }
 .cl-cs-rows { margin-top: 8px; }
@@ -3334,13 +3334,14 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
 /* 카드 · 줄 전체가 강좌로 가는 길이라 '강의목록 ›' 은 뺀다 */
 .cl-cs-more { display: none !important; }
 /* 상태 — [✓ 수강중] 은 누르면 수강 취소. 마우스를 올리거나 키보드로 고르면 '수강 취소'로 바뀌어 무엇이 일어나는지 미리 보인다 */
-.cl-cs-state { position: relative; display: inline-grid; place-items: center; min-width: 88px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px var(--cl-primary); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, box-shadow .15s ease-out; }
+.cl-cs-state { position: relative; display: inline-grid; place-items: center; min-width: 88px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: inset 0 0 0 1px var(--cl-control-border); color: var(--cl-ink-2); font: inherit; font-size: var(--cl-fs-caption); font-weight: 500; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, box-shadow .15s ease-out; }
 .cl-cs-state > span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 4px; }
+.cl-cs-state__on .cl-icon { color: var(--cl-ink-muted); }
 .cl-cs-state__off { visibility: hidden; }
 .cl-cs-state:hover, .cl-cs-state:focus-visible { background: var(--cl-canvas); color: var(--cl-danger, #D93025); box-shadow: inset 0 0 0 1px currentColor; }
 .cl-cs-state:hover .cl-cs-state__on, .cl-cs-state:focus-visible .cl-cs-state__on { visibility: hidden; }
 .cl-cs-state:hover .cl-cs-state__off, .cl-cs-state:focus-visible .cl-cs-state__off { visibility: visible; }
-@media (hover: none) { .cl-cs-state:hover { background: var(--cl-canvas); color: var(--cl-primary-pressed); box-shadow: inset 0 0 0 1px var(--cl-primary); } .cl-cs-state:hover .cl-cs-state__on { visibility: visible; } .cl-cs-state:hover .cl-cs-state__off { visibility: hidden; } }
+@media (hover: none) { .cl-cs-state:hover { background: var(--cl-canvas); color: var(--cl-ink-2); box-shadow: inset 0 0 0 1px var(--cl-control-border); } .cl-cs-state:hover .cl-cs-state__on { visibility: visible; } .cl-cs-state:hover .cl-cs-state__off { visibility: hidden; } }
 .cl-cs-apply { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-primary-tint); color: var(--cl-primary-pressed); font: inherit; font-size: var(--cl-fs-caption); font-weight: 600; white-space: nowrap; cursor: pointer; transition: background-color .15s ease-out; }
 .cl-cs-apply:hover { background: #E9DDFB; }
 /* 목록형 — 여유 있게: 줄 위아래 20, 사진 120, 오른쪽 숫자 · 상태는 칸을 고정해 줄마다 같은 자리 */
