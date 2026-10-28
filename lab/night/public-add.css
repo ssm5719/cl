@@ -46,7 +46,7 @@
 .cl-teacher-card { height: 100%; box-sizing: border-box; padding: 16px; gap: 20px; border: 1px solid var(--cl-hairline); border-radius: 10px; overflow: hidden; background: var(--cl-canvas); display: flex; flex-direction: row; align-items: flex-start; color: var(--cl-ink); text-decoration: none; }
 .cl-teacher-card:hover { border-color: var(--cl-primary); }
 .cl-teacher-card__photo { flex: none; width: 120px; aspect-ratio: 10 / 13; border-radius: 8px; background: var(--cl-primary-tint); display: grid; place-items: center; overflow: hidden; }
-.cl-teacher-card__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cl-teacher-card__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
 .cl-teacher-card__photo__initial { font-size: 40px; font-weight: 700; color: var(--cl-primary-pressed); }
 .cl-teacher-card__body { flex: 1; min-width: 0; align-self: stretch; padding: 4px 0 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
 .cl-teacher-card__subject { max-width: 100%; font-size: 13px; font-weight: 600; color: var(--cl-primary-pressed); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
