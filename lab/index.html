@@ -213,7 +213,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   </div>
 </section>
 
-<script src="fixes.js?v=167"></script>
+<script src="fixes.js?v=168"></script>
 <script>
 (function () {
   const SCREENS = [
@@ -233,15 +233,20 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     { id: 's-info', name: '나의 정보 (학생)', tpl: '입력형' }, { id: 's-info-mail', name: '나의 정보 · 이메일 변경 (학생)', tpl: '입력형' }, { id: 's-info-photo-dlg', name: '기본 사진으로 확인 창 (학생)', tpl: '입력형' }, { id: 's-info-mail-dlg', name: '이메일 변경 확인 창 (학생)', tpl: '입력형' }, { id: 's-password', name: '비밀번호 변경 (학생)', tpl: '입력형' },
     { id: 'a-main', name: '학원 메인 · 기본형 (선생님 로그인)', tpl: '메인형' },
     { id: 'a-courses', name: '학원 전체강좌 (선생님 로그인)', tpl: '목록형' },
+    { id: 'a-courses-empty', name: '학원 전체강좌 · 결과 없음 (선생님 로그인)', tpl: '목록형' },
     { id: 'a-course-read', name: '학원 강의목록 · 강좌 상세 (선생님 로그인)', tpl: '상세형' },
     { id: 'a-player', name: '학원 강의 보기 · 영상 (선생님 로그인)', tpl: '재생형' },
     { id: 'a-about', name: '학원소개 (선생님 로그인)', tpl: '띠형' },
     { id: 'a-teachers', name: '학원 선생님 목록 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-teachers-empty', name: '학원 선생님 목록 · 없음 (선생님 로그인)', tpl: '띠형' },
     { id: 'a-teacher-read', name: '학원 선생님 상세 (선생님 로그인)', tpl: '띠형' },
     { id: 'a-teacher-read-empty', name: '학원 선생님 상세 · 담당 강좌 없음 (선생님 로그인)', tpl: '띠형' },
     { id: 'a-qna', name: '학원 Q&A 목록 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-qna-empty', name: '학원 Q&A · 질문 없음 (선생님 로그인)', tpl: '띠형' },
     { id: 'a-board', name: '학원 자유게시판 목록 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-board-empty', name: '학원 자유게시판 · 글 없음 (선생님 로그인)', tpl: '띠형' },
     { id: 'a-board-read', name: '학원 자유게시판 읽기 (선생님 로그인)', tpl: '띠형' },
+    { id: 'a-board-read-empty', name: '학원 자유게시판 읽기 · 댓글 없음 (선생님 로그인)', tpl: '띠형' },
     { id: 'notfound', name: '404 에러', tpl: '상태 화면' }
   ];
   const LAYERS = ['토큰', '공통 틀', '공통 부품', '화면별'];
