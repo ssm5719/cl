@@ -43,5 +43,6 @@ p = re.sub(r'<a class="cl-playlist__item" href="#"><span class="cl-playlist__num
 open('a-player.html', 'w').write(p)
 c = open('a-course-read.html').read()
 c = re.sub(r'data-lab-go="a-player">수학수능기출26', 'data-lab-go="a-player-doc">수학수능기출26', c)
+c = c.replace('data-lab-go="a-player" aria-label="수학수능기출26 보기"', 'data-lab-go="a-player-doc" aria-label="수학수능기출26 보기"')
 open('a-course-read.html', 'w').write(c)
 print('ok')
