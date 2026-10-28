@@ -759,7 +759,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- 글자 링크 ---------- */
 /* 본문 속 동작 링크 — 평소 밑줄 없음, 올리면 밑줄. --muted 회색에서 보라로, --danger 빨강(비밀번호 초기화 등) */
-.cl-link { padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--cl-primary-pressed); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; cursor: pointer; }
+.cl-link { display: inline-flex; align-items: center; gap: 4px; padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--cl-primary-pressed); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; cursor: pointer; }
 .cl-link:hover { text-decoration-color: currentColor; }
 .cl-link--muted { color: var(--cl-ink-2); }
 .cl-link--muted:hover { color: var(--cl-primary-pressed); }
