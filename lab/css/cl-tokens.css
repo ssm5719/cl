@@ -51,6 +51,12 @@
   --cl-mark-muted: #8E8E93;          /* 회색 막대 · 범례 점 */
   --cl-heat-1-ink: #4A1F8C;          /* heat-1 위 글자 */
   --cl-heat-2-ink: #2D1060;          /* heat-2 위 글자 */
+  --cl-media-bg: #F4F4F6; /* 사진 · 문서 칸 바탕 */
+  --cl-disabled-bg: #E8E8EB; /* 비활성 버튼 바탕 */
+  --cl-surface-dark-hover: #000000; /* 진한 버튼 hover */
+  --cl-on-ink-faint: #A1A1A6; /* 진한 바탕 위 흐린 글자 */
+  --cl-on-ink-muted: #C7C7CC; /* 진한 바탕 위 보조 글자 */
+  --cl-on-ink-2: #E5E5EA; /* 진한 바탕 위 둘째 글자 */
 
   /* 타이포 — Pretendard 하나 */
   --cl-font: 'Pretendard Variable', Pretendard, -apple-system, system-ui, sans-serif;
@@ -68,6 +74,12 @@
   --cl-fs-table-head: 12.5px;   /* 500 */
   --cl-fs-caption: 12.5px;
   --cl-fs-micro: 12px;          /* 배지 500 */
+
+  /* 글자 고정 단계 — 화면(공개 · 작업공간)에 따라 바뀌지 않는 값. 의미 토큰(위)이 맞지 않는 자리에 쓴다. 반 픽셀은 쓰지 않는다 */
+  --cl-fs-10: 10px;  --cl-fs-11: 11px;  --cl-fs-12: 12px;  --cl-fs-13: 13px;  --cl-fs-14: 14px;  --cl-fs-15: 15px;
+  --cl-fs-16: 16px;  --cl-fs-17: 17px;  --cl-fs-18: 18px;  --cl-fs-19: 19px;  --cl-fs-20: 20px;  --cl-fs-21: 21px;
+  --cl-fs-22: 22px;  --cl-fs-24: 24px;  --cl-fs-26: 26px;  --cl-fs-28: 28px;  --cl-fs-32: 32px;  --cl-fs-40: 40px;
+  --cl-fs-56: 56px;  --cl-fs-72: 72px;
 
   /* 크기 */
   --cl-h-public-header: 72px;
@@ -90,10 +102,13 @@
   --cl-pub-gutter: max(20px, calc((100cqw - 1200px) / 2));
 
   /* 반경 */
+  --cl-radius-hair: 2px;  /* 진행 막대 끝 · 탭 밑줄 */
   --cl-radius-xs: 4px;    /* 체크박스 · 히트맵 칸 */
+  --cl-radius-item: 6px;  /* 메뉴 줄 · 작은 버튼 · 배지 · 작은 썸네일 */
   --cl-radius-sm: 8px;    /* 작업공간 버튼 · 입력 · 배지(6) */
   --cl-radius-md: 10px;   /* 작업공간 카드 */
   --cl-radius-lg: 12px;   /* 공개 썸네일 · 떠 있는 바 */
+  --cl-radius-xl: 16px;   /* 큰 사진 · 메인 타일 */
   --cl-radius-pill: 999px;
 
   /* 깊이 · 움직임 */
@@ -169,6 +184,12 @@ html[data-theme="dark"] .cl-scope {
   --cl-mark-muted: #6e6e73;
   --cl-heat-1-ink: #e4d6fc;
   --cl-heat-2-ink: #ffffff;
+  --cl-media-bg: #2a2a2d;
+  --cl-disabled-bg: #333336;
+  --cl-surface-dark-hover: #48484c;
+  --cl-on-ink-faint: #a1a1a6;
+  --cl-on-ink-muted: #c7c7cc;
+  --cl-on-ink-2: #e5e5ea;
   --cl-shadow-float: 0 8px 24px rgba(0,0,0,.5);
   --cl-shadow-bulkbar: 0 8px 24px rgba(0,0,0,.6);
 }

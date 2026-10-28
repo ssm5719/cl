@@ -2,12 +2,12 @@
 
 
 /* 이어보기 카드 */
-.cl-hero { margin-bottom: 8px; padding: 24px; border-radius: 16px; background: var(--cl-surface-dark); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.cl-hero { margin-bottom: 8px; padding: 24px; border-radius: var(--cl-radius-xl); background: var(--cl-surface-dark); color: var(--cl-on-ink); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .cl-hero__body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
-.cl-hero__eyebrow { font-size: var(--cl-fs-caption); color: #C7C7CC; }
-.cl-hero__title { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: #fff; text-decoration: none; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.cl-hero__eyebrow { font-size: var(--cl-fs-caption); color: var(--cl-on-ink-muted); }
+.cl-hero__title { font-size: var(--cl-fs-20); font-weight: 700; letter-spacing: -0.02em; color: var(--cl-on-ink); text-decoration: none; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .cl-hero__title:hover { color: var(--cl-primary-on-dark); }
-.cl-hero__lecture { display: block; color: #E5E5EA; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-hero__lecture { display: block; color: var(--cl-on-ink-2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cl-hero__progress { font-size: var(--cl-fs-caption); color: var(--cl-primary-on-dark); font-weight: 600; }
 .cl-hero__cta { flex: none; }
 @media (max-width: 900px) { .cl-hero { flex-direction: column; align-items: stretch; padding: 20px; } .cl-hero__cta { width: 100%; } }
@@ -15,7 +15,7 @@
 /* 강의별 진도 칸 */
 .cl-row__progress { display: flex; align-items: center; gap: 10px; margin-top: 4px; max-width: 420px; }
 .cl-segments { flex: 1; display: flex; gap: 3px; min-width: 120px; }
-.cl-segments__cell { flex: 1; height: 8px; border-radius: 3px; background: var(--cl-heat-0); }
+.cl-segments__cell { flex: 1; height: 8px; border-radius: var(--cl-radius-xs); background: var(--cl-heat-0); }
 .cl-segments__cell.is-heat-1 { background: var(--cl-heat-1); }
 .cl-segments__cell.is-heat-2 { background: var(--cl-heat-2); }
 .cl-segments__cell.is-heat-3 { background: var(--cl-heat-3); }
@@ -33,13 +33,13 @@
 .cl-submissions { display: flex; flex-wrap: wrap; gap: 6px; }
 .cl-submission { height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: 0 0 0 1px var(--cl-control-border); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-variant-numeric: tabular-nums; }
 .cl-submission[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--cl-primary); }
-.cl-submission.is-final::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: var(--cl-success); }
+.cl-submission.is-final::before { content: ""; width: 7px; height: 7px; border-radius: var(--cl-radius-pill); background: var(--cl-success); }
 .cl-editor { border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); overflow: hidden; }
 .cl-editor .toastui-editor-defaultUI { border: 0; }
 
 
 /* 선생님 카드 */
 .cl-teacher-card { padding: 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.cl-teacher-card__photo { width: 72px; height: 72px; border-radius: 999px; object-fit: cover; background: var(--cl-primary-tint); color: var(--cl-primary-pressed); display: grid; place-items: center; font-size: 26px; font-weight: 700; }
-.cl-teacher-card__name { display: block; max-width: 100%; font-size: 15px; font-weight: 700; text-decoration: none; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-teacher-card__photo { width: 72px; height: 72px; border-radius: var(--cl-radius-pill); object-fit: cover; background: var(--cl-primary-tint); color: var(--cl-primary-pressed); display: grid; place-items: center; font-size: var(--cl-fs-26); font-weight: 700; }
+.cl-teacher-card__name { display: block; max-width: 100%; font-size: var(--cl-fs-15); font-weight: 700; text-decoration: none; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cl-teacher-card__comment { margin: 0; color: var(--cl-ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
