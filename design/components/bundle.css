@@ -1,4 +1,4 @@
-/* 클라우드러닝 작업공간 · 학원 공개 화면 — 컴포넌트 스타일 (만든 날 2026.10.28)
+/* 클라우드러닝 작업공간 · 학원 공개 화면 — 컴포넌트 스타일 (만든 날 2026.10.29)
    원본: 실험실 lab/css 의 base · components · manager · teacher · student · public.css + fixes.js 의 확정 · 제안 항목 CSS.
    이 파일은 design/build_bundle.js 로 만든다 — 손으로 고치지 말고 실험실 CSS 를 고친 뒤 다시 만든다.
    색 · 글자 크기 · 간격 · 반경 · 그림자 · 높이 값은 tokens.json 에서 온다(tokens.css 가 :root 에 선언). px · hex 를 직접 쓰지 않는다.
@@ -3953,6 +3953,12 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
 
 /* --- NB1 [확정] 자유게시글 보기 창 — 창 안에서 [새 탭에서 보기] · [수정], 공지 · 조회 표시 --- */
 /* 공통 대화상자 · Button 만 쓴다 — 새 CSS 없음 */
+
+/* --- NA1 [확정] 과제 통계 창 — 채점 전 0 · 순위 1 · '미채점 · 0~20점' 을 바로잡기 --- */
+/* 과제 통계 — 아직 없는 값 · 하지 않은 것은 회색 막대, 한 값만 보라 */
+.cl-ta-meter > span.is-muted { background: var(--cl-mark-muted); }
+.cl-kpi dd.is-none { color: var(--cl-ink-faint); }
+.cl-ta-stats__note { margin: 4px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
 
 /* ===== 디자인 수정(제안) — 실험실에서 보는 중. 확정되면 위로 올라간다 ===== */
 /* --- SL3 [제안] 화면 테마 고르기: 기기 설정 · 라이트 · 다크 (계정 메뉴) --- */

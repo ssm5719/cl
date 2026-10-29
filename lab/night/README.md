@@ -38,3 +38,9 @@
 - 새 화면(테스트 사이트에서 찾음): students-courses-dlg · students-join-dlg · students-group-dlg(build_student_dlgs.py), cms-owner-dlg · cms-visibility-dlg · cms-usage-dlg(build_cms_dlgs.py), board-view-dlg(build_board_view.py).
 - 화면 속 전화번호를 가짜 번호(010-0000-01xx · 02-0000-0000)로.
 - design/build_bundle.js 로 bundle.css 다시 만듦.
+
+## 2026.10.29 — 선생님 화면 실제 사이트 점검
+
+- 관리자 → 선생님 계정으로 들어가기(장현석)로 선생님 화면 전체를 열어 봄. 실험실과 구성이 같음, 가로 넘침 없음.
+- 실험실에 없던 화면 추가(build_teacher_assign.py): t-assign-list(과제 있는 목록) · t-assign-read(채점) · t-assign-stats-dlg · t-assign-close-dlg · t-assign-edit-dlg.
+- NA1 확정 — 과제 통계 창: 채점 0명이면 KPI '—', '미채점 · 0~20점' 분리, 미채점 순위 '—', 미제출 · 미채점 막대 회색.
