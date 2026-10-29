@@ -3253,7 +3253,7 @@ content-view.js: 링크(a) 대신 버튼. 처음 열 때 GET /api/teachers/{tea_
     current: "머리 계정 버튼 · 강의 보기 선생님 링크의 기본 그림(default-person.svg)이 세로 사진용(200×260) 회색 사람이라 동그라미 안에서 머리 · 어깨가 잘려 보임",
     next: "메인 선생님 소개(AM10) · 선생님 목록 · 상세(NT5)와 같은 선 사람 아이콘을 연보라(#F7F3FD) 원 가운데 60% 크기로. 색은 학원 대표색",
     css: `/* 사진 없는 선생님 — 잘린 회색 사람 그림 대신 메인(AM10)과 같은 선 아이콘, 연보라 원. 공통 Avatar 의 --ph 변형 */
-.cl-ws-account .cl-avatar--ph { width: 32px; height: 32px; }
+.cl-ws-account .cl-avatar--ph { width: 32px; height: 32px; }\n/* 머리 계정 동그라미만 — 연보라 위 연보라 아이콘은 잘 안 보여 메인 보라 바탕 + 흰 아이콘으로 (2026.10.29) */\n.cl-ws-account .cl-avatar--ph { background: var(--cl-primary); color: var(--cl-on-ink); }
 .cl-comment__avatar > .cl-avatar--ph { width: 100%; height: 100%; }`,
     dom: `var ICON = '<svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true" focusable="false"><path d="m11.4 93.3c-.1 0-.1 0-.2 0-1.3-.1-2.2-1.2-2.1-2.4 1.3-19.1 19.3-34 40.9-34s39.6 14.9 40.9 33.9c.1 1.3-.9 2.3-2.1 2.4-1.3.1-2.3-.9-2.4-2.1-1.2-16.7-17.2-29.7-36.4-29.7-19.3 0-35.3 13.1-36.4 29.8-.1 1.2-1.1 2.1-2.2 2.1z"></path><path d="m50 52.3c-12.6 0-22.8-10.2-22.8-22.8s10.2-22.8 22.8-22.8 22.8 10.2 22.8 22.8-10.2 22.8-22.8 22.8zm0-41c-10 0-18.2 8.2-18.2 18.2s8.2 18.2 18.2 18.2 18.2-8.2 18.2-18.2-8.2-18.2-18.2-18.2z"></path></svg>';
 /* 선생님 자리만: 머리 계정 버튼(선생님 로그인) · 강의 보기 선생님 링크 · 선생님 작은 창 */
