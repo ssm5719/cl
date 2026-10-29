@@ -1,5 +1,11 @@
 # 변경 기록
 
+## v1.4 — 2026.10.29 · 동영상 플레이어
+
+- 새 부품 VideoPlayer(`cl-vplayer`, 문서 + 미리보기) — 실험실 NL1 의 플레이어 조작 줄. 영상 위 그라데이션 · 진행 막대(보라) · 10초 이동 · 음소거 전환 · 배속 목록 · 3초 뒤 숨김(밖으로 나가면 바로). 좁은 플레이어(폭 520 이하)는 플레이어 폭 기준으로 줄인다.
+- 새 토큰 `cl-player-*` 12개(바탕 · 그라데이션 · 막대 · 올렸을 때 · 글자 · 목록 바탕 · 말풍선 · 가운데 버튼) + 그림자 `cl-player-thumb-shadow`. 테마와 상관없이 같은 값.
+- Icons 묶음에 플레이어 아이콘 8개: `player-play · player-pause · player-back-10 · player-forward-10 · player-volume · player-mute · player-fullscreen · player-fullscreen-exit`.
+
 ## v1.3.2 — 2026.10.29
 
 - 새 토큰 `cl-radius-control`(4px). 버튼 · 아이콘 버튼 · 입력 칸 · 글 상자 · 선택 칸 · 검색 칸 · 보기 전환 · 쪽 번호 모서리를 8(작은 버튼 6)에서 4로. 알약 · 동그라미 버튼은 그대로. 안에 든 칸(보기 전환 항목 · 입력 칸 안 버튼 · 단축키 표시)은 `cl-radius-3xs`(2). 실험실 NR1.

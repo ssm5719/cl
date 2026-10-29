@@ -638,10 +638,10 @@ html.lenis, html.lenis body { height: auto; }
 /* ---------- 동영상 플레이어 조작 줄 (VideoPlayer) ----------
    실제 플레이어는 별도 서비스(LABY 플레이어 · cms.atedu.co.kr)라 이 CSS 를 불러오지 않는다. 플레이어 담당은 이 규칙의 값을 옮겨 쓴다.
    클래스 대응: .cl-vplayer = #player-wrap · __bar = #player-footer · __seek = .progress-gage-wrap · __controls = .player-controller-box (NL1) */
-.cl-vplayer { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--cl-radius-sm); background: var(--cl-player-bg); color: var(--cl-on-ink); font-family: var(--cl-font); user-select: none; }
+.cl-vplayer { container-type: inline-size; position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--cl-radius-sm); background: var(--cl-player-bg); color: var(--cl-on-ink); font-family: var(--cl-font); user-select: none; }
 .cl-vplayer__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 /* 멈췄을 때 가운데 큰 재생 버튼 */
-.cl-vplayer__center { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border: 0; border-radius: var(--cl-radius-pill); background: rgba(0, 0, 0, .55); color: var(--cl-on-ink); display: none; place-items: center; cursor: pointer; }
+.cl-vplayer__center { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-player-center); color: var(--cl-on-ink); display: none; place-items: center; cursor: pointer; }
 .cl-vplayer[data-state="paused"] .cl-vplayer__center { display: grid; }
 .cl-vplayer__center svg { width: 32px; height: 32px; margin-left: 4px; }
 /* 조작 줄 — 영상 위 아래쪽 그라데이션. 재생 중 3초 가만히 · 밖으로 나가면 .is-idle 로 바로 페이드아웃 */
@@ -650,42 +650,43 @@ html.lenis, html.lenis body { height: auto; }
 .cl-vplayer.is-idle { cursor: none; }
 /* 진행 막대 — 버튼 위. 누르는 높이 16 · 막대 4(올리면 6) · 본 부분 학원 대표색 · 손잡이 14 · 시간 말풍선 */
 .cl-vplayer__seek { position: relative; height: 16px; margin: 0 4px; cursor: pointer; }
-.cl-vplayer__seek > span { position: absolute; left: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: var(--cl-radius-pill); transition: height var(--cl-dur) var(--cl-ease), margin var(--cl-dur) var(--cl-ease); }
-.cl-vplayer__track { right: 0; background: rgba(255, 255, 255, .24); }
-.cl-vplayer__buffer { background: rgba(255, 255, 255, .4); }
+.cl-vplayer__track, .cl-vplayer__buffer, .cl-vplayer__played { position: absolute; left: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: var(--cl-radius-pill); transition: height var(--cl-dur) var(--cl-ease), margin var(--cl-dur) var(--cl-ease); }
+.cl-vplayer__track { right: 0; background: var(--cl-player-line); }
+.cl-vplayer__buffer { background: var(--cl-player-buffer); }
 .cl-vplayer__played { background: var(--cl-primary); }
-.cl-vplayer__seek:hover > span, .cl-vplayer__seek:focus-visible > span { height: 6px; margin-top: -3px; }
-.cl-vplayer__thumb { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: var(--cl-radius-pill); background: var(--cl-on-ink); box-shadow: 0 1px 4px rgba(0, 0, 0, .4); transform: scale(0); transition: transform var(--cl-dur) var(--cl-ease); }
+.cl-vplayer__seek:hover :is(.cl-vplayer__track, .cl-vplayer__buffer, .cl-vplayer__played), .cl-vplayer__seek:focus-visible :is(.cl-vplayer__track, .cl-vplayer__buffer, .cl-vplayer__played) { height: 6px; margin-top: -3px; }
+.cl-vplayer__thumb { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: var(--cl-radius-pill); background: var(--cl-on-ink); box-shadow: var(--cl-player-thumb-shadow); transform: scale(0); transition: transform var(--cl-dur) var(--cl-ease); }
 .cl-vplayer__seek:hover .cl-vplayer__thumb, .cl-vplayer__seek:focus-visible .cl-vplayer__thumb { transform: scale(1); }
-.cl-vplayer__tip { position: absolute; bottom: 20px; transform: translateX(-50%); padding: 2px 8px; border-radius: var(--cl-radius-2xs); background: rgba(0, 0, 0, .8); font-size: var(--cl-fs-12); font-variant-numeric: tabular-nums; opacity: 0; pointer-events: none; transition: opacity var(--cl-dur) var(--cl-ease); }
-.cl-vplayer__seek:hover .cl-vplayer__tip { opacity: 1; }
+.cl-vplayer__tip { position: absolute; bottom: 20px; transform: translateX(-50%); padding: 2px 8px; border-radius: var(--cl-radius-2xs); background: var(--cl-player-tip); font-size: var(--cl-fs-12); font-variant-numeric: tabular-nums; opacity: 0; pointer-events: none; transition: opacity var(--cl-dur) var(--cl-ease); }
+.cl-vplayer__seek:hover .cl-vplayer__tip, .cl-vplayer__seek:focus-visible .cl-vplayer__tip { opacity: 1; }
 /* 버튼 줄 — 누르는 칸 40 · 아이콘 22 · 올리면 흰 14% 원 */
 .cl-vplayer__controls { height: 44px; display: flex; align-items: center; gap: 2px; }
 .cl-vplayer__spacer { flex: 1; }
 .cl-vplayer__btn { width: 40px; height: 40px; flex: none; padding: 0; border: 0; border-radius: var(--cl-radius-pill); background: transparent; color: var(--cl-on-ink); display: grid; place-items: center; cursor: pointer; transition: background var(--cl-dur) var(--cl-ease); }
-.cl-vplayer__btn:hover { background: rgba(255, 255, 255, .14); }
+.cl-vplayer__btn:hover { background: var(--cl-player-hover); }
 .cl-vplayer__btn svg { width: 22px; height: 22px; }
 /* 음량 — 스피커를 누르면 음소거(aria-pressed), 막대는 올리거나 키보드로 들어갈 때만 펼침 */
 .cl-vplayer__volume { display: flex; align-items: center; }
-.cl-vplayer__vol-range { position: relative; width: 0; height: 4px; overflow: hidden; border-radius: var(--cl-radius-pill); background: rgba(255, 255, 255, .3); transition: width var(--cl-dur) var(--cl-ease), margin var(--cl-dur) var(--cl-ease); }
-.cl-vplayer__vol-range > span { position: absolute; left: 0; top: 0; bottom: 0; border-radius: var(--cl-radius-pill); background: var(--cl-on-ink); }
+.cl-vplayer__vol-range { position: relative; width: 0; height: 4px; overflow: hidden; border-radius: var(--cl-radius-pill); background: var(--cl-player-vol-track); transition: width var(--cl-dur) var(--cl-ease), margin var(--cl-dur) var(--cl-ease); }
+.cl-vplayer__vol-level { position: absolute; left: 0; top: 0; bottom: 0; border-radius: var(--cl-radius-pill); background: var(--cl-on-ink); }
 .cl-vplayer__volume:hover .cl-vplayer__vol-range, .cl-vplayer__volume:focus-within .cl-vplayer__vol-range { width: 72px; margin: 0 8px 0 4px; }
 .cl-vplayer__time { margin-left: 8px; font-size: var(--cl-fs-13); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.cl-vplayer__time span { color: rgba(255, 255, 255, .7); }
+.cl-vplayer__time span { color: var(--cl-player-text-2); }
 /* 배속 — 글자 버튼 + 위로 열리는 목록 */
 .cl-vplayer__speed { position: relative; }
-.cl-vplayer__speed-btn { height: 32px; min-width: 52px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-pill); background: rgba(255, 255, 255, .14); color: var(--cl-on-ink); font: inherit; font-size: var(--cl-fs-13); font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; }
-.cl-vplayer__speed-btn:hover, .cl-vplayer__speed-btn[aria-expanded="true"] { background: rgba(255, 255, 255, .24); }
-.cl-vplayer__menu { position: absolute; right: 0; bottom: calc(100% + 8px); min-width: 120px; margin: 0; padding: 6px; border-radius: var(--cl-radius-sm); background: rgba(28, 28, 30, .96); box-shadow: var(--cl-shadow-float); }
+.cl-vplayer__speed-btn { height: 32px; min-width: 52px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-player-hover); color: var(--cl-on-ink); font: inherit; font-size: var(--cl-fs-13); font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; }
+.cl-vplayer__speed-btn:hover, .cl-vplayer__speed-btn[aria-expanded="true"] { background: var(--cl-player-line); }
+.cl-vplayer__menu { position: absolute; right: 0; bottom: calc(100% + 8px); min-width: 120px; margin: 0; padding: 6px; border-radius: var(--cl-radius-sm); background: var(--cl-player-panel); box-shadow: var(--cl-shadow-float); }
 .cl-vplayer__menu[hidden] { display: none; }
-.cl-vplayer__menu p { margin: 4px 10px 6px; font-size: var(--cl-fs-12); color: rgba(255, 255, 255, .6); }
+.cl-vplayer__menu p { margin: 4px 10px 6px; font-size: var(--cl-fs-12); color: var(--cl-player-text-3); }
 .cl-vplayer__menu button { width: 100%; height: 34px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-2xs); background: none; color: var(--cl-on-ink); display: flex; align-items: center; justify-content: space-between; font: inherit; font-size: var(--cl-fs-14); font-variant-numeric: tabular-nums; cursor: pointer; }
-.cl-vplayer__menu button:hover { background: rgba(255, 255, 255, .1); }
+.cl-vplayer__menu button:hover { background: var(--cl-player-hover-soft); }
 .cl-vplayer__menu button[aria-checked="true"] { color: var(--cl-primary-on-dark); font-weight: 600; }
-@media (max-width: 600px) {
+/* 좁은 플레이어(휴대폰 · 좁은 칸) — 화면 폭이 아니라 플레이어 폭 기준 */
+@container (max-width: 520px) {
   .cl-vplayer__bar { padding: 24px 4px 4px; }
   .cl-vplayer__btn { width: 36px; height: 36px; }
   .cl-vplayer__btn--jump, .cl-vplayer__vol-range { display: none; }
   .cl-vplayer__time { margin-left: 4px; font-size: var(--cl-fs-12); }
 }
-@media (prefers-reduced-motion: reduce) { .cl-vplayer__bar, .cl-vplayer__seek > span, .cl-vplayer__thumb, .cl-vplayer__tip, .cl-vplayer__vol-range { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .cl-vplayer__bar, .cl-vplayer__track, .cl-vplayer__buffer, .cl-vplayer__played, .cl-vplayer__thumb, .cl-vplayer__tip, .cl-vplayer__vol-range { transition: none; } }

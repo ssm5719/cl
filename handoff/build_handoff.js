@@ -63,6 +63,7 @@ const files = {};
 for (const A of AREAS) {
   const list = confirmed.filter(f => areaOf(f) === A.key);
   const L = [`# ${A.title}`, '', `> ${DATE} 기준 · 확정 ${list.length}건 · 층 순서(토큰 → 공통 틀 → 공통 부품 → 화면별)로 적었다. 먼저 [README](README.md) 의 규칙을 읽는다.`, ''];
+  if (A.key === 'player') L.push('> 디자인시스템 부품: [VideoPlayer](../design/components/VideoPlayer/README.md) — 부분별 클래스 · LABY 클래스 대응 · 값 · 동작, 미리보기 `preview.html`. 공통 CSS 는 `lab/css/components.css` 의 `cl-vplayer` 블록, 색은 `cl-player-*` 토큰(`lab/css/cl-tokens.css`). 아이콘 8개: `design/assets/Icons/player-*.svg`.', '');
   if (A.key === 'common') {
     L.push('## 0. 공통 CSS 파일 (가장 먼저)', '',
       '이 묶음은 아래 항목들보다 **먼저** 적용한다. 화면별 수정이 이 토큰 · 부품을 쓴다.', '',

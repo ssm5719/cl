@@ -51,8 +51,20 @@
   --cl-mark-muted: #8E8E93;          /* 회색 막대 · 범례 점 */
   --cl-heat-1-ink: #4A1F8C;          /* heat-1 위 글자 */
   --cl-heat-2-ink: #2D1060;          /* heat-2 위 글자 */
-  --cl-player-bg: #000000;          /* 동영상 플레이어 바탕(테마와 상관없이 검정) */
-  --cl-player-scrim: rgba(0, 0, 0, .72); /* 플레이어 조작 줄 아래 그라데이션 끝 */
+  /* 동영상 플레이어 — 테마와 상관없이 같은 값(영상 위라 늘 어둡다) */
+  --cl-player-bg: #000000; /* 동영상 플레이어 바탕 — 테마와 상관없이 검정 */
+  --cl-player-scrim: rgba(0, 0, 0, .72); /* 조작 줄 아래 그라데이션 끝 */
+  --cl-player-line: rgba(255, 255, 255, .24); /* 진행 막대 바탕 · 배속 버튼 올렸을 때 */
+  --cl-player-buffer: rgba(255, 255, 255, .4); /* 진행 막대 받아 둔 부분 */
+  --cl-player-vol-track: rgba(255, 255, 255, .3); /* 음량 막대 바탕 */
+  --cl-player-hover: rgba(255, 255, 255, .14); /* 버튼 올렸을 때 원 · 배속 버튼 바탕 */
+  --cl-player-hover-soft: rgba(255, 255, 255, .1); /* 배속 목록 줄 올렸을 때 */
+  --cl-player-text-2: rgba(255, 255, 255, .7); /* 전체 시간 글자 */
+  --cl-player-text-3: rgba(255, 255, 255, .6); /* 배속 목록 제목 글자 */
+  --cl-player-panel: rgba(28, 28, 30, .96); /* 배속 목록 바탕 */
+  --cl-player-tip: rgba(0, 0, 0, .8); /* 진행 막대 시간 말풍선 바탕 */
+  --cl-player-center: rgba(0, 0, 0, .55); /* 멈췄을 때 가운데 재생 버튼 바탕 */
+  --cl-player-thumb-shadow: 0 1px 4px rgba(0, 0, 0, .4); /* 진행 막대 손잡이 그림자 */
   --cl-media-bg: #F4F4F6; /* 사진 · 문서 칸 바탕 */
   --cl-disabled-bg: #E8E8EB; /* 비활성 버튼 바탕 */
   --cl-surface-dark-hover: #000000; /* 진한 버튼 hover */
@@ -189,8 +201,6 @@ html[data-theme="dark"] .cl-scope {
   --cl-mark-muted: #6e6e73;
   --cl-heat-1-ink: #e4d6fc;
   --cl-heat-2-ink: #ffffff;
-  --cl-player-bg: #000000;
-  --cl-player-scrim: rgba(0, 0, 0, .72);
   --cl-media-bg: #2a2a2d;
   --cl-disabled-bg: #333336;
   --cl-surface-dark-hover: #48484c;

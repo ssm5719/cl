@@ -1,0 +1,106 @@
+<!-- @dsCard group="Media" height=820 -->
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>VideoPlayer</title>
+<style>
+/* 미리보기 배치만 — 값은 토큰 */
+body { padding: var(--cl-space-4); }
+.pv-grid { display: grid; gap: var(--cl-space-6); max-width: 640px; }
+.pv-label { margin: 0 0 var(--cl-space-2); font-size: var(--cl-fs-micro); font-weight: 600; color: var(--cl-ink-muted); }
+.pv-note { margin: var(--cl-space-2) 0 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+/* 영상 자리 — 회색 판 */
+.pv-frame { background: var(--cl-ink-2); }
+</style></head>
+<body class="cl-scope cl-ws-body">
+
+<div class="pv-grid">
+ <div>
+  <p class="pv-label">재생 중 — 마우스를 올리면 조작 줄, 3초 가만히 두거나 밖으로 나가면 사라짐</p>
+  <div class="cl-vplayer" data-state="playing" data-pv>
+   <div class="cl-vplayer__video pv-frame"></div>
+   <button class="cl-vplayer__center" type="button" aria-label="재생"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg></button>
+   <div class="cl-vplayer__bar">
+    <div class="cl-vplayer__seek" role="slider" tabindex="0" aria-label="재생 위치" aria-valuemin="0" aria-valuemax="760" aria-valuenow="192" aria-valuetext="03:12 / 12:40">
+     <span class="cl-vplayer__track"></span><span class="cl-vplayer__buffer" style="width: 48%"></span><span class="cl-vplayer__played" style="width: 25%"></span>
+     <i class="cl-vplayer__thumb" style="left: 25%"></i><span class="cl-vplayer__tip" style="left: 33%">04:10</span>
+    </div>
+    <div class="cl-vplayer__controls">
+     <button class="cl-vplayer__btn" type="button" aria-label="일시정지" data-pv-play><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+     <button class="cl-vplayer__btn cl-vplayer__btn--jump" type="button" aria-label="10초 뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><text x="12" y="15.5" text-anchor="middle" font-size="7.5" font-weight="700" fill="currentColor" stroke="none" font-family="sans-serif">10</text></svg></button>
+     <button class="cl-vplayer__btn cl-vplayer__btn--jump" type="button" aria-label="10초 앞으로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/><text x="12" y="15.5" text-anchor="middle" font-size="7.5" font-weight="700" fill="currentColor" stroke="none" font-family="sans-serif">10</text></svg></button>
+     <div class="cl-vplayer__volume">
+      <button class="cl-vplayer__btn" type="button" aria-label="음소거" aria-pressed="false" data-pv-mute></button>
+      <span class="cl-vplayer__vol-range" role="slider" tabindex="0" aria-label="음량" aria-valuenow="75"><span class="cl-vplayer__vol-level" style="width: 75%"></span></span>
+     </div>
+     <span class="cl-vplayer__time">03:12 <span>/ 12:40</span></span>
+     <span class="cl-vplayer__spacer"></span>
+     <div class="cl-vplayer__speed">
+      <button class="cl-vplayer__speed-btn" type="button" aria-haspopup="menu" aria-expanded="false" data-pv-speed>1.0x</button>
+      <div class="cl-vplayer__menu" role="menu" hidden>
+       <p>재생 속도</p>
+       <button type="button" role="menuitemradio" aria-checked="false">0.5x</button>
+       <button type="button" role="menuitemradio" aria-checked="true">1.0x</button>
+       <button type="button" role="menuitemradio" aria-checked="false">1.2x</button>
+       <button type="button" role="menuitemradio" aria-checked="false">1.5x</button>
+       <button type="button" role="menuitemradio" aria-checked="false">2.0x</button>
+      </div>
+     </div>
+     <button class="cl-vplayer__btn" type="button" aria-label="전체 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+   </div>
+  </div>
+  <p class="pv-note">스피커를 누르면 음소거(X 스피커, 막대 0). 배속 글자를 누르면 목록이 위로 열린다.</p>
+ </div>
+
+ <div>
+  <p class="pv-label">멈춤 — 가운데 큰 재생 버튼, 조작 줄은 숨기지 않음</p>
+  <div class="cl-vplayer" data-state="paused">
+   <div class="cl-vplayer__video pv-frame"></div>
+   <button class="cl-vplayer__center" type="button" aria-label="재생"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg></button>
+   <div class="cl-vplayer__bar">
+    <div class="cl-vplayer__seek" role="slider" tabindex="0" aria-label="재생 위치" aria-valuetext="07:45 / 12:40">
+     <span class="cl-vplayer__track"></span><span class="cl-vplayer__buffer" style="width: 72%"></span><span class="cl-vplayer__played" style="width: 61%"></span>
+     <i class="cl-vplayer__thumb" style="left: 61%"></i>
+    </div>
+    <div class="cl-vplayer__controls">
+     <button class="cl-vplayer__btn" type="button" aria-label="재생"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg></button>
+     <div class="cl-vplayer__volume">
+      <button class="cl-vplayer__btn" type="button" aria-label="음소거 해제" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><path d="m16 9.5 5 5"/><path d="m21 9.5-5 5"/></svg></button>
+      <span class="cl-vplayer__vol-range"><span class="cl-vplayer__vol-level" style="width: 0%"></span></span>
+     </div>
+     <span class="cl-vplayer__time">07:45 <span>/ 12:40</span></span>
+     <span class="cl-vplayer__spacer"></span>
+     <div class="cl-vplayer__speed"><button class="cl-vplayer__speed-btn" type="button" aria-haspopup="menu" aria-expanded="false">1.5x</button></div>
+     <button class="cl-vplayer__btn" type="button" aria-label="전체 화면 끝내기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
+    </div>
+   </div>
+  </div>
+  <p class="pv-note">음소거된 상태 · 전체 화면 중(끝내기 아이콘) · 1.5배속.</p>
+ </div>
+</div>
+
+<script>
+(function () {
+  var I = function (p) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
+  var SPK = '<path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><path d="M16 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/>';
+  var MUTED = '<path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><path d="m16 9.5 5 5"/><path d="m21 9.5-5 5"/>';
+  var p = document.querySelector('[data-pv]');
+  var mute = p.querySelector('[data-pv-mute]'), level = p.querySelector('.cl-vplayer__vol-level');
+  var setMute = function (on) { mute.innerHTML = I(on ? MUTED : SPK); mute.setAttribute('aria-pressed', String(on)); mute.setAttribute('aria-label', on ? '음소거 해제' : '음소거'); level.style.width = on ? '0%' : '75%'; };
+  setMute(false);
+  mute.addEventListener('click', function () { setMute(mute.getAttribute('aria-pressed') !== 'true'); });
+  var sb = p.querySelector('[data-pv-speed]'), menu = p.querySelector('.cl-vplayer__menu');
+  sb.addEventListener('click', function () { var open = menu.hidden; menu.hidden = !open; sb.setAttribute('aria-expanded', String(open)); });
+  menu.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () {
+    menu.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); });
+    sb.textContent = b.textContent; menu.hidden = true; sb.setAttribute('aria-expanded', 'false'); }); });
+  /* 3초 가만히 → 사라짐, 밖으로 나가면 바로. 멈춤 · 키보드 포커스 · 배속 목록 열림이면 숨기지 않음 */
+  var t;
+  var keep = function () { return p.dataset.state !== 'playing' || !menu.hidden || p.contains(document.activeElement) && document.activeElement.matches(':focus-visible'); };
+  var wake = function () { p.classList.remove('is-idle'); clearTimeout(t); t = setTimeout(function () { if (!keep()) p.classList.add('is-idle'); }, 3000); };
+  p.addEventListener('mousemove', wake); p.addEventListener('focusin', wake);
+  p.addEventListener('mouseleave', function () { clearTimeout(t); if (!keep()) p.classList.add('is-idle'); });
+})();
+</script>
+</body>
+</html>
