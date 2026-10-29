@@ -45,3 +45,5 @@
 - 실험실에 없던 화면 추가(build_teacher_assign.py): t-assign-list(과제 있는 목록) · t-assign-read(채점) · t-assign-stats-dlg · t-assign-close-dlg · t-assign-edit-dlg.
 - NA1 확정 — 과제 통계 창: 채점 0명이면 KPI '—', '미채점 · 0~20점' 분리, 미채점 순위 '—', 미제출 · 미채점 막대 회색.
 - 동영상 플레이어(LABY 플레이어 v2.0 · cms.atedu.co.kr)를 `screens/player-laby.html` 로 옮김(지금 모습 — 플레이어 값 그대로) · NL1(제안) 조작 줄 수정안: 영상 위 그라데이션, 진행 막대 버튼 위 · 보라, 정지 빼고 10초 이동, 음량 막대 올릴 때만, 배속 [1.0×] 꺼냄, 멈추면 가운데 재생 버튼, 휴대폰 줄임.
+- 학생 제안 26건 확정(SQ5 · LC5 · SB2 는 제안 유지). SQ6 · SB2 에 새 화면 명세(spec) 추가.
+- handoff: 항목마다 실험실 화면 파일 경로, 새 화면 명세 블록, AI_PROMPT 에 [새 화면 만드는 법].

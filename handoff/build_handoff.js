@@ -35,9 +35,14 @@ const areaOf = f => {
 const confirmed = FIXES.filter(f => f.status === '확정').sort((a, b) => LAYERS.indexOf(layerOf(a)) - LAYERS.indexOf(layerOf(b)));
 const proposed = FIXES.filter(f => f.status === '제안');
 
+const filesOf = f => {
+  if ((f.screens || []).includes('all')) return '모든 화면 (`lab/screens/*.html`)';
+  const fs_ = (f.screens || []).map(id => '`lab/screens/' + id + '.html`');
+  return fs_.length > 6 ? fs_.slice(0, 6).join(' · ') + ` 외 ${fs_.length - 6}개 (07-화면목록 참고)` : fs_.join(' · ');
+};
 function item(f) {
   const L = [`### ${f.id} · ${f.title}`, ''];
-  L.push(`- 화면: ${screenNames(f)}`, `- 층: ${layerOf(f)} · 작업: ${workOf(f)}`, `- 지금: ${strip(f.current)}`, `- 바꿀 모습: ${strip(f.next)}`);
+  L.push(`- 화면: ${screenNames(f)}`, `- 실험실 화면 파일: ${filesOf(f)}`, `- 층: ${layerOf(f)} · 작업: ${workOf(f)}`, `- 지금: ${strip(f.current)}`, `- 바꿀 모습: ${strip(f.next)}`);
   if (f.when) L.push(`- 보이는 조건: ${strip(f.when)}`);
   if (f.howTo) L.push(`- 확인하는 길: ${strip(f.howTo)}`);
   if (f.variants) L.push(`- 바뀌는 경우: ${strip(f.variants)}`);
@@ -46,6 +51,7 @@ function item(f) {
   if (f.server) L.push(`- 서버: ${strip(f.server)}`);
   if (f.note) L.push(`- 참고: ${strip(f.note)}`);
   L.push('');
+  if (f.spec) L.push('#### 새 화면 명세', '', '```text', strip(f.spec), '```', '', '새 화면은 AI_PROMPT.md 의 [새 화면 만드는 법] 대로 만든다. 마크업은 위 실험실 화면 파일의 `<main>` 안을 기준으로 하고, 글 · 숫자는 API 데이터로 채운다.', '');
   if (f.css && f.css.trim()) L.push('```css', f.css.trim(), '```', '');
   if (f.dom && f.dom.trim()) L.push('<details><summary>실험실에서 마크업을 바꾼 스크립트 (결과 확인용 — 그대로 붙이지 말고 템플릿 · JS 에서 같은 결과를 만든다)</summary>', '', '```js', f.dom.trim(), '```', '', '</details>', '');
   L.push(`확인: 실험실 "${f.id}" 수정안 화면과 같아야 한다.`, '');
@@ -96,12 +102,12 @@ for (const A of AREAS) {
 }
 
 // 기계용
-files['fixes.json'] = JSON.stringify({ date: DATE, confirmed: confirmed.map(f => ({ id: f.id, area: areaOf(f), layer: layerOf(f), work: workOf(f), screens: f.screens, title: f.title, current: f.current, next: f.next, when: f.when, scope: f.scope, markup: f.markup, server: f.server, css: f.css, dom: f.dom })), proposed: proposed.map(f => ({ id: f.id, title: f.title, screens: f.screens })) }, null, 2);
+files['fixes.json'] = JSON.stringify({ date: DATE, confirmed: confirmed.map(f => ({ id: f.id, area: areaOf(f), layer: layerOf(f), work: workOf(f), screens: f.screens, title: f.title, files: (f.screens || []).includes('all') ? ['lab/screens/*.html'] : (f.screens || []).map(id => 'lab/screens/' + id + '.html'), current: f.current, next: f.next, when: f.when, scope: f.scope, markup: f.markup, server: f.server, spec: f.spec, css: f.css, dom: f.dom })), proposed: proposed.map(f => ({ id: f.id, title: f.title, screens: f.screens })) }, null, 2);
 files['fixes.css'] = `/* fixes.css — 확정 수정안 CSS 전부 (${DATE}, ${confirmed.length}건, 층 순서).\n   공통 CSS(01-공통 0번) 다음에 불러오거나, 각 규칙을 원본 파일 안으로 옮긴다. */\n\n` +
   confirmed.filter(f => f.css && f.css.trim()).map(f => `/* ${f.id} · ${f.title} */\n${f.css.trim()}`).join('\n\n') + '\n';
 files['css-changes.diff'] = cp.execSync(`git -C "${ROOT}" diff ${BASE_COMMIT} HEAD -- lab/css/cl-tokens.css lab/css/base.css lab/css/components.css lab/css/manager.css lab/css/teacher.css lab/css/student.css`, { maxBuffer: 64 << 20 }).toString();
 
 for (const [f, c] of Object.entries(files)) fs.writeFileSync(path.join(OUT, f), c);
 const count = Object.fromEntries(AREAS.map(A => [A.key, confirmed.filter(f => areaOf(f) === A.key).length]));
-fs.writeFileSync(path.join(OUT, 'counts.json'), JSON.stringify({ date: DATE, confirmed: confirmed.length, proposed: proposed.length, ...count }, null, 2));
+fs.writeFileSync(path.join(OUT, 'counts.json'), JSON.stringify({ date: DATE, confirmed: confirmed.length, proposed: proposed.length, ...count, newScreens: confirmed.filter(f => f.spec).map(f => f.id) }, null, 2));
 console.log('handoff', DATE, 'confirmed', confirmed.length, count, 'proposed', proposed.length);

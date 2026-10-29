@@ -1790,7 +1790,7 @@ if(!acc.dataset.labAcc){acc.dataset.labAcc='1';
     note: '실험실에서는 오른쪽 위 계정 버튼을 누르면 메뉴가 열리고, 테마 칸을 누르면 이 미리보기 안에서만 바뀐다(위 라이트 · 다크 버튼과 따로 논다). 관리자 · 선생님 계정 메뉴도 머리(이름 · 아이디) + 홈페이지 · 이용 매뉴얼 · 고객센터 · 로그아웃 으로 학생과 같은 구조라, 세 역할 모두 같은 자리에 들어간다.'
   },
   {
-    id: 'SL4', group: 1, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-learn', 's-learn-many'],
+    id: 'SL4', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-learn', 's-learn-many'],
     title: '학생 수강중인 강좌: 화면 머리를 목록 화면 틀에 맞추기',
     current: '상위 메뉴 없음. 제목 아래 "4개 강좌"가 설명 자리에 있다. 버튼 이름 "전체강좌 보기"',
     next: '상위 메뉴 "나의 강좌" → 제목 + [전체 강좌 보기] → 설명 한 줄 → 도구 줄: 과목 칩(왼쪽) · 보기 전환 · "강좌 4개"(오른쪽). 관리자 · 선생님 목록과 같은 순서',
@@ -1806,7 +1806,7 @@ const b=h.querySelector('.cl-page__actions .cl-btn'); if(b) b.lastChild.textCont
     note: '1장 "화면 머리 틀" 순서를 따른다. 설명 문구는 제안이다.'
   },
   {
-    id: 'SL5', group: 3, status: '제안', kind: 'CSS', layer: '화면별', screens: ['s-learn', 's-learn-many'],
+    id: 'SL5', group: 3, status: '확정', kind: 'CSS', layer: '화면별', screens: ['s-learn', 's-learn-many'],
     title: '이어보기 카드: 검은 판 → 작업공간 카드 + 진도 막대',
     current: '먹색 바탕(`cl-surface-dark`) 흰 글자 큰 판, 반경 16px, 진도는 "진도 35% · 12강 중 4강 완료" 보라 글자. 관리자 · 선생님 화면에는 이런 판이 없고, 다크에서는 회색 판(#3A3A3D)이 된다',
     next: '흰 카드(`cl-canvas` · `cl-hairline` 1px · `cl-radius-md`), 머리 줄 `cl-ink-muted`, 강좌 이름 18px 700, 강의 줄 `cl-ink-2`, 진도는 막대(`cl-progress`) + "12강 중 4강 완료"(`cl-ink-muted`). 담는 내용 · 순서 · [이어보기] 동작은 그대로',
@@ -1825,7 +1825,7 @@ p.innerHTML='<span class="cl-progress"><span class="cl-progress__track" role="pr
     note: '이 카드는 학습 기록이 있을 때만 보인다. 실험실 화면(2026-10-22 캡처: 강좌 2개 · 둘 다 미시청)에서는 숨어 있어 바뀐 모습이 보이지 않는다. 18px 는 2장 [정할 것](17px 자리를 새 단계 18px `cl-fs-title-lg` 로)과 같은 값이다.'
   },
   {
-    id: 'SL6', group: 6, status: '제안', kind: '문구', layer: '화면별', screens: ['s-learn', 's-learn-many'],
+    id: 'SL6', group: 6, status: '확정', kind: '문구', layer: '화면별', screens: ['s-learn', 's-learn-many'],
     title: '강좌 행 버튼: 시작 전 · 진도 없는 강좌에 [다시보기]가 뜨지 않게',
     current: '한 번도 안 본 강좌(2026년 수능 기출 · 강의 0개, 2027년 수능 · 강의 2개, 둘 다 0%)에 [다시보기]가 뜬다. 다음 볼 강의가 없으면 모두 [다시보기]로 그리기 때문이다. 정보 줄은 "마지막 강의 · 미시청 / 마지막 학습 · 미시청" 으로 미시청이 두 번',
     next: '구조 · 동작은 그대로. 버튼 이름만: 한 강의도 안 봤으면 [학습 시작](첫 강의로), 다 봤을 때만 [다시보기], 진도를 세는 강의가 없으면 [강좌 보기](강좌 화면으로). 미시청 두 칸 → "아직 시작하지 않았습니다" 한 줄. 진도 막대로 그리는 강좌(21강 이상)는 100% 에서 `cl-success`',
@@ -1843,7 +1843,7 @@ doc.querySelectorAll('.cl-card-item__meta').forEach(m=>{ m.textContent=m.textCon
     note: '목록 구조는 기존 화면 그대로다: 강좌 하나에 행(또는 카드) 하나, 한 쪽 10개 + 쪽 번호, 강의는 펼치지 않는다. 캡처의 두 강좌는 모두 [강좌 보기]가 된다. 카드 보기의 "마지막 학습 미시청" 도 같은 말로 바꾼다.'
   },
   {
-    id: 'SL7', group: 1, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-learn'],
+    id: 'SL7', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-learn'],
     title: '다가오는 일: 채점 완료를 "최근 채점" 으로 나눠 보이기',
     current: '한 목록에 마감 전 과제(D-day) → 새 답변 → 채점 완료 순서로 최대 8개. 마감 전 과제가 없으면 지난 채점만 남아 "다가오는 일"이 지난 일처럼 보인다',
     next: '순서 · 8개 · 빈 상태는 그대로. 채점 완료 묶음 앞에만 구분선 + 작은 이름 "최근 채점"(`cl-fs-micro` 500). 마감 전 과제 · 새 답변이 하나도 없으면 맨 위에 "마감이 다가오는 과제가 없습니다"(`cl-ink-muted`). 채점 완료 머리 줄의 "채점 완료 ·" 는 뺀다',
@@ -1870,7 +1870,7 @@ if(!ol.children.length){ const e=doc.createElement('p'); e.className='cl-upcomin
   },
   /* ───── 학생 · 과제 목록 · 과제 상세 (2026-10-22 실제 화면 · list.js · read.js) ───── */
   {
-    id: 'SA1', group: 9, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-assign', 's-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-assign-read-empty'],
+    id: 'SA1', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-assign', 's-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-assign-read-empty'],
     title: '과제 목록 표: 칸마다 질문 하나 — 제출 · 점수 · 진행 여부',
     current: '제출(배지) · 점수 · 상태(배지) · 마감(일시) 네 칸이 같은 것을 나눠 말한다. 제출 · 상태가 둘 다 회색 배지라 "미제출 + 채점완료", "제출 + 마감" 처럼 두 배지를 같이 읽어야 뜻이 되고, 마감 일시와 상태 "마감" 이 따로 있다',
     next: '과제(제목 + "강좌 · 선생님", 표 폭의 40% · 제목은 두 줄까지) | 제출 18% | 점수 16% | 진행 여부(나머지). 제출은 배지가 아닌 아이콘 + 글자: 제출 ✓ `cl-ink-2` · 미제출 `cl-ink-muted` · 진행 중인데 미제출이면 ! 미제출 `cl-danger` 600. 점수: 채점 후 "78 / 100" 600 · 제출했고 채점 전 "채점 대기" `cl-ink-muted` · 안 냈으면 "–". 진행 여부: 배지 진행 중(`info`) + 아래 "D-2 · 2026.10.24 18:00" / 배지 마감(`neutral`) + 아래 마감 일시. 배지는 진행 여부 칸에만 있어 다른 칸과 섞이지 않는다',
@@ -1916,7 +1916,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const sub=c[0
     note: '실험실 목록은 실제 과제 8건 + 진행 중 예시 1건(3단원 연습문제 풀이, 2026.10.24 18:00 마감)이다. 예시 행을 누르면 새로 제출 화면이 열린다. 실제 데이터에 안 냈는데 점수가 있는 과제가 2건 있어, 제출 "미제출" · 점수 "78 / 100" 으로 그대로 보인다.'
   },
   {
-    id: 'SA2', group: 9, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-assign'],
+    id: 'SA2', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-assign'],
     title: '과제 목록: [보기] 칸 빼기',
     current: '행마다 [보기]. 과제 제목 링크와 같은 주소 · 같은 화면이다(`list.js` 가 같은 `href` 를 두 번 쓴다)',
     next: '[보기] 칸과 머리 빈 칸을 뺀다. 상세로는 과제 제목을 눌러 들어간다(키보드 · 화면 낭독기도 제목 링크로)',
@@ -1926,7 +1926,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const sub=c[0
     note: ''
   },
   {
-    id: 'SA3', group: 6, status: '제안', kind: '문구', layer: '화면별', screens: ['s-assign', 's-assign-read', 's-assign-read-empty'],
+    id: 'SA3', group: 6, status: '확정', kind: '문구', layer: '화면별', screens: ['s-assign', 's-assign-read', 's-assign-read-empty'],
     title: '띄어쓰기: "채점완료" → "채점 완료", "진행중" → "진행 중" (탭 · 배지)',
     current: '탭 · 배지는 "채점완료", 내 강의실 다가오는 일은 "채점 완료"',
     next: '모두 "채점 완료"(띄어 씀). 같은 상태를 한 가지로 쓴다',
@@ -1936,7 +1936,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const sub=c[0
     note: ''
   },
   {
-    id: 'SA4', group: 1, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-assign'],
+    id: 'SA4', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-assign'],
     title: '과제 목록: 상위 메뉴 "나의 강좌"',
     current: '제목만 있다. 수강중인 강좌(SL4) · 관리자 · 선생님 목록은 제목 위에 상위 메뉴가 있다',
     next: '제목 위 `cl-page__parent` "나의 강좌". 탭 · 도구 줄 · 표 순서는 그대로',
@@ -1946,7 +1946,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const sub=c[0
     note: ''
   },
   {
-    id: 'SR1', group: 1, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-assign-read-empty'],
+    id: 'SR1', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-assign-read-empty'],
     title: '과제 상세: 같은 정보 세 번 → 한 번 (상태 · 마감 · 배점)',
     current: '상태는 제목 오른쪽 끝 배지 · 옆 칸 · 숫자 띠 "남은 기간: 마감" 세 곳, 배점 · 마감은 숫자 띠와 옆 칸 두 곳. 옆 칸 때문에 제출 영역이 좁다',
     next: '상태 배지는 제목 바로 옆. 아래 줄 "강좌(링크) · 선생님 · 등록일". 숫자 띠 3칸: 마감(아래 줄 "D-2" 또는 "마감됨") · 배점 · 내 점수(채점 전이면 "채점 전" `cl-ink-muted`). 옆 칸은 없애고 설명 · 제출을 한 단으로',
@@ -1972,7 +1972,7 @@ aside.remove();`,
     note: '새로 제출 · 확인 창 화면도 같은 머리다. 그 두 화면은 진행 중 과제가 없어 예시 데이터(마감 2026.10.24 18:00 · D-2)다.'
   },
   {
-    id: 'SR2', group: 4, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-assign-read'],
+    id: 'SR2', group: 4, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-assign-read'],
     title: '과제 설명이 비었을 때 "설명이 없습니다"',
     current: '설명이 빈 과제(실제 2건)는 "과제 설명" 카드에 빈 칸만 남는다',
     next: '내용이 비면 "선생님이 남긴 설명이 없습니다." `cl-ink-muted` 한 줄',
@@ -1983,7 +1983,7 @@ aside.remove();`,
     note: ''
   },
   {
-    id: 'SR3', group: 6, status: '제안', kind: '문구', layer: '화면별', screens: ['s-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-assign-read-empty'],
+    id: 'SR3', group: 6, status: '확정', kind: '문구', layer: '화면별', screens: ['s-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-assign-read-empty'],
     title: '제출 기록 버튼: 같은 날 여러 번 내면 구분이 안 됨 → 차수 붙이기',
     current: '같은 날 두 번 내면 버튼이 둘 다 "2024.06.17 (월)". 최종 제출은 작은 점 하나로만 구분',
     next: '"1차 · 2024.06.17 (월)", "2차 · 2024.06.17 (월)" — 낸 순서대로 번호. 최종 제출 점은 그대로',
@@ -2022,7 +2022,7 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
     note: 'Toast UI 는 관리자 · 선생님 화면(공지 쓰기, 과제 만들기)에서도 쓰므로 공통 부품으로 둔다. 다크 아이콘 위치(-49px)는 Toast UI 의 다크 테마 파일과 같은 값이다.'
   },
   {
-    id: 'SR5', group: 1, status: '제안', kind: 'CSS', layer: '화면별', screens: ['s-assign-submit', 's-assign-confirm-dlg'],
+    id: 'SR5', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['s-assign-submit', 's-assign-confirm-dlg'],
     title: '새로 제출: 편집기와 [파일 첨부 · 취소 · 제출하기] 줄 사이 띄우기',
     current: '편집기 바로 아래에 버튼 줄이 붙어 있고, 첨부 안내 · 파일 목록이 버튼 줄 아래로 흩어져 있다',
     next: '편집기 아래 `cl-space-3` 12px 띄우고 버튼 줄, 그 아래 안내 · 파일 목록. 파일 목록은 안내와 8px',
@@ -2046,7 +2046,7 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
     note: '모든 빈 상태에 같이 적용되는 공통 부품이다. 화면 모습은 아이콘이 2px 작아지는 것 말고 같다.'
   },
   {
-    id: 'SE2', group: 6, status: '제안', kind: '문구', layer: '화면별', screens: ['s-complete'],
+    id: 'SE2', group: 6, status: '확정', kind: '문구', layer: '화면별', screens: ['s-complete'],
     title: '수강 완료 강좌 · 0개: 같은 문장 두 번 → 한 번, 버튼 이름',
     current: '제목 아래 "0개 강좌 · 진도율 100%가 되면 이곳으로 옮겨집니다" 와 빈 상태 설명 "진도율 100%가 되면 이곳으로 옮겨집니다." 가 같은 말. 강좌가 없는데 보기 전환(목록 · 카드)이 보인다. 버튼 이름 "수강중인 강좌"',
     next: '상위 메뉴 "나의 강좌" 를 두고 제목 아래 줄은 뺀다. 0개일 때 도구 줄(보기 전환)은 숨긴다. 빈 상태: "수강 완료한 강좌가 없습니다" / "강좌 진도율이 100%가 되면 여기에 모입니다." / [수강중인 강좌 보기]. 1개 이상이면 개수는 수강중인 강좌(SL4)처럼 도구 줄 오른쪽 "강좌 N개"',
@@ -2061,7 +2061,7 @@ if(pg.querySelector('[data-course-list] .cl-empty')){ pg.querySelector('.cl-tool
     note: '실제 학생 계정(수강 완료 0개) 화면 그대로다.'
   },
   {
-    id: 'SE3', group: 6, status: '제안', kind: '문구', layer: '화면별', screens: ['s-assign-read-empty'],
+    id: 'SE3', group: 6, status: '확정', kind: '문구', layer: '화면별', screens: ['s-assign-read-empty'],
     title: '제출한 과제 0건: 같은 문장 두 번 → 한 번, 상황에 맞는 설명',
     current: '"채점이 끝난 과제는 다시 제출할 수 없습니다." 가 제목 아래 안내 줄과 빈 상태 설명에 두 번. 한 번도 안 냈는데 "다시" 라고 쓴다',
     next: '제출 0건이면 위 안내 줄은 숨기고 빈 상태 하나만. 설명은 상황별 — 채점 완료: "채점이 끝나 더 이상 제출할 수 없습니다." · 마감: "마감이 지나 더 이상 제출할 수 없습니다." · 진행 중: 제목 "아직 제출한 과제가 없습니다", 설명 "마감 전까지 [새로 제출]로 낼 수 있습니다." 버튼은 위 [새로 제출] 하나로 충분해 빈 상태에는 두지 않는다',
@@ -2073,7 +2073,7 @@ e.querySelector('.cl-empty__desc').textContent='채점이 끝나 더 이상 제�
     note: '실험실 화면은 과제 목록 두 번째 줄 "두번째 강의에 나오는 서적의 이름은?"(실제 asg0000024, 채점 완료 · 제출 0건)이다. 마감 · 진행 중 문구는 실제 데이터가 없어 설명으로만 전달한다.'
   },
   {
-    id: 'SQ1', group: 9, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-qna'],
+    id: 'SQ1', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-qna'],
     title: 'Q&A 목록 표: 답글 수와 상태가 같은 말 → 한 칸으로',
     current: '질문 · 강좌 · 작성일 · 답글(숫자) · 상태(배지) 다섯 칸. 답글 1 이면 "답변 완료", 0 이면 "답변 대기" 라 숫자와 배지가 같은 것을 두 번 말한다',
     next: '질문 · 강좌 · 상태 · 작성일 네 칸. 강좌는 지금처럼 링크가 걸린 칸으로 둔다. 답글 칸을 없애고 상태 배지 하나로: 답변이 있으면 "답변 1"(`success`), 없으면 "답변 대기"(`warning`). 상태를 작성일 앞에 두어 제목 → 강좌 → 상태 순으로 읽히게 한다',
@@ -2142,17 +2142,25 @@ f.before(b);`,
     note: '실험실에서 Q&A 상세를 다크로 보면 머리 · 푸터 · 본문은 토큰을 읽어 뒤집히지만, 실제 사이트는 `html[data-theme="dark"]` 자체가 없어 늘 밝다.'
   },
   {
-    id: 'SQ6', group: 1, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-qna', 's-qna-detail', 's-qna-detail-dlg'],
+    id: 'SQ6', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-qna', 's-qna-detail', 's-qna-detail-dlg'],
     title: 'Q&A 상세를 내 강의실 안에 새로 만든다 (새 화면)',
     current: '"나의 글 목록 › Q&A" 는 내 강의실(사이드바 있는 작업공간)인데, 제목을 누르면 학원 공개 Q&A 상세(`/user/qna/read/{uid}`)로 나간다. 사이드바가 사라지고 상단이 학원 메뉴로 바뀌어 학생은 내 강의실을 나온 줄 모른다. 삭제 뒤에도 공개 Q&A 목록으로 가서 돌아오지 못하고, 다크모드도 거기서 끊긴다',
     next: '내 강의실 안에 상세 화면을 새로 만든다(`/user/student/post/community/{uid}`). 공개 상세에 있는 것을 모두 담는다 — 강좌 링크 · 답변 수 배지 · 질문 제목 · 작성자 · 시간 · [수정] · [삭제] · 질문 본문 · 답변 목록 · 답변 쓰기 · 이 강좌의 다른 질문. 돌아가는 길은 위 "나의 글 목록" 과 아래 [목록으로] 두 곳. 삭제 뒤에도 이 목록으로 돌아온다. 공개 Q&A 상세는 비로그인도 보는 화면이라 그대로 둔다',
     markup: '작업공간 틀(`cl-page--wide`)에 과제 상세(`s-assign-read`)와 같은 머리를 쓴다: `cl-back` → 제목 + 상태 배지 + [수정] · [삭제] → `cl-page__meta`(강좌 링크 · 작성자 · 시간). 본문 · 답변 · 답변 쓰기 · 다른 질문은 각각 `cl-card cl-panel` 카드에 담는다. 카드 안의 \"이 강좌의 다른 질문\" 목록은 항목마다 위아래 여백 8px(`cl-space-2`) · 반경 `cl-radius-sm` 로 두고, 구분선 대신 4px 간격으로 나눈다 — hover 바탕(`cl-row-hover`)이 그 여백만큼만 칠해지게. 글 · 답변 부품(`cl-post__body` · `cl-thread__list` · `cl-thread__answer` · `cl-qna-item`)은 지금 `public.css` 에만 있는데 공개 화면과 작업공간 두 곳에서 쓰게 되므로 **공통층(`components.css`)으로 올린다**(적용 범위 장의 "두 번째로 쓰는 순간이 올리는 때" 규칙). 질문 제목은 공개 화면의 32px 대신 작업공간 `cl-fs-page-title` 24px 을 쓴다.',
+    spec: `새 화면 1개 — 학생 "Q&A 상세 · 내 강의실"
+- 주소: /user/student/post/community/{uid}  (지금 학생 Q&A 목록에서 제목을 누르면 가는 공개 상세 /user/qna/read/{uid} 대신)
+- 틀: 학생 작업공간(사이드바 · 상단 바) — 기존 학생 과제 상세(/user/student/assignment/{uid}) 템플릿 · 라우트를 본떠 만든다
+- 마크업 기준: lab/screens/s-qna-detail.html 의 <main> 안. 삭제 확인 창은 lab/screens/s-qna-detail-dlg.html
+- 데이터: GET /api/boards/{uid} (질문), GET /api/boards/{uid}/children (답변), GET /api/boards/{uid}/other (이 강좌의 다른 질문). 삭제 DELETE /api/boards/{uid}
+- 상태: 답변 있음(답변 n 배지 · 답변 카드) / 답변 없음(답변대기 배지 · 빈 상태 "아직 답변이 없습니다") / 내 질문이면 [수정] · [삭제] 보임, 남의 질문이면 숨김(isOwner)
+- 목록 연결: 학생 Q&A 목록(s-qna) 제목 링크를 새 주소로 바꾼다
+- 공통층 이동: cl-post__body · cl-thread__* · cl-qna-item 규칙을 public.css 에서 components.css 로 옮긴다(공개 화면도 같은 클래스를 그대로 쓴다)`,
     server: '목록 · 상세 · 삭제가 쓰는 API(`/api/boards/{uid}`, `/api/boards/{uid}/children`, `/api/boards/{uid}/other`)는 지금 것을 그대로 쓴다. 새 주소에서도 작성자 본인 확인(isOwner)이 되는지만 확인한다.',
     targets: ['.cl-back', '.cl-post-footer'],
     note: '실험실 "Q&A 상세 · 내 강의실" 이 이 새 화면이다. 지금 화면에 없는 것이라 [현재] 로 바꿔도 같은 모습이다. 강좌 이름은 링크 모양으로 두되 어디로 보낼지는 아직 정하지 않았다. 자유게시판(나의 글 목록 › 자유게시판)도 같은 구조라 함께 만든다. [수정]은 아직 공개 수정 화면으로 간다 — 상세를 옮긴 뒤 수정 화면도 같이 옮길지 [정할 것].'
   },
   {
-    id: 'SB1', group: 9, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-board'],
+    id: 'SB1', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-board'],
     title: '자유게시판 목록: 댓글 · 조회 숫자 칸 정리',
     current: '제목 · 작성일 · 댓글 · 조회 네 칸. 댓글과 조회가 각각 숫자 칸이라 0 이 두 개 나란히 놓이고, 어느 쪽이 댓글인지 머리 글자를 봐야 안다',
     next: '제목 · 댓글 · 조회 · 작성일 순서로 두고, 댓글은 0 이면 `cl-ink-faint` 로 흐리게, 1 이상이면 `cl-primary-pressed` 600 으로. 조회는 항상 `cl-ink-muted`. 숫자만으로 "댓글이 달렸는지" 가 바로 보인다',
@@ -2180,12 +2188,20 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const n=parse
     current: '"나의 글 목록 › 자유게시판" 은 내 강의실인데, 제목을 누르면 학원 공개 게시글(`/user/board/read/{uid}`)로, [글쓰기]를 누르면 공개 글쓰기(`/user/board/write`)로 나간다. 사이드바가 사라지고 상단이 학원 메뉴로 바뀐다. 쓰거나 지운 뒤에도 공개 목록으로 가서 내 강의실로 돌아오지 못한다. Q&A 와 같은 문제다(SQ6)',
     next: '내 강의실 안에 상세(`/user/student/post/board/{uid}`)와 글쓰기(`/user/student/post/board/write`)를 만든다. 공개 화면에 있는 것을 모두 담는다 — 상세는 제목 · 작성자 · 날짜 · 조회 · [공유] · [인쇄] · [수정] · [삭제] · 본문 · 댓글(입력 칸 · 목록 · 삭제), 글쓰기는 제목 · 내용(1,000자) · 첨부파일 · [취소] · [등록]. 돌아가는 길은 위 "자유게시판" 과 아래 [목록으로] 두 곳. 쓰거나 지운 뒤에도 이 목록으로 돌아온다',
     markup: 'Q&A 상세(SQ6)와 같은 틀을 쓴다: `cl-back` → 제목 + 오른쪽 동작 버튼 → `cl-page__meta`(작성자 · 날짜 · 조회) → 본문 카드 → 댓글 카드 → 아래 [목록으로]. 글쓰기도 같은 틀에 폼을 카드 하나로 담고 [취소] · [등록]은 카드 밖 오른쪽. 공개 화면에서 `cl-btn--text` 였던 [공유] · [인쇄] · [수정] · [삭제]는 작업공간 기준에 맞춰 `cl-btn--ghost --sm` 으로 바꾼다(머리 줄에서 글자만 있는 버튼은 누를 곳이 좁다). 글 · 댓글 부품(`cl-post__body` · `cl-comment` 묶음)은 공개와 작업공간 두 곳에서 쓰게 되므로 공통층(`components.css`)으로 올린다 — Q&A 와 같은 묶음이라 한 번에 옮긴다. 카드로 감쌀 때 공개 화면의 구역 클래스(`cl-comments` · `cl-thread__others`)는 쓰지 않는다 — 그 클래스의 `padding-top` 과 `border-top` 이 카드 안쪽 여백과 카드 위 테두리를 덮어써 테두리가 한쪽만 사라진다. 카드에는 세로 배치 · 간격만 주고, 댓글 제목 · 입력 칸 · 목록은 지금 클래스를 그대로 쓴다.',
+    spec: `새 화면 2개 — 학생 "게시글 상세 · 내 강의실", "글쓰기 · 내 강의실"
+- 주소: /user/student/post/board/{uid} (상세), /user/student/post/board/write (글쓰기)
+- 틀: 학생 작업공간 — SQ6 와 같은 틀
+- 마크업 기준: lab/screens/s-board-detail.html, lab/screens/s-board-write.html 의 <main> 안. 삭제 확인 창은 lab/screens/s-board-detail-dlg.html
+- 데이터: GET /api/boards/{uid} (글), GET · POST /api/board/comments (댓글), 글쓰기는 지금 공개 글쓰기와 같은 POST · 편집기(Toast UI)
+- 상태: 댓글 있음 / 없음(빈 상태 --sm "아직 댓글이 없습니다") / 내 글이면 [수정] · [삭제] 보임(isOwner)
+- 목록 연결: 학생 자유게시판 목록(s-board) 제목 링크와 [글쓰기] 버튼을 새 주소로 바꾼다
+- 공통층 이동: cl-post__body · cl-comment 묶음을 components.css 로(SQ6 과 함께)`,
     server: '지금 API 를 그대로 쓴다(`/api/boards/{uid}`, `/api/board/comments`). 새 주소에서도 작성자 본인 확인(isOwner)이 되는지만 확인한다.',
     targets: ['.cl-back', '.cl-post-footer'],
     note: '실험실 "게시글 상세 · 내 강의실" 과 "글쓰기 · 내 강의실" 이 이 새 화면이다. 지금 화면에 없는 것이라 [현재] 로 바꿔도 같은 모습이다. [수정]은 실험실에서 글쓰기 화면으로 이어 두었다 — 실제로는 같은 폼에 내용이 채워진 수정 화면이다.'
   },
   {
-    id: 'SB3', group: 4, status: '제안', kind: 'CSS', layer: '화면별', screens: ['s-board-detail', 's-board-detail-dlg'],
+    id: 'SB3', group: 4, status: '확정', kind: 'CSS', layer: '화면별', screens: ['s-board-detail', 's-board-detail-dlg'],
     title: '댓글: 마지막 댓글 아래 선 빼고 여백 고르게',
     current: '댓글마다 아래 1px 선이 있어 마지막 댓글 아래에도 선이 남는다. 카드 안에 들어가면 카드 테두리와 선이 겹쳐 두 줄로 보인다',
     next: '댓글 사이에만 선을 둔다. 첫 댓글 위, 마지막 댓글 아래 여백도 카드 여백에 맞춘다',
@@ -2195,7 +2211,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const n=parse
     note: 'Q&A 답변(SQ4)에서 상자를 빼고 선으로만 나눈 것과 같은 짜임이다.'
   },
   {
-    id: 'LC1', group: 9, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-like-course'],
+    id: 'LC1', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-like-course'],
     title: '좋아요 강좌 카드: 강좌 이름이 두 번 · 머리 줄에 학원 이름',
     current: '썸네일 자리에 과목 + 강좌 이름이 글자로 들어가고(`cl-thumb-text`), 바로 아래 제목에 같은 강좌 이름이 또 나온다. 머리 줄은 "랩241 2023년 2학기 · 보충학습반" 으로, 지금 보고 있는 학원 이름이 맨 앞에 붙는다. 선생님 이름은 아래 줄에 수강생 · 좋아요 숫자와 섞여 있다',
     next: '수강중인 강좌 카드와 같은 짜임으로 맞춘다. 썸네일은 올린 이미지, 없으면 회색 판에 과목만(강좌 이름은 빼서 아래 제목과 겹치지 않게). 머리 줄은 "과목 · 선생님", 제목은 강좌 이름, 아래 줄은 "2023년 2학기 · 보충학습반 · 수강생 4명" — 학원 이름은 뺀다(지금 그 학원 안이다). 좋아요 수는 내가 고른 목록에서 쓸모가 적어 뺀다',
@@ -2215,7 +2231,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const n=parse
     note: '실험실 데이터는 실제 좋아요 3건이다. 강좌 썸네일 이미지가 없는 강좌라 회색 판으로 보인다.'
   },
   {
-    id: 'LC2', group: 4, status: '제안', kind: 'CSS', layer: '화면별', screens: ['s-like-course'],
+    id: 'LC2', group: 4, status: '확정', kind: 'CSS', layer: '화면별', screens: ['s-like-course'],
     title: '좋아요 강좌: 그룹강좌 표시를 배지로',
     current: '"그룹강좌" 가 머리 줄 끝에 작은 자물쇠 + 회색 글자로 붙어 있어, 앞의 학기 · 반 글자와 구분되지 않는다',
     next: '중립 배지(`cl-badge--neutral`)로 바꿔 머리 줄에서 한 덩어리로 읽히게 한다. 자물쇠 아이콘은 그대로 둔다',
@@ -2224,7 +2240,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const n=parse
     note: ''
   },
   {
-    id: 'LC3', group: 1, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-like-course', 's-like-teacher'],
+    id: 'LC3', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-like-course', 's-like-teacher'],
     title: '좋아요 목록에서 바로 좋아요 떼기',
     current: '카드에 [강의 목록] · [프로필] 버튼만 있다. 좋아요를 떼려면 강좌 · 선생님 화면까지 들어가야 해서, 이 목록은 늘어나기만 한다',
     next: '카드 맨 아래 오른쪽에 채워진 하트 버튼을 둔다. 누르면 좋아요가 풀리고 카드가 목록에서 빠진다. 강좌 · 선생님 두 화면에 같은 모양으로',
@@ -2237,7 +2253,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const n=parse
     note: '실수로 눌렀을 때를 위해 되돌리기를 둘지 [정할 것] — 토스트에 [되돌리기] 를 두는 방법과, 누르면 바로 빼지 않고 하트만 빈 모양으로 바꿨다가 화면을 떠날 때 반영하는 방법이 있다.'
   },
   {
-    id: 'LC4', group: 1, status: '제안', kind: '마크업', layer: '공통 부품', screens: ['s-learn', 's-learn-many', 's-complete', 's-like-course'],
+    id: 'LC4', group: 1, status: '확정', kind: '마크업', layer: '공통 부품', screens: ['s-learn', 's-learn-many', 's-complete', 's-like-course'],
     title: '과목 칩: 걸러서 줄어들 때만 보인다',
     current: '수강중인 강좌는 강좌 2개 · 과목 1개(수학)인데도 칩이 "전체 2" · "수학 2" 두 개 보인다. 같은 숫자를 두 번 말하고, 눌러도 목록이 그대로다. 반대로 좋아요 강좌는 칩이 아예 없어, 강좌가 늘면 거를 방법이 없다',
     next: '두 조건을 **모두** 만족할 때만 칩 줄을 보인다 — ① 과목이 2개 이상, ② 강좌가 7개 이상. 하나라도 못 미치면 칩 줄을 숨긴다(보기 전환만 남은 도구 줄은 그대로 둔다). 수강중인 강좌 · 수강 완료 강좌 · 좋아요 강좌에 같은 규칙을 쓴다',
@@ -2258,7 +2274,7 @@ if(chips.length<3 || total<7) box.hidden=true;`,
     note: '실험실 예시는 과목 4개라 칩이 그대로 보인다. 과목이 더 많은 학생 화면을 받으면 선택 칸 모습도 그려 보겠다.'
   },
   {
-    id: 'LT1', group: 9, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-like-teacher'],
+    id: 'LT1', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-like-teacher'],
     title: '좋아요 선생님 카드: 과목이 한 줄로 길게 늘어난다',
     current: '머리 줄에 선생님이 맡은 과목이 모두 들어간다 — "수학, 영어, 국어, 이서당, 클라우드러닝, 올댓에듀케이션" 여섯 개가 두 줄로 흐른다. 이름보다 과목 줄이 먼저 길게 읽힌다',
     next: '과목은 앞 두 개까지만 보이고 나머지는 "+4" 로 줄인다(전체는 `title` 로). 선생님 이름이 먼저 읽히도록 이름 · 과목 · 소개 순서로 둔다. 하트와 "좋아요 3" 이 두 줄로 나뉘던 것도 한 줄로 붙인다',
@@ -2295,7 +2311,7 @@ name.after(eb);`,
     note: '선생님 쪽 같은 화면(t-info · t-password)도 같은 부품을 쓴다. "두 번째로 쓰는 순간이 올리는 때" 규칙에 따라 이미 올라가 있는 상태라 옮길 것이 없다.'
   },
   {
-    id: 'SI3', group: 1, status: '제안', kind: '문구', layer: '화면별', screens: ['s-password'],
+    id: 'SI3', group: 1, status: '확정', kind: '문구', layer: '화면별', screens: ['s-password'],
     title: '비밀번호 규칙 안내가 화면마다 다르다',
     current: '학생 화면은 "영문 소문자 · 숫자 · 특수문자(#?!@$%^&amp;*-)를 모두 포함해 8~16자", 선생님 화면은 "4자 이상" 이라고 적혀 있다. 같은 서비스에서 같은 일을 하는 화면인데 규칙이 달라 보인다',
     next: '서버가 실제로 검사하는 규칙 하나로 두 화면의 문구를 맞춘다. 특수문자는 괄호 안에 그대로 나열하고, 글자 수는 "8~16자" 로 끝에 둔다',
@@ -2304,7 +2320,7 @@ name.after(eb);`,
     note: '[정할 것] 선생님 화면의 4자 이상이 지금 서버 규칙인지, 옛 문구가 남은 것인지 확인이 필요하다.'
   },
   {
-    id: 'SI4', group: 1, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-password'],
+    id: 'SI4', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-password'],
     title: '현재 비밀번호에도 보기 토글',
     current: '새 비밀번호 · 새 비밀번호 확인에는 눈 모양 보기 단추가 있고, 현재 비밀번호에만 없다. 셋 다 같은 `cl-input-group` 인데 하나만 오른쪽이 비어 보인다',
     next: '세 칸 모두 같은 보기 토글을 둔다. 현재 비밀번호를 잘못 눌러 막히는 일이 가장 흔하다',
