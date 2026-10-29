@@ -2,8 +2,8 @@
 
 같은 목록을 다르게 보는 두세 가지 방식 중 하나를 고른다. 표/카드 보기, 대시보드 기간(오늘 · 7일 · 30일)에 쓴다.
 
-- 바탕 `cl-hover`, 안쪽 2px, 반경 `cl-radius-control`(4px), 안쪽 항목은 `cl-radius-3xs`(2px).
-- 칸 30×28px(아이콘), 글자 칸은 좌우 12px · 13px 600. 칸 반경 6px.
+- 바탕 `cl-hover`, 안쪽 2px, 반경 `cl-radius-control`(4px).
+- 칸 30×28px(아이콘), 글자 칸은 좌우 12px · 13px 600. 칸 반경 `cl-radius-3xs`(2px).
 - 고른 칸: 배경 `cl-canvas`, 글자 `cl-ink`, 그림자 `0 1px 2px rgba(0,0,0,.08)`(직접 값).
 - 고르지 않은 칸: 글자 `cl-ink-muted`.
 - 900px 이하에서는 표/카드 보기 전환(`cl-view-toggle`)을 숨긴다.
