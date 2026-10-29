@@ -85,7 +85,7 @@ button.cl-ws-nav__item { width: 100%; border: 0; background: transparent; font: 
 .cl-mu-check { width: 32px; }
 .cl-mu-check input { width: 16px; height: 16px; margin: 0; accent-color: var(--cl-primary); }
 .cl-mu-memo { max-width: 180px; }
-.cl-mu-memo__btn { max-width: 100%; padding: 2px 4px; margin-left: -4px; border: 0; border-radius: var(--cl-radius-xs); background: transparent; display: inline-flex; align-items: center; gap: 4px; font: inherit; text-align: left; cursor: pointer; }
+.cl-mu-memo__btn { max-width: 100%; padding: 2px 4px; margin-left: -4px; border: 0; border-radius: var(--cl-radius-control); background: transparent; display: inline-flex; align-items: center; gap: 4px; font: inherit; text-align: left; cursor: pointer; }
 .cl-mu-memo__btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cl-mu-memo__btn svg { flex: none; opacity: 0; color: var(--cl-ink-muted); }
 .cl-mu-memo__btn:hover { background: var(--cl-hover); }

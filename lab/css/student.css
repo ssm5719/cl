@@ -34,7 +34,7 @@
 .cl-submission { height: 32px; padding: 0 12px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-canvas); box-shadow: 0 0 0 1px var(--cl-control-border); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-variant-numeric: tabular-nums; }
 .cl-submission[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--cl-primary); }
 .cl-submission.is-final::before { content: ""; width: 7px; height: 7px; border-radius: var(--cl-radius-pill); background: var(--cl-success); }
-.cl-editor { border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-sm); overflow: hidden; }
+.cl-editor { border: 1px solid var(--cl-control-border); border-radius: var(--cl-radius-control); overflow: hidden; }
 .cl-editor .toastui-editor-defaultUI { border: 0; }
 
 

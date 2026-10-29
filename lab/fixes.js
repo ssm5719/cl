@@ -355,7 +355,7 @@ br.append(b);`,
     title: '학생 목록: 메모 칸이 편집 가능하다는 표시',
     current: '빈 메모는 회색 "메모 추가" 글자뿐이고, 연필 아이콘은 마우스를 올려야 보인다. 일반 글자와 구분이 안 된다',
     next: '빈 메모: 점선 테두리 알약 안에 "+ 메모" · 내용 있는 메모: 글자 뒤에 연필 아이콘 늘 표시(흐리게), hover 때 바탕 `cl-hover` + 진하게 · 누르면 그 자리에서 입력 칸으로 바뀜(Enter 저장, Esc 취소)',
-    css: `.cl-mu-memo__btn { padding: 3px 8px; margin-left: -8px; border-radius: var(--cl-radius-2xs); color: var(--cl-ink); }
+    css: `.cl-mu-memo__btn { padding: 3px 8px; margin-left: -8px; border-radius: var(--cl-radius-control); color: var(--cl-ink); }
 .cl-mu-memo__btn svg { opacity: .45; }
 .cl-mu-memo__btn:hover, .cl-mu-memo__btn:focus-visible { background: var(--cl-hover); }
 .cl-mu-memo__btn:hover svg, .cl-mu-memo__btn:focus-visible svg { opacity: 1; color: var(--cl-ink); }
@@ -494,7 +494,7 @@ const r=doc.querySelector('[data-teacher-manage] tbody tr:nth-child(2) .cl-revea
     next: '화면 맨 위 36px 먹색 띠: "장현석 선생님 계정으로 보는 중" + 오른쪽 [관리자로 돌아가기]. 띠는 스크롤해도 고정',
     css: `.cl-impersonate { position: sticky; top: 0; z-index: 40; height: 36px; padding: 0 12px 0 16px; display: flex; align-items: center; gap: 8px; background: var(--cl-ink); color: var(--cl-canvas); font-size: var(--cl-fs-caption); }
 .cl-impersonate strong { font-weight: 600; }
-.cl-impersonate__back { margin-left: auto; height: 26px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-2xs); background: rgba(255, 255, 255, .14); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
+.cl-impersonate__back { margin-left: auto; height: 26px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-control); background: rgba(255, 255, 255, .14); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
 .cl-impersonate__back:hover { background: rgba(255, 255, 255, .24); }
 .cl-impersonate ~ .cl-ws .cl-ws-topbar { top: 36px; }`,
     markup: '관리자가 선생님 계정으로 들어간 세션에서만 `<body>` 첫 요소로 띠를 출력한다. [관리자로 돌아가기]는 지금 [사이트 관리]와 같은 동작. 들어가기 확인창의 둘째 문장은 "들어간 뒤에는 화면 위 띠에서 언제든 관리자로 돌아올 수 있습니다."로 바꾼다.',
@@ -2016,7 +2016,7 @@ aside.remove();`,
 .cl-scope .toastui-editor-contents code { background: var(--cl-hover); color: var(--cl-ink-2); }
 .cl-scope .toastui-editor-contents ul > li::before { background: var(--cl-ink-faint); }
 .cl-scope .ProseMirror .placeholder { color: var(--cl-ink-faint); }
-.cl-scope .cl-editor { border-color: var(--cl-control-border); border-radius: var(--cl-radius-sm); }
+.cl-scope .cl-editor { border-color: var(--cl-control-border); border-radius: var(--cl-radius-control); }
 .cl-scope .toastui-editor-defaultUI-toolbar { background: var(--cl-sidebar); border-bottom-color: var(--cl-grid-head); }
 .cl-scope .toastui-editor-defaultUI-toolbar button { border-color: transparent; }
 .cl-scope .toastui-editor-defaultUI-toolbar button:not(:disabled):hover { background-color: var(--cl-canvas); border-color: var(--cl-hairline); }
@@ -2609,7 +2609,7 @@ if (cats && cats.children.length > 6 && !cats.parentNode.querySelector('.cl-home
     title: '필터 초기화 — 자리는 그대로, 모양 · 글자 · 색만',
     current: '`cl-btn--text cl-btn--sm` 이라 12.5px · 굵게(600) · 검정 글자뿐이다. 바로 위 필터 제목(상세검색 · 대분류 · 과목)이 12px · 500 · 회색이라, 크기는 같고 더 진하고 더 굵은 **또 하나의 제목**처럼 읽힌다 — 누르는 것인지 다음 묶음의 머리인지 구분이 안 된다. 높이 28px 로 다른 필터 줄(34)보다 작고, 글자 시작도 10 이라 버튼 테두리가 없으면 어디까지 눌리는지 보이지 않는다',
     next: '자리(필터 열 맨 아래 · 왼쪽)는 그대로 둔다. ① 앞에 되돌리기 아이콘(↺)을 붙여 \'동작\'으로 읽히게 한다 ② 글자는 14px · 500 · 회색(`--cl-ink-muted`)으로 — 제목보다 크고 덜 진해 제목과 헷갈리지 않고, 고른 분류(보라)보다 조용하다 ③ 줄 전체를 분류 줄과 같은 36px · 모서리 8 · hover 바탕으로 — 필터 줄과 같은 식구로 보이면서 눌리는 범위가 보인다 ④ 위에 얇은 선 하나로 \'고르기\'와 \'되돌리기\'를 가른다',
-    css: `/* 필터 초기화 — 자리는 그대로, 제목처럼 읽히지 않고 '되돌리기'로 읽히게 */\n.cl-scope .cl-cs-reset {\n  height: 36px; padding: 0 10px; gap: 8px;\n  border-radius: var(--cl-radius-sm);\n  font-size: var(--cl-fs-ui); font-weight: 500;\n  color: var(--cl-ink-muted);\n}\n.cl-scope .cl-cs-reset:hover { background: var(--cl-hover); color: var(--cl-ink); }\n.cl-cs-reset .cl-icon { flex: none; }\n@media (min-width: 901px) {\n  /* 필터와 동작 사이를 선 하나로 가른다 — 자리는 그대로 맨 아래 */\n  .cl-cs-reset { position: relative; margin-top: 4px; }\n  .cl-cs-reset::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 1px; background: var(--cl-hairline); }\n  .cl-cs-reset { align-self: stretch; justify-content: flex-start; }\n}`,
+    css: `/* 필터 초기화 — 자리는 그대로, 제목처럼 읽히지 않고 '되돌리기'로 읽히게 */\n.cl-scope .cl-cs-reset {\n  height: 36px; padding: 0 10px; gap: 8px;\n  border-radius: var(--cl-radius-control);\n  font-size: var(--cl-fs-ui); font-weight: 500;\n  color: var(--cl-ink-muted);\n}\n.cl-scope .cl-cs-reset:hover { background: var(--cl-hover); color: var(--cl-ink); }\n.cl-cs-reset .cl-icon { flex: none; }\n@media (min-width: 901px) {\n  /* 필터와 동작 사이를 선 하나로 가른다 — 자리는 그대로 맨 아래 */\n  .cl-cs-reset { position: relative; margin-top: 4px; }\n  .cl-cs-reset::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 1px; background: var(--cl-hairline); }\n  .cl-cs-reset { align-self: stretch; justify-content: flex-start; }\n}`,
     dom: `doc.querySelectorAll('.cl-cs-reset').forEach(function (b) {\n  if (b.querySelector('.cl-icon')) return;\n  b.insertAdjacentHTML('afterbegin', '<svg class="cl-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>');\n});`,
     markup: '`.cl-cs-reset` 버튼 맨 앞에 16px 되돌리기 아이콘(`rotate-ccw`)을 넣는다. 위치 · 동작 · 숨김 조건(`hidden`)은 그대로다.',
     targets: ['.cl-cs-reset'],
@@ -3746,6 +3746,16 @@ new MutationObserver(function () { if (w.dataset.playerState !== 'playing') show
 8) 버튼 누르는 칸 40 · 아이콘 22 · 올리면 흰 14% 원. 전체화면 앞 세로선 삭제. 움직임은 prefers-reduced-motion 에서 끔.`,
     targets: ["#player-footer", ".progress-gage-wrap", ".player-controller-box"],
     note: "테스트 사이트 관리자 콘텐츠 미리보기에서 확인(2026.10.29) — 플레이어는 LABY 플레이어 v2.0(video.js 7.21 + 자체 조작 줄). 학원 사이트 CSS 로는 바꿀 수 없어 플레이어 쪽 전달 항목",
+  },
+  {
+    id: 'NR1', group: 7, status: '확정', kind: 'CSS', layer: '토큰',
+    title: '버튼 · 입력 칸 · 글 상자 모서리 4px — 새 토큰 `--cl-radius-control`',
+    current: "버튼 · 아이콘 버튼 · 입력 칸 · 글 상자 · 선택 칸 · 검색 칸 · 보기 전환 · 쪽 번호가 8px(`cl-radius-sm`), 작은 버튼 · 입력 칸 안 버튼 · 선생님 계정 돌아가기 버튼은 6px. 카드(8px)와 같은 값이라 누르는 것과 담는 면이 구분되지 않는다.",
+    next: "누르고 입력하는 것은 모두 4px 하나로. 새 토큰 `--cl-radius-control: 4px` 를 cl-tokens.css 에 두고 아래 규칙이 그 토큰을 쓴다. 알약(`cl-btn--pill` · 공개 화면 수강신청 · CTA · 정렬 알약)과 동그라미 아이콘 버튼은 모양이 원이라 그대로. 그 안에 든 칸은 2px(`cl-radius-3xs`) — 보기 전환 항목, 비밀번호 칸 안 보기 버튼, 머리 검색의 단축키 표시.",
+    howTo: "관리자 · 선생님 · 학생 · 학원 공개 화면 전부. 실험실은 이미 바뀐 CSS 로 보여 주므로 [지금]과 [수정안]이 같다 — 차이는 handoff/css-changes.diff 에서 본다.",
+    markup: "CSS 만 바꾼다. cl-tokens.css 에 `--cl-radius-control: 4px;` 추가. border-radius 를 `var(--cl-radius-control)` 로: base.css `.cl-ws-search` · `.cl-btn` · `.cl-btn--xs` · `.cl-icon-btn` · `.cl-input`, components.css `.cl-segmented` · `.cl-search input` · `.cl-select` · `.cl-pagination__page, .cl-pagination__arrow` · `.cl-textarea` · `.cl-composer__input`, manager.css `.cl-mu-memo__btn`, student.css `.cl-editor`, 수정안 H2 `.cl-mu-memo__btn` · `.cl-impersonate__back` · `.cl-scope .cl-editor` · AC3 `.cl-scope .cl-cs-reset`. `var(--cl-radius-3xs)` 로: `.cl-ws-search kbd` · `.cl-input-group__btn` · `.cl-segmented__item`.",
+    targets: ['.cl-btn', '.cl-input', '.cl-select', '.cl-textarea'],
+    note: "그대로 둔 것: 목록 행처럼 쓰는 버튼(분류 고르기 `cl-mc-pick` · 전체강좌 분류 `cl-cs-cate` · 사이드바 메뉴 · 메뉴 항목 · 고르기 목록 항목), 사진 · 카드형 버튼(학원소개 사진 · 메인 구성 고르기 · 폴더 · 썸네일 · 학생 카드), 편집기(Toast UI) 도구 버튼 3px — 외부 편집기 기본값. 점검: 실험실 화면 전부를 그려 버튼 · 입력 칸 모서리를 모은 결과 위 예외만 남음(2026.10.29)."
   },
 ];
 

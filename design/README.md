@@ -90,7 +90,7 @@
 
 ## 반경 · 테두리 · 그림자
 
-- 반경: 체크박스 `cl-radius-xs`(4), 버튼 · 입력 칸 `cl-radius-sm`(8), 카드 `cl-radius-md`(10), 떠 있는 패널 · 대화상자 · 토스트 `cl-radius-lg`(12), 큰 사진 · 메인 타일 `cl-radius-xl`(16), 칩 · 아바타 · 진도 막대 `cl-radius-pill`. 배지 · 메뉴 항목 · 보기 전환 칸 · 작은 썸네일 `cl-radius-2xs`(6), 진행 막대 끝 · 탭 밑줄 `cl-radius-3xs`(2). 모서리도 px 를 직접 적지 않는다.
+- 반경: 체크박스 `cl-radius-xs`(4), 버튼 · 아이콘 버튼 · 입력 칸 · 글 상자 · 선택 칸 · 검색 칸 · 쪽 번호 `cl-radius-control`(4), 공개 화면 알약 · 동그라미 버튼은 `cl-radius-pill`, 카드 `cl-radius-md`(10), 떠 있는 패널 · 대화상자 · 토스트 `cl-radius-lg`(12), 큰 사진 · 메인 타일 `cl-radius-xl`(16), 칩 · 아바타 · 진도 막대 `cl-radius-pill`. 배지 · 메뉴 항목 · 작은 썸네일 `cl-radius-2xs`(6), 진행 막대 끝 · 탭 밑줄 · 보기 전환 안쪽 칸 · 입력 칸 안 버튼 `cl-radius-3xs`(2). 모서리도 px 를 직접 적지 않는다.
 - 테두리는 1px 실선이 기본이다. 테두리 버튼은 border 대신 `cl-ring`(1px 링)을 쓴다.
 - 그림자는 화면 위에 뜨는 것에만: 메뉴 · 대화상자 · 토스트 `cl-shadow-float`, 일괄 작업 바 `cl-shadow-bulkbar`. 카드에는 그림자를 쓰지 않는다.
 - 포커스는 `cl-primary` 2px 실선, 2px 띄운다(`cl-focus-offset`).

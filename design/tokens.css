@@ -55,6 +55,7 @@
   --cl-radius-sm: 8px; /* 작업공간 버튼 · 입력 칸 · 검색 칸 · 보기 전환 · 빈 그래프 상자. */
   --cl-radius-md: 10px; /* 작업공간 카드(cl-card, cl-card-item), 숫자 띠 상자. */
   --cl-radius-lg: 12px; /* 떠 있는 메뉴 · 대화상자 · 토스트 · 일괄 작업 바, 공개 영역 썸네일. */
+  --cl-radius-control: 4px; /* 버튼 · 입력 칸 · 글 상자 · 선택 칸 · 검색 칸 · 보기 전환 · 쪽 번호. 2026.10.29 */
   --cl-radius-pill: 999px; /* 칩, 학기 칩, 계정 버튼, 아바타, 진도 막대. */
   --cl-fs-page-title: 24px; /* 화면 제목(h1). 700 / 1.35 / -0.025em. 공개 화면 기본값은 22px. */
   --cl-fs-section-title: 16px; /* 섹션 제목(h2, .cl-section-title). 700. 공개 화면 기본값은 15px. */

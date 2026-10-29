@@ -21,7 +21,12 @@ const head = `/* 클라우드러닝 작업공간 · 학원 공개 화면 — 컴
 }
 
 `;
-let out = head + behav;
+// 디자인시스템 화면의 tokens.css 는 누군가 화면에서 저장해야 다시 만들어진다. 그 전에도 새 토큰이 미리보기에 보이게
+// tokens.css(이 폴더, tokens.json 과 같은 값)의 변수를 :where(:root) 로 한 번 더 둔다 — 우선순위 0 이라 tokens.css 가 있으면 그쪽이 이긴다.
+const tokCss = fs.readFileSync(path.join(__dirname, 'tokens.css'), 'utf8');
+const tokVars = [...tokCss.matchAll(/^\s*(--[\w-]+):\s*([^;]+);/gm)].map(m => `  ${m[1]}: ${m[2].trim()};`);
+const fallback = `/* ===== 토큰 대비 값 — tokens.json 과 같은 값. :where 라 tokens.css 가 먼저다 ===== */\n:where(:root) {\n${[...new Set(tokVars)].join('\n')}\n}\n\n`;
+let out = head + fallback + behav;
 for (const f of ['base', 'components', 'manager', 'teacher', 'student', 'public']) out += `/* ===== ${f}.css ===== */\n` + fs.readFileSync(L(`css/${f}.css`), 'utf8').trim() + '\n\n';
 for (const st of ['확정', '제안']) {
   out += st === '확정' ? '/* ===== 디자인 수정(확정) — 실험실 fixes.js 의 확정 항목 CSS. 개발 반영 대상 ===== */\n'

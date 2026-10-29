@@ -1,4 +1,4 @@
-/* fixes.css — 확정 수정안 CSS 전부 (2026.10.29, 229건, 층 순서).
+/* fixes.css — 확정 수정안 CSS 전부 (2026.10.29, 230건, 층 순서).
    공통 CSS(01-공통 0번) 다음에 불러오거나, 각 규칙을 원본 파일 안으로 옮긴다. */
 
 /* NX1 · 공개 화면 버튼 · 링크를 공통 Button · IconButton 으로 — 화면 전용 버튼 7종 정리 */
@@ -281,7 +281,7 @@ html[data-theme="dark"] .cl-scope :is(.cl-row__thumb, .cl-card-item__thumb) { bo
 .cl-scope .toastui-editor-contents code { background: var(--cl-hover); color: var(--cl-ink-2); }
 .cl-scope .toastui-editor-contents ul > li::before { background: var(--cl-ink-faint); }
 .cl-scope .ProseMirror .placeholder { color: var(--cl-ink-faint); }
-.cl-scope .cl-editor { border-color: var(--cl-control-border); border-radius: var(--cl-radius-sm); }
+.cl-scope .cl-editor { border-color: var(--cl-control-border); border-radius: var(--cl-radius-control); }
 .cl-scope .toastui-editor-defaultUI-toolbar { background: var(--cl-sidebar); border-bottom-color: var(--cl-grid-head); }
 .cl-scope .toastui-editor-defaultUI-toolbar button { border-color: transparent; }
 .cl-scope .toastui-editor-defaultUI-toolbar button:not(:disabled):hover { background-color: var(--cl-canvas); border-color: var(--cl-hairline); }
@@ -378,7 +378,7 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
 }
 
 /* H2 · 학생 목록: 메모 칸이 편집 가능하다는 표시 */
-.cl-mu-memo__btn { padding: 3px 8px; margin-left: -8px; border-radius: var(--cl-radius-2xs); color: var(--cl-ink); }
+.cl-mu-memo__btn { padding: 3px 8px; margin-left: -8px; border-radius: var(--cl-radius-control); color: var(--cl-ink); }
 .cl-mu-memo__btn svg { opacity: .45; }
 .cl-mu-memo__btn:hover, .cl-mu-memo__btn:focus-visible { background: var(--cl-hover); }
 .cl-mu-memo__btn:hover svg, .cl-mu-memo__btn:focus-visible svg { opacity: 1; color: var(--cl-ink); }
@@ -408,7 +408,7 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
 /* C8 · 선생님 계정으로 들어간 동안 맨 위 띠 */
 .cl-impersonate { position: sticky; top: 0; z-index: 40; height: 36px; padding: 0 12px 0 16px; display: flex; align-items: center; gap: 8px; background: var(--cl-ink); color: var(--cl-canvas); font-size: var(--cl-fs-caption); }
 .cl-impersonate strong { font-weight: 600; }
-.cl-impersonate__back { margin-left: auto; height: 26px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-2xs); background: rgba(255, 255, 255, .14); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
+.cl-impersonate__back { margin-left: auto; height: 26px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-control); background: rgba(255, 255, 255, .14); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
 .cl-impersonate__back:hover { background: rgba(255, 255, 255, .24); }
 .cl-impersonate ~ .cl-ws .cl-ws-topbar { top: 36px; }
 
@@ -936,7 +936,7 @@ html { scroll-behavior: smooth; }
 /* 필터 초기화 — 자리는 그대로, 제목처럼 읽히지 않고 '되돌리기'로 읽히게 */
 .cl-scope .cl-cs-reset {
   height: 36px; padding: 0 10px; gap: 8px;
-  border-radius: var(--cl-radius-sm);
+  border-radius: var(--cl-radius-control);
   font-size: var(--cl-fs-ui); font-weight: 500;
   color: var(--cl-ink-muted);
 }

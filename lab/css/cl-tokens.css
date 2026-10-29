@@ -51,6 +51,8 @@
   --cl-mark-muted: #8E8E93;          /* 회색 막대 · 범례 점 */
   --cl-heat-1-ink: #4A1F8C;          /* heat-1 위 글자 */
   --cl-heat-2-ink: #2D1060;          /* heat-2 위 글자 */
+  --cl-player-bg: #000000;          /* 동영상 플레이어 바탕(테마와 상관없이 검정) */
+  --cl-player-scrim: rgba(0, 0, 0, .72); /* 플레이어 조작 줄 아래 그라데이션 끝 */
   --cl-media-bg: #F4F4F6; /* 사진 · 문서 칸 바탕 */
   --cl-disabled-bg: #E8E8EB; /* 비활성 버튼 바탕 */
   --cl-surface-dark-hover: #000000; /* 진한 버튼 hover */
@@ -111,6 +113,7 @@
   --cl-radius-md: 10px;   /* 작업공간 카드 */
   --cl-radius-lg: 12px;   /* 공개 썸네일 · 떠 있는 바 */
   --cl-radius-xl: 16px;   /* 큰 사진 · 메인 타일 */
+  --cl-radius-control: 4px; /* 버튼 · 입력 칸 · 글 상자 · 선택 칸 · 검색 칸 (2026.10.29) */
   --cl-radius-pill: 999px;
 
   /* 깊이 · 움직임 */
@@ -186,6 +189,8 @@ html[data-theme="dark"] .cl-scope {
   --cl-mark-muted: #6e6e73;
   --cl-heat-1-ink: #e4d6fc;
   --cl-heat-2-ink: #ffffff;
+  --cl-player-bg: #000000;
+  --cl-player-scrim: rgba(0, 0, 0, .72);
   --cl-media-bg: #2a2a2d;
   --cl-disabled-bg: #333336;
   --cl-surface-dark-hover: #48484c;

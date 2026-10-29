@@ -22,7 +22,7 @@
 
 ## 크기
 
-높이는 기본 `cl-h-control`(32px), `--sm` 28px, `--xs` 26px, `--md` 36px(글자 `cl-fs-ui` 500 — 공개 화면 알약), `--lg` `cl-touch`(44px), `--xl` 48px(글자 `cl-fs-body-public` — 메인 첫 칸 · CTA). `--block` 은 칸 폭 가득. 좌우 여백 12px(`--sm` 10, `--xs` 8, `--lg` 20). 반경 `cl-radius-sm`(8px), `--xs` 만 6px. 글자 600, `--sm` · `--xs` 는 `cl-fs-caption` · `cl-fs-micro`, `--lg` 는 15px.
+높이는 기본 `cl-h-control`(32px), `--sm` 28px, `--xs` 26px, `--md` 36px(글자 `cl-fs-ui` 500 — 공개 화면 알약), `--lg` `cl-touch`(44px), `--xl` 48px(글자 `cl-fs-body-public` — 메인 첫 칸 · CTA). `--block` 은 칸 폭 가득. 좌우 여백 12px(`--sm` 10, `--xs` 8, `--lg` 20). 반경 `cl-radius-control`(4px) — 모든 크기 같다. 아이콘 버튼(`cl-icon-btn`)도 4px, `--round` · `--pill` 만 동그랗게. 글자 600, `--sm` · `--xs` 는 `cl-fs-caption` · `cl-fs-micro`, `--lg` 는 15px.
 
 버튼 끝 화살표 `cl-btn__arrow` 는 올리면 4px 앞으로 간다(움직임 줄이기 설정이면 멈춤).
 
