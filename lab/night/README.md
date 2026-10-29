@@ -34,7 +34,7 @@
 
 - 토큰: 글자 고정 단계 `--cl-fs-10 ~ 72`, 모서리 `--cl-radius-3xs/2xs/xl`, 색 `on-ink-2/muted/faint` · `surface-dark-hover` · `disabled-bg` · `media-bg`. css/*.css · fixes.js css · 화면 안 style 의 px/hex 430곳을 토큰으로(tok2.py).
 - components.css 끝 "공통 부품 v1.3" — Button/IconButton 변형, Link, Status, Tabs--line, Composer, MiniList, Popover 카드, Avatar 변형, Empty--line, FileCard, DocView.
-- 공통으로 바꾼 수정안: NP1 · NP2 · NP3 · NE1 · NI1 · AM13 · NM1 · AD5 · AE(학원소개 SNS) · U5 · C6 · I2 · X4 · I4 · Z3 · S3 · Z8. 새 수정안 NX1(공개 버튼 7종 → 공통) · NG1 · NO1 · NB1.
+- 공통으로 바꾼 수정안: NP1 · NP2 · NP3 · NE1 · NI1 · AM13 · NM1 · AD5 · AE(학원소개 SNS) · U5 · C6 · I2 · X4 · I4 · Z3 · S3 · Z8. 새 수정안 NX1(공개 버튼 7종 → 공통) · NG1 · NO1 · NV1(게시글 보기 창, 처음에 NB1 로 적었다가 겹쳐서 바꿈).
 - 새 화면(테스트 사이트에서 찾음): students-courses-dlg · students-join-dlg · students-group-dlg(build_student_dlgs.py), cms-owner-dlg · cms-visibility-dlg · cms-usage-dlg(build_cms_dlgs.py), board-view-dlg(build_board_view.py).
 - 화면 속 전화번호를 가짜 번호(010-0000-01xx · 02-0000-0000)로.
 - design/build_bundle.js 로 bundle.css 다시 만듦.

@@ -1,0 +1,1315 @@
+/* fixes.css — 확정 수정안 CSS 전부 (2026.10.29, 191건, 층 순서).
+   공통 CSS(01-공통 0번) 다음에 불러오거나, 각 규칙을 원본 파일 안으로 옮긴다. */
+
+/* NX1 · 공개 화면 버튼 · 링크를 공통 Button · IconButton 으로 — 화면 전용 버튼 7종 정리 */
+/* 공개 화면 버튼 · 링크를 공통 부품으로 — 모양은 components.css 의 공통 Button · IconButton · 더보기 링크, 여기는 놓인 자리 규칙만 */
+/* 학원 SNS 알약 — 로고가 있으면 왼쪽을 줄여 로고를 원 안에 */
+.cl-btn:has(> .cl-home-pill__logo) { padding-left: 7px; gap: 8px; }
+/* 메인의 [전체 보기 ›] · [학원소개 보기 ›] — 글자 17, 누르는 높이 44 */
+.cl-home .cl-more-link { min-height: var(--cl-touch); font-size: var(--cl-fs-body-public); }
+
+/* T1 · 토큰 추가 · 분리 (화면 변화 없음) */
+.cl-scope {
+  --cl-on-ink: #FFFFFF;              /* 진한 배경(보라 · 먹색 · 빨강) 위 글자 */
+  --cl-primary-fill: var(--cl-primary);        /* 주 버튼 배경 · 포커스 · 그래프 막대 */
+  --cl-primary-text: var(--cl-primary-pressed);        /* 링크 · 현재 메뉴 · 연보라 위 글자 (흰 배경 6.47:1) */
+  --cl-primary-tint-hover: #EADDFB;
+  --cl-danger-pressed: #A8191A;
+  --cl-row-hover: #FAFAFB;
+  --cl-track: #ECECEF;
+  --cl-nav-hover: #EFEFF1;
+  --cl-scrim: rgba(0, 0, 0, .4);
+}
+.cl-btn--primary, .cl-btn--danger, .cl-chip[aria-pressed="true"],
+.cl-pagination__page.is-current, .cl-toast, .cl-selbar, .cl-selbar__btn, .cl-selbar__close,
+.cl-avatar, .cl-ws-brand__mark { color: var(--cl-on-ink); }
+.cl-btn--danger:hover { background: var(--cl-danger-pressed); }
+.cl-btn--tint:hover, .cl-ws-term:hover { background: var(--cl-primary-tint-hover); }
+.cl-table tbody tr:hover { background: var(--cl-row-hover); }
+.cl-ws-nav__item:hover, .cl-ws-rail__item:hover { background: var(--cl-nav-hover); }
+.cl-pd-mini, .cl-pd-bar, .cl-ta-meter { background: var(--cl-track); }
+.cl-dialog::backdrop { background: var(--cl-scrim); }
+
+/* Q4 · 이름 옆 아이디: 한 단계 연한 회색 + 작은 글자 */
+:root { --cl-ink-subtle: #6E6E73; }
+[data-cms-manage] td[data-label="소유자"] .cl-muted { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
+
+/* SL1 · 학생: student.css 직접 색 · 크기를 토큰으로 (화면 변화 거의 없음) */
+.cl-scope {
+  --cl-on-ink-2: #E5E5EA;       /* 진한 바탕 위 둘째 글자 — 이어보기 강의 이름 (#1D1D1F 위 15.1:1) */
+  --cl-on-ink-muted: #C7C7CC;   /* 진한 바탕 위 보조 글자 — 이어보기 머리 줄 (#1D1D1F 위 11.4:1) */
+}
+.cl-hero { border-radius: var(--cl-radius-lg); color: var(--cl-on-ink); }
+.cl-hero__eyebrow { color: var(--cl-on-ink-muted); }
+.cl-hero__title { color: var(--cl-on-ink); }
+.cl-hero__lecture { color: var(--cl-on-ink-2); }
+.cl-teacher-card__name { font-size: var(--cl-fs-section-title); }
+
+/* SL2 · 학생 다크모드: 올린 이미지 칸은 밝은 바탕으로 고정 */
+.cl-scope { --cl-media-bg: #F4F4F6; }   /* 올린 이미지 칸 바탕. 다크에서도 뒤집지 않는다 */
+.cl-row__thumb, .cl-card-item__thumb, .cl-ws-brand__logo, img.cl-teacher-card__photo { background: var(--cl-media-bg); }
+html[data-theme="dark"] .cl-scope :is(.cl-row__thumb, .cl-card-item__thumb) { box-shadow: 0 0 0 1px var(--cl-hairline); }
+
+/* AM5 · 히어로 제목 최대 104 → 80px, 토큰으로 */
+/* 크기는 토큰이 들고, 화면은 읽기만 한다 */
+.cl-scope { --cl-fs-hero: clamp(40px, 5.6vw, 80px); }
+.cl-home-hero__title { font-size: var(--cl-fs-hero); }
+
+/* AM6 · 모서리 둥글기 — 16 · 12 · 10 · 8 네 값을 6 · 8 두 단계로 */
+/* 6px 을 척도에 등록한다 (배지 · 메뉴 항목 · 보기 전환 · 작은 버튼도 쓰는 값) */
+.cl-scope { --cl-radius-2xs: 6px; }
+/* 작은 썸네일만 6px */
+.cl-home-course__thumb { border-radius: var(--cl-radius-2xs); }
+/* 나머지 네모 면은 8px — 16px 을 쓰던 7곳 포함 */
+.cl-home-cat,
+.cl-home-teacher,
+.cl-home-teacher__photo,
+.cl-home-hero__media,
+.cl-home-gallery img,
+.cl-home-gallery > *,
+.cl-home-banner,
+.cl-home-slider__viewport,
+.cl-home-split__fallback,
+.cl-home-tile { border-radius: var(--cl-radius-sm); }
+/* 모바일에서 썸네일이 가로 전체가 되면 8px (지금은 12px) */
+@media (max-width: 900px) { .cl-home-course__thumb { border-radius: var(--cl-radius-sm); } }
+
+/* G7 · 카드 모서리 10 → 8px, `--cl-radius-md` 를 없앤다 */
+/* 미리보기용 별칭. 실제로는 아래 markup 대로 10곳을 바꾸고 토큰을 지운다 */
+.cl-scope { --cl-radius-md: var(--cl-radius-sm); }
+
+/* AM14 · hover 정리 — 줄 배경색 세 값을 하나로, 카드 테두리도 부드럽게 */
+/* 줄 hover 값을 하나로 — 공개 #FAF7FE · 전체강좌 #FAFAFC · 작업공간 #FAFAFB 세 값이 쓰이고 있었다 */
+.cl-scope { --cl-row-hover: #FAF7FE; }
+.cl-home-course:hover,
+.cl-qna-item:hover,
+.cl-post-row:not(.cl-post-row--head):hover,
+.cl-teacher__course:hover,
+.cl-cs-row:hover,
+.cl-auth__method:hover { background: var(--cl-row-hover); }
+/* 공통층 전환 목록에 border-color 가 빠져 있어 카드 테두리만 뚝 바뀌었다 */
+.cl-scope :is(button, a) { transition: background var(--cl-dur) var(--cl-ease), color var(--cl-dur) var(--cl-ease), border-color var(--cl-dur) var(--cl-ease), transform var(--cl-dur) var(--cl-ease); }
+/* 카드도 줄처럼 제목이 보라로 — 분류 카드만 빠져 있었다 */
+.cl-home-cat:hover .cl-home-cat__head strong { color: var(--cl-primary-pressed); }
+
+/* AC1 · 전체강좌 글자 크기 — 제목 56 → 40, 12px 대 글자는 13 · 14 로 */
+/* 공개 화면도 작업공간과 같은 가독성 단계로 — 작업공간만 14 · 13 으로 올라가 있었다 */
+.cl-scope.cl-pub-body { --cl-fs-ui: 14px; --cl-fs-caption: 13px; --cl-fs-table-head: 13px; --cl-fs-body-sm-pub: 15px; --cl-fs-section-pub: clamp(26px, 2.2vw, 32px); }
+/* 머리 — 제목은 한 단계 내리고, 부제는 한 단계 올린다 */
+.cl-cs-title { font-size: var(--cl-fs-display); letter-spacing: -0.03em; }
+.cl-cs-sub { font-size: var(--cl-fs-body-sm-pub); }
+.cl-cs-crumb { font-size: var(--cl-fs-caption); }
+/* 왼쪽 필터 */
+.cl-cs-filter__title { font-size: var(--cl-fs-caption); font-weight: 400; color: var(--cl-ink-muted); }
+.cl-cs-cate, .cl-cs-subject, .cl-cs-cate.is-child { font-size: var(--cl-fs-body-sm-pub); }
+.cl-cs-cate__count { font-size: var(--cl-fs-caption); }
+.cl-cs-search input { font-size: var(--cl-fs-ui); }
+/* 목록 위 줄 */
+.cl-cs-count, .cl-cs-sort { font-size: var(--cl-fs-ui); }
+/* 카드 */
+.cl-cs-meta, .cl-cs-teacher, .cl-cs-stats { font-size: var(--cl-fs-caption); }
+.cl-cs-name { font-size: var(--cl-fs-body-public); }
+.cl-cs-more { font-size: var(--cl-fs-ui); }
+.cl-cs-row__text .cl-cs-meta, .cl-cs-row__stats-mobile { font-size: var(--cl-fs-caption); }
+@media (max-width: 900px) { .cl-cs-count, .cl-cs-sort { font-size: var(--cl-fs-caption); } }
+
+/* G1 · 사이드바: 큰 주제 접기 · 펼치기 */
+.cl-ws-nav__label { width: 100%; height: 34px; border: 0; background: transparent; font: inherit; font-size: var(--cl-fs-15); font-weight: 600; color: var(--cl-ink-2); justify-content: space-between; border-radius: var(--cl-radius-2xs); cursor: pointer; text-align: left; transition: background var(--cl-dur) var(--cl-ease), color var(--cl-dur) var(--cl-ease); }
+.cl-ws-nav__label:hover { background: var(--cl-nav-hover); color: var(--cl-ink); }
+.cl-ws-nav__label .cl-icon { color: var(--cl-ink-muted); transition: transform 220ms cubic-bezier(.2, .8, .2, 1); }
+.cl-ws-nav__label[aria-expanded="false"] .cl-icon { transform: rotate(-90deg); }
+.cl-ws-nav__items { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 220ms cubic-bezier(.2, .8, .2, 1), opacity 180ms ease-out; }
+.cl-ws-nav__items.is-closed { grid-template-rows: 0fr; opacity: 0; }
+.cl-ws-nav__items-inner { min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 5px; padding-top: 5px; }
+.cl-ws-nav__items:not(.is-closed) .cl-ws-nav__item { animation: cl-nav-in 220ms ease-out both; }
+@keyframes cl-nav-in { from { transform: translateY(-4px); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .cl-ws-nav__items, .cl-ws-nav__label .cl-icon { transition: none; } .cl-ws-nav__item { animation: none !important; } }
+
+/* G2 · 사이드바 접기 버튼 (로고 오른쪽) · 상태 기억 */
+.cl-ws { transition: grid-template-columns 240ms cubic-bezier(.2, .8, .2, 1); }
+.cl-ws.no-anim, .cl-ws.no-anim * { transition: none !important; animation: none !important; }
+.cl-ws-sidebar { overflow: hidden; }
+.cl-ws-brand { position: relative; padding-right: 44px; overflow: hidden; transition: width 240ms cubic-bezier(.2, .8, .2, 1), padding 240ms cubic-bezier(.2, .8, .2, 1); }
+.cl-ws-collapse { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; color: var(--cl-ink-muted); transition: right 240ms cubic-bezier(.2, .8, .2, 1), background var(--cl-dur) var(--cl-ease); }
+.cl-ws-collapse:hover { color: var(--cl-ink); background: var(--cl-nav-hover); }
+.cl-ws-collapse .cl-icon { transition: transform 240ms cubic-bezier(.2, .8, .2, 1); }
+.cl-ws.is-collapsed { grid-template-columns: 56px minmax(0, 1fr); }
+.cl-ws.is-collapsed .cl-ws-brand { width: 56px; padding: 0; }
+.cl-ws.is-collapsed .cl-ws-brand > :not(.cl-ws-collapse) { opacity: 0; pointer-events: none; }
+.cl-ws.is-collapsed .cl-ws-collapse { right: 14px; }
+.cl-ws.is-collapsed .cl-ws-collapse .cl-icon { transform: scaleX(-1); }
+.cl-ws.is-collapsed :is(.cl-ws-search, .cl-ws-profile, .cl-ws-nav, .cl-ws-sidebar__foot) { display: none; }
+.cl-ws.is-collapsed .cl-ws-rail { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 0; animation: cl-fade-in 200ms 80ms ease-out both; }
+.cl-ws:not(.is-collapsed) :is(.cl-ws-search, .cl-ws-nav) { animation: cl-fade-in 200ms 60ms ease-out both; }
+@keyframes cl-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.cl-ws.is-collapsed .cl-ws-rail__item { width: 40px; height: 40px; border: 0; border-radius: var(--cl-radius-md); background: transparent; display: grid; place-items: center; color: var(--cl-ink-2); text-decoration: none; }
+.cl-ws.is-collapsed .cl-ws-rail__item:hover { background: var(--cl-nav-hover); }
+.cl-ws.is-collapsed .cl-ws-rail__item[aria-current="true"] { background: var(--cl-canvas); box-shadow: var(--cl-ring); color: var(--cl-primary-pressed); }
+@media (max-width: 1280px) { .cl-ws-collapse { display: none; } .cl-ws-brand { padding-right: 0; } }
+@media (prefers-reduced-motion: reduce) { .cl-ws, .cl-ws-brand, .cl-ws-collapse, .cl-ws-collapse .cl-icon { transition: none; } .cl-ws-rail, .cl-ws-nav, .cl-ws-search { animation: none !important; } }
+
+/* G3 · 사이드바 메뉴 글자 15px · 간격 넓게 */
+.cl-ws-nav__item { font-size: var(--cl-fs-15); }
+.cl-ws-nav__group { gap: 0; } /* 접힌 묶음에 빈 틈이 남지 않게 — 이름과 메뉴 사이 5px 은 안쪽 여백으로 */
+.cl-ws-nav { gap: 12px; }
+.cl-ws-nav__items-inner { padding-left: 4px; }
+.cl-ws-nav { padding-top: 10px; } /* 검색 칸과 첫 메뉴 사이 8 → 16px (cl-space-4) */
+/* 묶음 없는 단독 메뉴(대시보드)는 묶음 이름과 같은 위계 */
+.cl-ws-nav__group:not(:has(.cl-ws-nav__label)) > .cl-ws-nav__item { height: 34px; font-size: var(--cl-fs-15); font-weight: 600; color: var(--cl-ink-2); }
+.cl-ws-nav__group:not(:has(.cl-ws-nav__label)) > .cl-ws-nav__item > .cl-icon { display: none; }
+.cl-ws-nav__group:not(:has(.cl-ws-nav__label)) > .cl-ws-nav__item[aria-current="page"] { background: var(--cl-primary-tint); box-shadow: none; color: var(--cl-primary-pressed); }
+
+/* G4 · 사이드바 아이콘을 묶음 이름으로 옮기기 */
+.cl-ws-nav__label > span { display: inline-flex; align-items: center; gap: 8px; }
+.cl-ws-nav__label > span .cl-icon { transform: none !important; color: var(--cl-ink-muted); }
+.cl-ws-nav__label:hover > span .cl-icon { color: currentColor; }
+.cl-ws-nav__items-inner { padding-left: 0; }
+.cl-ws-nav__items-inner .cl-ws-nav__item { padding-left: 40px; }
+.cl-ws-nav__items-inner .cl-ws-nav__item > .cl-icon { display: none; }
+.cl-ws-nav__group:not(:has(.cl-ws-nav__label)) > .cl-ws-nav__item > .cl-icon { display: inline-block; color: currentColor; }
+
+/* H6 · 입력 · 설정 화면은 본문 폭에 한계 (넓은 모니터) */
+.cl-scope :is([data-teacher-form], [data-group-edit], [data-about-setting]).cl-page--wide { max-width: 880px; }
+.cl-scope [data-system-setting].cl-page--wide { max-width: 1064px; } /* 880 + 목차 160 + 사이 24 */
+
+/* H7 · 넓은 화면: 본문 최대 1,680px(왼쪽 정렬) · 표 행 hover 바탕 */
+.cl-scope { --cl-w-page-max: 1680px; }
+.cl-scope .cl-page--wide { max-width: var(--cl-w-page-max); }
+.cl-table tbody tr:not(.is-selected):is(:hover, :focus-within) { background: var(--cl-hover); }
+@media (hover: none) { .cl-table tbody tr:hover { background: transparent; } }
+
+/* FM1 · 두 칸 입력 줄: 위아래 칸 사이 간격 · 아이디 안내 한 줄로 */
+.cl-mtf-row { row-gap: 20px; }
+
+/* FM2 · 강좌 · 과제 만들기: 선택 칸(커리큘럼 · 분류 · 과목 · 강좌)을 칸 폭에 맞춤 */
+:is([data-course-form], [data-assign-form]) .cl-field > .cl-selectbox { display: block; width: 100%; } :is([data-course-form], [data-assign-form]) .cl-field > .cl-selectbox .cl-selectbox__control { width: 100%; max-width: none; }
+
+/* FM3 · 만들기 창 3개: 이름 · 필수 표시 · 오류 자리 통일 */
+.cl-dialog--modal .cl-dialog__body > form > .cl-dialog__actions { margin: 20px -20px -20px; } .cl-dialog .cl-field { max-width: none; } .cl-dialog .cl-field > .cl-selectbox { display: block; width: 100%; } .cl-dialog .cl-field > .cl-selectbox .cl-selectbox__control { width: 100%; max-width: none; }
+
+/* G6 · 메뉴 검색칸의 ⌘K 표시 빼기 */
+/* 검색칸 오른쪽 단축키 표시는 두지 않는다 */
+.cl-ws-search kbd { display: none; }
+
+/* AM1 · 학원 상단 메뉴 — 글자 15 → 17px, 사이 28 → 40px */
+/* 헤더를 공개 화면 글자 단계에 맞춘다 — 로고 17px 과 같은 키 */
+.cl-pub-nav__item { font-size: var(--cl-fs-body-public); }
+.cl-pub-nav { gap: 40px; }
+@media (max-width: 1100px) { .cl-pub-nav { gap: 24px; } }
+
+/* AM2 · 학원 로고 — 세로 50px 까지, 비율 고정 */
+/* 로고는 세로 기준으로 키우고 비율은 건드리지 않는다 (정사각형 · 가로형 둘 다) */
+.cl-pub-brand__logo { height: 40px; width: auto; max-width: 240px; object-fit: contain; }
+.cl-pub-brand--logo-only .cl-pub-brand__logo { height: 50px; }
+@media (max-width: 900px) {
+  .cl-pub-brand__logo, .cl-pub-brand--logo-only .cl-pub-brand__logo { height: 36px; max-width: 160px; }
+}
+
+/* AM8 · 태블릿에서 상단 메뉴가 오른쪽 버튼 밑으로 파고드는 것 막기 */
+/* 태블릿에서는 로고가 있으면 학원 이름 글자를 접는다 — 메뉴가 들어갈 자리를 만든다 */
+@media (max-width: 1100px) {
+  .cl-pub-brand:has(.cl-pub-brand__logo) .cl-pub-brand__name { display: none; }
+}
+
+/* AM22 · 꼬리말을 화면 맨 아래에 — 내용이 짧아도 */
+/* 내용이 짧아도 꼬리말은 화면 맨 아래에 — 몸통을 세로 flex 로, 본문이 남은 높이를 채운다 */
+.cl-pub-body { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+.cl-pub-main { flex: 1 0 auto; }
+.cl-pub-footer { flex: none; }
+
+/* NB1 · 공개 화면 제목 띠 — 전체강좌 머리와 같은 단계 · 여백 · 선 폭 */
+/* 제목 띠를 전체강좌 머리와 같은 단계 · 여백으로 */
+.cl-pub-band { padding: 40px 0 0; border-bottom: 0; }
+.cl-pub-band > .cl-pub-wrap::after { content: ""; display: block; height: 1px; margin-top: 24px; background: var(--cl-hairline); }
+.cl-pub-band__crumb { gap: 4px; margin-bottom: 16px; font-size: var(--cl-fs-caption); }
+.cl-pub-band__title { font-size: var(--cl-fs-display); letter-spacing: -0.03em; }
+.cl-pub-band__sub { margin-top: 8px; font-size: var(--cl-fs-body-sm-pub); color: var(--cl-ink-muted); }
+@media (max-width: 900px) { .cl-pub-band { padding-top: 24px; } }
+
+/* A4 · 화면 머리: 설명과 다음 줄 사이 띄우기 (모든 화면) */
+.cl-page__meta { margin-bottom: var(--cl-space-5); }
+
+/* A5 · 탭: 글자 통일 · 간격 넓히기 · 개수 배지 */
+.cl-tabs { gap: var(--cl-space-2); }
+.cl-tab { font-size: var(--cl-fs-ui); }
+.cl-tab__count { min-width: 20px; height: 20px; padding: 0 6px; border-radius: var(--cl-radius-pill); background: var(--cl-hover); color: var(--cl-ink-2); font-size: var(--cl-fs-micro); font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
+.cl-tab[aria-selected="true"] .cl-tab__count, .cl-tab[aria-current="page"] .cl-tab__count { background: var(--cl-ink); color: var(--cl-canvas); }
+.cl-tab__count[data-tone="warning"] { background: var(--cl-warning-bg); color: var(--cl-warning); }
+
+/* B2 · 차트 축 · 최대값 12px */
+.cl-chart__max, .cl-chart__axis { font-size: var(--cl-fs-micro); }
+
+/* H1 · 공통 표: 머리 줄과 데이터 구분 */
+.cl-table thead th { background: var(--cl-sidebar); color: var(--cl-ink-2); font-weight: 600; border-top: 1px solid var(--cl-grid-head); border-bottom: 1px solid var(--cl-grid-head); }
+.cl-table th:first-child, .cl-table td:first-child { padding-left: 12px; }
+.cl-table th:last-child, .cl-table td:last-child { padding-right: 12px; }
+.cl-table thead th .cl-sort { color: inherit; font-weight: inherit; }
+.cl-table-wrap { border-top: 0; }
+
+/* H3 · 공통 표: 누르는 글자 스타일 하나로 */
+/* 표 안에서 누르는 글자 — 링크 · 버튼 공통 */
+.cl-table :is(.cl-table__title, .cl-tc-course__title, .cl-mt-id, .cl-ms-teacher) {
+  font-weight: 600; color: var(--cl-ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px;
+  transition: color var(--cl-dur) var(--cl-ease), text-decoration-color var(--cl-dur) var(--cl-ease); }
+.cl-table :is(.cl-table__title, .cl-tc-course__title, .cl-mt-id, .cl-ms-teacher):hover {
+  color: var(--cl-primary-pressed); text-decoration-color: currentColor; }
+.cl-table :is(.cl-table__title, .cl-tc-course__title, .cl-mt-id, .cl-ms-teacher):focus-visible { outline: var(--cl-focus); outline-offset: 2px; border-radius: var(--cl-radius-3xs); }
+/* 누를 수 없는 첫 칸(학생 아이디)은 굵게 쓰지 않는다 */
+.cl-table td[data-primary] > strong { font-weight: 400; }
+
+/* H5 · 입력 칸 · 선택 버튼 아래 도움말 띄우기 */
+:is(.cl-input, .cl-inline-fields, .cl-tcf-radios, .cl-mms-keyword-form, .cl-mt-courses, .cl-chips, ul, ol) + .cl-field__help { margin-top: 6px; }
+
+/* SL8 · 학생 다크모드: 진도 0% 막대 · 칩 개수 대비 */
+.cl-progress__track { background: var(--cl-track); }
+
+/* SR4 · 과제 본문 · 편집기: 디자인시스템 글꼴 · 색 + 다크모드 */
+.cl-scope .toastui-editor-contents { font-family: var(--cl-font); font-size: var(--cl-fs-ui); line-height: 1.7; color: var(--cl-ink); }
+.cl-scope :is(.ProseMirror, .toastui-editor-contents p, .toastui-editor-contents ul, .toastui-editor-contents ol, .toastui-editor-contents table) { color: var(--cl-ink); }
+.cl-scope .toastui-editor-contents :is(h1, h2) { border-bottom-color: var(--cl-grid-head); }
+.cl-scope .toastui-editor-contents :is(del, blockquote, blockquote p) { color: var(--cl-ink-muted); }
+.cl-scope .toastui-editor-contents blockquote { border-left-color: var(--cl-hairline); }
+.cl-scope .toastui-editor-contents hr { border-top-color: var(--cl-grid-head); }
+.cl-scope .toastui-editor-contents a { color: var(--cl-primary-pressed); }
+.cl-scope .toastui-editor-contents pre { background: var(--cl-parchment); }
+.cl-scope .toastui-editor-contents code { background: var(--cl-hover); color: var(--cl-ink-2); }
+.cl-scope .toastui-editor-contents ul > li::before { background: var(--cl-ink-faint); }
+.cl-scope .ProseMirror .placeholder { color: var(--cl-ink-faint); }
+.cl-scope .cl-editor { border-color: var(--cl-control-border); border-radius: var(--cl-radius-sm); }
+.cl-scope .toastui-editor-defaultUI-toolbar { background: var(--cl-sidebar); border-bottom-color: var(--cl-grid-head); }
+.cl-scope .toastui-editor-defaultUI-toolbar button { border-color: transparent; }
+.cl-scope .toastui-editor-defaultUI-toolbar button:not(:disabled):hover { background-color: var(--cl-canvas); border-color: var(--cl-hairline); }
+.cl-scope .toastui-editor-toolbar-divider { background: var(--cl-hairline); }
+.cl-scope :is(.toastui-editor-ww-container, .toastui-editor-md-container, .toastui-editor-mode-switch) { background: var(--cl-canvas); border-color: var(--cl-grid-head); }
+.cl-scope .toastui-editor-mode-switch .tab-item { background: var(--cl-sidebar); color: var(--cl-ink-muted); border-color: var(--cl-grid-head); }
+.cl-scope .toastui-editor-mode-switch .tab-item.active { background: var(--cl-canvas); color: var(--cl-ink); border-top-color: var(--cl-canvas); }
+html[data-theme="dark"] .cl-scope .toastui-editor-toolbar-icons { background-position-y: -49px; }
+html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-popup, .toastui-editor-context-menu) { background: var(--cl-canvas); border-color: var(--cl-hairline); color: var(--cl-ink); }
+
+/* SE1 · 빈 상태(Empty): 디자인시스템 값으로 · 아이콘 22px */
+.cl-empty { padding: var(--cl-space-7) var(--cl-space-4); gap: var(--cl-space-2); }
+.cl-empty__icon { border-radius: var(--cl-radius-lg); margin-bottom: var(--cl-space-1); }
+.cl-empty__icon .cl-icon { width: 22px; height: 22px; }
+.cl-empty .cl-btn { margin-top: var(--cl-space-2); }
+
+/* SI2 · 나의 정보 · 비밀번호 변경은 공통 부품만 쓴다 */
+/* student.css 에 더할 것 없음 — 공통 층 그대로 */
+
+/* SI5 · 이메일은 그 행에서 바로 고친다 */
+/* 행 안에서 바로 고치기: 값 자리에 입력 칸이 들어오고, 안내 · 오류는 그 행 아래 한 줄로 */
+.cl-info-row--edit .cl-info-row__value > .cl-input { width: 100%; min-width: 0; }
+.cl-info-row--edit { border-bottom: 0; }
+.cl-info-row__actions { display: flex; align-items: center; gap: 8px; }
+/* 안내 · 오류는 행 안에 넣지 않는다 — 긴 문장이 단추 칸을 밀어낸다 */
+.cl-info-row__note { margin: 0; padding: 0 0 12px 132px; border-bottom: 1px solid var(--cl-grid-row); } /* 132px = 라벨 칸 120px + 사이 여백 12px */
+.cl-info-row__note:last-child { border-bottom: 0; }
+@media (max-width: 500px) {
+  .cl-info-row--edit { grid-template-columns: minmax(0, 1fr); }
+  .cl-info-row--edit .cl-info-row__actions { justify-content: flex-end; }
+  .cl-info-row__note { padding-left: 0; }
+}
+
+/* AM17 · 계정 메뉴 — 묶음 가르기 · 아이콘 물리기 · 모서리 척도 안으로 */
+/* 계정 메뉴 — 묶음을 선으로 가르고, 아이콘은 글자 뒤로 물린다 */
+.cl-menu { padding: 4px; }
+.cl-menu__head { padding: 10px 10px 8px; }
+.cl-menu__item { border-radius: var(--cl-radius-sm); }
+.cl-menu__item .cl-icon { color: var(--cl-ink-muted); }
+.cl-menu__item:hover .cl-icon { color: inherit; }
+.cl-menu__item--danger .cl-icon { color: inherit; }
+
+/* NE1 · 학원 화면 빈 상태 — 회색 점선 상자 하나로 */
+/* 학원 공개 화면 빈 상태 — 공통 빈 상태의 점선 변형(cl-empty cl-empty--line, 작은 자리는 + cl-empty--sm). 여기는 자리별 간격만 */
+.cl-cs-main > .cl-empty--line, [data-list] > .cl-empty--line { margin-top: 16px; }
+.cl-comments .cl-empty--line { margin: 8px 0 16px; }
+.cl-comments:has(> .cl-empty--line) .cl-comments__title .cl-num { display: none; }
+
+/* NI1 · 사진 없는 선생님 아이콘 — 메인과 같은 선 아이콘으로 통일 */
+/* 사진 없는 선생님 — 잘린 회색 사람 그림 대신 메인(AM10)과 같은 선 아이콘, 연보라 원. 공통 Avatar 의 --ph 변형 */
+.cl-ws-account .cl-avatar--ph { width: 32px; height: 32px; }
+.cl-comment__avatar > .cl-avatar--ph { width: 100%; height: 100%; }
+
+/* B1 · 대시보드 섹션 제목 16px */
+.cl-md-title { font-size: var(--cl-fs-section-title); }
+
+/* B3 · 강좌 이름 14.5px → 14px */
+.cl-tc-course__title { font-size: var(--cl-fs-ui); font-weight: 600; }
+
+/* C1 · 상단 [새로 만들기]를 연보라로 */
+.cl-ws-create__btn.cl-btn--primary { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+.cl-ws-create__btn.cl-btn--primary:hover { background: var(--cl-primary-tint-hover); }
+
+/* C4 · 과목 목록: 강좌 이름 보라 굵게 해제 */
+[data-subject-manage] .cl-mt-id { font-weight: 600; color: var(--cl-ink); }
+[data-subject-manage] .cl-mt-id:hover { color: var(--cl-primary-pressed); }
+
+/* D1 · 확인 필요: 상태마다 같은 배경 규칙 */
+.cl-md-need.is-warning:first-child { background: transparent; }
+.cl-md-need.is-warning { background: var(--cl-warning-bg); }
+.cl-md-need.is-danger { background: var(--cl-danger-bg); }
+
+/* D2 · 확인 필요: 위험을 맨 위로 */
+.cl-md-needs__list > li:has(.is-danger) { order: -1; }
+
+/* D4 · 빈 그래프를 가볍게 */
+.cl-chart--empty { min-height: 160px; background: transparent; border-radius: 0; border-bottom: 1px solid var(--cl-grid-head); }
+
+/* D5 · 숫자 띠: 값을 위에 맞춰 정렬 */
+.cl-md-kpi .cl-kpi__item { flex-direction: column; justify-content: flex-start; gap: 2px; }
+.cl-md-kpi .cl-kpi__item dd { order: 0; min-height: 32px; display: flex; align-items: baseline; line-height: 32px; }
+.cl-md-kpi .cl-kpi__item dt { order: 1; }
+.cl-md-kpi .cl-md-kpi__sub { order: 2; }
+
+/* E1 · 모바일 선생님 카드 5줄 → 2~3줄 */
+@media (max-width: 900px) {
+  [data-teacher-manage] .cl-table tr { display: flex; flex-wrap: wrap; align-items: center; column-gap: 6px; row-gap: 2px; padding: 10px 0; }
+  [data-teacher-manage] .cl-table td[data-primary] { flex: 1 1 calc(100% - 48px); width: auto; }
+  [data-teacher-manage] .cl-table td.cl-tg-actions { flex: none; width: auto; }
+  [data-teacher-manage] .cl-table td[data-label] { order: 2; width: auto; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+  [data-teacher-manage] .cl-table td[data-label]:not([data-primary])::before { content: none; }
+  [data-teacher-manage] .cl-table td[data-label] ~ td[data-label]::before { content: "· "; }
+  [data-teacher-manage] .cl-table td[data-label="등급"] { display: none; }
+}
+
+/* H2 · 학생 목록: 메모 칸이 편집 가능하다는 표시 */
+.cl-mu-memo__btn { padding: 3px 8px; margin-left: -8px; border-radius: var(--cl-radius-2xs); color: var(--cl-ink); }
+.cl-mu-memo__btn svg { opacity: .45; }
+.cl-mu-memo__btn:hover, .cl-mu-memo__btn:focus-visible { background: var(--cl-hover); }
+.cl-mu-memo__btn:hover svg, .cl-mu-memo__btn:focus-visible svg { opacity: 1; color: var(--cl-ink); }
+.cl-mu-memo__btn.is-empty { margin-left: 0; padding: 1px 10px 1px 8px; border: 1px dashed var(--cl-control-border); border-radius: var(--cl-radius-pill); color: var(--cl-ink-muted); font-size: var(--cl-fs-caption); }
+.cl-mu-memo__btn.is-empty:hover { border-color: var(--cl-primary); border-style: solid; color: var(--cl-primary-pressed); background: var(--cl-primary-tint); }
+.cl-mu-memo__btn.is-empty svg { display: none; }
+.cl-mu-memo__btn.is-empty::before { content: "+"; font-weight: 600; }
+
+/* H4 · 검색 옆 [초기화] → [조건 초기화], 바꾼 조건이 있을 때만 활성 */
+.cl-toolbar [data-reset] { gap: 4px; color: var(--cl-ink-2); }
+.cl-toolbar [data-reset]:disabled { opacity: 1; color: var(--cl-ink-faint); background: transparent; cursor: default; }
+.cl-search { position: relative; }
+.cl-search__clear { position: absolute; right: 6px; width: 20px; height: 20px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-hover); color: var(--cl-ink-muted); display: grid; place-items: center; cursor: pointer; }
+.cl-search__clear[hidden] { display: none; }
+.cl-search:has(.cl-search__clear:not([hidden])) input { padding-right: 32px; }
+
+/* C5 · 선생님 행 메뉴(⋯): 중복 빼기 · 구분선 · 빨간 삭제 */
+.cl-menu__sep { height: 1px; margin: 4px 6px; background: var(--cl-grid-row); }
+.cl-row-menu__panel .cl-menu__item--danger, .cl-row-menu__panel .cl-menu__item--danger .cl-icon { color: var(--cl-danger); }
+.cl-row-menu__panel .cl-menu__item--danger:hover { background: var(--cl-danger-bg); }
+
+/* C6 · 행에 마우스를 올리면 아이디 옆 [들어가기] */
+/* [들어가기] — 공통 버튼 ghost · xs + 줄에 올리면 보이기(cl-reveal). 터치 · 모바일은 행 메뉴(⋯)를 쓰므로 숨김 */
+[data-teacher-manage] td[data-label="아이디"] .cl-reveal { margin-left: 8px; }
+@media (hover: none), (max-width: 900px) { [data-teacher-manage] td[data-label="아이디"] .cl-reveal { display: none; } }
+
+/* C8 · 선생님 계정으로 들어간 동안 맨 위 띠 */
+.cl-impersonate { position: sticky; top: 0; z-index: 40; height: 36px; padding: 0 12px 0 16px; display: flex; align-items: center; gap: 8px; background: var(--cl-ink); color: var(--cl-canvas); font-size: var(--cl-fs-caption); }
+.cl-impersonate strong { font-weight: 600; }
+.cl-impersonate__back { margin-left: auto; height: 26px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-2xs); background: rgba(255, 255, 255, .14); color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
+.cl-impersonate__back:hover { background: rgba(255, 255, 255, .24); }
+.cl-impersonate ~ .cl-ws .cl-ws-topbar { top: 36px; }
+
+/* I2 · 선생님 상세: 맡은 강좌는 강좌 정보, 계정 전환은 이름 붙은 링크로 */
+.cl-mt-course { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; }
+/* [선생님 계정으로 열기] — 공통 글자 링크 cl-link--muted. 여기는 칸 자리 · 글자 크기만 */
+.cl-mt-course > .cl-link { grid-column: 2; grid-row: 1 / span 2; align-self: center; display: inline-flex; align-items: center; gap: 4px; font-size: var(--cl-fs-caption); }
+
+/* I4 · 선생님 수정: 비밀번호 칸 아래 [비밀번호 초기화] */
+/* [비밀번호 초기화] — 공통 글자 링크 cl-link--danger. 여기는 앞 간격만 */
+#mtf-pw ~ .cl-field__help .cl-link, .cl-field__help > .cl-link--danger { margin-left: 4px; }
+
+/* J3 · 관리자 생성 · 수정: 사진을 맨 아래로, (선택) 표시 */
+[data-admin-form] .cl-mtf-photo__preview { width: 96px; height: 125px; }
+
+/* K2 · 그룹 목록: 행의 [편집] 버튼 빼기 · 메뉴 정리 */
+[data-group-list] .cl-tg-actions > .cl-btn { display: none; }
+
+/* K4 · 그룹 편집: 이름을 이 화면에서 바로 바꾸기 */
+.cl-title-edit { margin-left: 4px; color: var(--cl-ink-muted); }
+.cl-title-edit:hover { color: var(--cl-ink); }
+.cl-title-input { height: 40px; font-size: var(--cl-fs-page-title); font-weight: 700; max-width: 420px; }
+
+/* L2 · 현재 학기 배지가 선택 표시에 묻힘 */
+[data-category-manage] .cl-mc-pick .cl-badge--info { background: var(--cl-success-bg); color: var(--cl-success); }
+
+/* L3 · 분류 줄의 ↑↓ 버튼은 줄에 마우스를 올릴 때만 */
+[data-category-manage] .cl-sortable__item > [data-up], [data-category-manage] .cl-sortable__item > [data-down] { opacity: 0; transition: opacity var(--cl-dur) var(--cl-ease); }
+[data-category-manage] .cl-sortable__item:hover > [data-up], [data-category-manage] .cl-sortable__item:hover > [data-down],
+[data-category-manage] .cl-sortable__item:focus-within > [data-up], [data-category-manage] .cl-sortable__item:focus-within > [data-down] { opacity: 1; }
+@media (hover: none) { [data-category-manage] .cl-sortable__item > [data-up], [data-category-manage] .cl-sortable__item > [data-down] { opacity: 1; } }
+
+/* L5 · 상세분류 줄은 "강좌 목록으로 가는 링크"라는 표시 */
+[data-col="sub"] a.cl-mc-pick strong { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: text-decoration-color var(--cl-dur) var(--cl-ease); }
+[data-col="sub"] a.cl-mc-pick:hover strong { text-decoration-color: currentColor; color: var(--cl-primary-pressed); }
+[data-col="sub"] a.cl-mc-pick .cl-muted::after { content: " →"; }
+
+/* L6 · 분류 만들기 팝업: 입력 칸 폭 · 아래 줄 · 이름 */
+#mc-add .cl-input, [data-category-manage] ~ dialog .cl-input { width: 100% !important; }
+
+/* L7 · 분류 세 열의 상자 높이를 맞춤 */
+@media (min-width: 901px) { .cl-mc-columns { align-items: stretch; } }
+
+/* M2 · 과목 · 강좌 두 상자의 높이를 맞춤 */
+@media (min-width: 901px) { .cl-ms-layout { align-items: stretch; } }
+
+/* N1 · 행 메뉴(⋯): 삭제는 구분선 아래 빨간색으로 (강좌 · 분류 · 과목 목록) */
+.cl-menu__sep { height: 1px; margin: 4px 6px; background: var(--cl-grid-row); }
+.cl-row-menu__panel .cl-menu__item--danger, .cl-row-menu__panel .cl-menu__item--danger .cl-icon { color: var(--cl-danger); }
+.cl-row-menu__panel .cl-menu__item--danger:hover { background: var(--cl-danger-bg); }
+
+/* P2 · 콘텐츠 제목 줄: 긴 제목은 한 줄로 자르고, 숫자 칸 정렬 */
+[data-content-manage] .cl-mco-title__btn { display: inline-block; max-width: min(480px, 100%); vertical-align: bottom; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-content-manage] td.cl-num, [data-content-manage] .cl-table__num { font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) { [data-content-manage] .cl-mco-title { display: flex; min-width: 0; max-width: 100%; } [data-content-manage] .cl-mco-title__btn { min-width: 0; max-width: 100%; } }
+
+/* Q3 · CMS 콘텐츠 제목 줄: 콘텐츠 목록과 같은 모양 */
+[data-cms-manage] .cl-cms-item__title { max-width: 480px; }
+[data-cms-manage] .cl-cms-item__meta .cl-num { font-variant-numeric: tabular-nums; }
+
+/* R1 · 공지 줄: 보라 배지 + 보라 바탕 겹침 정리 */
+.cl-mb-notice { background: var(--cl-row-hover); }
+.cl-mb-notice .cl-badge--info { background: var(--cl-ink); color: var(--cl-canvas); font-weight: 600; }
+
+/* R2 · 작성자 "관리자 (admin)" → 이름 + 연한 아이디 */
+[data-board-manage] td[data-label="작성자"] .cl-id { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
+
+/* R3 · 제목 뒤 댓글 수 "[1]" → "댓글 1" */
+.cl-mb-cmt { margin-left: 6px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); font-weight: 400; }
+
+/* S1 · 알림 보내기: 두 상자 높이 맞춤 */
+@media (min-width: 901px) { .cl-ma-layout { align-items: stretch; } .cl-ma-send { margin-top: auto; } }
+
+/* S2 · 받는 사람 표: 이름 먼저, 아이디는 연하게 */
+[data-alarm-manage] .cl-id { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
+
+/* S3 · 상태 "대기 · 승인" 을 점 + 글자로 */
+/* 상태 — 공통 점 + 글자(cl-status --ok 승인 · --wait 대기, 빈 점) */
+
+/* S5 · 빠진 칸 오류는 그 칸 아래에 */
+[data-alarm-manage] .cl-input[aria-invalid="true"] { border-color: var(--cl-danger); }
+[data-alarm-manage] .cl-input[aria-invalid="true"]:focus { outline-color: var(--cl-danger); }
+
+/* S6 · 받는 사람 요약: 인원은 굵게, 이름은 연하게 */
+[data-alarm-manage] [data-selected] { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-alarm-manage] [data-selected] b { font-weight: 600; color: var(--cl-ink); }
+
+/* U1 · 로그인 현황: 날짜가 "로그인 상세로 가는 링크"로 보이게 */
+[data-stat-login] tbody td[data-primary] a { text-underline-offset: 3px; }
+[data-stat-login] tbody td[data-primary] a:hover { color: var(--cl-primary-pressed) !important; text-decoration: underline !important; }
+[data-stat-login] tbody td[data-primary] a::after { content: " →"; font-weight: 400; color: var(--cl-ink-muted); }
+
+/* U4 · 도구 줄: [검색] 버튼을 버튼처럼 */
+[data-search-btn] { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+
+/* U5 · 로그인 상세: 브라우저 정보는 요약해서 */
+[data-stat-detail] .cl-id { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
+[data-stat-detail] td[data-ua] { white-space: nowrap; }
+/* 복사 버튼 — 공통 아이콘 버튼 xs(26) + 줄에 올리면 보이기(cl-reveal). 여기는 자리만 */
+[data-stat-detail] td[data-ua] .cl-icon-btn { display: inline-grid; margin-left: 6px; vertical-align: middle; }
+
+/* W2 · 다운로드 표: 무엇을 · 누가 받았는지 */
+[data-stat-download] .cl-id { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
+[data-stat-download] .cl-dl-file { display: inline-flex; align-items: center; gap: 8px; max-width: 360px; }
+[data-stat-download] .cl-dl-file span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* X1 · 그룹 로그인 그래프: 기간을 고르고, 빈 날은 0 으로 */
+[data-stat-group] .cl-mc-pick { gap: 8px; }
+[data-stat-group] .cl-mc-pick > span { flex: 0 1 auto; min-width: 0; flex-wrap: nowrap; overflow: hidden; }
+[data-stat-group] .cl-mc-pick > span strong { flex: none; }
+[data-stat-group] .cl-mc-pick > span .cl-muted { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-stat-group] .cl-last-login { flex: none; margin-left: auto; min-width: 3.2em; text-align: right; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+[data-stat-group] .cl-last-login.is-none { color: var(--cl-ink-faint); }
+[data-stat-group] .cl-ms-list li[hidden] { display: none; }
+
+/* X2 · 소속 학생 목록: 이름 · 아이디 · 메모 · 최근 로그인을 자리마다 가른다 (Q4) */
+[data-stat-group] .cl-ms-list__head,
+[data-stat-group] .cl-mc-pick { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); gap: 8px; align-items: baseline; }
+[data-stat-group] .cl-ms-list__head { padding: 0 8px 4px; font-size: var(--cl-fs-micro); font-weight: 500; color: var(--cl-ink-muted); text-align: right; }
+[data-stat-group] .cl-ms-list__head.has-last,
+[data-stat-group] .cl-mc-pick:has(.cl-last-login) { grid-template-columns: minmax(0, auto) minmax(0, 1fr) 46px; }
+[data-stat-group] .cl-mc-pick .cl-muted { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
+[data-stat-group] .cl-mc-pick > span:first-child { max-width: 100%; }
+[data-stat-group] .cl-mc-memo { justify-self: end; max-width: 100%; min-width: 0; text-align: right; color: var(--cl-ink-muted); font-size: var(--cl-fs-caption); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-stat-group] .cl-mc-pick[aria-pressed="true"] { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+[data-stat-group] .cl-mc-pick[aria-pressed="true"]::after { content: "✓"; font-weight: 700; }
+
+/* X3 · 통계 2단 상자 높이 맞춤 */
+.cl-mst-layout, .cl-mst-user { align-items: stretch; }
+.cl-mst-layout > .cl-mst-students { max-height: none; display: flex; flex-direction: column; min-height: 0; }
+.cl-mst-layout > .cl-mst-students [data-students] { flex: 1; min-height: 0; overflow-y: auto; }
+.cl-mst-layout > .cl-stack { display: flex; flex-direction: column; gap: 16px; }
+.cl-mst-layout > .cl-stack > :last-child { flex: 1; }
+.cl-mst-user > .cl-card { display: flex; flex-direction: column; }
+@media (max-width: 900px) { .cl-mst-layout > .cl-mst-students { max-height: 280px; } }
+
+/* Y1 · 학생 통계: 고른 학생 · 로그인 이력 표기 */
+[data-stat-user] .cl-mst-selected .cl-id { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); font-weight: 400; margin-left: 6px; }
+
+/* Y2 · 진도율: 퍼센트와 완료 강의 수가 서로 안 맞아 보인다 */
+[data-stat-user] .cl-pd-done, [data-stat-group] .cl-pd-done { margin-left: 8px; color: var(--cl-ink-muted); font-size: var(--cl-fs-caption); white-space: nowrap; }
+[data-stat-user] .cl-pd-none, [data-stat-group] .cl-pd-none { color: var(--cl-ink-faint); font-size: var(--cl-fs-caption); }
+
+/* Z2 · 메인페이지 설정: "홈페이지 보기" 두 번 · "아래에서 설정" 이동 */
+.cl-mm-parts em a { color: var(--cl-primary-pressed); font-style: normal; text-decoration: none; }
+.cl-mm-parts em a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cl-mm-block.is-flash { animation: cl-mm-flash 1.2s ease-out; }
+@keyframes cl-mm-flash { from { box-shadow: 0 0 0 3px var(--cl-primary-tint); } to { box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) { .cl-mm-block.is-flash { animation: none; } }
+
+/* Z3 · 추천 키워드: 눌러도 지워지지 않게 */
+/* 추천 키워드 — 공통 지울 수 있는 칩(cl-tag · cl-tag__x). 칩을 눌러도 지워지지 않고 ✕ 만 지운다 */
+
+/* Z4 · 학원 설정: 버튼 · 칸 이름 통일, 코드 새로 만들기는 확인 */
+[data-logo-delete] { color: var(--cl-danger); }
+[data-logo-delete]:hover { background: var(--cl-danger-bg); }
+
+/* Z5 · 학원 설정: 바로 적용되는 칸을 저장 폼 밖으로 · 저장 바에 바꾼 개수 */
+.cl-mss-instant { grid-column: 2; margin-top: 16px; }
+@media (max-width: 900px) { .cl-mss-instant { grid-column: auto; } }
+.cl-mss-instant .cl-section-title { display: flex; align-items: center; gap: 8px; }
+
+/* Z6 · 학원 소개 설정: 탭 개수 · 편집기 모드 이름 */
+.cl-tab__count { min-width: 20px; height: 20px; padding: 0 6px; margin-left: 6px; border-radius: var(--cl-radius-pill); background: var(--cl-hover); color: var(--cl-ink-2); font-size: var(--cl-fs-micro); font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
+
+/* Z7 · 지우기 아이콘 · 버튼 색 하나로 */
+.cl-icon-btn.cl-mms-delete { color: var(--cl-ink-muted); }
+.cl-icon-btn.cl-mms-delete:hover, .cl-icon-btn.cl-mms-delete:focus-visible { color: var(--cl-danger); background: var(--cl-danger-bg); }
+
+/* Z8 · 허용 IP 등록 창: 내 IP 넣기 · 첫 규칙 경고 */
+.cl-ip-mine { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+/* 첫 규칙 경고 — 공통 알림 띠 cl-banner--warning. 여기는 위 간격 · 글자 크기만 */
+[data-lab-dlg] .cl-banner, .cl-dialog .cl-banner--warning { margin: 12px 0 0; font-size: var(--cl-fs-caption); }
+
+/* Z9 · 이서당 배너: 카드 이름 · 사용 안 함 표시 */
+[data-org-banner].is-off .cl-mob-cards { opacity: .6; }
+.cl-mob-off { margin: 0 0 12px; padding: 10px 12px; border-radius: var(--cl-radius-sm); background: var(--cl-sidebar); color: var(--cl-ink-2); font-size: var(--cl-fs-caption); }
+
+/* Z10 · 메뉴 설정: 보이기 칸 · 홈페이지 보기 위치 */
+[data-menu-setting] tr.is-hidden td[data-primary], [data-menu-setting] tr.is-hidden .cl-input { color: var(--cl-ink-faint); }
+[data-menu-setting] tr.is-hidden .cl-input { background: var(--cl-parchment); }
+
+/* W4 · 기록 없는 기간: 빈 상태 하나로 (다운로드 · 사용량) */
+.cl-empty-card { margin: 0 0 16px; }
+.cl-empty-card .cl-empty { padding: var(--cl-space-7) var(--cl-space-4); }
+
+/* X4 · 그룹 통계: 학생을 고른 상태가 안 보인다 */
+[data-stat-group] .cl-mst-selected { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 4px 0 12px; border-radius: var(--cl-radius-pill); background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+[data-stat-group] .cl-mst-selected .cl-id { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); margin-left: 4px; }
+/* [학생 통계에서 보기] — 공통 글자 링크 cl-link. 여기는 자리 · 글자 크기만 */
+[data-stat-group] .cl-mst-selected + .cl-link, [data-stat-group] [data-scope] ~ .cl-link { margin-left: 8px; font-size: var(--cl-fs-caption); }
+
+/* X6 · 강좌 이름 링크: 선생님 계정으로 넘어간다는 표시 */
+.cl-enter-ico { display: inline-block; margin-left: 4px; vertical-align: -2px; color: var(--cl-ink-muted); transition: color var(--cl-dur) var(--cl-ease); }
+.cl-ms-teacher:hover .cl-enter-ico { color: var(--cl-primary-pressed); }
+
+/* Z11 · 입력 칸 옆 버튼 높이 · 여러 줄 입력 칸 글자 */
+.cl-mms-keyword-form .cl-btn, .cl-inline-fields:has(> .cl-input) > .cl-btn, .cl-mab-sns-link .cl-btn { height: var(--cl-h-control-lg); padding: 0 14px; font-size: var(--cl-fs-ui); }
+textarea.cl-input { font: inherit; font-size: var(--cl-fs-ui); line-height: 1.6; color: var(--cl-ink); padding: 10px 12px; }
+
+/* Z12 · 학원 설정: 칸 사이 · 목차 현재 위치 */
+.cl-mtf-row { row-gap: 20px; }
+.cl-mss-toc a[aria-current="true"] { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); font-weight: 600; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Z14 · 학원 소개 설정 3개 탭: 표시 정리 (CSS · 문구만) */
+[data-about-setting] .cl-editor-count { margin: 6px 0 0; text-align: right; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+[data-about-setting] .cl-editor-count.is-near { color: var(--cl-warning); }
+.cl-mab-gallery__item.is-main { box-shadow: none; }
+.cl-mab-gallery__item.is-main .cl-mab-gallery__actions > .cl-muted { display: none; }
+.cl-mab-gallery__actions .cl-btn--text { color: var(--cl-ink-2); font-weight: 500; }
+.cl-mab-gallery__actions .cl-btn--text:hover { background: var(--cl-hover); color: var(--cl-ink); }
+.cl-mab-gallery__add { min-height: 0; aspect-ratio: 11 / 10; height: auto; } /* 사진(4:3) + 아래 버튼 줄 높이와 맞춤 */
+.cl-mab-sns__text a { text-decoration: none; }
+.cl-mab-sns__text a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cl-mab-sns-title { margin: 0 0 8px; }
+
+/* C10 · 강좌 관리 행 메뉴(⋯): 성격별 묶음 · 구분선 */
+.cl-menu__sep { height: 1px; margin: 4px 6px; background: var(--cl-grid-row); }
+
+/* TP1 · 선생님: 수강 상태 이름 · 표시 하나로 */
+:is([data-learn-manage], [data-progress-manage]) td .cl-badge { height: auto; padding: 0; background: none; color: var(--cl-ink); font-size: var(--cl-fs-ui); font-weight: 400; display: inline-flex; align-items: center; gap: 6px; }
+:is([data-learn-manage], [data-progress-manage]) td .cl-badge::before { content: "●"; font-size: var(--cl-fs-10); color: var(--cl-success); }
+:is([data-learn-manage], [data-progress-manage]) td .cl-badge--warning::before { content: "○"; color: var(--cl-warning); }
+:is([data-learn-manage], [data-progress-manage]) td .cl-badge--neutral::before { color: var(--cl-ink-faint); }
+
+/* TP2 · 선생님: 이름 옆 아이디 (Q4 규칙) */
+[data-learn-manage] td[data-primary] { white-space: nowrap; }
+[data-learn-manage] td[data-primary] .cl-table__sub, [data-progress-manage] .cl-tp-who .cl-muted { display: inline; margin-left: 6px; color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
+[data-learn-manage] td[data-primary] strong { font-weight: 600; }
+[data-progress-manage] .cl-tp-who { display: flex; flex-direction: row; align-items: baseline; gap: 0; white-space: nowrap; }
+
+/* TP3 · 진도율 표: 긴 강의 제목은 두 줄까지 */
+.cl-tp-lecture { min-width: 140px; vertical-align: bottom; }
+.cl-tp-lecture span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; max-width: 180px; font-weight: 400; color: var(--cl-ink-muted); }
+
+/* TP4 · 나의 정보: 머리 중복 · 표기 통일 */
+[data-teacher-info] .cl-profile-head__text .cl-page__meta { color: var(--cl-ink-subtle); font-size: var(--cl-fs-caption); }
+[data-teacher-info] > .cl-page__head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; }
+[data-teacher-info] > .cl-page__head > .cl-page__actions { margin-left: auto; display: flex; gap: 8px; }
+
+/* S7 · 알림 보내기: 모바일에서 화면이 옆으로 밀림 */
+@media (max-width: 900px) { [data-alarm-manage] .cl-ma-layout { grid-template-columns: minmax(0, 1fr); } [data-alarm-manage] .cl-ma-users .cl-toolbar { flex-wrap: wrap; } [data-alarm-manage] .cl-segmented { display: flex; width: 100%; } [data-alarm-manage] .cl-segmented__item { flex: 1 1 0; min-width: 0; } }
+
+/* C11 · 학생 행 메뉴(⋯): 성격별 묶음 · 이름 정리 */
+.cl-menu__sep { height: 1px; margin: 4px 6px; background: var(--cl-grid-row); }
+
+/* TN1 · 선생님 메뉴: "나의 시험" 묶음 추가 */
+.cl-ws-nav__soon { margin-left: 6px; font-size: var(--cl-fs-caption); font-weight: 400; color: var(--cl-ink-faint); }
+[data-lab-exam] .cl-ws-nav__item[aria-disabled="true"] { color: var(--cl-ink-muted); cursor: default; }
+[data-lab-exam] .cl-ws-nav__item[aria-disabled="true"]:hover { background: transparent; }
+
+/* TN2 · 선생님 상단 드롭다운: [새로 만들기] · 프로필 메뉴 묶음 정리 */
+/* 구분선은 공통 틀(base.css)의 .cl-menu__sep 를 그대로 쓴다 — G5 참고 */
+
+/* TC1 · 선생님 강의 올리기: 행 메뉴 묶음 · 삭제 빨강 · 소셜미디어 용량 "—" */
+.cl-menu__sep { height: 1px; margin: 4px 6px; background: var(--cl-grid-row); } [data-teacher-cms] .cl-row-menu__panel .cl-menu__item--danger { color: var(--cl-danger); }
+
+/* AM3 · 섹션 제목 40 → 32px, 설명 21 → 17px */
+/* 공개 화면 글자 단계에 두 단계를 등록한다 (cl-tokens.css 로 올라갈 값) */
+.cl-scope {
+  --cl-fs-section-pub: clamp(26px, 2.2vw, 32px);  /* 섹션 제목 — 대표 강좌 · 선생님 소개 등 6곳 */
+}
+/* 설명이 강좌 이름보다 크지 않게 — 제목 32 · 강좌 19 · 설명 17 */
+.cl-home-head__title { font-size: var(--cl-fs-section-pub); }
+.cl-home-head__sub { font-size: var(--cl-fs-body-public); }
+
+/* AM7 · 대표 강좌 — 글을 선 끝에서 8px 들이기 */
+/* 2열로 깔리는 넓은 화면. 글을 선 끝에서 8px 들이고, hover 바탕은 선 폭 안에서만 깔린다 */
+@media (min-width: 901px) {
+  .cl-home[data-preset="default"] .cl-home-course { padding: var(--cl-space-4) var(--cl-space-2); }
+}
+
+/* AM9 · 태블릿 · 모바일 강좌 목록 — 두 칸 격자와 작은 썸네일 */
+/* 900px 이하: 가로 꽉 찬 카드 대신 [썸네일 | 글] 한 줄로 */
+@media (max-width: 900px) {
+  .cl-home[data-preset="default"] .cl-home-courses { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--cl-space-5); border-top: 1px solid var(--cl-ink); }
+  .cl-home[data-preset="default"] .cl-home-course {
+    grid-template-columns: 112px minmax(0, 1fr) auto;
+    grid-template-areas: "thumb body body" "thumb teacher std";
+    column-gap: var(--cl-space-3); row-gap: 2px;
+    align-items: start;
+    padding: var(--cl-space-3) var(--cl-space-2);
+    height: 100%; box-sizing: border-box;
+  }
+  .cl-home[data-preset="default"] .cl-home-course__num,
+  .cl-home[data-preset="default"] .cl-home-course__go { display: none; }
+  .cl-home[data-preset="default"] .cl-home-course__thumb { grid-area: thumb; border-radius: var(--cl-radius-2xs, var(--cl-radius-2xs)); }
+  .cl-home[data-preset="default"] .cl-home-course__thumb .cl-thumb-text { font-size: var(--cl-fs-caption); padding: 8px 10px; }
+  .cl-home[data-preset="default"] .cl-home-course__body { grid-area: body; }
+  .cl-home[data-preset="default"] .cl-home-course__title { font-size: var(--cl-fs-lead); }
+  .cl-home[data-preset="default"] .cl-home-course__teacher { grid-area: teacher; display: block; align-self: end; }
+  .cl-home[data-preset="default"] .cl-home-course__std { grid-area: std; display: block; align-self: end; }
+}
+/* 601~900px: 두 칸씩 */
+@media (min-width: 601px) and (max-width: 900px) {
+  .cl-home[data-preset="default"] .cl-home-courses { grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 0; }
+  .cl-home[data-preset="default"] .cl-home-courses > li:nth-child(-n + 2) .cl-home-course { border-top: 1px solid var(--cl-ink); }
+}
+/* 600px 이하: 썸네일을 한 번 더 줄인다 */
+@media (max-width: 600px) {
+  .cl-home[data-preset="default"] .cl-home-course { grid-template-columns: 96px minmax(0, 1fr) auto; }
+}
+
+/* AM10 · 선생님 사진이 없을 때 — 이름 첫 글자 대신 아이콘 */
+/* 사진 없는 자리 — 36px 1:1 아이콘 */
+.cl-home-teacher__icon { width: 36px; height: 36px; color: var(--cl-primary); }
+
+/* AM11 · 사진이 없는 자리 — 연보라 한 단계 밝히기 */
+/* 빈 자리는 연보라를 한 단계 밝혀 거의 흰색으로 — 보라 덩어리로 읽히지 않게 */
+.cl-home-teacher__photo { background: var(--cl-primary-wash); }
+.cl-home-hero__media:not(:has(img)),
+.cl-home-banner:not(:has(img)) { background-color: var(--cl-primary-wash); }
+
+/* AM12 · 분류별로 찾기 — 첫 칸 특별 대우 없애고 칸 수를 폭에 맡기기 */
+/* 첫 칸만 보라로 칠하고 두 줄을 먹던 특별 대우를 없앤다 */
+.cl-home[data-preset="default"] .cl-home-cat:first-child {
+  background: var(--cl-canvas); border-color: var(--cl-hairline); color: var(--cl-ink);
+}
+.cl-home[data-preset="default"] .cl-home-cat:first-child .cl-home-cat__subs { color: var(--cl-ink-2); }
+.cl-home[data-preset="default"] .cl-home-cat:first-child small.cl-num { color: var(--cl-ink-muted); }
+.cl-home[data-preset="default"] .cl-home-cat:first-child .cl-home-cat__go { color: var(--cl-primary-pressed); }
+/* 위 규칙이 hover 보다 우선순위가 높아 테두리를 덮는다 — 같은 무게로 되돌려 준다 */
+.cl-home[data-preset="default"] .cl-home-cat:first-child:hover { border-color: var(--cl-primary); }
+@media (min-width: 901px) {
+  /* 칸 수를 고정하지 않는다 — 폭에 맞춰 알아서 정해진다 */
+  .cl-home[data-preset="default"] .cl-home-cats { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+  .cl-home[data-preset="default"] .cl-home-cat:first-child:nth-last-child(n + 3) { grid-row: auto; }
+  /* 1~3개는 격자를 내용만큼만 넓혀 카드가 늘어나 보이지 않게 */
+  .cl-home[data-preset="default"] .cl-home-cats:has(> :nth-child(3):last-child) { max-width: 940px; }
+  .cl-home[data-preset="default"] .cl-home-cats:has(> :nth-child(2):last-child) { max-width: 620px; }
+  .cl-home[data-preset="default"] .cl-home-cats:has(> :only-child) { max-width: 300px; }
+}
+/* 고를 게 하나뿐이면 "분류별로 찾기" 가 성립하지 않는다 — 0개일 때 숨기는 규칙을 한 칸 넓힌다 */
+.cl-home[data-preset="default"] .cl-home-sec:has(.cl-home-cats > :only-child) { display: none; }
+
+/* AM13 · 분류가 여섯 개를 넘으면 접고 [분류 더보기]로 전체강좌에 보내기 */
+/* 분류가 많아도 메인이 길어지지 않게 여섯 개까지만 */
+.cl-home-cats > :nth-child(n + 7) { display: none; }
+/* [분류 더보기] — 둘째 줄에서 20px 아래, 가운데. 버튼은 공통 cl-btn--float + 화살표 cl-btn__arrow */
+.cl-home-cats-more { display: flex; justify-content: center; margin-top: 20px; }
+.cl-home-cats-more > .cl-btn { height: var(--cl-h-control-lg); padding: 0 20px; font-size: var(--cl-fs-body-public); }
+
+/* AM15 · 분류 카드 — 마우스를 올리면 아이콘이 올라오고 [강좌 보기]가 움직이기 */
+/* 분류 카드 — 마우스를 올리면 아이콘이 아래에서 올라오고 [강좌 보기]가 오른쪽으로 */
+.cl-home-cat { position: relative; }
+.cl-home-cat__deco {
+  position: absolute; right: var(--cl-space-4); bottom: var(--cl-space-3);
+  width: 36px; height: 36px;
+  color: var(--cl-heat-1);
+  opacity: .45; transform: translateY(0);
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
+  pointer-events: none;
+}
+.cl-home-cat__go { transition: transform 150ms ease-out, color 150ms ease-out; }
+.cl-home-cat:hover .cl-home-cat__deco { opacity: 1; transform: translateY(-4px); }
+.cl-home-cat:hover .cl-home-cat__go { transform: translateX(10px); }
+/* 움직임 줄이기를 켠 사람에게는 움직이지 않고 그대로 보여 준다 */
+@media (prefers-reduced-motion: reduce) {
+  .cl-home-cat, .cl-home-cat__deco, .cl-home-cat__go { transition: none; }
+  .cl-home-cat:hover .cl-home-cat__deco { transform: none; }
+  .cl-home-cat:hover .cl-home-cat__go { transform: none; }
+}
+
+/* AM16 · 선생님 카드 — 마우스를 올리면 이름 옆에 화살표가 나타나기 */
+/* 선생님 이름 옆 화살표 — 평소에는 없고, 마우스를 올리면 제자리에서 나타난다 */
+.cl-home-teacher__name { display: inline-flex; align-items: center; }
+.cl-home-teacher__arrow {
+  margin-left: 10px;
+  color: var(--cl-primary);
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+  flex: none;
+}
+.cl-home-teacher:hover .cl-home-teacher__arrow { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .cl-home-teacher__arrow { transition: none; }
+}
+
+/* AC2 · 왼쪽 필터 — 글자가 시작하는 세로선 다섯 개를 두 개로 */
+/* 왼쪽 필터 — 글자가 시작하는 세로선을 두 줄(10 · 34)로 모은다. 상자(hover 바탕 · 검색창)는 0 에서 */
+@media (min-width: 901px) {
+  .cl-cs-filter__title { padding-left: 10px; }
+  .cl-cs-cate.is-child { padding-left: 34px; }
+  .cl-cs-search input { padding-left: 34px; }
+  .cl-cs-cate, .cl-cs-subject { min-height: 36px; }
+}
+
+/* AC3 · 필터 초기화 — 자리는 그대로, 모양 · 글자 · 색만 */
+/* 필터 초기화 — 자리는 그대로, 제목처럼 읽히지 않고 '되돌리기'로 읽히게 */
+.cl-scope .cl-cs-reset {
+  height: 36px; padding: 0 10px; gap: 8px;
+  border-radius: var(--cl-radius-sm);
+  font-size: var(--cl-fs-ui); font-weight: 500;
+  color: var(--cl-ink-muted);
+}
+.cl-scope .cl-cs-reset:hover { background: var(--cl-hover); color: var(--cl-ink); }
+.cl-cs-reset .cl-icon { flex: none; }
+@media (min-width: 901px) {
+  /* 필터와 동작 사이를 선 하나로 가른다 — 자리는 그대로 맨 아래 */
+  .cl-cs-reset { position: relative; margin-top: 4px; }
+  .cl-cs-reset::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 1px; background: var(--cl-hairline); }
+  .cl-cs-reset { align-self: stretch; justify-content: flex-start; }
+}
+
+/* AM18 · 선생님 · 관리자 페이지 버튼 — 32px 로 낮추고 보라 채움을 테두리로 */
+/* 선생님 · 관리자 페이지 이동 버튼 — 프로필 버튼과 같은 32px, 메뉴보다 조용하게 */
+.cl-scope .cl-pub-btn-pill {
+  height: var(--cl-h-control); padding: 0 12px 0 14px; gap: 4px;
+  font-size: var(--cl-fs-ui); font-weight: 600;
+  background: var(--cl-canvas); color: var(--cl-ink);
+  box-shadow: inset 0 0 0 1px var(--cl-control-border);
+}
+.cl-scope .cl-pub-btn-pill:hover { background: var(--cl-hover); }
+.cl-scope .cl-pub-btn-pill .cl-icon { width: 14px; height: 14px; }
+@media (max-width: 900px) { .cl-scope .cl-pub-btn-pill { height: var(--cl-h-control); padding: 0 10px 0 12px; font-size: var(--cl-fs-ui); } }
+
+/* AM19 · 머리 프로필 — 삐뚤어진 회색 hover 바탕 없애기 */
+/* 학원 머리 프로필 — 동그라미에 딱 맞는 32×32 원. 마우스를 올려도 바뀌지 않는다 */
+.cl-scope .cl-pub-header .cl-ws-account {
+  width: var(--cl-h-control); height: var(--cl-h-control); padding: 0;
+  justify-content: center; border-radius: 50%;
+}
+.cl-scope .cl-pub-header .cl-ws-account,
+.cl-scope .cl-pub-header .cl-ws-account:hover,
+.cl-scope .cl-pub-header .cl-ws-account[aria-expanded="true"] { background: transparent; }
+
+/* AM20 · 머리 · 꼬리말 폭을 본문 1200px 에 맞추기 */
+/* 머리 안쪽 폭을 본문(.cl-pub-wrap)과 같은 방식으로 — 여백 20 을 1200 바깥에 둔다 */
+@media (min-width: 901px) {
+  .cl-pub-header__inner, .cl-pub-footer__inner { box-sizing: content-box; }
+}
+@media (min-width: 901px) and (max-width: 1240px) {
+  .cl-pub-header__inner, .cl-pub-footer__inner { box-sizing: border-box; }
+}
+
+/* AM21 · 알림 종 — 32px 원으로, 아이콘 18 */
+/* 알림 종 — 프로필 · 페이지 이동 버튼과 같은 32px 원, 아이콘 20 → 18 */
+@media (min-width: 901px) {
+  .cl-scope .cl-pub-icon-btn.cl-ws-alarm { width: var(--cl-h-control); height: var(--cl-h-control); }
+}
+.cl-scope .cl-pub-icon-btn.cl-ws-alarm > .cl-icon { width: 18px; height: 18px; }
+
+/* AC4 · 머리 — 위치와 제목 사이 8 → 16px */
+/* 위치(홈 > 전체강좌)와 제목 사이를 16px 로 */
+.cl-cs-head__row { margin-top: var(--cl-space-4); }
+
+/* AD1 · 강좌 상세 머리 — 전체강좌와 같은 단계로 (제목 72 → 40) */
+/* 머리 — 전체강좌와 같은 단계로 */
+.cl-cd { padding-top: 40px; }
+.cl-cd__crumb { gap: 4px; font-size: var(--cl-fs-caption); }
+.cl-cd__crumb .cl-icon { flex: none; }
+.cl-cd__title, .cl-cd__title { font-size: var(--cl-fs-display); line-height: 1.1; letter-spacing: -0.03em; }
+.cl-cd__desc .toastui-editor-contents { font-size: var(--cl-fs-body-public); }
+/* 제목 ↔ 설명 8 — 전체강좌 제목 ↔ 부제와 같게 */
+.cl-cd__desc { margin-top: -8px; }
+@media (max-width: 1240px) { .cl-cd__title { font-size: var(--cl-fs-display); } }
+@media (max-width: 900px) { .cl-cd__crumb { font-size: var(--cl-fs-caption); } .cl-cd__title { font-size: var(--cl-fs-display); } .cl-cd__desc .toastui-editor-contents { font-size: var(--cl-fs-body-sm-pub); } }
+
+/* AD2 · 커리큘럼 · 화상 강의 탭 — 크기는 그대로, 색과 아래 줄로 */
+/* 탭 — 글자 크기는 그대로, 고른 탭은 색 + 아래 보라 줄 */
+.cl-cd__curr-head { padding-bottom: 0; align-items: stretch; }
+.cl-cd__tabs { align-items: stretch; gap: 28px; }
+.cl-cd__tools { align-self: center; }
+.cl-cd__tab, .cl-cd__tab[aria-selected="true"] {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 52px; margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  font-size: var(--cl-fs-body-public); font-weight: 500;
+  transition: color 150ms ease-out, border-color 150ms ease-out;
+}
+.cl-cd__tab { color: var(--cl-ink-muted); }
+.cl-cd__tab:hover { color: var(--cl-ink-2); }
+.cl-cd__tab[aria-selected="true"], .cl-cd__tab[aria-selected="true"]:hover { color: var(--cl-primary); border-bottom-color: var(--cl-primary); }
+.cl-cd__tab .cl-num { font-weight: 400; color: inherit; }
+@media (prefers-reduced-motion: reduce) { .cl-cd__tab { transition: none; } }
+@media (max-width: 900px) { .cl-cd__tabs { width: 100%; } .cl-cd__tab { height: 44px; } .cl-cd__tools { padding-bottom: 12px; } }
+
+/* AD3 · 오른쪽 신청 패널 — 위 검은 선 없애고, 정보를 아이콘 + 줄로 */
+/* 오른쪽 신청 패널 — 위 검은 선을 없애고, 정보를 아이콘 + 줄로 나눈다 */
+.cl-cd__aside { border-top: 0; padding-top: 0; gap: 16px; }
+.cl-cd__thumb { border-radius: var(--cl-radius-sm); }
+.cl-cd__info { grid-template-columns: minmax(0, 1fr) auto; gap: 0; font-size: var(--cl-fs-ui); }
+.cl-cd__info dt, .cl-cd__info dd { padding: 12px 0; border-top: 1px solid var(--cl-hairline); }
+.cl-cd__info dt:first-of-type, .cl-cd__info dt:first-of-type + dd { border-top: 0; }
+.cl-cd__info dt { display: flex; align-items: center; gap: 8px; color: var(--cl-ink-muted); }
+.cl-cd__info dt .cl-icon { flex: none; color: var(--cl-ink-muted); }
+.cl-cd__info dd { text-align: right; font-weight: 600; color: var(--cl-ink); }
+.cl-cd__info dd a { text-decoration: none; }
+.cl-cd__info dd a:hover { text-decoration: underline; }
+
+/* AD4 · 묶음 여백 — [제목 · 설명 · 버튼] 과 [탭 · 목록] */
+/* 묶음 — [제목 · 설명 · 버튼] 과 [탭 · 목록] 사이를 벌리고, 안쪽은 붙인다 */
+.cl-cd__main { gap: 64px; }
+.cl-cd__pills { margin-top: 8px; }
+@media (max-width: 900px) { .cl-cd { gap: 32px; } .cl-cd__pills { margin-top: 4px; } }
+
+/* AD5 · 강좌 상세 글자 위계 — 공개 화면 글자 단계 여섯 칸으로 */
+/* 글자 위계 — 공개 화면 글자 단계(토큰)로만 쓴다 */
+/* 알약 버튼 크기는 공통 cl-btn--md (NX1) */
+.cl-cd-row { padding: 18px 0; }
+.cl-cd-row__num { font-size: var(--cl-fs-ui); }
+.cl-cd-row__title { font-size: var(--cl-fs-body-public); line-height: 1.4; letter-spacing: -0.01em; }
+.cl-cd-row__meta, .cl-cd-row__share { font-size: var(--cl-fs-caption); }
+.cl-cd-row__desc, .cl-cd-row__dur { font-size: var(--cl-fs-ui); }
+.cl-cd-progress__text { font-size: var(--cl-fs-caption); }
+.cl-lecture-card__title { font-size: var(--cl-fs-body-public); }
+@media (max-width: 900px) { .cl-cd-row__num { font-size: var(--cl-fs-caption); } .cl-cd-row__title { font-size: var(--cl-fs-body-sm-pub); } }
+
+/* AD7 · 탭 옆 숫자를 배지로 — 안 고름 회색 · 고름 연보라 */
+/* 탭 옆 숫자 — 배지(.cl-badge) 모양으로. 안 고름: 회색 글자 + 옅은 회색 / 고름: 보라 글자 + 연보라 */
+.cl-cd__tab .cl-badge {
+  height: 22px; min-width: 22px; padding: 0 7px; justify-content: center;
+  border-radius: var(--cl-radius-pill);
+  font-size: var(--cl-fs-micro); font-weight: 500; font-variant-numeric: tabular-nums;
+  background: var(--cl-hover); color: var(--cl-ink-muted);
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+.cl-cd__tab[aria-selected="true"] .cl-badge { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
+@media (prefers-reduced-motion: reduce) { .cl-cd__tab .cl-badge { transition: none; } }
+
+/* AP1 · 강의 보기 — 재생 화면 아래 정보를 공개 화면 단계 · 여백으로 */
+/* 강의 보기 — 재생 화면 아래 정보를 다른 공개 화면의 단계 · 여백으로 */
+.cl-player-page { padding-top: 40px; }
+.cl-player { border-radius: var(--cl-radius-sm); }
+.cl-player-page__main { gap: 24px; }
+.cl-player-info { gap: 8px; }
+.cl-player-info__title { font-size: var(--cl-fs-list-title); line-height: 1.35; letter-spacing: -0.02em; }
+.cl-player-info__meta { font-size: var(--cl-fs-caption); }
+.cl-player-info .cl-cd__pills { margin-top: 16px; }
+.cl-player-info__teacher { margin-top: 16px; }
+/* 선생님 줄 — 선생님 소개 카드(AM4)와 같은 모서리 · 글자 */
+.cl-player-info__teacher-link { padding: 12px 16px; border-radius: var(--cl-radius-sm); }
+.cl-player-info__teacher-link strong { font-size: var(--cl-fs-body-sm-pub); font-weight: 600; }
+.cl-player-info__teacher-link small { font-size: var(--cl-fs-caption); }
+.cl-player-info__teacher-link > .cl-icon { color: var(--cl-ink-muted); }
+@media (max-width: 900px) { .cl-player-page { padding-top: 0; } .cl-player { border-radius: 0; } }
+
+/* AP2 · 오른쪽 강의 목록 — 숫자 배지, 지금 보는 강의만 굵게, 번호 유지 */
+/* 오른쪽 강의 목록 — 모서리 8, 머리 숫자는 배지, 지금 보는 강의만 굵게 */
+.cl-player-page__aside { border-radius: var(--cl-radius-sm); }
+/* 위 여백이 24 → 40 이 되어(AP1) 첫 화면에서 상자 아래 끝이 16px 잘리던 것을 맞춘다 — 첫 화면 · 따라 내려올 때 모두 화면 안 */
+.cl-player-page__aside { max-height: calc(100vh - var(--cl-h-public-header) - 56px); }
+@media (max-width: 1100px) { .cl-player-page__aside { max-height: 520px; } }
+.cl-playlist__head { padding: 16px; gap: 12px; }
+.cl-playlist__title { display: flex; align-items: center; gap: 6px; font-size: var(--cl-fs-body-public); font-weight: 600; }
+.cl-playlist__title .cl-badge {
+  height: 22px; min-width: 22px; padding: 0 7px; justify-content: center;
+  border-radius: var(--cl-radius-pill);
+  font-size: var(--cl-fs-micro); font-weight: 500; font-variant-numeric: tabular-nums;
+  background: var(--cl-hover); color: var(--cl-ink-muted);
+}
+.cl-playlist__item { padding: 12px 16px; }
+.cl-playlist__item:hover { background: var(--cl-row-hover); }
+.cl-playlist__item.is-current, .cl-playlist__item.is-current:hover { background: var(--cl-primary-tint); }
+.cl-playlist__num { font-size: var(--cl-fs-caption); font-variant-numeric: tabular-nums; }
+.cl-playlist__item.is-current .cl-playlist__num { font-weight: 600; color: var(--cl-primary-pressed); }
+.cl-playlist__name { font-size: var(--cl-fs-ui); font-weight: 400; color: var(--cl-ink-2); }
+.cl-playlist__item.is-current .cl-playlist__name { font-weight: 600; color: var(--cl-ink); }
+.cl-playlist__meta { font-size: var(--cl-fs-caption); }
+
+/* AP4 · 선생님 카드 줄을 없애고 버튼 줄 끝에 '장현석 선생님' 링크로 */
+/* 선생님 — 카드 줄을 없애고 버튼 줄 끝에 '사람 링크'로. 회색 동작 버튼과 모양을 달리한다 */
+.cl-player-info__teacher { display: none; }
+.cl-scope .cl-player-teacher {
+  height: 36px; padding: 0 10px 0 4px; gap: 8px;
+  border-radius: var(--cl-radius-pill);
+  background: var(--cl-canvas); color: var(--cl-ink);
+  box-shadow: inset 0 0 0 1px var(--cl-hairline);
+  display: inline-flex; align-items: center;
+  font-size: var(--cl-fs-ui); font-weight: 500; text-decoration: none;
+  transition: box-shadow 150ms ease-out, color 150ms ease-out;
+}
+.cl-scope .cl-player-teacher:hover { box-shadow: inset 0 0 0 1px var(--cl-primary); color: var(--cl-primary-pressed); }
+.cl-player-teacher .cl-comment__avatar { width: 28px; height: 28px; }
+.cl-player-teacher > .cl-icon { color: var(--cl-ink-muted); }
+.cl-scope .cl-player-teacher:hover > .cl-icon { color: inherit; }
+@media (prefers-reduced-motion: reduce) { .cl-scope .cl-player-teacher { transition: none; } }
+
+/* NB2 · 학원소개 본문 — 큰 제목 · 사진 모서리 · 버튼 · 정보 줄 */
+.cl-about { padding-top: 40px; }
+.cl-about__headline { font-size: var(--cl-fs-section-pub); letter-spacing: -0.025em; }
+.cl-about__photo { border-radius: var(--cl-radius-sm); }
+/* 사진 사이 12 → 16 — 학원 메인 소개 사진 묶음도 같은 간격으로 */
+.cl-about__gallery, .cl-home-gallery { gap: var(--cl-space-4); }
+/* 소개 글 마지막 문단의 아래 여백은 빼서, 선까지 거리가 늘 40 이 되게 */
+.cl-about__desc .toastui-editor-contents > :last-child, .cl-about__desc .toastui-editor-contents > div > :last-child { margin-bottom: 0; }
+/* 소개 글 · 연락처 두 묶음 — 사이 40px, 검은 선 대신 옅은 회색 선 */
+.cl-about__info { margin-top: 24px; padding-top: 24px; border-top-color: var(--cl-hairline); gap: 8px 16px; font-size: var(--cl-fs-ui); }
+.cl-about__info dd { font-weight: 500; }
+.cl-about__broken { font-size: var(--cl-fs-ui); }
+.cl-about__more { font-size: var(--cl-fs-ui); text-underline-offset: 3px; }
+.cl-about__more:hover { text-decoration: underline; }
+.cl-lightbox__count { font-size: var(--cl-fs-caption); font-variant-numeric: tabular-nums; }
+
+/* NT1 · 선생님 목록 — 모서리 · 글자 토큰 */
+.cl-teacher-card { border-radius: var(--cl-radius-sm); }
+.cl-teacher-card__subject, .cl-teacher-card__meta { font-size: var(--cl-fs-caption); }
+.cl-teacher-card__name { font-size: var(--cl-fs-body-public); }
+.cl-teacher-card__comment { font-size: var(--cl-fs-ui); }
+.cl-teacher-card__btn { font-size: var(--cl-fs-ui); font-weight: 500; }
+.cl-teachers__chips .cl-chip { font-size: var(--cl-fs-ui); }
+@media (max-width: 600px) { .cl-teacher-card__name { font-size: var(--cl-fs-body-public); } }
+
+/* NT3 · 선생님 상세 — 이름 · 정보 줄 · 빈 소개글 · 배지 */
+.cl-teacher { padding-top: 40px; }
+.cl-teacher__card { border-radius: var(--cl-radius-sm); }
+.cl-teacher__avatar { border-radius: var(--cl-radius-sm); }
+.cl-teacher__name { font-size: var(--cl-fs-list-title); font-weight: 700; }
+/* dl 안에 <div><dt/><dd/></div> 로 싸여 있다 — 줄마다 [이름표 80 | 값] */
+.cl-teacher__info { grid-template-columns: minmax(0, 1fr); gap: 8px; font-size: var(--cl-fs-ui); }
+.cl-teacher__info > div { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 16px; align-items: baseline; }
+.cl-teacher__info dt { font-size: var(--cl-fs-ui); }
+.cl-teacher__info dd { margin: 0; font-size: var(--cl-fs-ui); }
+.cl-teacher__desc { font-size: var(--cl-fs-body-public); }
+.cl-teacher__desc.is-empty { display: none; }
+.cl-teacher__courses-title { display: flex; align-items: center; gap: 6px; font-size: var(--cl-fs-body-public); }
+.cl-teacher__courses-title .cl-num { height: 22px; min-width: 22px; padding: 0 7px; border-radius: var(--cl-radius-pill); display: inline-grid; place-items: center; font-size: var(--cl-fs-micro); font-weight: 500; background: var(--cl-hover); color: var(--cl-ink-muted); }
+.cl-teacher__course strong { font-size: var(--cl-fs-body-sm-pub); }
+.cl-teacher__course > span { font-size: var(--cl-fs-caption); }
+
+/* NQ1 · Q&A 목록 — 상태 상자 · 줄 여백 · 글자 토큰 */
+.cl-qna-item { padding: var(--cl-space-4) var(--cl-space-2); }
+.cl-qna-item__status { border-radius: var(--cl-radius-sm); }
+.cl-qna-item__status small { font-size: var(--cl-fs-micro); }
+.cl-qna-item__status strong { font-size: var(--cl-fs-lead); }
+.cl-qna-item__course, .cl-qna-item__meta { font-size: var(--cl-fs-caption); }
+.cl-qna-item__title { font-size: var(--cl-fs-body-public); }
+.cl-post-toolbar__count { font-size: var(--cl-fs-ui); }
+@media (max-width: 900px) { .cl-qna-item__title { font-size: var(--cl-fs-body-sm-pub); } }
+
+/* NQ2 · Q&A 읽기 · 쓰기 — 답변 상자 · Q./A. 굵기 · 편집기 색 */
+.cl-thread__answer { padding: 16px 20px; border-radius: var(--cl-radius-sm); }
+.cl-thread__q, .cl-thread__a { font-weight: 700; }
+.cl-thread__guest { border-radius: var(--cl-radius-sm); }
+.cl-thread__course { font-size: var(--cl-fs-ui); }
+.cl-thread__answer-meta { font-size: var(--cl-fs-caption); }
+.cl-thread__answer-body { font-size: var(--cl-fs-body-sm-pub); }
+.cl-editor-count { font-size: var(--cl-fs-caption); }
+.cl-scope .toastui-editor-defaultUI-toolbar { background: var(--cl-parchment); border-bottom-color: var(--cl-hairline); }
+.cl-scope .toastui-editor-defaultUI, .cl-scope .toastui-editor-ww-container, .cl-scope .toastui-editor-mode-switch { background: var(--cl-canvas); border-color: var(--cl-hairline); }
+@media (max-width: 900px) { .cl-thread__answer { padding: 16px; } }
+
+/* NF1 · 자유게시판 목록 — 머리줄 정렬 · 글자 토큰 · 댓글 수 배지 */
+.cl-post-row--head > :nth-child(1) { text-align: center; }
+.cl-post-row--head > :nth-child(3) { text-align: left; }
+.cl-post-row { font-size: var(--cl-fs-body-sm-pub); }
+.cl-post-row--head { font-size: var(--cl-fs-caption); }
+.cl-post-row__num, .cl-post-row__date, .cl-post-row__views { font-size: var(--cl-fs-ui); font-variant-numeric: tabular-nums; }
+.cl-post-row.is-notice .cl-post-row__title { font-weight: 600; }
+.cl-post-row__comments { height: 20px; min-width: 20px; padding: 0 6px; border-radius: var(--cl-radius-pill); display: inline-grid; place-items: center; background: var(--cl-hover); color: var(--cl-ink-muted); font-size: var(--cl-fs-micro); font-weight: 500; }
+@media (max-width: 900px) { .cl-post-row__date { font-size: var(--cl-fs-caption); } }
+
+/* NF2 · 게시글 · 질문 읽기 — 글자 토큰 · 댓글 배지 · 모바일 정보 줄 · 로그아웃 댓글창 */
+.cl-post__title { font-size: var(--cl-fs-section-pub); }
+.cl-post__meta { font-size: var(--cl-fs-caption); }
+.cl-post__body { font-size: var(--cl-fs-body-public); }
+.cl-comments__title { display: flex; align-items: center; gap: 6px; font-size: var(--cl-fs-lead); }
+.cl-comments__title .cl-num { height: 22px; min-width: 22px; padding: 0 7px; border-radius: var(--cl-radius-pill); display: inline-grid; place-items: center; background: var(--cl-hover); color: var(--cl-ink-muted); font-size: var(--cl-fs-micro); font-weight: 500; }
+.cl-comment__meta { font-size: var(--cl-fs-caption); }
+.cl-comment__text { font-size: var(--cl-fs-body-sm-pub); }
+.cl-comment__initial { font-size: var(--cl-fs-ui); }
+.cl-comment:has(.cl-comment__avatar img) .cl-post-writer .cl-icon { display: none; }
+/* 모바일에서 공통 규칙이 빈칸(spacer)을 숨겨 [인쇄]만 떨어진다 — 이 줄에서는 빈칸을 줄바꿈으로 쓴다 */
+@media (max-width: 900px) { .cl-post__meta .cl-toolbar__spacer { display: block; flex: 0 0 100%; height: 0; } .cl-post__meta { row-gap: 8px; } }
+.cl-comments__form.is-guest { display: none; }
+.cl-comments__guest { margin: 0; padding: 20px; border-radius: var(--cl-radius-sm); background: var(--cl-parchment); text-align: center; color: var(--cl-ink-2); }
+.cl-comments__guest a { color: var(--cl-primary-pressed); font-weight: 600; }
+
+/* NT5 · 선생님 목록 — [프로필] 버튼 빼고, 메인과 같은 아이콘 · 칸 크기 하나로 */
+/* 선생님 목록 — 가짜 [프로필] 버튼을 빼고, 메인 선생님 카드(AM10 · AM11 · AM16)와 같은 말투로 */
+.cl-teacher-grid { grid-auto-rows: 1fr; }
+.cl-teacher-card { align-items: center; }
+.cl-teacher-card__btn { display: none; }
+.cl-teacher-card__body { align-self: center; padding-top: 0; }
+.cl-teacher-card__meta { margin-bottom: 0; }
+/* 이름 옆 화살표 — 마우스를 올리면 제자리에서 나타난다 (AM16) */
+.cl-teacher-card__name { display: inline-flex; align-items: center; }
+.cl-teacher-card__name-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-teacher-card__arrow { flex: none; margin-left: 10px; color: var(--cl-primary); opacity: 0; transition: opacity 150ms ease-out; }
+.cl-teacher-card:hover .cl-teacher-card__arrow { opacity: 1; }
+/* 사진 없는 자리 — 메인과 같은 36px 사람 아이콘 · 밝은 연보라 바탕 (AM10 · AM11) */
+.cl-teacher-card__icon, .cl-teacher__avatar-icon { width: 36px; height: 36px; color: var(--cl-primary); }
+.cl-teacher-card__photo:has(.cl-teacher-card__icon), .cl-teacher__avatar:has(.cl-teacher__avatar-icon) { background: var(--cl-primary-wash); }
+@media (prefers-reduced-motion: reduce) { .cl-teacher-card__arrow { transition: none; } }
+
+/* NS1 · 선생님 상세 · Q&A · 자유게시판 — 학원소개처럼 여유 있게 */
+/* 선생님 상세 — 카드 안 여백 24 → 32, 카드 사이 16 → 24 */
+.cl-teacher { gap: var(--cl-space-5); }
+.cl-teacher__card:not(.cl-teacher__courses) { padding: 32px; gap: 24px; }
+/* 이름 · 정보 두 묶음 — 학원소개와 같이 옅은 회색 선, 선 아래 24 */
+.cl-teacher__info { padding-top: 24px; gap: 12px; border-top-color: var(--cl-hairline); }
+.cl-teacher__info dd { font-weight: 500; }
+.cl-teacher__courses-title { padding: 20px 32px; }
+.cl-teacher__course { padding: 20px 32px; border-top-color: var(--cl-hairline); }
+@media (max-width: 600px) {
+  .cl-teacher__card:not(.cl-teacher__courses) { padding: 24px 20px; }
+  .cl-teacher__card.cl-teacher__courses { padding: 0; }
+  .cl-teacher__courses-title, .cl-teacher__course { padding-left: 20px; padding-right: 20px; }
+}
+/* Q&A · 자유게시판 목록 — 도구줄 아래 24, 목록 윗선 검정 → 옅은 회색, 줄 높이 늘림 */
+.cl-post-toolbar__count { margin-top: 8px; }
+.cl-post-toolbar:not(.cl-post-toolbar--filters) + [data-list] { margin-top: 8px; }
+.cl-qna-list, .cl-post-list { border-top-color: var(--cl-hairline); }
+.cl-qna-item { padding: 24px 8px; border-bottom-color: var(--cl-hairline); }
+.cl-qna-item__body { gap: 6px; }
+.cl-post-row--head { padding-top: 12px; padding-bottom: 12px; }
+.cl-post-row:not(.cl-post-row--head) { padding-top: 20px; padding-bottom: 20px; }
+.cl-post-row { border-bottom-color: var(--cl-hairline); }
+.cl-post-page .cl-pagination { margin-top: 24px; }
+
+/* NT6 · 선생님 상세 — [프로필 | 담당 강좌] 두 열, 상자 없이 */
+/* 두 열 — [프로필 320 | 담당 강좌], 상자 테두리 없이 */
+@media (min-width: 901px) {
+  .cl-teacher { display: grid; grid-template-columns: 320px minmax(0, 1fr); column-gap: 64px; align-items: start; }
+  .cl-teacher .cl-teacher__card:not(.cl-teacher__courses) { position: sticky; top: calc(var(--cl-h-public-header, 72px) + 32px); }
+}
+.cl-teacher .cl-teacher__card { max-width: none; border: 0; border-radius: 0; background: none; padding: 0; }
+/* 프로필 — 사진 · 이름 · 정보 · 버튼 세로로 */
+.cl-teacher .cl-teacher__card:not(.cl-teacher__courses) { gap: 0; }
+.cl-teacher .cl-teacher__head { flex-direction: column; align-items: flex-start; gap: 16px; }
+.cl-teacher .cl-teacher__avatar { width: 160px; border-radius: var(--cl-radius-sm); }
+.cl-teacher .cl-teacher__name { margin: 0; }
+/* [사진 · 이름] 과 [정보 · 버튼] 두 묶음 — 묶음 안 16 · 12, 묶음 사이 40 */
+.cl-teacher .cl-teacher__info { margin-top: 40px; padding-top: 0; border-top: 0; gap: 12px; }
+.cl-teacher .cl-cd__pills { margin-top: 24px; }
+/* 담당 강좌 — 제목 아래 옅은 회색 선으로만 줄 구분, 썸네일 128 */
+.cl-teacher .cl-teacher__courses-title { padding: 0 0 16px; }
+.cl-teacher .cl-teacher__course-list { border-top: 1px solid var(--cl-hairline); }
+.cl-teacher .cl-teacher__course { grid-template-columns: 128px minmax(0, 1fr) auto; grid-template-areas: "thumb title go" "thumb meta go"; column-gap: 20px; row-gap: 6px; align-content: center; padding: 16px 0; border-top: 0; border-bottom: 1px solid var(--cl-hairline); }
+.cl-teacher .cl-teacher__course strong { align-self: end; }
+.cl-teacher .cl-teacher__course > span:not(.cl-teacher__course-thumb) { align-self: start; }
+.cl-teacher .cl-teacher__course-thumb { grid-area: thumb; width: 128px; aspect-ratio: 16 / 9; border-radius: var(--cl-radius-2xs); overflow: hidden; background: var(--cl-hover); }
+.cl-teacher .cl-teacher__course-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cl-teacher .cl-teacher__course:hover { background: none; }
+.cl-teacher .cl-teacher__course:hover strong { color: var(--cl-primary); }
+/* 담당 강좌 없음 — 프로필 높이만큼 늘림(모양은 NE1) */
+.cl-teacher:has(.cl-teacher__course-empty) { align-items: stretch; }
+.cl-teacher .cl-teacher__courses:has(.cl-teacher__course-empty) { display: flex; flex-direction: column; }
+.cl-teacher .cl-teacher__course-empty { flex: 1; }
+.cl-teacher .cl-teacher__courses-title:has(+ .cl-teacher__course-empty) .cl-num { display: none; }
+@media (max-width: 900px) {
+  .cl-teacher { gap: 48px; }
+  .cl-teacher .cl-teacher__head { flex-direction: row; align-items: flex-end; gap: 16px; }
+  .cl-teacher .cl-teacher__avatar { width: 88px; }
+}
+@media (max-width: 600px) {
+  .cl-teacher .cl-teacher__course { grid-template-columns: 96px minmax(0, 1fr) auto; column-gap: 14px; }
+  .cl-teacher .cl-teacher__course-thumb { width: 96px; }
+}
+
+/* NQ4 · Q&A 목록 — 답변대기 · 답변 상자를 정사각형으로 */
+.cl-qna-item__status { width: 64px; height: 64px; flex: none; aspect-ratio: 1; gap: 4px; align-self: center; }
+@media (max-width: 900px) { .cl-qna-item__status { width: 52px; height: 52px; } }
+
+/* NQ5 · Q&A 상세 — 답변 배지는 글쓴이 줄로 · 답변은 한 판에 · 버튼은 오른쪽 아래 */
+/* 머리 — 강좌 · 제목 · [글쓴이 · 시간 · 답변 배지 … 수정 · 삭제] */
+.cl-thread__question .cl-post__head > .cl-badge { display: none; }
+.cl-thread__question .cl-post__meta .cl-badge { margin-left: 4px; }
+.cl-thread__question .cl-post__head { border-bottom-color: var(--cl-hairline); }
+.cl-thread__question .cl-post__body { min-height: 0; padding-bottom: 8px; }
+/* 답변 — 옅은 회색 판 하나에 모으고, 답변마다 [A. 원 | 이름 · 시간 / 본문] */
+.cl-thread__answers { gap: 16px; }
+.cl-thread .cl-thread__list { gap: 0; padding: 4px 24px; border-radius: var(--cl-radius-sm); background: var(--cl-sidebar); }
+.cl-thread .cl-thread__answer, .cl-thread .cl-thread__answer.is-teacher { display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 14px; row-gap: 6px; padding: 20px 0; border: 0; border-radius: 0; background: none; }
+.cl-thread .cl-thread__answer:not(:last-child) { padding-bottom: 20px; border-bottom: 1px solid var(--cl-hairline); }
+.cl-thread .cl-thread__answer > .cl-thread__a { grid-row: 1 / span 2; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--cl-primary-tint); color: var(--cl-primary); font-size: var(--cl-fs-ui); font-weight: 700; }
+.cl-thread .cl-thread__answer-meta, .cl-thread .cl-thread__answer-body { grid-column: 2; }
+.cl-thread .cl-thread__answer-meta { min-height: 32px; }
+/* 답변 없음 — 회색 판 대신 빈 상태(NE1 작은 크기), 개수 배지 숨김 */
+.cl-thread .cl-thread__list:not(:has(li)) { display: none; }
+.cl-thread__answers:has(> .cl-empty--line) .cl-comments__title .cl-num { display: none; }
+.cl-thread__answers > .cl-empty--line { margin: 0; }
+.cl-thread .cl-thread__answer-body .toastui-editor-contents { background: none; }
+.cl-thread .cl-thread__answer-body p:first-child { margin-top: 0; }
+.cl-thread .cl-thread__answer-body p:last-child { margin-bottom: 0; }
+/* 답변 쓰기 — 제목 · 버튼 겹침 정리: 버튼은 아래 [목록으로] 옆 오른쪽으로 */
+.cl-thread__write:has(form[hidden]) { display: none; }
+.cl-thread .cl-post-footer { display: flex; justify-content: flex-end; gap: 8px; padding-top: 24px; border-top: 1px solid var(--cl-hairline); }
+.cl-thread .cl-post-footer .cl-btn { height: 40px; }
+@media (max-width: 900px) {
+  .cl-thread .cl-thread__list { padding: 4px 16px; }
+  .cl-thread .cl-thread__answer, .cl-thread .cl-thread__answer.is-teacher { grid-template-columns: 28px minmax(0, 1fr); column-gap: 10px; padding: 16px 0; }
+  .cl-thread .cl-thread__answer > .cl-thread__a { width: 28px; height: 28px; }
+  .cl-thread .cl-thread__answer-meta { min-height: 28px; }
+}
+
+/* NF4 · 게시글 읽기 — Q&A 상세와 같은 머리 선 · 버튼 자리 */
+/* Q&A 상세(NQ5)와 같은 규칙 — 머리 아래 옅은 회색 선, 버튼은 오른쪽 아래 */
+.cl-pub-main .cl-post__head { border-bottom-color: var(--cl-hairline); }
+.cl-pub-main .cl-comments__list > .cl-comment:last-child { border-bottom: 0; }
+.cl-pub-main .cl-post-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 0; padding-top: 24px; border-top: 1px solid var(--cl-hairline); }
+.cl-pub-main .cl-post-footer .cl-btn { height: 40px; }
+
+/* NC1 · 전체강좌 카드형 · 목록형 — 여백 · 상태 표시 · 칸 맞춤 */
+/* 전체강좌 카드형 — 카드 위 검은 선 · 겹 상자 없이, 사진 8 · 글자 토큰 · 상태는 오른쪽 아래 하나 */
+.cl-cs-cards { gap: 40px 24px; margin-top: 8px; }
+.cl-cs-rows { margin-top: 8px; }
+.cl-cs-card { gap: 12px; padding-top: 0; border-top: 0; }
+.cl-cs-thumb--card { border-radius: var(--cl-radius-sm); }
+.cl-cs-card__link { gap: 4px; }
+.cl-cs-card__link .cl-cs-thumb { margin-bottom: 12px; }
+.cl-cs-meta { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-cs-name { font-size: var(--cl-fs-body-public); font-weight: 600; line-height: 1.4; }
+.cl-cs-teacher { font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.cl-cs-card__foot { gap: 8px; min-height: 32px; }
+.cl-cs-stats { display: inline-flex; align-items: center; gap: 12px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); font-variant-numeric: tabular-nums; }
+.cl-cs-stats > span { display: inline-flex; align-items: center; gap: 4px; }
+/* 카드 · 줄 전체가 강좌로 가는 길이라 '강의목록 ›' 은 뺀다 */
+.cl-cs-more { display: none !important; }
+/* 상태 버튼은 공통 부품 — cl-btn--undo(수강중 → 수강 취소) · cl-btn--tint(수강신청) + cl-btn--pill (components.css) */
+/* 목록형 — 여유 있게: 줄 위아래 20, 사진 120, 오른쪽 숫자 · 상태는 칸을 고정해 줄마다 같은 자리 */
+[data-list][data-view="list"] .cl-cs-cards, [data-list]:not([data-view="list"]) .cl-cs-rows { display: none; }
+.cl-cs-rows { border-top: 1px solid var(--cl-hairline); }
+.cl-cs-row { gap: 24px; padding: 20px 8px; border-bottom: 1px solid var(--cl-hairline); transition: background-color .15s ease-out; }
+.cl-cs-row:hover { background: var(--cl-row-hover); }
+.cl-cs-row__link { gap: 20px; }
+.cl-cs-thumb--row { width: 120px; border-radius: var(--cl-radius-2xs); overflow: hidden; }
+.cl-cs-thumb--row img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cl-cs-row__text { gap: 6px; }
+.cl-cs-row__text .cl-cs-meta { font-size: var(--cl-fs-caption); }
+.cl-cs-row__side { gap: 24px; }
+.cl-cs-row__side .cl-cs-stats { display: grid; grid-template-columns: 56px 44px 44px; gap: 0; }
+.cl-cs-row__side .cl-cs-stats > span { justify-content: flex-end; }
+.cl-cs-row__state { width: 96px; display: flex; justify-content: flex-end; }
+.cl-cs-row__stats-mobile { font-size: var(--cl-fs-caption); }
+@media (max-width: 900px) {
+  .cl-cs-cards { gap: 32px; }
+  .cl-cs-row { gap: 12px; padding: 16px 0; align-items: flex-start; }
+  .cl-cs-row__link { gap: 14px; }
+  .cl-cs-thumb--row { width: 96px; }
+  .cl-cs-row__text .cl-cs-name { white-space: normal; overflow: visible; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+  .cl-cs-row__side { display: flex; } .cl-cs-row__side .cl-cs-stats { display: none; }
+  .cl-cs-row__state { width: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .cl-cs-row { transition: none; } }
+
+/* NM1 · 학원 메인 · 대시보드형 — 실험실 규칙에 맞춘 타일 */
+/* 학원 메인 · 대시보드형 — 지금 실험실 규칙(글자 토큰 · 모서리 8 · 옅은 선 · 보라는 할 일에만)에 맞춘다 */
+.cl-home[data-preset="dashboard"] .cl-home-bento { gap: var(--cl-space-5); }
+.cl-home[data-preset="dashboard"] .cl-home-tile { padding: 32px; border-radius: var(--cl-radius-sm); }
+.cl-home[data-preset="dashboard"] .cl-home-tile--hero { padding: 40px; gap: 32px; }
+.cl-home[data-preset="dashboard"] .cl-home-tile--banner { padding: 0; }
+/* 첫 칸 — 화면 제목 단계(40), 사진 모서리는 칸과 같은 8 */
+.cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__title { font-size: var(--cl-fs-display); letter-spacing: -0.03em; }
+.cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__sub { font-size: var(--cl-fs-body-public); color: var(--cl-ink-muted); }
+.cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__media { border-radius: var(--cl-radius-sm); }
+/* 칸 머리 — 제목 19 · 700, 부제 15, 더보기 원 32 */
+.cl-home[data-preset="dashboard"] .cl-home-tile__head { margin-bottom: 16px; align-items: center; }
+.cl-home[data-preset="dashboard"] .cl-home-tile__head:has(.cl-home-tile__sub) { align-items: flex-start; }
+.cl-home[data-preset="dashboard"] .cl-home-tile__title { font-size: var(--cl-fs-lead); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__sub { margin-top: 6px; font-size: var(--cl-fs-body-sm-pub); }
+/* 선생님 칸(검은 판)은 그대로 — 더보기 원은 공통 아이콘 버튼 --on-dark(NX1), 줄 글자는 토큰으로 */
+.cl-home[data-preset="dashboard"] .cl-home-tile__row { font-size: var(--cl-fs-body-sm-pub); }
+.cl-home[data-preset="dashboard"] .cl-home-tile__row span { font-size: var(--cl-fs-caption); }
+/* 공개강좌 — 과목 칩은 한 줄(넘치면 옆으로 밀기), 사진 모서리 8, 글자 토큰 */
+.cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-home-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -32px 20px; padding: 0 32px 2px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 48px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 48px), transparent 100%); }
+.cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-home-chips::-webkit-scrollbar { display: none; }
+.cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-chip { flex: none; }
+.cl-home[data-preset="dashboard"] .cl-home-ccards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.cl-home[data-preset="dashboard"] .cl-home-ccard { gap: 4px; }
+.cl-home[data-preset="dashboard"] .cl-home-ccard .cl-home-course__thumb { height: auto; aspect-ratio: 16 / 9; border-radius: var(--cl-radius-sm); margin-bottom: 12px; }
+.cl-home[data-preset="dashboard"] .cl-home-ccard__cat { font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-home[data-preset="dashboard"] .cl-home-ccard__title { font-size: var(--cl-fs-body-public); }
+.cl-home[data-preset="dashboard"] .cl-home-ccard__teacher { font-size: var(--cl-fs-caption); }
+/* 공지 · 자유게시판 줄 — 15 · 날짜 13, 첫 줄 위에 옅은 선 */
+.cl-home[data-preset="dashboard"] .cl-home-news__list { border-top: 1px solid var(--cl-hairline); }
+.cl-home[data-preset="dashboard"] .cl-home-news__row { padding: 12px 0; border-bottom-color: var(--cl-hairline); }
+.cl-home[data-preset="dashboard"] .cl-home-news__link { font-size: var(--cl-fs-body-sm-pub); }
+.cl-home[data-preset="dashboard"] .cl-home-news__link:hover { text-decoration: none; }
+.cl-home[data-preset="dashboard"] .cl-home-news__date { font-size: var(--cl-fs-caption); }
+@media (max-width: 1023px) {
+  .cl-home[data-preset="dashboard"] .cl-home-tile--hero { padding: 32px; }
+}
+@media (max-width: 767px) {
+  .cl-home[data-preset="dashboard"] { padding-top: 16px; }
+  .cl-home[data-preset="dashboard"] .cl-home-bento { gap: var(--cl-space-4); }
+  .cl-home[data-preset="dashboard"] .cl-home-tile, .cl-home[data-preset="dashboard"] .cl-home-tile--hero { padding: 24px 20px; }
+  .cl-home[data-preset="dashboard"] .cl-home-tile--banner { padding: 0; }
+  .cl-home[data-preset="dashboard"] .cl-home-tile--courses .cl-home-chips { margin: 0 -20px 16px; padding: 0 20px 2px; }
+  .cl-home[data-preset="dashboard"] .cl-home-tile--hero .cl-home-hero__title { font-size: var(--cl-fs-display); }
+  /* 휴대폰 공개강좌 — 메인 대표 강좌와 같은 작은 사진 목록 */
+  .cl-home[data-preset="dashboard"] .cl-home-ccards { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .cl-home[data-preset="dashboard"] .cl-home-ccards > :first-child { grid-column: auto; }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard { display: grid; grid-template-columns: 96px minmax(0, 1fr); grid-template-areas: "thumb cat" "thumb title" "thumb teacher"; column-gap: 14px; row-gap: 2px; align-content: center; padding: 12px 0; border-top: 1px solid var(--cl-hairline); }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard .cl-home-course__thumb { grid-area: thumb; width: 96px; margin: 0; border-radius: var(--cl-radius-2xs); align-self: center; }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard__cat { grid-area: cat; }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard__title { grid-area: title; font-size: var(--cl-fs-body-sm-pub); }
+  .cl-home[data-preset="dashboard"] .cl-home-ccard__teacher { grid-area: teacher; }
+}
+
+/* NG1 · 학생 그룹 창 — 줄마다 보라 [그룹에 넣기] 를 흰 버튼으로 */
+/* 공통 Button 종류만 바꾼다 — 새 CSS 없음 */
+
+/* NO1 · CMS 소유자 변경 창 — 선생님 검색형 선택 · 고르기 전 [바꾸기] 잠금 · 두 줄 설명 */
+/* 소유자 변경 — 콘텐츠 이름과 지금 소유자를 두 줄로, 선생님은 검색형 선택(공통 cl-combo--select) */
+.cl-dialog .cl-combo--select { display: flex; flex-wrap: wrap; width: 100%; }
+.cl-dialog .cl-combo--select > .cl-icon { top: 12px; }
+.cl-dialog .cl-combo--select .cl-combo__input { flex: 1 1 100%; width: 100%; }
+.cl-dialog .cl-combo--select .cl-combo__options { position: static; flex: 1 1 100%; margin-top: 4px; max-height: 216px; }
+
+/* NV1 · 자유게시글 보기 창 — 창 안에서 [새 탭에서 보기] · [수정], 공지 · 조회 표시 */
+/* 공통 대화상자 · Button 만 쓴다 — 새 CSS 없음 */
+
+/* NA1 · 과제 통계 창 — 채점 전 0 · 순위 1 · '미채점 · 0~20점' 을 바로잡기 */
+/* 과제 통계 — 아직 없는 값 · 하지 않은 것은 회색 막대, 한 값만 보라 */
+.cl-ta-meter > span.is-muted { background: var(--cl-mark-muted); }
+.cl-kpi dd.is-none { color: var(--cl-ink-faint); }
+.cl-ta-stats__note { margin: 4px 0 0; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }

@@ -3534,7 +3534,7 @@ input.addEventListener('focus', function () { list.hidden = false; box.classList
     note: "테스트 사이트 관리자 CMS 에서 확인(2026.10.28, 창을 열고 닫기만 함). 실험실에 없던 CMS 행 메뉴 창 3개를 화면으로 추가",
   },
   {
-    id: "NB1",
+    id: "NV1",
     group: 3,
     status: "확정",
     kind: "마크업",
