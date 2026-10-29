@@ -277,8 +277,8 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     get(k, d) { try { const v = localStorage.getItem('lab.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem('lab.' + k, JSON.stringify(v)); } catch (e) {} }
   };
-  // 끈 항목만 'off3' 에 기억한다. 새 항목은 늘 켜진 채로 보이고, 예전 탭이 'on' · 'seen' 을 덮어써도 영향이 없다
-  const OFF = new Set(store.get('off3', null) || (() => { const seen = store.get('seen', []), on = store.get('on', null); return on ? seen.filter(i => !on.includes(i) && !/^S[LAR]\d/.test(i)) : []; })());
+  // 끈 항목만 'off4' 에 기억한다(2026.10.29 off3 → off4: 예전에 꺼 둔 항목을 한 번 모두 켠다). 새 항목은 늘 켜진 채로 보이고, 예전 탭이 'on' · 'seen' 을 덮어써도 영향이 없다
+  const OFF = new Set(store.get('off4', null) || (() => { const seen = store.get('seen', []), on = store.get('on', null); return on ? seen.filter(i => !on.includes(i) && !/^S[LAR]\d/.test(i)) : []; })());
   const state = {
     screen: store.get('screen', 'dashboard'),
     mode: store.get('mode', 'after'),
@@ -292,8 +292,8 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   const md = s => esc(s || '').replace(/`([^`]+)`/g, '<code>$1</code>');
   const forScreen = id => FIXES.filter(f => f.screens.includes('all') || f.screens.includes(id));
   const screenNames = f => f.screens.includes('all') ? '전체' : f.screens.map(s => (SCREENS.find(x => x.id === s) || {}).name).join(', ');
-  store.set('off3', [...OFF]);
-  function save() { store.set('screen', state.screen); store.set('mode', state.mode); store.set('width', state.width); store.set('mark', state.mark); store.set('theme', state.theme); store.set('off3', FIXES.map(f => f.id).filter(i => !state.on.has(i))); }
+  store.set('off4', [...OFF]);
+  function save() { store.set('screen', state.screen); store.set('mode', state.mode); store.set('width', state.width); store.set('mark', state.mark); store.set('theme', state.theme); store.set('off4', FIXES.map(f => f.id).filter(i => !state.on.has(i))); }
 
   // 화면 이동: 실제 화면처럼 미리보기 안 왼쪽 메뉴를 눌러 이동한다
   const NAV = { '대시보드': 'dashboard', '학생 목록': 'students', '선생님 목록': 'teachers', '과목 목록': 'subjects', '분류 목록': 'categories', '강좌 목록': 'course-list', '콘텐츠 목록': 'contents', 'CMS 콘텐츠 관리': 'cms', '자유게시글 목록': 'board', '알림 보내기': 'alarm', '결제 내역': 'payments', '로그인 현황': 'login-stat', '로그인 상세': 'login-detail', '사용량 현황': 'demand', '다운로드 현황': 'download', '그룹 통계': 'group-stat', '학생 통계': 'user-stat', '메인페이지 설정': 'main-setting', '학원 설정': 'system-setting', '학원 소개 설정': 'about-setting', '콘텐츠 재생 허용 IP': 'ip-setting', '이서당 배너 설정': 'banner-setting', '메뉴 설정': 'menu-setting', '관리자 목록': 'admins', '그룹 목록': 'groups', '강좌 관리': 'courses', '수강 관리': 't-learn', '진도율 관리': 't-progress', '그룹 관리': 't-group', '과제 관리': 't-assign', '나의 정보': 't-info', '비밀번호 변경': 't-password' };
