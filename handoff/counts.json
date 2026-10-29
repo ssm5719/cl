@@ -11,5 +11,13 @@
   "newScreens": [
     "SQ6",
     "SB2"
-  ]
+  ],
+  "portal": {
+    "confirmed": 0,
+    "proposed": 17,
+    "held": 0,
+    "screens": [
+      "p-main"
+    ]
+  }
 }

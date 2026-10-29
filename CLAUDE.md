@@ -55,9 +55,26 @@
 - **선생님 상단 [새로 만들기]는 꽉 찬 보라**(디자인시스템 Topbar 그대로). C1(연보라로 바꾸기)은 2026.10.29 사용자 결정으로 보류 → 확정 230 → 229. 본문 [강좌 생성]과 꽉 찬 보라가 둘인 것은 받아들인 상태.
 - **디자인시스템 tokens.css**: 아티팩트의 `project/tokens.css` 는 페이지가 만든다(누군가 화면에서 저장할 때만 다시 생성) — 직접 쓰지 않는다. 그래서 `components/bundle.css` 맨 앞에 `:where(:root)` 토큰 대비 값을 둔다(우선순위 0, tokens.css 가 있으면 그쪽이 이김).
 
+## 2차 — 포털 (진행 중)
+
+- 범위: cloudlearning.lab241.com 메인 · 요금제 · 학원 목록 · 고객센터 · 로그인 · 회원가입 · 약관(이용약관 · 개인정보 · 아동 개인정보 탭) + 학원 개설 신청. **1차 229건과 따로 센다.**
+- 2026.10.29: 메인 점검(impeccable critique · taste-skill inspect) → **메인 제안 17건(PT1~PT17)**. 확정 0. 바꾸기 전/후 캡처를 사용자에게 줬다.
+- 만드는 곳: `lab/fixes-portal.js`(포털 항목 — `window.LAB_FIXES` 에 이어 붙인다), `lab/screens/p-*.html`(포털 화면, id 는 `p-`), `lab/css/portal/`(사이트 CSS 사본 2026.10.29 — 고치지 않는다. 1차 `lab/css/` 와 섞지 않아 포털 수정이 1차 화면에 영향 없음), `lab/img/portal/`(사이트 이미지 · `logos/` 학원 로고 13개 · `eseodang-classroom.png`). 실험실 [포털] 탭. `p-` 화면에는 1차 `'all'` 항목을 입히지 않는다(사이트 CSS 에 이미 반영됨).
+- handoff: `build_handoff.js` 가 `fixes-portal.js` 를 따로 읽어 `09-포털.md` · `portal-fixes.css` 를 만들고 `counts.json` 의 `portal` 에 따로 센다. 1차 문서 · fixes.json · fixes.css · 07-화면목록에는 안 들어간다.
+- 포털 화면 가져오는 법: 작업 공간은 포털 사이트에 직접 못 들어가고, 내장 브라우저는 파일을 내려받지 못했다. **사용자가 Chrome 에서 "웹페이지, 전체"로 저장해 zip 으로 붙여 준다**(파일이 많으면 zip 여러 개). 받은 HTML 의 `./<제목>_files/` 경로를 `../img/portal/` 로, 사이트 링크는 `#` 로, 스크립트 · GTM 은 지운다.
+
+### 2차 결정과 이유
+- **숫자**: 107 = 누적 이용 학원(지금 이용 중 51곳 · 운영 포털 학원 목록 머리는 "59곳"으로 다름 — 확인 필요). 메인은 "누적 이용 학원 107곳", 그래프 마지막 값 66 → 107(사용자 2026.10.29). "지난 1년간 76개" 는 그래프(60 → 107)와 안 맞아 뺐다.
+- **학원 로고**: 운영 포털(cloudlearning.atedu.co.kr/portal/org) 위에서부터 써도 됨(사용자). 전공시(흰 로고) · MY1연세수학(간판 사진) · 폴잉글리쉬(전화번호 간판)는 뺐다. 회색조 + multiply.
+- **이서당 장비 그림**: 피그마 "클라우드러닝-new" 노드 `62:240` e-Seodang Classroom(사용자). 실험실은 1배 527×302 — 개발은 피그마에서 2배로 내보낸다. 같은 시안의 3D 교실 · 헤드폰 학생은 레이어 이름이 "Gemini_Generated_Image"(AI 그림) — 쓰지 않는다.
+- **피그마 시안**(`FGBYRuz0mOjVX5OyCO5L9L` 노드 `60:132` "클라우드러닝 소개 리뉴얼")은 지금 메인의 원본(리뉴얼 전). 다시 가져온 것: 학원 로고 모음 · 그래프 출처 줄 · 카드 없는 숫자 띠 · 장비 그림. 가져오지 않은 것: 3D 구름 · 인물 사진 · 60,000원(사이트 80,000원이 최신).
+- **버튼**: `cl-pt-btn` → `cl-btn` (`--xl` 48 · `--lg` 44 · `--md` 36, 알약 유지). 포털은 `.cl-portal :where(a){color:inherit}` 때문에 `a.cl-btn` · `a.cl-link` 글자색을 다시 정해야 한다(PT3).
+- **taste-skill 규칙 중 따르지 않는 것**: 보라 금지(대표색) · 가는 선 금지(1차 `cl-hairline`) · 움직임 8개 이상(1차 150ms · 미끄러짐 없음) · 01~04 번호 금지(하루 흐름은 실제 순서). inspect 결과 FAIL 13 → 8, 남은 8은 이 예외 · 측정 오류(건너뛰기 링크 · 떠 있는 버튼) · 휴대폰 첫 제목 3줄(지금도 3줄, 문구를 줄이려면 사용자 확인).
+- 외부 스킬: ui-ux-pro-max(nextlevelbuilder) · taste-skill(Leonxlnx, 스킬 이름 design-taste-frontend) — 세션에서는 GitHub 에서 받아 쓴다. 사용자 계정 설치용 zip 을 줬다(폴더 이름 = 스킬 이름이어야 올라감). taste inspect 는 루트에서 크롬 `--no-sandbox` 감싸개가 필요하다(`CHROME_PATH`).
+
 ## 남은 일
 
-1. **포털 2차** — 메인 · 요금제 · 학원 목록 · 고객센터 · 로그인 · 회원가입 · 약관. 먼저 화면을 둘러보고 화면 목록과 고칠 곳 후보를 보여 준다. 1차 229건과 섞지 말고 따로 센다(새 영역 · 새 handoff 파일).
+1. **포털 2차** — 메인 17건 사용자 확인(제안 → 확정). 이어서 요금제 · 학원 목록 · 고객센터 · 로그인 · 회원가입 · 약관 · 개설 신청 화면 저장본을 받아 `p-` 화면으로 넣고 같은 방식으로(공통 PT1~PT4 를 그 화면에도 걸기). 로그인 · 가입 입력 칸(높이 52 · 모서리 12)을 공통(40 · 4)에 맞출지 사용자에게 묻기. 운영 포털 "59곳" vs "51" 확인.
 2. 사용자 답 기다리는 것: 알약 버튼도 4px? · 플레이어 멈춤 시 가운데 버튼 PC 에서 빼기? · 보류 G5 · AP3.
 3. 디자인시스템 아티팩트 공유(개발자가 보려면 사용자가 공유 메뉴에서 열어야 함).
 
@@ -71,10 +88,10 @@
 - `design/` 디자인시스템 원본 — `tokens.json` · `tokens.css` · `README.md` · `components/<부품>/README.md + preview.html` · `assets/Icons/*.svg` · `CHANGELOG.md` · `public-ui-rules.md` · `scope.md` · `audit.md`.
   - `node design/build_bundle.js 2026.10.29` → `components/bundle.css`(실험실 CSS + 확정 · 제안 수정 CSS + 토큰 대비 값). 손으로 고치지 않는다.
 - `handoff/` 개발 전달 — `README.md` · `AI_PROMPT.md` 만 손으로 쓰고 나머지는 `node handoff/build_handoff.js 2026.10.29` 로 만든다(01-공통 … 05, 06 메모, 07 화면 목록, 08 플레이어, fixes.json/css, counts.json, css-changes.diff). `css-changes.diff` 는 커밋된 것 기준이라 **커밋 뒤 한 번 더** 돌려 다시 커밋한다. 건수가 바뀌면 `handoff/README.md` 의 "확정 N건" · 표 숫자도 고친다.
-- `tools/` 점검 스크립트(README 참고). `aitest/` 는 별개(AI 시험 출제 기능).
+- `tools/` 점검 스크립트(README 참고). `apply.js` 는 `fixes.js` 와 `fixes-portal.js` 를 둘 다 입힌다. `aitest/` 는 별개(AI 시험 출제 기능).
 
 ### 아티팩트 올리기
-- 실험실: `file_path=lab/index.html`, `root=lab`, `url=실험실 링크`, `files` 에 **바꾼 파일만**(예 `{"fixes.js":"fixes.js","css/components.css":"css/components.css"}`).
+- 실험실: `file_path=lab/index.html`, `root=lab`, `url=실험실 링크`, `files` 에 **바꾼 파일만**(예 `{"fixes.js":"fixes.js","css/components.css":"css/components.css"}`). 포털 항목만 고쳤으면 `fixes-portal.js` 와 `index.html` 의 `fixes-portal.js?v=N` 을 올린다.
 - 디자인시스템(Design System 타입): 올리기 전에 `project/design-system.json` 과 바꿀 파일을 **먼저 read** 해서 그 사본을 고친다(아티팩트 쪽 README 에는 페이지가 붙인 "Consuming" 장이 있으니 저장소 README 로 덮지 말고 사본에 같은 수정을 한다). `project/` 아래만 쓰고 `api/` · `tokens.css` · `manifest.json` 은 쓰지 않는다. `design-system.json` 은 마지막에, `lastChange`(at · by "Claude" · via · note)를 고쳐 같이 올린다.
 - 아이콘 같은 그림은 에셋으로 올리고(`asset:true`, `file_paths`) 돌아온 id 를 `assetGroups.Icons.files` · `order` 에 적는다. 아이콘 형식: 24 격자, `stroke="currentColor"`, 작업공간 선 1.75(플레이어 아이콘은 2).
 

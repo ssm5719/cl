@@ -139,7 +139,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
 
 <header class="top">
   <span class="brand">수정 실험실<small>클라우드러닝 작업공간</small></span>
-  <div class="seg viewer-only" role="group" aria-label="작업공간" id="ws"><button type="button" data-ws="admin">관리자</button><button type="button" data-ws="teacher">선생님</button><button type="button" data-ws="student">학생</button><button type="button" data-ws="academy">학원</button><button type="button" data-ws="notfound">404</button></div><span class="sync viewer-only" id="sync"></span>
+  <div class="seg viewer-only" role="group" aria-label="작업공간" id="ws"><button type="button" data-ws="admin">관리자</button><button type="button" data-ws="teacher">선생님</button><button type="button" data-ws="student">학생</button><button type="button" data-ws="academy">학원</button><button type="button" data-ws="portal">포털</button><button type="button" data-ws="notfound">404</button></div><span class="sync viewer-only" id="sync"></span>
   <label class="q-box viewer-only"><input type="search" id="q" placeholder="수정 번호 · 제목 찾기 (예: X3)" aria-label="수정 항목 찾기" autocomplete="off"></label>
   <span class="spacer"></span>
   <div class="seg viewer-only" role="group" aria-label="보기" id="mode">
@@ -170,7 +170,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     <div id="fixList" style="display:flex;flex-direction:column;gap:10px"></div>
   </aside>
   <main class="stage">
-    <div class="stage-meta"><span id="stageInfo"></span><span>화면은 2026-10-19 저장본 · 연락처는 가짜 값</span></div>
+    <div class="stage-meta"><span id="stageInfo"></span><span id="stageNote">화면은 2026-10-19 저장본 · 연락처는 가짜 값</span></div>
     <div class="lab-toast" id="labToast" role="status" hidden></div><div class="frame-wrap" id="wrap"><span class="mode-tag" id="modeTag">수정안</span><iframe id="frame" title="화면 미리보기"></iframe></div>
   </main>
 </div>
@@ -218,7 +218,8 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   </div>
 </section>
 
-<script src="fixes.js?v=199"></script>
+<script src="fixes.js?v=200"></script>
+<script src="fixes-portal.js?v=1"></script>
 <script>
 (function () {
   const SCREENS = [
@@ -258,6 +259,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     { id: 'a-board-empty', name: '학원 자유게시판 · 글 없음 (선생님 로그인)', tpl: '띠형' },
     { id: 'a-board-read', name: '학원 자유게시판 읽기 (선생님 로그인)', tpl: '띠형' },
     { id: 'a-board-read-empty', name: '학원 자유게시판 읽기 · 댓글 없음 (선생님 로그인)', tpl: '띠형' },
+    { id: 'p-main', name: '포털 메인 (2차)', tpl: '띠형' },
     { id: 'notfound', name: '404 에러', tpl: '상태 화면' }
   ];
   const LAYERS = ['토큰', '공통 틀', '공통 부품', '화면별'];
@@ -270,7 +272,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   const STATUS = {}; // db 에 저장된 상태 (fixes.js 의 status 보다 우선)
   const statusOf = f => STATUS[f.id] || f.status;
   let canEdit = false, dbRef = null;
-  const GROUP = { 1: '머리 틀', 2: '글자 단계', 3: '보라색', 4: '상태 색', 5: '모바일 카드', 6: '이름', 7: '토큰', 8: '사이드바', 9: '표' };
+  const GROUP = { 1: '머리 틀', 2: '글자 단계', 3: '보라색', 4: '상태 색', 5: '모바일 카드', 6: '이름', 7: '토큰', 8: '사이드바', 9: '표', 10: '포털' };
   const FIXES = window.LAB_FIXES || [];
   const NOTES = window.LAB_NOTES || [];
   const store = {
@@ -290,7 +292,8 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   const $ = s => document.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const md = s => esc(s || '').replace(/`([^`]+)`/g, '<code>$1</code>');
-  const forScreen = id => FIXES.filter(f => f.screens.includes('all') || f.screens.includes(id));
+  // 1차 '전체' 항목은 1차 화면에만 — 포털(p-)은 사이트 CSS 사본(1차 반영된 것) 위에 2차 항목만 얹는다
+  const forScreen = id => FIXES.filter(f => (f.screens.includes('all') && !id.startsWith('p-')) || f.screens.includes(id));
   const screenNames = f => f.screens.includes('all') ? '전체' : f.screens.map(s => (SCREENS.find(x => x.id === s) || {}).name).join(', ');
   store.set('off4', [...OFF]);
   function save() { store.set('screen', state.screen); store.set('mode', state.mode); store.set('width', state.width); store.set('mark', state.mark); store.set('theme', state.theme); store.set('off4', FIXES.map(f => f.id).filter(i => !state.on.has(i))); }
@@ -298,9 +301,9 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   // 화면 이동: 실제 화면처럼 미리보기 안 왼쪽 메뉴를 눌러 이동한다
   const NAV = { '대시보드': 'dashboard', '학생 목록': 'students', '선생님 목록': 'teachers', '과목 목록': 'subjects', '분류 목록': 'categories', '강좌 목록': 'course-list', '콘텐츠 목록': 'contents', 'CMS 콘텐츠 관리': 'cms', '자유게시글 목록': 'board', '알림 보내기': 'alarm', '결제 내역': 'payments', '로그인 현황': 'login-stat', '로그인 상세': 'login-detail', '사용량 현황': 'demand', '다운로드 현황': 'download', '그룹 통계': 'group-stat', '학생 통계': 'user-stat', '메인페이지 설정': 'main-setting', '학원 설정': 'system-setting', '학원 소개 설정': 'about-setting', '콘텐츠 재생 허용 IP': 'ip-setting', '이서당 배너 설정': 'banner-setting', '메뉴 설정': 'menu-setting', '관리자 목록': 'admins', '그룹 목록': 'groups', '강좌 관리': 'courses', '수강 관리': 't-learn', '진도율 관리': 't-progress', '그룹 관리': 't-group', '과제 관리': 't-assign', '나의 정보': 't-info', '비밀번호 변경': 't-password' };
   const NAV_S = { '수강중인 강좌': 's-learn', '나의 강좌': 's-learn', '수강 완료 강좌': 's-complete', '과제 목록': 's-assign', 'Q&A': 's-qna', '나의 글 목록': 's-qna', '자유게시판': 's-board', '좋아요 강좌': 's-like-course', '나의 좋아요': 's-like-course', '좋아요 선생님': 's-like-teacher', '나의 정보': 's-info', '비밀번호 변경': 's-password' };
-  const wsOf = id => id.startsWith('a-') ? 'academy' : id.startsWith('s-') ? 'student' : (id === 'courses' || id.startsWith('t-')) ? 'teacher' : id === 'notfound' ? 'notfound' : 'admin';
+  const wsOf = id => id.startsWith('p-') ? 'portal' : id.startsWith('a-') ? 'academy' : id.startsWith('s-') ? 'student' : (id === 'courses' || id.startsWith('t-')) ? 'teacher' : id === 'notfound' ? 'notfound' : 'admin';
   function paintTabs() { document.querySelectorAll('#ws button').forEach(b => b.setAttribute('aria-pressed', b.dataset.ws === wsOf(state.screen))); }
-  document.querySelectorAll('#ws button').forEach(b => b.addEventListener('click', () => { const t = { teacher: 'courses', student: 's-learn', academy: 'a-main', notfound: 'notfound', admin: 'dashboard' }[b.dataset.ws]; if (wsOf(state.screen) !== b.dataset.ws) go(t); }));
+  document.querySelectorAll('#ws button').forEach(b => b.addEventListener('click', () => { const t = { teacher: 'courses', student: 's-learn', academy: 'a-main', portal: 'p-main', notfound: 'notfound', admin: 'dashboard' }[b.dataset.ws]; if (wsOf(state.screen) !== b.dataset.ws) go(t); }));
   $('#q').addEventListener('input', e => { state.q = e.target.value; const f = FIXES.find(x => x.id.toLowerCase() === state.q.trim().toLowerCase());
     if (f) { const sc = f.screens.includes(state.screen) ? state.screen : f.screens.find(s => s !== 'all' && SCREENS.some(x => x.id === s)); if (sc) state.screen = sc; }
     document.body.classList.remove('show-handoff'); $('#handoffBtn').setAttribute('aria-pressed', false); $('#handoffBtn').textContent = '개발자 전달'; render(); });
@@ -373,6 +376,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     try { frame.style.height = '900px'; h = Math.max(900, frame.contentDocument.documentElement.scrollHeight); } catch (e) {}
     frame.style.width = w + 'px'; frame.style.height = h + 'px'; frame.style.transform = `scale(${scale})`;
     wrap.style.width = (w * scale) + 'px'; wrap.style.height = (h * scale) + 'px';
+    $('#stageNote').textContent = state.screen.startsWith('p-') ? '포털 화면은 2026.10.29 저장본(사이트 CSS 사본) · 학원 로고는 운영 포털 학원 목록' : '화면은 2026-10-19 저장본 · 연락처는 가짜 값';
     $('#stageInfo').innerHTML = `<strong>${(SCREENS.find(s => s.id === state.screen) || {}).name}</strong> · 왼쪽 메뉴를 눌러 이동 · ${w}px` + (state.width ? '' : ' (창 너비)') + (scale < 1 ? ` · ${Math.round(scale * 100)}% 축소` : '');
   }
   function apply() {
@@ -381,7 +385,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     doc.documentElement.setAttribute('data-theme', state.theme);
     if (state.mode === 'after') {
       const qq = (state.q || '').trim().toLowerCase(); const exact = (qq && FIXES.find(f => f.id.toLowerCase() === qq)) || (!qq && state.focus && state.focusScreen === state.screen && FIXES.find(f => f.id === state.focus));
-      const active = forScreen(state.screen).filter(f => state.on.has(f.id) && (f.screens.includes('all') || f.screens.includes(state.screen)));
+      const active = forScreen(state.screen).filter(f => state.on.has(f.id) && ((f.screens.includes('all') && !state.screen.startsWith('p-')) || f.screens.includes(state.screen)));
       const st = doc.createElement('style'); st.id = 'lab-fixes';
       st.textContent = active.filter(f => f.css).map(f => `/* ${f.id} */\n${f.css}`).join('\n\n');
       doc.head.append(st);

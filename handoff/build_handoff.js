@@ -7,7 +7,12 @@ const DATE = process.argv[2] || new Date().toISOString().slice(0, 10).replace(/-
 const BASE_COMMIT = '14d5e0b'; // 실험실에 받은 화면 · CSS 를 처음 넣은 커밋 (2026-10-19 사이트 파일)
 
 const w = {}; require('vm').runInNewContext(fs.readFileSync(path.join(LAB, 'fixes.js'), 'utf8'), { window: w });
-const FIXES = w.LAB_FIXES, NOTES = w.LAB_NOTES || [];
+const NOTES = w.LAB_NOTES || [];
+// 포털 2차(fixes-portal.js · p- 화면)는 1차 229건과 따로 센다 — 1차 문서 · fixes.json · fixes.css 에 섞지 않고 09-포털.md 로만 낸다
+const wp = {}; require('vm').runInNewContext(fs.readFileSync(path.join(LAB, 'fixes-portal.js'), 'utf8'), { window: wp });
+const isPortal = f => (f.screens || []).length > 0 && f.screens.every(s => /^p-/.test(s));
+const PORTAL = (wp.LAB_FIXES || []).filter(isPortal);
+const FIXES = w.LAB_FIXES.filter(f => !isPortal(f));
 const html = fs.readFileSync(path.join(LAB, 'index.html'), 'utf8');
 const SCREENS = eval(html.match(/const SCREENS = (\[[\s\S]*?\n  \]);/)[1]);
 const LAYERS = ['토큰', '공통 틀', '공통 부품', '화면별'];
@@ -26,7 +31,7 @@ const AREAS = [
   { key: 'public', file: '05-학원-공개화면.md', title: '학원 공개 화면 (메인 · 전체강좌 · 강좌 상세 · 강의 보기 · 학원소개 · 선생님 · Q&A · 자유게시판)' },
   { key: 'player', file: '08-동영상플레이어.md', title: '동영상 플레이어 (LABY 플레이어 · cms.atedu.co.kr — 학원 사이트와 별도 서비스, 플레이어 담당에게 전달)' },
 ];
-const areaOfScreen = id => id === 'player-laby' ? 'player' : /^a-/.test(id) ? 'public' : /^s-/.test(id) ? 'student' : (/^t-/.test(id) || id === 'courses' || id === 'login-stat-t') ? 'teacher' : 'admin';
+const areaOfScreen = id => /^p-/.test(id) ? 'portal' : id === 'player-laby' ? 'player' : /^a-/.test(id) ? 'public' : /^s-/.test(id) ? 'student' : (/^t-/.test(id) || id === 'courses' || id === 'login-stat-t') ? 'teacher' : 'admin';
 const areaOf = f => {
   if ((f.screens || []).includes('all')) return 'common';
   const set = new Set((f.screens || []).map(areaOfScreen));
@@ -109,7 +114,29 @@ files['fixes.css'] = `/* fixes.css — 확정 수정안 CSS 전부 (${DATE}, ${c
   confirmed.filter(f => f.css && f.css.trim()).map(f => `/* ${f.id} · ${f.title} */\n${f.css.trim()}`).join('\n\n') + '\n';
 files['css-changes.diff'] = cp.execSync(`git -C "${ROOT}" diff ${BASE_COMMIT} HEAD -- lab/css/cl-tokens.css lab/css/base.css lab/css/components.css lab/css/manager.css lab/css/teacher.css lab/css/student.css`, { maxBuffer: 64 << 20 }).toString();
 
+// 포털 2차 — 09-포털.md · portal-fixes.css (1차와 따로)
+{
+  const P = PORTAL.slice().sort((a, b) => LAYERS.indexOf(layerOf(a)) - LAYERS.indexOf(layerOf(b)));
+  const pc = P.filter(f => f.status === '확정'), pp = P.filter(f => f.status === '제안'), ph = P.filter(f => f.status === '보류');
+  const L = ['# 포털 (2차 · cloudlearning.lab241.com)', '',
+    `> ${DATE} 기준 · 확정 ${pc.length}건 · 제안 ${pp.length}건 · 보류 ${ph.length}건. **1차 229건과 따로 센다.** 층 순서(토큰 → 공통 틀 → 공통 부품 → 화면별)로 적었다. 먼저 [README](README.md) 의 규칙을 읽는다.`, '',
+    '> 실험실 기준 CSS 는 `lab/css/portal/`(사이트 2026.10.29 사본 — cl-tokens · base · components · portal · portal-chat). 모든 수정은 `.cl-portal`(포털 body) 안에서만 적용한다. 1차 공통 CSS(cl-tokens · base · components)는 바꾸지 않는다.', '',
+    '> **제안** 항목은 디자인 쪽 확인 중이다 — 확정으로 바뀌기 전에는 적용하지 않는다.', '',
+    '## 화면', '', '| 화면 id | 이름 | 항목 |', '| --- | --- | --- |',
+    ...SCREENS.filter(s => /^p-/.test(s.id)).map(s => `| \`${s.id}\` | ${s.name} | ${P.filter(f => f.screens.includes(s.id)).map(f => f.id).join(' ')} |`), ''];
+  for (const [label, g0] of [['확정', pc], ['제안 (아직 적용하지 않음)', pp]]) {
+    if (!g0.length) continue;
+    L.push(`## ${label} (${g0.length})`, '');
+    for (const ly of LAYERS) { const g = g0.filter(f => layerOf(f) === ly); if (!g.length) continue; L.push(`### ${ly} (${g.length})`, '', ...g.map(f => item(f).replace(/^### /, '#### ').replace(/\n#### 새 화면 명세/, '\n##### 새 화면 명세'))); }
+  }
+  files['09-포털.md'] = L.join('\n');
+  files['portal-fixes.css'] = `/* portal-fixes.css — 포털 2차 수정안 CSS (${DATE}, 확정 ${pc.length} · 제안 ${pp.length}). portal.css 다음에 불러온다. 제안 항목도 들어 있다 — 확정된 것만 옮긴다. */\n\n` +
+    P.filter(f => f.status !== '보류' && f.css && f.css.trim()).map(f => `/* ${f.id} [${f.status}] · ${f.title} */\n${f.css.trim()}`).join('\n\n') + '\n';
+  files.__portalCount = { confirmed: pc.length, proposed: pp.length, held: ph.length, screens: SCREENS.filter(s => /^p-/.test(s.id)).map(s => s.id) };
+}
+
+const portalCount = files.__portalCount; delete files.__portalCount;
 for (const [f, c] of Object.entries(files)) fs.writeFileSync(path.join(OUT, f), c);
 const count = Object.fromEntries(AREAS.map(A => [A.key, confirmed.filter(f => areaOf(f) === A.key).length]));
-fs.writeFileSync(path.join(OUT, 'counts.json'), JSON.stringify({ date: DATE, confirmed: confirmed.length, proposed: proposed.length, ...count, newScreens: confirmed.filter(f => f.spec).map(f => f.id) }, null, 2));
-console.log('handoff', DATE, 'confirmed', confirmed.length, count, 'proposed', proposed.length);
+fs.writeFileSync(path.join(OUT, 'counts.json'), JSON.stringify({ date: DATE, confirmed: confirmed.length, proposed: proposed.length, ...count, newScreens: confirmed.filter(f => f.spec).map(f => f.id), portal: portalCount }, null, 2));
+console.log('handoff', DATE, 'confirmed', confirmed.length, count, 'proposed', proposed.length, 'portal', JSON.stringify(portalCount));

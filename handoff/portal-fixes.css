@@ -1,0 +1,124 @@
+/* portal-fixes.css — 포털 2차 수정안 CSS (2026.10.29, 확정 0 · 제안 17). portal.css 다음에 불러온다. 제안 항목도 들어 있다 — 확정된 것만 옮긴다. */
+
+/* PT1 [제안] · 포털 색 변수(--pt-*)를 공통 토큰으로 — 그라데이션 · 보라 그림자 없애기 */
+/* 포털 전용 변수 → 공통 토큰 (값을 따로 두지 않는다) */
+.cl-portal {
+  --pt-violet: var(--cl-primary); --pt-violet-ink: var(--cl-primary-pressed); --pt-violet-light: var(--cl-primary-on-dark);
+  --pt-violet-tint: var(--cl-primary-tint); --pt-violet-mist: var(--cl-primary-wash); --pt-canvas: var(--cl-canvas);
+  --pt-blue: var(--cl-primary); --pt-blue-deep: var(--cl-primary); --pt-blue-ink: var(--cl-primary-pressed); --pt-blue-tint: var(--cl-parchment);
+  --pt-orange-tint: var(--cl-parchment); --pt-orange-ink: var(--cl-ink); --pt-green-tint: var(--cl-parchment); --pt-green-ink: var(--cl-ink);
+  --pt-ink: var(--cl-ink); --pt-ink-2: var(--cl-ink-2); --pt-muted: var(--cl-ink-muted); --pt-placeholder: var(--cl-ink-muted);
+  --pt-band: var(--cl-parchment); --pt-line: var(--cl-hairline); --pt-input-line: var(--cl-control-border); --pt-check-line: var(--cl-mark-muted);
+  --pt-row-line: var(--cl-grid-row); --pt-required: var(--cl-danger);
+  --pt-grad: var(--cl-primary); --pt-grad-diag: var(--cl-primary); --pt-grad-border: var(--cl-hairline);
+  --pt-shadow-card: var(--cl-ring); --pt-shadow-card-hover: 0 0 0 1px var(--cl-primary); --pt-shadow-glass: var(--cl-ring);
+  --pt-shadow-primary: none; --pt-shadow-dialog: var(--cl-shadow-float); --pt-art-shadow: none;
+}
+
+/* PT2 [제안] · 머리 줄 · 배경 — 유리 효과와 오로라 그라데이션 빼기 */
+.cl-portal .cl-pt-header { background: var(--cl-canvas); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.cl-portal .cl-pt-aurora, .cl-portal .cl-pt-aurora--hero, .cl-portal .cl-pt-after-hero { background: var(--cl-canvas); }
+
+/* PT3 [제안] · 포털 버튼(cl-pt-btn) → 공통 Button(cl-btn) — 크기 이름 맞추기 */
+/* 머리 줄 [무료 상담] 왼쪽 띄움은 그대로 */
+.cl-portal .cl-pt-actions .cl-btn--dark { margin-left: var(--cl-space-2); }
+/* 포털은 a 글자색을 물려받게 해 두었다(.cl-portal :where(a)) — 채운 버튼은 글자색을 다시 정한다 */
+.cl-portal a:is(.cl-btn--primary, .cl-btn--dark, .cl-btn--on-dark) { color: var(--cl-on-ink); }
+.cl-portal a:is(.cl-btn--soft) { color: var(--cl-ink); }
+.cl-portal a.cl-link { color: var(--cl-primary-pressed); }
+
+/* PT4 [제안] · 카드 · 사진 모서리 10종 → 8 · 16 두 가지 */
+.cl-portal :is(.cl-pt-card, .cl-pt-glass, .cl-pt-chart, .cl-pt-stat, .cl-pt-review, .cl-pt-bento__lead, .cl-pt-bento__card, .cl-pt-quota__tile, .cl-pt-gborder, .cl-pt-gborder > *, .cl-pt-gborder--lg, .cl-pt-gborder--lg > *, .cl-pt-seodang__step, .cl-pt-legal, .cl-pt-inquiry, .cl-pt-side-link, .cl-pt-submitbar, .cl-pt-mine-card, .cl-pt-myband__item, .cl-pt-radio-card, .cl-pt-notice) { border-radius: var(--cl-radius-sm); }
+.cl-portal :is(.cl-pt-product__frame, .cl-pt-day__shot) { border-radius: var(--cl-radius-xl); }
+.cl-portal :is(.cl-pt-product__frame img, .cl-pt-day__shot img, .cl-pt-bento__lead img) { border-radius: var(--cl-radius-sm); }
+
+/* PT5 [제안] · 메인 첫 화면 — 3D 그림 · 라벨 칩 · 그라데이션 글자 · 가짜 알림 빼기 */
+.cl-portal .cl-pt-main-hero { padding-top: var(--cl-space-8); }
+.cl-portal .cl-pt-main-hero__title { margin-top: 0; font-size: var(--cl-fs-72); line-height: 1.15; letter-spacing: -0.025em; }
+.cl-portal .cl-pt-main-hero__lead { margin-top: var(--cl-space-5); font-size: var(--cl-fs-lead); color: var(--cl-ink-2); }
+.cl-portal .cl-pt-main-hero__actions { margin-top: var(--cl-space-6); }
+.cl-portal .cl-pt-product__frame { padding: var(--cl-space-3); background: var(--cl-parchment); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+@media (max-width: 1080px) { .cl-portal .cl-pt-main-hero__title { font-size: var(--cl-fs-56); } }
+@media (max-width: 600px) { .cl-portal .cl-pt-main-hero { padding-top: var(--cl-space-7); } .cl-portal .cl-pt-main-hero__title { font-size: var(--cl-fs-40); } .cl-portal .cl-pt-main-hero__lead { font-size: var(--cl-fs-17); } }
+
+/* PT6 [제안] · 메인 첫 화면 — 학생용 검색창을 글 링크로 */
+.cl-portal .cl-pt-main-hero__student { margin-top: var(--cl-space-4); font-size: var(--cl-fs-15); color: var(--cl-ink-muted); }
+.cl-portal .cl-pt-main-hero__student .cl-link { font-weight: 600; }
+
+/* PT7 [제안] · 로고 띠 — "클라우드러닝" 글자 대신 실제 학원 로고 */
+.cl-portal .cl-pt-logos { padding: var(--cl-space-7) var(--cl-pub-gutter); border-bottom: 1px solid var(--cl-hairline); display: flex; flex-direction: column; align-items: center; gap: var(--cl-space-5); }
+.cl-portal .cl-pt-logos__title { font-size: var(--cl-fs-15); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-portal .cl-pt-logos__grid { width: 100%; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--cl-space-6) var(--cl-space-5); }
+.cl-portal .cl-pt-logos__grid li { flex: 0 0 144px; height: var(--cl-space-7); display: grid; place-items: center; }
+/* 가로로 긴 로고는 폭 128 에서, 네모난 로고는 높이 48 에서 멈춘다 — 둘이 비슷한 무게로 보인다 */
+.cl-portal .cl-pt-logos__grid img { display: block; max-height: var(--cl-space-7); max-width: 128px; width: auto; height: auto; object-fit: contain; filter: grayscale(1) contrast(1.25); mix-blend-mode: multiply; }
+@media (max-width: 600px) { .cl-portal .cl-pt-logos__grid { gap: var(--cl-space-4); } .cl-portal .cl-pt-logos__grid li { flex-basis: calc((100% - var(--cl-space-4) * 2) / 3); } .cl-portal .cl-pt-logos__grid img { max-height: var(--cl-space-5); max-width: 96px; } }
+
+/* PT8 [제안] · 숫자 띠 — "누적 이용 학원 107곳" · 파스텔 카드 대신 선 */
+.cl-portal .cl-pt-stats { gap: var(--cl-space-5); }
+.cl-portal .cl-pt-stat { padding: var(--cl-space-5) 0 0; border-radius: 0; background: none; border-top: 1px solid var(--cl-hairline); gap: var(--cl-space-1); }
+.cl-portal .cl-pt-stat b { margin-top: 0; font-size: var(--cl-fs-56); font-weight: 700; letter-spacing: -0.025em; color: var(--cl-ink); }
+.cl-portal .cl-pt-stat strong { margin-top: var(--cl-space-2); font-size: var(--cl-fs-17); }
+.cl-portal .cl-pt-stat span { font-size: var(--cl-fs-14); color: var(--cl-ink-muted); }
+@media (max-width: 600px) { .cl-portal .cl-pt-stat b { font-size: var(--cl-fs-40); } }
+
+/* PT9 [제안] · 성장 그래프 — 학원 수 마지막 값 66 → 107 · "누적" · 출처 한 줄 */
+.cl-portal .cl-pt-chart { box-shadow: var(--cl-ring); padding: var(--cl-space-5); }
+.cl-portal .cl-pt-chart svg path[fill^="url"] { display: none; }
+.cl-portal .cl-pt-chart svg polyline, .cl-portal .cl-pt-chart svg g[stroke] { stroke: var(--cl-primary); }
+.cl-portal .cl-pt-chart svg text[font-weight] { fill: var(--cl-primary-pressed); }
+.cl-portal .cl-pt-chart__axis { font-size: var(--cl-fs-13); }
+.cl-portal .cl-pt-charts__source { margin-top: calc(var(--cl-space-4) * -1); align-self: flex-end; font-size: var(--cl-fs-13); color: var(--cl-ink-muted); }
+
+/* PT10 [제안] · 영문 작은 제목 6개 빼기 */
+.cl-portal .cl-pt-main .cl-pt-eyebrow { display: none; }
+
+/* PT11 [제안] · 섹션 제목 · 큰 글자 크기를 토큰으로 */
+.cl-portal .cl-pt-h2 { font-size: var(--cl-fs-40); line-height: 1.25; letter-spacing: -0.025em; }
+.cl-portal .cl-pt-day__text h3 { font-size: var(--cl-fs-28); letter-spacing: -0.025em; }
+.cl-portal .cl-pt-pricing__amount { font-size: var(--cl-fs-72); letter-spacing: -0.025em; }
+.cl-portal .cl-pt-consult__text h2 { font-size: var(--cl-fs-56); letter-spacing: -0.025em; line-height: 1.15; }
+@media (max-width: 600px) { .cl-portal .cl-pt-h2 { font-size: var(--cl-fs-28); } .cl-portal .cl-pt-day__text h3 { font-size: var(--cl-fs-22); } .cl-portal .cl-pt-pricing__amount { font-size: var(--cl-fs-40); } .cl-portal .cl-pt-consult__text h2 { font-size: var(--cl-fs-32); } }
+
+/* PT12 [제안] · 고민 → 해결 — 3D 아이콘과 색 다른 카드 정리 */
+.cl-portal .cl-pt-bento__card { background: var(--cl-canvas); padding: var(--cl-space-6); gap: var(--cl-space-3); }
+.cl-portal .cl-pt-bento__card .cl-pt-bento__quote { color: var(--cl-ink-muted); }
+.cl-portal .cl-pt-bento__lead { padding: var(--cl-space-6); }
+.cl-portal .cl-pt-bento__lead .cl-pt-bento__quote { color: var(--cl-on-ink-muted); }
+
+/* PT13 [제안] · 클라우드러닝의 하루 — 번호는 남기고 그라데이션 · 색 판 빼기 */
+.cl-portal .cl-pt-day__num { font-size: var(--cl-fs-24); font-weight: 700; letter-spacing: 0; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--cl-primary-pressed); }
+.cl-portal .cl-pt-day__shot { background: var(--cl-parchment); padding: var(--cl-space-5); }
+.cl-portal .cl-pt-day__shot img { box-shadow: var(--cl-ring); }
+.cl-portal .cl-pt-day__text p { color: var(--cl-ink-2); }
+
+/* PT14 [제안] · 이서당 2.0 — 장비 사진 넣기 · 평면 바탕 · 단계 정리 */
+.cl-portal .cl-pt-seodang { background: var(--cl-surface-dark); }
+.cl-portal .cl-pt-seodang__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: var(--cl-space-7); }
+.cl-portal .cl-pt-seodang__head p { color: var(--cl-on-ink-muted); }
+.cl-portal .cl-pt-seodang__media { margin: 0; padding: var(--cl-space-5); border-radius: var(--cl-radius-xl); background: var(--cl-canvas); }
+.cl-portal .cl-pt-seodang__media img { display: block; width: 100%; height: auto; }
+.cl-portal .cl-pt-seodang__steps { gap: var(--cl-space-5); }
+.cl-portal .cl-pt-seodang__step { padding: var(--cl-space-4) 0 0; border-radius: 0; background: none; box-shadow: none; border-top: 1px solid var(--cl-ink-2); gap: var(--cl-space-2); }
+.cl-portal .cl-pt-seodang__icon { width: auto; height: auto; background: none; color: var(--cl-primary-on-dark); justify-content: start; }
+.cl-portal .cl-pt-seodang__no { color: var(--cl-on-ink-muted); font-size: var(--cl-fs-14); }
+.cl-portal .cl-pt-seodang__step strong { font-size: var(--cl-fs-17); }
+@media (max-width: 900px) { .cl-portal .cl-pt-seodang__top { grid-template-columns: 1fr; } }
+
+/* PT15 [제안] · 요금 띠 — 그라데이션 테두리 · 3D 그림 빼기 */
+.cl-portal .cl-pt-gborder { padding: 0; background: none; box-shadow: var(--cl-ring); }
+.cl-portal .cl-pt-quota__tile { background: var(--cl-parchment); color: var(--cl-ink); }
+.cl-portal .cl-pt-quota__tile span { color: var(--cl-ink-muted); font-weight: 500; }
+.cl-portal .cl-pt-pricing__side .cl-link { font-size: var(--cl-fs-16); font-weight: 600; }
+
+/* PT16 [제안] · 후기 — 별 다섯 개 · 인물 사진 빼기 */
+.cl-portal .cl-pt-review { padding: var(--cl-space-6); gap: var(--cl-space-5); }
+.cl-portal .cl-pt-review blockquote { margin: 0; color: var(--cl-ink); }
+
+/* PT17 [제안] · 마지막 상담 띠 — 보라 그라데이션 판 · 무지개 · 종이비행기 빼기 */
+.cl-portal .cl-pt-consult { background: var(--cl-primary-tint); color: var(--cl-ink); }
+.cl-portal .cl-pt-consult__text h2 { font-weight: 700; }
+.cl-portal .cl-pt-consult__text p { color: var(--cl-ink-2); font-size: var(--cl-fs-18); }
+.cl-portal .cl-pt-consult__text a { color: var(--cl-primary-pressed); }
+.cl-portal .cl-chat.cl-pt-consult__chat { box-shadow: var(--cl-ring); }
+.cl-portal .cl-pt-float__ai { box-shadow: var(--cl-shadow-float); }

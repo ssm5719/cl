@@ -1,0 +1,270 @@
+/* 포털 화면 전용 사본 — cloudlearning.lab241.com 2026.10.29 저장본 (고치지 않는다 · 수정은 fixes.js 의 PT 항목) */
+/* 클라우드러닝 포털 AI 상담 (고객센터 페이지 · 떠 있는 패널 · 모바일 시트)
+   기준: design_handoff_portal_chatbot_v3 (ChatPanelV3.dc.html · README). portal.css 토큰(--pt-*) 위에 얹는다.
+   대화창 안에는 그림자 · 그라데이션 없이 면 색(흰 ↔ --pt-band)으로만 층을 나눈다.
+   JS 가 루트에 붙이는 상태: .is-compact (패널 · 시트 · 좁은 화면), .is-touch (터치 크기 44) */
+
+@keyframes clChatIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes clChatPulse { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+@keyframes clChatPanelIn { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+
+.cl-chat { --chat-hit: 40px; --chat-hit-sm: 32px; --chat-chip: 40px; --chat-small: 36px; --chat-action: 36px;
+    --chat-surface: var(--pt-band); --chat-hover: #EDEDF0; --chat-press: #E8E8ED; --chat-line: rgba(0, 0, 0, .08); --chat-chevron: #A1A1A6;
+    position: relative; box-sizing: border-box; height: 100%; min-height: 0; display: flex; flex-direction: column; overflow: hidden;
+    background: #fff; border-radius: 24px; box-shadow: var(--pt-shadow-card);
+    color: var(--pt-ink); font-family: var(--cl-font); font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; word-break: keep-all; overflow-wrap: break-word; }
+.cl-chat.is-touch { --chat-hit: 44px; --chat-hit-sm: 44px; --chat-chip: 44px; --chat-small: 44px; --chat-action: 44px; }
+.cl-chat--float { box-shadow: var(--pt-shadow-dialog); }
+.cl-chat--sheet { border-radius: 0; box-shadow: none; }
+.cl-chat *, .cl-chat *::before, .cl-chat *::after { box-sizing: border-box; }
+/* 버튼 기본값은 :where 로 0 점수 — 클래스별 글자 크기 · 굵기 · 색이 이기도록 */
+:where(.cl-chat) button { font: inherit; color: inherit; }
+.cl-chat button:not(:disabled):active { transform: scale(.95); }
+.cl-chat :is(button, a, input, textarea):focus-visible { outline: 2px solid var(--pt-violet); outline-offset: 2px; }
+.cl-chat textarea::placeholder, .cl-chat input::placeholder { color: var(--pt-placeholder); }
+.cl-chat .cl-chat__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cl-chat svg { display: block; flex: none; }
+
+/* ---------- 머리: 한 줄, 반투명 흐림 띠 ---------- */
+.cl-chat__head { flex: none; position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 12px 16px 12px 24px;
+    background: rgba(245, 245, 247, .8); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--chat-line); }
+.cl-chat.is-compact .cl-chat__head { padding: 10px 10px 10px 16px; }
+.cl-chat__head-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.cl-chat__title { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; white-space: nowrap; }
+.cl-chat__sub { font-size: 12px; line-height: 1.35; color: var(--pt-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cl-chat__status { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 1.35; font-weight: 600; color: var(--cl-success); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.cl-chat__icon-btn { width: var(--chat-hit); height: var(--chat-hit); flex: none; border: 0; border-radius: 999px; background: transparent; display: grid; place-items: center; cursor: pointer; }
+.cl-chat__icon-btn:hover { background: rgba(0, 0, 0, .05); }
+.cl-chat__close, .cl-chat__close:hover { background: rgba(210, 210, 215, .64); }
+
+/* 새 대화 확인 */
+.cl-chat__confirm { position: absolute; z-index: 5; top: 68px; right: 12px; width: min(300px, calc(100% - 24px)); padding: 18px; border-radius: 20px; background: #fff; box-shadow: var(--pt-shadow-dialog); display: flex; flex-direction: column; gap: 8px; animation: clChatIn .18s ease-out both; }
+.cl-chat__confirm strong { font-size: 16px; font-weight: 600; }
+.cl-chat__confirm p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--pt-ink-2); }
+.cl-chat__confirm-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+.cl-chat__confirm-actions button { height: var(--chat-small); padding: 0 16px; font-size: 14px; }
+
+/* ---------- 버튼 ---------- */
+.cl-chat__btn-secondary { align-self: flex-start; height: var(--chat-chip); padding: 0 18px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .8); box-shadow: inset 0 0 0 1px rgba(80, 40, 160, .14); color: var(--pt-ink); font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap; }
+.cl-chat__btn-secondary:hover { background: #fff; }
+.cl-chat__btn-primary { height: 48px; padding: 0 28px; border: 0; border-radius: 999px; background: var(--pt-violet); color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.cl-chat__btn-primary:hover { background: var(--pt-violet-ink); }
+.cl-chat__btn-primary:disabled { background: var(--chat-press); color: #7A7A7A; cursor: not-allowed; }
+.cl-chat__confirm-actions .cl-chat__btn-secondary { align-self: auto; }
+
+/* ---------- 대화 ---------- */
+.cl-chat__log { flex: 1; min-height: 0; overflow-y: auto; padding: 24px 28px; display: flex; flex-direction: column; gap: 20px; overscroll-behavior: contain; }
+.cl-chat.is-compact .cl-chat__log { padding: 20px 16px; }
+.cl-chat__msg { display: flex; flex-direction: column; gap: 10px; animation: clChatIn .22s ease-out both; }
+.cl-chat__user { align-self: flex-end; max-width: min(80%, 520px); padding: 10px 16px; border-radius: 18px; background: var(--pt-violet); color: #fff; white-space: pre-wrap; }
+.cl-chat__bot { display: flex; gap: 12px; align-items: flex-start; }
+.cl-chat__avatar { width: 32px; height: 32px; flex: none; border-radius: 999px; background: var(--pt-violet); display: grid; place-items: center; }
+.cl-chat__avatar img { width: 20px; margin-top: 2px; display: block; }
+.cl-chat__head .cl-chat__avatar img { width: 62%; }
+.cl-chat__content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.cl-chat__surface { padding: 16px 20px; border-radius: 18px; background: var(--chat-surface); }
+.cl-chat.is-compact .cl-chat__surface { padding: 12px 16px; }
+.cl-chat__content p { margin: 0; text-wrap: pretty; white-space: pre-line; }
+.cl-chat__content strong { font-weight: 600; }
+.cl-chat__inline-link { color: var(--pt-violet-ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; word-break: break-all; }
+.cl-chat__ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.cl-chat__ol li { display: flex; gap: 10px; align-items: flex-start; font-variant-numeric: tabular-nums; }
+.cl-chat__ol-num { width: 22px; height: 22px; margin-top: 2px; flex: none; border-radius: 999px; background: var(--pt-violet-tint); color: var(--pt-violet-ink); font-size: 12.5px; font-weight: 600; display: grid; place-items: center; }
+.cl-chat__link { align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; color: var(--pt-violet-ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+/* 요금 견적 (답변 면 안의 흰 면, 서버 계산) */
+.cl-chat__quote { padding: 16px 18px; border-radius: 20px; background: #fff; display: flex; flex-direction: column; gap: 10px; }
+.cl-chat__quote-title { font-size: 15px; font-weight: 600; }
+.cl-chat__quote dl { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.cl-chat__quote dl > div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.cl-chat__quote dt { color: var(--pt-ink-2); font-size: 15px; }
+.cl-chat__quote dd { margin: 0; font-size: 15px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cl-chat__quote-totals { padding-top: 10px; border-top: 1px solid #EEE8F7; }
+.cl-chat__quote-totals dt, .cl-chat__quote-totals dd { font-weight: 600; color: var(--pt-ink); }
+.cl-chat__quote-totals > div:last-child dd { color: var(--pt-violet-ink); }
+.cl-chat__quote-notes { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 1.5; color: var(--pt-muted); }
+
+/* 복사 버튼 (접수 번호) */
+.cl-chat__copy { height: var(--chat-hit-sm); padding: 0 12px; border: 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px rgba(80, 40, 160, .14); color: var(--pt-ink); font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; flex: none; white-space: nowrap; }
+.cl-chat__copy.is-copied { color: var(--cl-success); }
+
+/* 첫 화면: 제목 + 자주 찾는 주제 묶음 목록 */
+.cl-chat__welcome { display: flex; flex-direction: column; gap: 28px; padding-top: 12px; }
+.cl-chat__hero { display: flex; flex-direction: column; gap: 8px; }
+.cl-chat__hero h3 { margin: 0; font-size: 40px; font-weight: 600; line-height: 1.1; letter-spacing: -0.03em; }
+.cl-chat.is-compact .cl-chat__hero h3 { font-size: 28px; }
+.cl-chat__hero p { margin: 0; color: var(--pt-muted); text-wrap: pretty; }
+.cl-chat__topics { display: flex; flex-direction: column; gap: 8px; }
+.cl-chat__topics-label { padding-left: 4px; font-size: 14px; font-weight: 600; color: var(--pt-muted); }
+.cl-chat__topic-list { border-radius: 18px; background: var(--chat-surface); overflow: hidden; display: flex; flex-direction: column; }
+.cl-chat__topic { min-height: 60px; padding: 0 0 0 16px; border: 0; background: transparent; display: flex; align-items: center; gap: 14px; text-align: left; cursor: pointer; }
+.cl-chat .cl-chat__topic:active { transform: none; background: var(--chat-press); }
+.cl-chat__topic:hover { background: var(--chat-hover); }
+.cl-chat__topic > svg { color: var(--pt-violet); }
+.cl-chat__topic-row { flex: 1; align-self: stretch; display: flex; align-items: center; gap: 12px; padding: 10px 16px 10px 0; }
+.cl-chat__topic + .cl-chat__topic .cl-chat__topic-row { border-top: 1px solid var(--chat-line); }
+.cl-chat__topic-row > svg { color: var(--chat-chevron); }
+.cl-chat__topic-text { flex: 1; display: flex; flex-direction: column; }
+.cl-chat__topic-label { font-size: 17px; line-height: 1.3; }
+.cl-chat__topic-desc { font-size: 13px; line-height: 1.4; color: var(--pt-muted); }
+.cl-chat .cl-chat__topic:focus-visible { outline-offset: -2px; }
+
+/* 빠른 답 */
+.cl-chat__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cl-chat__chip { height: var(--chat-chip); padding: 0 16px; border: 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--pt-violet); color: var(--pt-violet-ink); font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; cursor: pointer; white-space: nowrap; }
+.cl-chat__chip:hover { background: var(--pt-violet-tint); }
+
+/* 답변 평가 */
+.cl-chat__rate { display: flex; align-items: center; gap: 2px; margin-left: -8px; }
+.cl-chat__rate button { width: var(--chat-hit-sm); height: var(--chat-hit-sm); border: 0; border-radius: 999px; background: transparent; color: var(--pt-muted); display: grid; place-items: center; cursor: pointer; }
+.cl-chat__rate button:hover { background: var(--pt-violet-mist); }
+.cl-chat__rate button[aria-pressed="true"] { background: #fff; color: var(--pt-violet-ink); }
+.cl-chat__rate-down svg { transform: scaleY(-1); }
+.cl-chat__rate-thanks { margin-left: 6px; font-size: 13px; color: var(--pt-muted); }
+
+/* 답변 실패 */
+.cl-chat__err { display: flex; gap: 12px; align-items: flex-start; }
+.cl-chat__err-icon { width: 32px; height: 32px; flex: none; border-radius: 999px; background: var(--cl-danger-bg); color: var(--cl-danger); display: grid; place-items: center; }
+.cl-chat__err .cl-chat__content { gap: 10px; }
+.cl-chat__err .cl-chat__btn-secondary { padding: 0 16px; }
+
+/* 대기: 답변 면과 같은 모양 */
+.cl-chat__pending { display: flex; gap: 12px; align-items: flex-start; animation: clChatIn .22s ease-out both; }
+.cl-chat__pending-body { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.cl-chat__pending-label { font-size: 14px; font-weight: 600; color: var(--pt-muted); }
+.cl-chat__bar { display: block; height: 12px; border-radius: 999px; background: #EEE8F7; animation: clChatPulse 1.6s ease-in-out infinite; }
+.cl-chat__bar:nth-of-type(2) { width: 92%; }
+.cl-chat__bar:nth-of-type(3) { width: 76%; animation-delay: .2s; }
+.cl-chat__bar:nth-of-type(4) { width: 48%; animation-delay: .4s; }
+
+/* ---------- 접수 카드 (답변 면 안의 흰 면) ---------- */
+.cl-chat__card { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-radius: 20px; background: #fff; }
+.cl-chat__card-head { display: flex; flex-direction: column; gap: 2px; }
+.cl-chat__card-head strong { font-size: 16px; font-weight: 600; }
+.cl-chat__card-head span { font-size: 14px; line-height: 1.55; color: var(--pt-muted); }
+.cl-chat__fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; }
+.cl-chat.is-compact .cl-chat__fields { grid-template-columns: minmax(0, 1fr); }
+.cl-chat__field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cl-chat__field label { display: flex; align-items: baseline; gap: 4px; font-size: 14px; font-weight: 600; }
+.cl-chat__req { color: var(--pt-required); }
+.cl-chat__opt { font-size: 13px; font-weight: 500; color: var(--pt-muted); }
+.cl-chat__input { height: 48px; width: 100%; padding: 0 18px; border: 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--pt-input-line); font: inherit; font-size: 16px; letter-spacing: normal; color: inherit; outline: none; }
+.cl-chat__input:focus { box-shadow: inset 0 0 0 2px var(--pt-violet); }
+.cl-chat .cl-chat__input:focus-visible { outline: none; }
+.cl-chat__input[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--cl-danger); }
+.cl-chat__textarea { height: auto; min-height: 120px; padding: 14px 18px; border-radius: 20px; resize: vertical; line-height: 1.5; }
+.cl-chat__field-err { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--cl-danger); }
+.cl-chat__attach { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 20px; border: 1.5px dashed var(--pt-check-line); background: rgba(255, 255, 255, .6); color: var(--pt-muted); }
+.cl-chat__attach-text { flex: 1; display: flex; flex-direction: column; }
+.cl-chat__attach-text b { font-size: 15px; font-weight: 600; color: var(--pt-ink-2); }
+.cl-chat__attach-text span { font-size: 13px; }
+.cl-chat__badge { height: 24px; padding: 0 10px; border-radius: 999px; background: var(--pt-band); color: var(--pt-muted); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap; }
+.cl-chat__agree { display: flex; flex-direction: column; gap: 4px; }
+.cl-chat__agree-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.cl-chat__check { min-height: 44px; padding: 0; border: 0; background: transparent; font-size: 15px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; text-align: left; }
+.cl-chat .cl-chat__check:active { transform: none; }
+.cl-chat__check-box { width: 22px; height: 22px; flex: none; border-radius: 6px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--pt-check-line); display: grid; place-items: center; color: #fff; }
+.cl-chat__check[aria-checked="true"] .cl-chat__check-box { background: var(--pt-violet); box-shadow: none; }
+.cl-chat__check[aria-checked="false"] .cl-chat__check-box svg { visibility: hidden; }
+.cl-chat__check.is-invalid .cl-chat__check-box { box-shadow: inset 0 0 0 1.5px var(--cl-danger); }
+.cl-chat__terms { font-size: 14px; color: var(--pt-muted); text-underline-offset: 3px; }
+.cl-chat__card-foot { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.cl-chat.is-compact .cl-chat__card-foot { align-items: stretch; }
+.cl-chat__card-error { font-size: 13px; color: var(--cl-danger); }
+
+/* 접수 완료 */
+.cl-chat__done { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 20px; background: #fff; }
+.cl-chat__done-head { display: flex; align-items: center; gap: 10px; color: var(--cl-success); }
+.cl-chat__done-head strong { font-size: 17px; font-weight: 600; color: var(--pt-ink); }
+.cl-chat__done-no { display: flex; align-items: center; gap: 12px; min-height: var(--chat-hit); padding: 4px 6px 4px 16px; border-radius: 999px; background: var(--chat-surface); }
+.cl-chat__done-no > span { flex: none; font-size: 13px; color: var(--pt-muted); }
+.cl-chat__done-no b { flex: 1; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; user-select: all; }
+.cl-chat__done p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--pt-ink-2); }
+
+/* ---------- 아래: 행동 줄 · 요청 제한 띠 · 입력창 · 안내 ---------- */
+.cl-chat__foot { flex: none; padding: 12px 24px 16px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--chat-line); background: #fff; }
+.cl-chat.is-compact .cl-chat__foot { padding: 10px 12px 12px; }
+.cl-chat__actions { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.cl-chat__handoff { flex: none; height: var(--chat-action); padding: 0 14px 0 10px; border: 0; border-radius: 999px; background: var(--pt-violet-tint); color: var(--pt-violet-ink); font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; cursor: pointer; }
+.cl-chat__handoff:hover { background: #EBDDFC; }
+.cl-chat__divider { width: 1px; height: 20px; flex: none; background: rgba(0, 0, 0, .1); }
+/* padding 4 + margin -4: 칩 포커스 링(2px + 간격 2px)이 줄 끝에서 잘리지 않게 */
+.cl-chat__follow { flex: 1; min-width: 0; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 4px; margin: -4px; cursor: grab; user-select: none; }
+.cl-chat__follow.is-dragging { cursor: grabbing; }
+.cl-chat__follow.is-dragging .cl-chat__follow-chip { pointer-events: none; }
+.cl-chat__follow::-webkit-scrollbar { display: none; }
+.cl-chat__follow-chip { flex: none; height: var(--chat-action); padding: 0 14px; border: 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px #E0E0E0; color: var(--pt-violet-ink); font-size: 14px; font-weight: 400; white-space: nowrap; cursor: pointer; }
+.cl-chat__follow-chip:hover { background: #FAFAFC; }
+.cl-chat__banner { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 20px; background: var(--cl-warning-bg); color: var(--cl-warning); font-size: 14px; font-weight: 600; }
+.cl-chat__composer { position: relative; display: flex; align-items: flex-end; gap: 8px; padding: 5px 5px 5px 20px; border-radius: 24px; background: var(--chat-surface); }
+.cl-chat__composer:focus-within { box-shadow: inset 0 0 0 2px var(--pt-violet); }
+.cl-chat__composer.is-over { box-shadow: inset 0 0 0 1.5px var(--cl-danger); }
+.cl-chat__composer textarea { flex: 1; min-width: 0; height: 36px; max-height: 144px; padding: 6px 0; overflow-y: hidden; border: 0; outline: none !important; resize: none; background: transparent; font: inherit; font-size: 16px; line-height: 1.5; letter-spacing: normal; color: inherit; }
+.cl-chat__send { width: var(--chat-hit); height: var(--chat-hit); flex: none; border: 0; border-radius: 999px; background: var(--pt-violet); color: #fff; display: grid; place-items: center; cursor: pointer; }
+.cl-chat__send:disabled { background: var(--chat-press); color: #7A7A7A; cursor: not-allowed; }
+.cl-chat__hint { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 0 8px; }
+.cl-chat__hint p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--pt-muted); text-wrap: pretty; }
+.cl-chat__count { flex: none; font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--cl-warning); white-space: nowrap; }
+.cl-chat__count.is-over { color: var(--cl-danger); }
+
+/* ---------- 장애: 기존 문의 폼 ---------- */
+.cl-chat__outage { flex: 1; min-height: 0; overflow-y: auto; padding: 24px 28px; display: flex; flex-direction: column; gap: 16px; }
+.cl-chat.is-compact .cl-chat__outage { padding: 20px 16px; }
+.cl-chat__outage-alert { display: flex; gap: 12px; padding: 16px 18px; border-radius: 20px; background: var(--cl-warning-bg); color: var(--cl-warning); }
+.cl-chat__outage-alert div { display: flex; flex-direction: column; gap: 2px; }
+.cl-chat__outage-alert strong { font-size: 16px; font-weight: 600; }
+.cl-chat__outage-alert span { font-size: 14px; line-height: 1.55; color: var(--pt-ink-2); }
+.cl-chat__outage form { display: flex; flex-direction: column; gap: 16px; }
+.cl-chat__outage .cl-chat__card-foot { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+
+@media (prefers-reduced-motion: reduce) {
+    .cl-chat *, .cl-chat-float { animation: none !important; transition: none !important; }
+    .cl-chat button:active { transform: none !important; }
+}
+
+/* ---------- 떠 있는 버튼 · 패널 ---------- */
+.cl-portal .cl-pt-float { align-items: flex-end; }
+.cl-pt-float__btn { box-shadow: var(--cl-shadow-float); }
+.cl-pt-float__ai { height: 48px; padding: 0 20px 0 16px; border: 0; border-radius: 999px; background: var(--pt-violet); color: #fff; font: inherit; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--pt-shadow-primary); cursor: pointer; white-space: nowrap; }
+.cl-pt-float__ai:hover { background: var(--pt-violet-ink); }
+.cl-pt-float__ai[aria-expanded="true"] { width: 48px; padding: 0; justify-content: center; }
+.cl-pt-float__ai[aria-expanded="true"] .cl-pt-float__ai-label, .cl-pt-float__ai[aria-expanded="true"] .cl-pt-float__ai-open,
+.cl-pt-float__ai[aria-expanded="false"] .cl-pt-float__ai-close { display: none; }
+.cl-pt-float__ai:focus-visible, .cl-pt-float__btn:focus-visible { outline: 2px solid var(--pt-violet); outline-offset: 2px; }
+
+.cl-pt-float__ai:active { transform: scale(.95); }
+/* 열림: 맨 위로 · 카카오톡은 숨고, AI 상담 자리가 닫기(X) 원, 패널은 그 바로 위 */
+.cl-pt-float.is-chat-open .cl-pt-float__btn { display: none !important; }
+.cl-chat-float { position: fixed; z-index: 40; right: 24px; bottom: 92px; width: 380px; height: min(640px, calc(100vh - 124px)); transform-origin: bottom right; animation: clChatPanelIn .2s ease-out both; }
+.cl-chat-float[hidden] { display: none; }
+
+@media (max-width: 640px) {
+    .cl-portal .cl-pt-float { right: 16px; bottom: 24px; }
+    .cl-pt-float__ai { height: 52px; }
+    .cl-pt-float__ai[aria-expanded="true"] { width: 52px; }
+    .cl-chat-float { inset: 0; top: 0; z-index: 80; width: auto; height: 100%; max-height: none; animation: none; }
+    .cl-portal .cl-pt-float--chat-page { display: none; }  /* 고객센터 페이지: 입력창을 가리지 않게. 카카오톡은 아래 안내 카드에 있다 */
+}
+
+/* ---------- 고객센터 페이지 ---------- */
+.cl-pt-hero--support { padding-top: 36px; padding-bottom: 24px; gap: 10px; }
+.cl-pt-hero--support .cl-pt-h1 { font-size: 44px; }
+.cl-pt-hero--support .cl-pt-lead { font-size: 18px; }
+.cl-pt-hero--support .cl-pt-tabs { margin-top: 8px; }
+.cl-pt-support { padding-top: 28px; padding-bottom: 96px; display: flex; gap: 32px; align-items: flex-start; }
+.cl-pt-support__chat { flex: 2 1 0; min-width: 0; height: 720px; }
+.cl-pt-support__side { flex: 1 1 0; min-width: 300px; max-width: 380px; display: flex; flex-direction: column; gap: 12px; }
+@media (max-width: 900px) {
+    .cl-pt-support { flex-direction: column; align-items: stretch; gap: 24px; }
+    .cl-pt-support__chat { flex: none; height: 640px; }
+    .cl-pt-support__side { flex: none; min-width: 0; max-width: none; }
+}
+@media (max-width: 640px) {
+    .cl-pt-hero--support { padding-top: 20px; padding-bottom: 14px; gap: 8px; }
+    .cl-pt-hero--support .cl-pt-h1 { font-size: 28px; line-height: 1.2; }
+    .cl-pt-hero--support .cl-pt-lead { font-size: 15px; line-height: 1.5; }
+    .cl-pt-hero--support .cl-pt-tabs { margin-top: 6px; overflow-x: auto; scrollbar-width: none; }
+    .cl-pt-hero--support .cl-pt-tabs__item { height: 44px; }
+    .cl-portal .cl-pt-support { padding: 16px 12px 40px; gap: 20px; }
+    .cl-pt-support__chat { height: 600px; }
+}

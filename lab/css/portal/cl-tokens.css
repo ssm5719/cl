@@ -1,0 +1,272 @@
+/* 포털 화면 전용 사본 — cloudlearning.lab241.com 2026.10.29 저장본 (고치지 않는다 · 수정은 fixes.js 의 PT 항목) */
+/* 클라우드러닝 리디자인 2차 · 디자인 토큰
+   적용 범위: .cl-scope (기존 CSS와 섞이지 않게 별도 범위)
+   학원 색 교체: --cl-primary 계열 4개만 바꾸면 됩니다. */
+
+.cl-scope {
+  /* 학원별로 바꾸는 4개 */
+  --cl-primary: #904AE8;          /* 주 버튼 · 흰 배경 링크 · 선택 · 포커스 (흰 배경 4.85:1) */
+  --cl-primary-pressed: #7A35D0;  /* 눌림 · 회백색/연보라 위 링크 · 활성 메뉴 글자 (6.47:1) */
+  --cl-primary-on-dark: #B78AF7;  /* 어두운 배경 위 링크 · 강조 (5.67:1 on #272729) */
+  --cl-primary-tint: #F3ECFD;     /* 선택된 행 · 정보 배지 배경 */
+
+  /* 중립 */
+  --cl-ink: #1D1D1F;
+  --cl-ink-2: #3A3A3F;            /* 메뉴 기본 글자 */
+  --cl-ink-muted: #6E6E73;        /* 보조 텍스트 (흰 배경 5.07:1) */
+  --cl-ink-faint: #AEAEB2;        /* 비활성 · 빈 값 표시 (글자 본문 금지) */
+  --cl-control-border: #D2D2D7;
+  --cl-hairline: #E0E0E3;
+  --cl-grid-head: #EDEDF0;        /* 표 머리 · 툴바 구분선 */
+  --cl-grid-row: #F0F0F2;         /* 표 행 · 열 구분선 */
+  --cl-canvas: #FFFFFF;
+  --cl-parchment: #F5F5F7;
+  --cl-sidebar: #F7F7F8;
+  --cl-sidebar-border: #E6E6E9;
+  --cl-hover: #F4F4F6;
+  --cl-surface-dark: #1D1D1F;
+
+  /* 의미 색 — 배지 · 상태 · 진도에만 */
+  --cl-success: #137333;  --cl-success-bg: #E6F4EA;
+  --cl-warning: #9A5200;  --cl-warning-bg: #FEF3E0;
+  --cl-danger:  #C5221F;  --cl-danger-bg:  #FCE8E6;
+
+  /* 진도 · 히트맵 단계 */
+  --cl-heat-0: #F4F4F6;   /* 시작 전 */
+  --cl-heat-1: #E2D3FB;   /* 1~49% */
+  --cl-heat-2: #B78AF7;   /* 50~99% */
+  --cl-heat-3: #7A35D0;   /* 완료 */
+
+  /* 상태 · 보조 색 (직접 적던 색을 토큰으로) */
+  --cl-ink-subtle: #6E6E73;          /* 표 안 아이디 · 보조 정보 (Q4) */
+  --cl-on-ink: #FFFFFF;              /* 진한 배경 위 글자 */
+  --cl-primary-fill: var(--cl-primary);          /* 주 버튼 배경 · 포커스 · 그래프 막대 (T1) */
+  --cl-primary-text: var(--cl-primary-pressed);  /* 링크 · 현재 메뉴 · 연보라 위 글자 — 흰 배경 6.47:1 (T1) */
+  --cl-scrim: rgba(0, 0, 0, .4);                 /* 창 뒤 어둡게 (T1) */
+  --cl-primary-tint-hover: #EADDFB;  /* 연보라 버튼 · 칩 hover */
+  --cl-primary-wash: #F7F3FD;        /* 사진 없는 선생님 칸 · 아이콘 원 바탕 (tint 보다 한 단계 옅게) */
+  --cl-primary-line: #E4D7F8;        /* 연보라 위 흰 버튼의 테두리 (질문하기 등) */
+  --cl-danger-pressed: #A8191A;      /* 삭제 버튼 hover */
+  --cl-row-hover: #FAF7FE;           /* 줄 hover 바탕 — 공개 · 전체강좌 · 작업공간 세 값을 하나로 (AM14, 이전 #FAFAFB) */
+  --cl-track: #ECECEF;               /* 진행 막대 바탕 */
+  --cl-nav-hover: #EFEFF1;           /* 사이드바 · 트리 hover */
+  --cl-danger-on-dark: #FFB4AB;      /* 진한 선택 바 위 삭제 글자 */
+  --cl-warning-tint-hover: #FDE9C8;  /* 경고 칩 hover */
+  --cl-mark-muted: #8E8E93;          /* 회색 막대 · 범례 점 */
+  --cl-heat-1-ink: #4A1F8C;          /* heat-1 위 글자 */
+  --cl-heat-2-ink: #2D1060;          /* heat-2 위 글자 */
+  /* 동영상 플레이어 — 테마와 상관없이 같은 값(영상 위라 늘 어둡다) */
+  --cl-player-bg: #000000; /* 동영상 플레이어 바탕 — 테마와 상관없이 검정 */
+  --cl-player-scrim: rgba(0, 0, 0, .72); /* 조작 줄 아래 그라데이션 끝 */
+  --cl-player-line: rgba(255, 255, 255, .24); /* 진행 막대 바탕 · 배속 버튼 올렸을 때 */
+  --cl-player-buffer: rgba(255, 255, 255, .4); /* 진행 막대 받아 둔 부분 */
+  --cl-player-vol-track: rgba(255, 255, 255, .3); /* 음량 막대 바탕 */
+  --cl-player-hover: rgba(255, 255, 255, .14); /* 버튼 올렸을 때 원 · 배속 버튼 바탕 */
+  --cl-player-hover-soft: rgba(255, 255, 255, .1); /* 배속 목록 줄 올렸을 때 */
+  --cl-player-text-2: rgba(255, 255, 255, .7); /* 전체 시간 글자 */
+  --cl-player-text-3: rgba(255, 255, 255, .6); /* 배속 목록 제목 글자 */
+  --cl-player-panel: rgba(28, 28, 30, .96); /* 배속 목록 바탕 */
+  --cl-player-tip: rgba(0, 0, 0, .8); /* 진행 막대 시간 말풍선 바탕 */
+  --cl-player-center: rgba(0, 0, 0, .55); /* 멈췄을 때 가운데 재생 버튼 바탕 */
+  --cl-player-thumb-shadow: 0 1px 4px rgba(0, 0, 0, .4); /* 진행 막대 손잡이 그림자 */
+  --cl-media-bg: #F4F4F6; /* 사진 · 문서 칸 바탕 */
+  --cl-disabled-bg: #E8E8EB; /* 비활성 버튼 바탕 */
+  --cl-surface-dark-hover: #000000; /* 진한 버튼 hover */
+  --cl-on-ink-faint: #A1A1A6; /* 진한 바탕 위 흐린 글자 */
+  --cl-on-ink-muted: #C7C7CC; /* 진한 바탕 위 보조 글자 */
+  --cl-on-ink-2: #E5E5EA; /* 진한 바탕 위 둘째 글자 */
+
+  /* 타이포 — Pretendard 하나 */
+  --cl-font: 'Pretendard Variable', Pretendard, -apple-system, system-ui, sans-serif;
+  /* 공개 영역 (2a 에디토리얼) */
+  --cl-fs-hero: 104px;          /* 700 / 1.02 / -0.045em · 모바일 40px */
+  --cl-fs-page-title-pub: 56px; /* 700 / 1.1 / -0.04em · 모바일 36px */
+  --cl-fs-display: 40px;        /* 700 / 1.2 / -0.03em */
+  --cl-fs-list-title: 26px;     /* 목차형 강좌명 600 / -0.02em */
+  --cl-fs-lead: 19px;
+  --cl-fs-body-public: 17px;    /* 400 / 1.6 / -0.01em */
+  --cl-fs-body-sm-pub: 15px;    /* 공개 화면 작은 본문 · 탭 · 이름 */
+  --cl-fs-section-pub: clamp(26px, 2.2vw, 32px);  /* 공개 화면 섹션 제목 */
+  /* 작업공간 (1a 조밀한 그리드) */
+  --cl-fs-page-title: 22px;     /* 700 / 1.35 / -0.025em */
+  --cl-fs-section-title: 15px;  /* 700 */
+  --cl-fs-ui: 13.5px;           /* 본문 · 메뉴 · 표 */
+  --cl-fs-table-head: 12.5px;   /* 500 */
+  --cl-fs-caption: 12.5px;
+  --cl-fs-micro: 12px;          /* 배지 500 */
+
+  /* 글자 고정 단계 — 화면(공개 · 작업공간)에 따라 바뀌지 않는 값. 의미 토큰(위)이 맞지 않는 자리에 쓴다. 반 픽셀은 쓰지 않는다 */
+  --cl-fs-10: 10px;  --cl-fs-11: 11px;  --cl-fs-12: 12px;  --cl-fs-13: 13px;  --cl-fs-14: 14px;  --cl-fs-15: 15px;
+  --cl-fs-16: 16px;  --cl-fs-17: 17px;  --cl-fs-18: 18px;  --cl-fs-19: 19px;  --cl-fs-20: 20px;  --cl-fs-21: 21px;
+  --cl-fs-22: 22px;  --cl-fs-24: 24px;  --cl-fs-26: 26px;  --cl-fs-28: 28px;  --cl-fs-32: 32px;  --cl-fs-40: 40px;
+  --cl-fs-56: 56px;  --cl-fs-72: 72px;
+
+  /* 크기 */
+  --cl-h-public-header: 72px;
+  --cl-h-ws-topbar: 56px;
+  --cl-w-ws-sidebar: 240px;
+  --cl-w-page-max: 1680px;      /* 넓은 틀 본문 최대 폭 — 1920 화면에서 사이드바를 뺀 폭 (H7) */
+  --cl-h-nav-item: 30px;
+  --cl-h-table-head: 36px;
+  --cl-h-table-row: 40px;
+  --cl-h-toolbar: 44px;
+  --cl-h-control: 32px;         /* 작업공간 버튼 · 입력 */
+  --cl-h-control-lg: 40px;
+  --cl-h-cta: 52px;             /* 공개 주 행동 */
+  --cl-touch: 44px;             /* 모바일 최소 */
+
+  /* 간격 */
+  --cl-space-1: 4px;  --cl-space-2: 8px;  --cl-space-3: 12px;
+  --cl-space-4: 16px; --cl-space-5: 24px; --cl-space-6: 32px;
+  --cl-space-7: 48px; --cl-space-8: 80px;
+  --cl-ws-gutter: clamp(16px, 2.8cqw, 40px);
+  --cl-pub-gutter: max(20px, calc((100cqw - 1200px) / 2));
+
+  /* 반경 */
+  --cl-radius-3xs: 2px;  /* 진행 막대 끝 · 탭 밑줄 */
+  --cl-radius-xs: 4px;    /* 체크박스 · 히트맵 칸 */
+  --cl-radius-2xs: 6px;  /* 메뉴 줄 · 작은 버튼 · 배지 · 작은 썸네일 */
+  --cl-radius-sm: 8px;    /* 작업공간 버튼 · 입력 · 배지(6) */
+  --cl-radius-md: var(--cl-radius-sm); /* G7: 카드 10 → 8px. 척도에서 지울 토큰 — 영역 CSS 에 남은 사용처를 radius-sm 으로 바꾼 뒤 이 줄을 지운다 */
+  --cl-radius-lg: 12px;   /* 공개 썸네일 · 떠 있는 바 */
+  --cl-radius-xl: 16px;   /* 큰 사진 · 메인 타일 */
+  --cl-radius-control: 4px; /* 버튼 · 입력 칸 · 글 상자 · 선택 칸 · 검색 칸 (2026.10.29) */
+  --cl-radius-pill: 999px;
+
+  /* 깊이 · 움직임 */
+  --cl-ring: 0 0 0 1px var(--cl-sidebar-border);
+  --cl-ring-active: 0 0 0 1px var(--cl-hairline), 0 1px 2px rgba(0,0,0,.04);
+  --cl-shadow-float: 0 8px 24px rgba(0,0,0,.12);
+  --cl-shadow-bulkbar: 0 8px 24px rgba(0,0,0,.18);
+  --cl-glass: rgba(255,255,255,.85);
+  --cl-glass-filter: saturate(180%) blur(20px);
+  --cl-press: scale(0.97);
+  --cl-dur: 150ms;
+  --cl-ease: ease-out;
+  --cl-focus: 2px solid var(--cl-primary);
+  --cl-focus-offset: 2px;
+}
+
+/* 작업공간(학원 관리 · 선생님 · 학생 작업공간) 가독성 보정 — WorkspaceHeader 의 body.cl-ws-body 에만 적용 (공개 화면 · 포털은 그대로)
+   기준: 데이터 화면 본문 14px 이상, 표 행 44px, 보조 글자 대비 흰 배경 6:1 이상, 숫자는 고정폭(표 전체 tabular-nums) */
+.cl-scope.cl-ws-body {
+  --cl-ink-muted: #5E5E63;        /* 보조 텍스트 (흰 배경 6.45:1, 회백색 5.92:1) — 이전 #6E6E73 5.07:1 */
+  --cl-fs-page-title: 24px;       /* 이전 22px */
+  --cl-fs-section-title: 16px;    /* 이전 15px */
+  --cl-fs-ui: 14px;               /* 본문 · 메뉴 · 표 — 이전 13.5px */
+  --cl-fs-table-head: 13px;       /* 이전 12.5px */
+  --cl-fs-caption: 13px;          /* 이전 12.5px */
+  --cl-h-nav-item: 34px;          /* 이전 30px */
+  --cl-h-table-head: 40px;        /* 이전 36px */
+  --cl-h-table-row: 44px;         /* 이전 40px */
+}
+
+/* 공개 화면(학원 사이트)도 작업공간과 같은 가독성 단계 — 본문 14 · 보조 13 (AC1) */
+.cl-scope.cl-pub-body {
+  --cl-fs-ui: 14px;
+  --cl-fs-caption: 13px;
+  --cl-fs-table-head: 13px;
+  --cl-fs-body-sm-pub: 15px;
+  --cl-fs-section-pub: clamp(26px, 2.2vw, 32px);
+}
+
+/* 다크 테마 — <html data-theme="dark"> 일 때. 학원 색 4개는 다크용으로 따로 지정 */
+html[data-theme="dark"] .cl-scope {
+  color-scheme: dark;
+  --cl-primary: #9b5df0;
+  --cl-primary-pressed: #c09af8;
+  --cl-primary-on-dark: #c09af8;
+  --cl-primary-tint: #2e2440;
+  --cl-ink: #f2f2f4;
+  --cl-ink-2: #d6d6da;
+  --cl-ink-muted: #a1a1a6;
+  --cl-ink-subtle: #a1a1a6;
+  --cl-ink-faint: #68686c;
+  --cl-control-border: #4a4a4e;
+  --cl-hairline: #3a3a3d;
+  --cl-grid-head: #333336;
+  --cl-grid-row: #2c2c2f;
+  --cl-canvas: #1c1c1e;
+  --cl-parchment: #141415;
+  --cl-sidebar: #18181a;
+  --cl-sidebar-border: #2c2c2f;
+  --cl-hover: #2a2a2d;
+  --cl-surface-dark: #3a3a3d;
+  --cl-glass: rgba(28,28,30,.85);
+  --cl-success: #4cc38a;
+  --cl-success-bg: #16301f;
+  --cl-warning: #f0a040;
+  --cl-warning-bg: #33270f;
+  --cl-danger: #ff6b5e;
+  --cl-danger-bg: #3a1c1a;
+  --cl-heat-0: #2a2a2d;
+  --cl-heat-1: #3e2d63;
+  --cl-heat-2: #6b45b0;
+  --cl-heat-3: #a57cf5;
+  --cl-on-ink: #ffffff;
+  --cl-primary-tint-hover: #3a2d52;
+  --cl-primary-wash: #241d33;
+  --cl-primary-line: #3a2d52;
+  --cl-danger-pressed: #e5484d;
+  --cl-row-hover: #232326;
+  --cl-track: #333336;
+  --cl-nav-hover: #2a2a2d;
+  --cl-danger-on-dark: #ffb4ab;
+  --cl-warning-tint-hover: #45340f;
+  --cl-mark-muted: #6e6e73;
+  --cl-heat-1-ink: #e4d6fc;
+  --cl-heat-2-ink: #ffffff;
+  --cl-media-bg: #2a2a2d;
+  --cl-disabled-bg: #333336;
+  --cl-surface-dark-hover: #48484c;
+  --cl-on-ink-faint: #a1a1a6;
+  --cl-on-ink-muted: #c7c7cc;
+  --cl-on-ink-2: #e5e5ea;
+  --cl-shadow-float: 0 8px 24px rgba(0,0,0,.5);
+  --cl-shadow-bulkbar: 0 8px 24px rgba(0,0,0,.6);
+}
+/* 진한 먹색 바탕 + 흰 글자였던 곳: 다크에서는 밝은 바탕 + 어두운 글자로 뒤집는다 */
+html[data-theme="dark"] .cl-scope :is(.cl-chip[aria-pressed="true"], .cl-pagination__page.is-current, .cl-toast, .cl-selbar, .cl-skip) { background: var(--cl-ink); color: var(--cl-canvas); }
+html[data-theme="dark"] .cl-scope :is(.cl-selbar__btn, .cl-selbar__close) { color: var(--cl-canvas); }
+html[data-theme="dark"] .cl-scope .cl-selbar__btn.is-danger { color: var(--cl-danger-pressed); }
+html[data-theme="dark"] .cl-scope img:not([src$=".svg"]) { filter: brightness(.92); }
+/* 작성자 글(편집기로 쓴 소개 · 공지 · 과제 · 게시글)은 다크에서도 밝은 판 — 붙여 넣은 글자색 · 바탕, 검은 글자 수식 그림이 쓴 사람이 본 그대로 보이게.
+   글 칸 안에서만 라이트 값으로 되돌린다 (판 모양은 components.css) */
+html[data-theme="dark"] .cl-scope :is(.toastui-editor-contents:not(.ProseMirror):not(.toastui-editor-contents .toastui-editor-contents), .toastui-editor-ww-container) {
+  color-scheme: light;
+  --cl-ink: #1D1D1F;
+  --cl-ink-2: #3A3A3F;
+  --cl-ink-muted: #6E6E73;
+  --cl-ink-subtle: #6E6E73;
+  --cl-ink-faint: #AEAEB2;
+  --cl-control-border: #D2D2D7;
+  --cl-hairline: #E0E0E3;
+  --cl-grid-head: #EDEDF0;
+  --cl-grid-row: #F0F0F2;
+  --cl-canvas: #FFFFFF;
+  --cl-parchment: #F5F5F7;
+  --cl-hover: #F4F4F6;
+  --cl-primary-pressed: #7A35D0;
+}
+html[data-theme="dark"] .cl-scope :is(.toastui-editor-contents:not(.ProseMirror):not(.toastui-editor-contents .toastui-editor-contents), .toastui-editor-ww-container) img { filter: none; }
+
+/* 학원 색 예시 */
+.cl-scope[data-academy-color="blue"]  { --cl-primary:#2F6BDE; --cl-primary-pressed:#1F55BD; --cl-primary-on-dark:#8DB5FF; --cl-primary-tint:#EAF1FD; }
+.cl-scope[data-academy-color="green"] { --cl-primary:#1E7F54; --cl-primary-pressed:#156442; --cl-primary-on-dark:#6FD3A0; --cl-primary-tint:#E6F4EC; }
+
+/* 공통 동작 */
+.cl-scope :is(button, a, [role="button"]):focus-visible { outline: var(--cl-focus); outline-offset: var(--cl-focus-offset); }
+.cl-scope :is(button, [role="button"]):active { transform: var(--cl-press); }
+/* AM14: 카드 테두리도 바탕과 같은 150ms ease-out 으로 */
+.cl-scope :is(button, a) { transition: background var(--cl-dur) var(--cl-ease), color var(--cl-dur) var(--cl-ease), border-color var(--cl-dur) var(--cl-ease), transform var(--cl-dur) var(--cl-ease); }
+.cl-scope .cl-num { font-variant-numeric: tabular-nums; }
+
+/* 반응형 기준 (디자인 기준폭 1440 / 1024 / 390, 기존 분기 1280 / 900 / 500 대응) */
+@media (max-width: 900px) {
+  .cl-scope { --cl-fs-hero: 40px; --cl-fs-page-title-pub: 36px; --cl-fs-display: 28px; }
+  /* 작업공간 사이드바 → 햄버거 서랍, 표 → 카드형 행, 일괄 작업 바 → 하단 sticky */
+}
+
+/* ===== 디자인 1차 05-학원 공개화면 ===== */
+/* AM5 히어로 제목 최대 104 → 80px — 크기(clamp)는 토큰이 들고, 화면 CSS(.cl-home-hero__title)는 var(--cl-fs-hero) 만 읽는다 */
+.cl-scope { --cl-fs-hero: clamp(40px, 5.6vw, 80px); }
