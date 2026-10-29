@@ -1767,15 +1767,23 @@ html[data-theme="dark"] .cl-scope :is(.cl-row__thumb, .cl-card-item__thumb) { bo
     note: '적용 범위 장의 규칙(이미지 칸은 뒤집지 않는다)을 그대로 옮겼다. 실험실 썸네일은 회색 네모(예시)다.'
   },
   {
-    id: 'SL3', group: 7, status: '제안', kind: '마크업', layer: '공통 부품', screens: ['dashboard', 'teachers', 'students', 'students-courses-dlg', 'students-join-dlg', 'students-group-dlg', 'subjects', 'courses', 'notfound', 'teacher-read', 'teacher-edit', 'admins', 'admin-create', 'admin-edit', 'admin-read', 'groups', 'group-edit', 'categories', 'course-list', 'contents', 'cms', 'cms-owner-dlg', 'cms-visibility-dlg', 'cms-usage-dlg', 'board', 'board-view-dlg', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'group-stat-s', 't-learn', 't-progress', 't-group', 't-assign', 't-assign-list', 't-assign-read', 't-assign-stats-dlg', 't-assign-close-dlg', 't-assign-edit-dlg', 't-info', 't-password', 'teacher-create', 'course-create', 'course-edit', 'course-sequence', 'teacher-order', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 't-course-create', 't-course-edit', 't-assign-create', 't-info-edit', 't-group-edit', 't-group-create-dlg', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 't-cms-page', 's-learn', 's-assign', 's-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-complete', 's-assign-read-empty', 's-qna', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-learn-many', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password'],
-    title: '화면 테마 고르기: 기기 설정 · 라이트 · 다크 (계정 메뉴)',
+    id: 'SL3', group: 7, status: '제안', kind: '마크업', layer: '공통 부품', screens: ['dashboard', 'teachers', 'students', 'students-courses-dlg', 'students-join-dlg', 'students-group-dlg', 'subjects', 'courses', 'notfound', 'teacher-read', 'teacher-edit', 'admins', 'admin-create', 'admin-edit', 'admin-read', 'groups', 'group-edit', 'categories', 'course-list', 'contents', 'cms', 'cms-owner-dlg', 'cms-visibility-dlg', 'cms-usage-dlg', 'board', 'board-view-dlg', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'group-stat-s', 't-learn', 't-progress', 't-group', 't-assign', 't-assign-list', 't-assign-read', 't-assign-stats-dlg', 't-assign-close-dlg', 't-assign-edit-dlg', 't-info', 't-password', 'teacher-create', 'course-create', 'course-edit', 'course-sequence', 'teacher-order', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 't-course-create', 't-course-edit', 't-assign-create', 't-info-edit', 't-group-edit', 't-group-create-dlg', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 't-cms-page', 's-learn', 's-assign', 's-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-complete', 's-assign-read-empty', 's-qna', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-learn-many', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-about', 'a-board-empty', 'a-board-read-empty', 'a-board-read', 'a-board', 'a-course-read', 'a-courses-empty', 'a-courses-s', 'a-courses', 'a-main-dash', 'a-main', 'a-player-doc-hwp', 'a-player-doc', 'a-player', 'a-qna-empty', 'a-qna-read-empty', 'a-qna-read', 'a-qna', 'a-teacher-read-empty', 'a-teacher-read', 'a-teachers-empty', 'a-teachers', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg'],
+    title: `화면 테마 고르기 — 로그인한 화면의 계정 메뉴 한 곳에서 [기기 설정 · 라이트 · 다크]`,
+    when: `로그인한 사람이 오른쪽 위 계정(프로필) 버튼을 눌러 메뉴를 열었을 때. 로그인 전 화면 · 포털에는 없음`,
     current: '테마를 고르는 곳이 없다. 다크 토큰은 `html[data-theme="dark"]` 일 때만 켜진다',
-    next: '관리자 · 선생님 · 학생 모두 오른쪽 위 계정 메뉴의 이름 아래에 "화면 테마" 줄 — [기기 설정][라이트][다크] 보기 전환(`cl-segmented`). 처음은 기기 설정(`prefers-color-scheme`)을 따르고, 고르면 이 브라우저에 기억한다',
+    next: `고르는 곳은 계정 메뉴 한 군데로 통일한다.
+| 화면 | 설정 위치 | 처음 값 |
+| 관리자 · 선생님 · 학생 작업공간 | 오른쪽 위 계정 메뉴, 이름 아래 "화면 테마 [기기 설정 · 라이트 · 다크]" | 기기 설정 |
+| 학원 사이트 — 로그인 후 | 머리 프로필 드롭다운(같은 자리 · 같은 모양), 휴대폰은 메뉴 서랍의 계정 묶음 위 | 기기 설정 |
+| 학원 사이트 — 로그인 전(메인 · 소개) · 포털 | 고르는 곳 없음 | 라이트 |
+| 동영상 플레이어 | 원래 검은색 — 따로 없음 | — |
+고른 값은 이 브라우저에 기억한다(여러 기기 맞춤은 나중에 계정 설정 저장으로).`,
     css: `.cl-theme-pick { padding: 2px 10px 8px; display: flex; flex-direction: column; gap: 6px; }
 .cl-theme-pick__label { font-size: var(--cl-fs-micro); font-weight: 500; color: var(--cl-ink-muted); }
 .cl-theme-pick .cl-segmented { width: 100%; }
 .cl-theme-pick .cl-segmented__item { flex: 1; width: auto; padding: 0 8px; font-size: var(--cl-fs-caption); font-weight: 600; white-space: nowrap; }`,
-    markup: '계정 메뉴(`.cl-ws-account` 의 `.cl-menu`) `.cl-menu__head` 바로 아래에 `<div class="cl-theme-pick" role="group" aria-label="화면 테마"><span class="cl-theme-pick__label">화면 테마</span><div class="cl-segmented"><button class="cl-segmented__item" aria-pressed data-theme-pick="system">기기 설정</button>…light 라이트…dark 다크</div></div>` 를 넣는다. 고른 값은 localStorage `cl.theme`(system · light · dark). `<head>` 맨 앞 짧은 스크립트가 첫 화면을 그리기 전에 `<html data-theme>` 를 정한다: 저장값이 light · dark 면 그 값, 아니면 `matchMedia("(prefers-color-scheme: dark)")` 결과. system 일 때는 그 matchMedia 의 change 를 듣고 바로 바꾼다. `meta[name=theme-color]` 도 다크에서는 #1C1C1E 로 바꾼다. 로그인 없이 쓰는 화면(학원 메인 · 소개)은 지금 다크모드 대상이 아니므로 이 스크립트만 공통으로 두고 고르는 칸은 작업공간 계정 메뉴에만 둔다.',
+    markup: `계정 메뉴(\`.cl-ws-account\` 의 \`.cl-menu\`) \`.cl-menu__head\` 바로 아래에 \`<div class="cl-theme-pick" role="group" aria-label="화면 테마"><span class="cl-theme-pick__label">화면 테마</span><div class="cl-segmented"><button class="cl-segmented__item" aria-pressed data-theme-pick="system">기기 설정</button>…light 라이트…dark 다크</div></div>\` 를 넣는다. 고른 값은 localStorage \`cl.theme\`(system · light · dark). \`<head>\` 맨 앞 짧은 스크립트가 첫 화면을 그리기 전에 \`<html data-theme>\` 를 정한다: 저장값이 light · dark 면 그 값, 아니면 \`matchMedia("(prefers-color-scheme: dark)")\` 결과. system 일 때는 그 matchMedia 의 change 를 듣고 바로 바꾼다. \`meta[name=theme-color]\` 도 다크에서는 #1C1C1E 로 바꾼다. 로그인 없이 쓰는 화면(학원 메인 · 소개)은 지금 다크모드 대상이 아니므로 이 스크립트만 공통으로 두고 고르는 칸은 작업공간 계정 메뉴에만 둔다.
+학원 사이트(로그인 후) 머리 프로필 드롭다운에도 같은 마크업을 같은 자리(.cl-menu__head 바로 아래)에 넣는다 — 학생 · 선생님 메뉴 모두. 휴대폰 메뉴 서랍(.cl-pub-drawer)에는 계정 묶음 위에 같은 줄. 로그인 전에는 넣지 않고, <head> 스크립트도 로그인 전 학원 화면 · 포털에서는 저장값과 상관없이 data-theme="light" 로 둔다(배너 · 로고 · 사진이 많은 화면이라 뒤집지 않음). 다크를 켜려면 cl-tokens.css 의 html[data-theme="dark"] 묶음이 함께 배포되어야 한다(실제 사이트에는 아직 없음).`,
     dom: `const menu=doc.querySelector('.cl-ws-account + .cl-menu'), head=menu&&menu.querySelector('.cl-menu__head'); if(!head) return;
 const cur=doc.documentElement.getAttribute('data-theme')||'light';
 const box=doc.createElement('div'); box.className='cl-theme-pick'; box.setAttribute('role','group'); box.setAttribute('aria-label','화면 테마');
@@ -3690,6 +3698,13 @@ play.insertAdjacentHTML('afterend', '<a class="icon lab-jump lab-live" role="but
 /* 3. 음량 — 스피커 + 막대를 한 묶음으로(올리면 펼침) */
 var mute = doc.querySelector('.btn-mute'), vol = doc.querySelector('.volume-wrap'), grp = doc.createElement('div'); grp.className = 'lab-volume';
 mute.before(grp); grp.append(mute, vol);
+/* 스피커를 누르면 음소거 — 아이콘이 X 스피커로, 막대는 0, 다시 누르면 이전 음량으로 */
+var SPK = '<path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"></path><path d="M16 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 6a8.5 8.5 0 0 1 0 12"></path>';
+var MUTED = '<path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"></path><path d="m16 9.5 5 5"></path><path d="m21 9.5-5 5"></path>';
+var gage = doc.querySelector('.volume-gage'), knob = doc.querySelector('.btn-volume-gage');
+var setMute = function (on) { mute.dataset.muted = on ? '1' : ''; mute.innerHTML = I(on ? MUTED : SPK); mute.setAttribute('aria-label', on ? '음소거 해제' : '음소거'); mute.setAttribute('aria-pressed', String(on)); gage.style.width = on ? '0%' : '75%'; knob.style.left = on ? '0%' : '75%'; };
+mute.classList.add('lab-live'); setMute(false);
+mute.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setMute(!mute.dataset.muted); });
 /* 4. 배속 — 숨겨져 있던 재생속도를 오른쪽 글자 버튼으로 */
 var SP = ['0.5', '1.0', '1.2', '1.5', '2.0'];
 var sp = doc.createElement('div'); sp.className = 'lab-speed';
@@ -3708,7 +3723,7 @@ center.addEventListener('click', function (e) { e.preventDefault(); e.stopPropag
 1) #player-footer 배경: 단색 #222 → 위 투명 · 아래 검정 72% 그라데이션, 위 여백 32.
 2) .progress-gage-wrap 을 .player-controller-box 앞(위)으로 옮기고, 누르는 높이 16 · 막대 4(올리면 6) · 동그라미 손잡이 14(올리면 보임) · 올린 위치 시간 말풍선. role="slider", 키보드 ← → 5초.
 3) .btn-stop 삭제. .btn-play 옆에 10초 뒤로 · 앞으로 버튼(이미 있는 time-jump-left/right 동작 재사용).
-4) .btn-mute 와 .volume-wrap 을 한 묶음으로, 막대는 마우스를 올리거나 키보드로 들어갈 때만 펼침(72).
+4) .btn-mute 와 .volume-wrap 을 한 묶음으로, 막대는 마우스를 올리거나 키보드로 들어갈 때만 펼침(72). 스피커를 누르면 음소거 — 아이콘이 X 스피커로 바뀌고(aria-pressed="true", 이름 "음소거 해제") 막대는 0, 다시 누르면 이전 음량으로. 음량을 막대로 0 까지 내려도 같은 X 아이콘.
 5) 숨겨진 .btn-setting 의 재생속도를 오른쪽 글자 버튼 [1.0×] 로 꺼냄 — 위로 열리는 목록 0.5 · 1.0(보통) · 1.2 · 1.5 · 2.0. 고른 값은 학생별로 기억(localStorage).
 6) 멈춘 상태에서 가운데 72 원 재생 버튼(.btn-center-play).
 7) 휴대폰(600 이하): 10초 버튼 · 음량 막대 숨김(두 번 눌러 이동 · 기기 음량), 버튼 36.

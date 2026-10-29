@@ -7216,7 +7216,7 @@
   "proposed": [
     {
       "id": "SL3",
-      "title": "화면 테마 고르기: 기기 설정 · 라이트 · 다크 (계정 메뉴)",
+      "title": "화면 테마 고르기 — 로그인한 화면의 계정 메뉴 한 곳에서 [기기 설정 · 라이트 · 다크]",
       "screens": [
         "dashboard",
         "teachers",
@@ -7314,7 +7314,32 @@
         "s-info-mail",
         "s-info-photo-dlg",
         "s-info-mail-dlg",
-        "s-password"
+        "s-password",
+        "a-about",
+        "a-board-empty",
+        "a-board-read-empty",
+        "a-board-read",
+        "a-board",
+        "a-course-read",
+        "a-courses-empty",
+        "a-courses-s",
+        "a-courses",
+        "a-main-dash",
+        "a-main",
+        "a-player-doc-hwp",
+        "a-player-doc",
+        "a-player",
+        "a-qna-empty",
+        "a-qna-read-empty",
+        "a-qna-read",
+        "a-qna",
+        "a-teacher-read-empty",
+        "a-teacher-read",
+        "a-teachers-empty",
+        "a-teachers",
+        "s-qna-read",
+        "s-qna-edit",
+        "s-qna-delete-dlg"
       ]
     },
     {
