@@ -3591,6 +3591,115 @@ rows.forEach(function (tr) { if (/미채점/.test(tr.children[2].textContent)) {
     targets: [".cl-ta-stats"],
     note: "테스트 사이트(장현석 선생님 계정으로 들어가기)에서 확인 2026.10.29. 실험실에 없던 과제 있는 목록 · 채점 · 통계 · 지금 마감 · 수정 확인 화면을 함께 추가",
   },
+  {
+    id: "NL1",
+    group: 2,
+    status: "제안",
+    kind: "마크업",
+    layer: "화면별",
+    screens: ["player-laby"],
+    title: "동영상 플레이어 조작 줄 — 영상 위 그라데이션 · 진행 막대 위로 · 보라 진행 · 배속 꺼내기 · 정지 빼기",
+    when: "강의 영상을 재생하는 모든 곳(학원 강의 보기 · 선생님 강의 미리보기 · 관리자 콘텐츠 미리보기). 영상 위에 마우스를 올리면 보임",
+    howTo: "관리자 → 콘텐츠 목록 → 콘텐츠 제목 → 미리보기 창 영상 위에 마우스",
+    current: "영상 아래를 진회색 띠(#222)가 덮고, 진행 막대는 그 띠 맨 아래 가는 회색 선(#999 · 4px)이라 지금 위치가 잘 안 보임. 재생 · 정지가 따로 있고 음량 막대(120)가 늘 펼쳐져 있음. 플레이어에 재생속도 · 챕터가 있는데 설정 버튼이 숨겨져 배속을 쓸 수 없음. 색은 흰색 · 회색뿐",
+    next: "조작 줄을 영상 위 그라데이션으로 띄우고 진행 막대를 버튼 위로(본 부분 학원 대표색 · 올리면 굵어지고 손잡이 · 시간 말풍선). 정지 빼고 10초 뒤로 · 앞으로 추가, 음량 막대는 올릴 때만, 오른쪽에 [1.0×] 배속 버튼(0.5 ~ 2.0), 멈추면 가운데 큰 재생 버튼",
+    css: `/* LABY 플레이어 조작 줄 — 영상 위에 뜨는 그라데이션 줄, 진행 막대는 버튼 위, 보라는 본 부분에만 */
+#player-footer { background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .72)); }
+.player-footer-wrap { padding: 32px 12px 8px; }
+/* 진행 막대 — 버튼 줄 위, 누르는 높이 16 · 보이는 굵기 4(올리면 6) */
+.progress-gage-wrap { height: 16px; margin: 0 4px; background: none; display: flex; align-items: center; cursor: pointer; }
+.progress-gage-wrap::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: var(--cl-radius-pill); background: rgba(255, 255, 255, .24); transition: height var(--cl-dur) var(--cl-ease), margin var(--cl-dur) var(--cl-ease); }
+.progress-buffer, .progress-gage { top: 50%; bottom: auto; height: 4px; margin-top: -2px; border-radius: var(--cl-radius-pill); transition: height var(--cl-dur) var(--cl-ease), margin var(--cl-dur) var(--cl-ease); }
+.progress-buffer { background: rgba(255, 255, 255, .4); }
+.progress-gage { background: var(--cl-primary); }
+.progress-gage-btn { display: block; position: absolute; left: 25%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: var(--cl-radius-pill); background: var(--cl-on-ink); box-shadow: 0 1px 4px rgba(0, 0, 0, .4); transform: scale(0); transition: transform var(--cl-dur) var(--cl-ease); }
+.progress-gage-wrap:hover::before, .progress-gage-wrap:hover .progress-buffer, .progress-gage-wrap:hover .progress-gage { height: 6px; margin-top: -3px; }
+.progress-gage-wrap:hover .progress-gage-btn { transform: scale(1); }
+/* 막대 위 시간 미리보기 */
+.lab-seek-tip { position: absolute; bottom: 20px; left: 33%; transform: translateX(-50%); padding: 2px 8px; border-radius: var(--cl-radius-2xs); background: rgba(0, 0, 0, .8); color: var(--cl-on-ink); font-size: var(--cl-fs-12); font-variant-numeric: tabular-nums; opacity: 0; pointer-events: none; transition: opacity var(--cl-dur) var(--cl-ease); }
+.progress-gage-wrap:hover .lab-seek-tip { opacity: 1; }
+/* 버튼 줄 — 누르는 칸 40 · 아이콘 22 · 올리면 옅은 원 */
+.player-controller-box { height: 44px; }
+.left-box, .right-box { gap: 2px; }
+#player-footer a.icon { width: 40px; height: 40px; border-radius: var(--cl-radius-pill); transition: background var(--cl-dur) var(--cl-ease); }
+#player-footer a.icon:hover { background: rgba(255, 255, 255, .14); }
+#player-footer a.icon svg { width: 22px; height: 22px; }
+.btn-stop { display: none !important; }
+.right-box .btn-fullscreen { padding-left: 0; border-left: 0; }
+/* 10초 뒤로 · 앞으로 — 강의 다시 듣기 */
+#player-footer a.lab-jump svg { width: 22px; height: 22px; }
+/* 음량 — 평소엔 스피커만, 올리면 막대가 펼쳐짐 */
+.lab-volume { display: flex; align-items: center; }
+.lab-volume .volume-wrap { width: 0; overflow: hidden; transition: width var(--cl-dur) var(--cl-ease); }
+.lab-volume:hover .volume-wrap, .lab-volume:focus-within .volume-wrap { width: 84px; }
+.volume-gage-wrap { width: 72px; margin: 0 8px 0 4px; height: 4px; border-radius: var(--cl-radius-pill); background: rgba(255, 255, 255, .3); }
+.volume-gage { border-radius: var(--cl-radius-pill); }
+.btn-volume-gage { width: 12px; height: 12px; margin: -6px 0 0 -6px; }
+.playtime-wrap { margin-left: 8px; font-family: var(--cl-font); font-size: var(--cl-fs-13); }
+.playtime-explode, .playtime { color: rgba(255, 255, 255, .7); }
+/* 배속 — 글자 버튼 + 위로 열리는 목록 */
+.lab-speed { position: relative; }
+.lab-speed__btn { height: 32px; min-width: 52px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-pill); background: rgba(255, 255, 255, .14); color: var(--cl-on-ink); font: inherit; font-family: var(--cl-font); font-size: var(--cl-fs-13); font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; }
+.lab-speed__btn:hover, .lab-speed__btn[aria-expanded="true"] { background: rgba(255, 255, 255, .24); }
+.lab-speed__menu { position: absolute; right: 0; bottom: calc(100% + 8px); min-width: 120px; margin: 0; padding: 6px; list-style: none; border-radius: var(--cl-radius-sm); background: rgba(28, 28, 30, .96); box-shadow: var(--cl-shadow-float); }
+.lab-speed__menu[hidden] { display: none; }
+.lab-speed__menu p { margin: 4px 10px 6px; font-size: var(--cl-fs-12); color: rgba(255, 255, 255, .6); }
+.lab-speed__menu button { width: 100%; height: 34px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-2xs); background: none; color: var(--cl-on-ink); display: flex; align-items: center; justify-content: space-between; font: inherit; font-family: var(--cl-font); font-size: var(--cl-fs-14); font-variant-numeric: tabular-nums; cursor: pointer; }
+.lab-speed__menu button:hover { background: rgba(255, 255, 255, .1); }
+.lab-speed__menu button[aria-checked="true"] { color: var(--cl-primary-on-dark); font-weight: 600; }
+/* 멈췄을 때 — 가운데 큰 재생 버튼 */
+.player-center-icon.btn-center-play { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: var(--cl-radius-pill); background: rgba(0, 0, 0, .55); color: var(--cl-on-ink); place-items: center; cursor: pointer; }
+#player-wrap[data-player-state="paused"] .player-center-icon.btn-center-play { display: grid; }
+.player-center-icon svg { width: 32px; height: 32px; margin-left: 4px; }
+/* 휴대폰 — 10초 이동 · 음량 막대는 빼고(두 번 눌러 이동 · 기기 음량), 시간 · 배속 · 전체화면만 */
+@media (max-width: 600px) {
+  .player-footer-wrap { padding: 24px 4px 4px; }
+  #player-footer a.lab-jump, .lab-volume .volume-wrap { display: none; }
+  .playtime-wrap { margin-left: 4px; font-size: var(--cl-fs-12); }
+  #player-footer a.icon { width: 36px; height: 36px; }
+}
+@media (prefers-reduced-motion: reduce) { .progress-gage-wrap::before, .progress-buffer, .progress-gage, .progress-gage-btn, .lab-volume .volume-wrap, .lab-seek-tip { transition: none; } }`,
+    dom: `var w = doc.getElementById('player-wrap'); if (!w || w.dataset.nl1) return; w.dataset.nl1 = '1';
+var I = function (p, fill) { return '<svg viewBox="0 0 24 24" ' + (fill ? 'fill="currentColor"' : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"') + ' aria-hidden="true">' + p + '</svg>'; };
+var PLAY = '<path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"></path>';
+var PAUSE = '<rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect>';
+var foot = doc.querySelector('.player-footer-wrap'), box = doc.querySelector('.player-controller-box'), prog = doc.querySelector('.progress-gage-wrap');
+/* 1. 진행 막대를 버튼 줄 위로 + 시간 미리보기 */
+foot.insertBefore(prog, box); prog.insertAdjacentHTML('beforeend', '<span class="lab-seek-tip">04:10</span>');
+prog.setAttribute('role', 'slider'); prog.setAttribute('aria-label', '재생 위치'); prog.setAttribute('aria-valuetext', '03:12 / 12:40'); prog.tabIndex = 0;
+/* 2. 정지 빼고, 재생 옆에 10초 뒤로 · 앞으로 */
+var play = doc.querySelector('.btn-play');
+play.insertAdjacentHTML('afterend', '<a class="icon lab-jump lab-live" role="button" aria-label="10초 뒤로">' + I('<path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path><text x="12" y="15.5" text-anchor="middle" font-size="7.5" font-weight="700" fill="currentColor" stroke="none" font-family="sans-serif">10</text>') + '</a>' +
+  '<a class="icon lab-jump lab-live" role="button" aria-label="10초 앞으로">' + I('<path d="M21 12a9 9 0 1 1-3-6.7"></path><path d="M21 4v5h-5"></path><text x="12" y="15.5" text-anchor="middle" font-size="7.5" font-weight="700" fill="currentColor" stroke="none" font-family="sans-serif">10</text>') + '</a>');
+/* 3. 음량 — 스피커 + 막대를 한 묶음으로(올리면 펼침) */
+var mute = doc.querySelector('.btn-mute'), vol = doc.querySelector('.volume-wrap'), grp = doc.createElement('div'); grp.className = 'lab-volume';
+mute.before(grp); grp.append(mute, vol);
+/* 4. 배속 — 숨겨져 있던 재생속도를 오른쪽 글자 버튼으로 */
+var SP = ['0.5', '1.0', '1.2', '1.5', '2.0'];
+var sp = doc.createElement('div'); sp.className = 'lab-speed';
+sp.innerHTML = '<button type="button" class="lab-speed__btn lab-live" aria-haspopup="menu" aria-expanded="false" aria-label="재생 속도 1.0배">1.0×</button><div class="lab-speed__menu" role="menu" hidden><p>재생 속도</p>' +
+  SP.map(function (v) { return '<button type="button" role="menuitemradio" class="lab-live" aria-checked="' + (v === '1.0') + '">' + v + '×' + (v === '1.0' ? ' <span>보통</span>' : '') + '</button>'; }).join('') + '</div>';
+doc.querySelector('.btn-fullscreen').before(sp);
+var sb = sp.querySelector('.lab-speed__btn'), menu = sp.querySelector('.lab-speed__menu');
+sb.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); menu.hidden = !menu.hidden; sb.setAttribute('aria-expanded', String(!menu.hidden)); });
+menu.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; e.preventDefault(); e.stopPropagation(); menu.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); }); var v = b.textContent.match(/[\\d.]+/)[0]; sb.textContent = v + '×'; sb.setAttribute('aria-label', '재생 속도 ' + v + '배'); menu.hidden = true; sb.setAttribute('aria-expanded', 'false'); });
+/* 5. 멈춤 · 재생 — 멈추면 가운데 큰 재생 버튼 */
+var center = doc.querySelector('.btn-center-play'); center.innerHTML = I(PLAY, true); center.setAttribute('role', 'button'); center.setAttribute('aria-label', '재생'); center.classList.add('lab-live');
+var setState = function (st) { w.dataset.playerState = st; play.innerHTML = I(st === 'playing' ? PAUSE : PLAY, true); play.setAttribute('aria-label', st === 'playing' ? '일시정지' : '재생'); };
+play.classList.add('lab-live'); play.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState(w.dataset.playerState === 'playing' ? 'paused' : 'playing'); });
+center.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState('playing'); });`,
+    markup: `대상은 학원 사이트가 아니라 LABY 플레이어(cms.atedu.co.kr · video-common.css · lab.View.js). 플레이어는 cl-tokens.css 를 불러오지 않으므로 토큰 값을 그대로 쓰거나 cl-tokens.css 를 함께 불러온다: 본 부분 = 학원 대표색(--cl-primary, 기본 #904AE8 — 학원 색은 플레이어 주소 파라미터로 넘김), 흰 글자 #FFFFFF, 메뉴 선택 글자 #B78AF7.
+1) #player-footer 배경: 단색 #222 → 위 투명 · 아래 검정 72% 그라데이션, 위 여백 32.
+2) .progress-gage-wrap 을 .player-controller-box 앞(위)으로 옮기고, 누르는 높이 16 · 막대 4(올리면 6) · 동그라미 손잡이 14(올리면 보임) · 올린 위치 시간 말풍선. role="slider", 키보드 ← → 5초.
+3) .btn-stop 삭제. .btn-play 옆에 10초 뒤로 · 앞으로 버튼(이미 있는 time-jump-left/right 동작 재사용).
+4) .btn-mute 와 .volume-wrap 을 한 묶음으로, 막대는 마우스를 올리거나 키보드로 들어갈 때만 펼침(72).
+5) 숨겨진 .btn-setting 의 재생속도를 오른쪽 글자 버튼 [1.0×] 로 꺼냄 — 위로 열리는 목록 0.5 · 1.0(보통) · 1.2 · 1.5 · 2.0. 고른 값은 학생별로 기억(localStorage).
+6) 멈춘 상태에서 가운데 72 원 재생 버튼(.btn-center-play).
+7) 휴대폰(600 이하): 10초 버튼 · 음량 막대 숨김(두 번 눌러 이동 · 기기 음량), 버튼 36.
+8) 버튼 누르는 칸 40 · 아이콘 22 · 올리면 흰 14% 원. 전체화면 앞 세로선 삭제. 움직임은 prefers-reduced-motion 에서 끔.`,
+    targets: ["#player-footer", ".progress-gage-wrap", ".player-controller-box"],
+    note: "테스트 사이트 관리자 콘텐츠 미리보기에서 확인(2026.10.29) — 플레이어는 LABY 플레이어 v2.0(video.js 7.21 + 자체 조작 줄). 학원 사이트 CSS 로는 바꿀 수 없어 플레이어 쪽 전달 항목",
+  },
 ];
 
 /* 개발 확인 메모 — 화면 수정이 아니라 권한 · 데이터를 정해야 하는 것. 개발자 전달 탭과 요청서에 따로 나온다. */

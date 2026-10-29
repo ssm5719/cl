@@ -3951,7 +3951,7 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
 .cl-dialog .cl-combo--select .cl-combo__input { flex: 1 1 100%; width: 100%; }
 .cl-dialog .cl-combo--select .cl-combo__options { position: static; flex: 1 1 100%; margin-top: 4px; max-height: 216px; }
 
-/* --- NB1 [확정] 자유게시글 보기 창 — 창 안에서 [새 탭에서 보기] · [수정], 공지 · 조회 표시 --- */
+/* --- NV1 [확정] 자유게시글 보기 창 — 창 안에서 [새 탭에서 보기] · [수정], 공지 · 조회 표시 --- */
 /* 공통 대화상자 · Button 만 쓴다 — 새 CSS 없음 */
 
 /* --- NA1 [확정] 과제 통계 창 — 채점 전 0 · 순위 1 · '미채점 · 0~20점' 을 바로잡기 --- */
@@ -4157,4 +4157,62 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
   .cl-player__doc { aspect-ratio: auto; min-height: 260px; }
   .cl-player__doc > .cl-filecard { position: relative; inset: auto; padding: 32px 20px; }
 }
+
+/* --- NL1 [제안] 동영상 플레이어 조작 줄 — 영상 위 그라데이션 · 진행 막대 위로 · 보라 진행 · 배속 꺼내기 · 정지 빼기 --- */
+/* LABY 플레이어 조작 줄 — 영상 위에 뜨는 그라데이션 줄, 진행 막대는 버튼 위, 보라는 본 부분에만 */
+#player-footer { background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .72)); }
+.player-footer-wrap { padding: 32px 12px 8px; }
+/* 진행 막대 — 버튼 줄 위, 누르는 높이 16 · 보이는 굵기 4(올리면 6) */
+.progress-gage-wrap { height: 16px; margin: 0 4px; background: none; display: flex; align-items: center; cursor: pointer; }
+.progress-gage-wrap::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: var(--cl-radius-pill); background: rgba(255, 255, 255, .24); transition: height var(--cl-dur) var(--cl-ease), margin var(--cl-dur) var(--cl-ease); }
+.progress-buffer, .progress-gage { top: 50%; bottom: auto; height: 4px; margin-top: -2px; border-radius: var(--cl-radius-pill); transition: height var(--cl-dur) var(--cl-ease), margin var(--cl-dur) var(--cl-ease); }
+.progress-buffer { background: rgba(255, 255, 255, .4); }
+.progress-gage { background: var(--cl-primary); }
+.progress-gage-btn { display: block; position: absolute; left: 25%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: var(--cl-radius-pill); background: var(--cl-on-ink); box-shadow: 0 1px 4px rgba(0, 0, 0, .4); transform: scale(0); transition: transform var(--cl-dur) var(--cl-ease); }
+.progress-gage-wrap:hover::before, .progress-gage-wrap:hover .progress-buffer, .progress-gage-wrap:hover .progress-gage { height: 6px; margin-top: -3px; }
+.progress-gage-wrap:hover .progress-gage-btn { transform: scale(1); }
+/* 막대 위 시간 미리보기 */
+.lab-seek-tip { position: absolute; bottom: 20px; left: 33%; transform: translateX(-50%); padding: 2px 8px; border-radius: var(--cl-radius-2xs); background: rgba(0, 0, 0, .8); color: var(--cl-on-ink); font-size: var(--cl-fs-12); font-variant-numeric: tabular-nums; opacity: 0; pointer-events: none; transition: opacity var(--cl-dur) var(--cl-ease); }
+.progress-gage-wrap:hover .lab-seek-tip { opacity: 1; }
+/* 버튼 줄 — 누르는 칸 40 · 아이콘 22 · 올리면 옅은 원 */
+.player-controller-box { height: 44px; }
+.left-box, .right-box { gap: 2px; }
+#player-footer a.icon { width: 40px; height: 40px; border-radius: var(--cl-radius-pill); transition: background var(--cl-dur) var(--cl-ease); }
+#player-footer a.icon:hover { background: rgba(255, 255, 255, .14); }
+#player-footer a.icon svg { width: 22px; height: 22px; }
+.btn-stop { display: none !important; }
+.right-box .btn-fullscreen { padding-left: 0; border-left: 0; }
+/* 10초 뒤로 · 앞으로 — 강의 다시 듣기 */
+#player-footer a.lab-jump svg { width: 22px; height: 22px; }
+/* 음량 — 평소엔 스피커만, 올리면 막대가 펼쳐짐 */
+.lab-volume { display: flex; align-items: center; }
+.lab-volume .volume-wrap { width: 0; overflow: hidden; transition: width var(--cl-dur) var(--cl-ease); }
+.lab-volume:hover .volume-wrap, .lab-volume:focus-within .volume-wrap { width: 84px; }
+.volume-gage-wrap { width: 72px; margin: 0 8px 0 4px; height: 4px; border-radius: var(--cl-radius-pill); background: rgba(255, 255, 255, .3); }
+.volume-gage { border-radius: var(--cl-radius-pill); }
+.btn-volume-gage { width: 12px; height: 12px; margin: -6px 0 0 -6px; }
+.playtime-wrap { margin-left: 8px; font-family: var(--cl-font); font-size: var(--cl-fs-13); }
+.playtime-explode, .playtime { color: rgba(255, 255, 255, .7); }
+/* 배속 — 글자 버튼 + 위로 열리는 목록 */
+.lab-speed { position: relative; }
+.lab-speed__btn { height: 32px; min-width: 52px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-pill); background: rgba(255, 255, 255, .14); color: var(--cl-on-ink); font: inherit; font-family: var(--cl-font); font-size: var(--cl-fs-13); font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; }
+.lab-speed__btn:hover, .lab-speed__btn[aria-expanded="true"] { background: rgba(255, 255, 255, .24); }
+.lab-speed__menu { position: absolute; right: 0; bottom: calc(100% + 8px); min-width: 120px; margin: 0; padding: 6px; list-style: none; border-radius: var(--cl-radius-sm); background: rgba(28, 28, 30, .96); box-shadow: var(--cl-shadow-float); }
+.lab-speed__menu[hidden] { display: none; }
+.lab-speed__menu p { margin: 4px 10px 6px; font-size: var(--cl-fs-12); color: rgba(255, 255, 255, .6); }
+.lab-speed__menu button { width: 100%; height: 34px; padding: 0 10px; border: 0; border-radius: var(--cl-radius-2xs); background: none; color: var(--cl-on-ink); display: flex; align-items: center; justify-content: space-between; font: inherit; font-family: var(--cl-font); font-size: var(--cl-fs-14); font-variant-numeric: tabular-nums; cursor: pointer; }
+.lab-speed__menu button:hover { background: rgba(255, 255, 255, .1); }
+.lab-speed__menu button[aria-checked="true"] { color: var(--cl-primary-on-dark); font-weight: 600; }
+/* 멈췄을 때 — 가운데 큰 재생 버튼 */
+.player-center-icon.btn-center-play { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: var(--cl-radius-pill); background: rgba(0, 0, 0, .55); color: var(--cl-on-ink); place-items: center; cursor: pointer; }
+#player-wrap[data-player-state="paused"] .player-center-icon.btn-center-play { display: grid; }
+.player-center-icon svg { width: 32px; height: 32px; margin-left: 4px; }
+/* 휴대폰 — 10초 이동 · 음량 막대는 빼고(두 번 눌러 이동 · 기기 음량), 시간 · 배속 · 전체화면만 */
+@media (max-width: 600px) {
+  .player-footer-wrap { padding: 24px 4px 4px; }
+  #player-footer a.lab-jump, .lab-volume .volume-wrap { display: none; }
+  .playtime-wrap { margin-left: 4px; font-size: var(--cl-fs-12); }
+  #player-footer a.icon { width: 36px; height: 36px; }
+}
+@media (prefers-reduced-motion: reduce) { .progress-gage-wrap::before, .progress-buffer, .progress-gage, .progress-gage-btn, .lab-volume .volume-wrap, .lab-seek-tip { transition: none; } }
 

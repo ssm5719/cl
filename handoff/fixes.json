@@ -4842,6 +4842,13 @@
         "a-player-doc",
         "a-player-doc-hwp"
       ]
+    },
+    {
+      "id": "NL1",
+      "title": "동영상 플레이어 조작 줄 — 영상 위 그라데이션 · 진행 막대 위로 · 보라 진행 · 배속 꺼내기 · 정지 빼기",
+      "screens": [
+        "player-laby"
+      ]
     }
   ]
 }

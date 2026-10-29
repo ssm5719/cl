@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>동영상 플레이어 (LABY 플레이어) | 클라우드러닝</title>
+<link rel="stylesheet" href="../css/cl-tokens.css">
+<link rel="stylesheet" href="../css/lab-frame.css">
+<style>
+/* 실험실 배치 — 플레이어를 한가운데. 아래 플레이어 CSS 는 실제 서비스(cms.atedu.co.kr LABY 플레이어 v2.0 · video-common.css)의
+   지금 모습을 옮긴 것이라 그 서비스의 값을 그대로 적었다(우리 토큰 밖). 수정안은 fixes.js NL1. */
+body { margin: 0; background: var(--cl-parchment); font-family: var(--cl-font); }
+.lab-stage { max-width: 960px; margin: 0 auto; padding: 40px 24px 64px; }
+.lab-stage__label { margin: 0 0 12px; font-size: var(--cl-fs-caption); color: var(--cl-ink-muted); }
+.lab-stage__label + .lab-stage__label { margin-top: -8px; }
+.lab-stage section + section { margin-top: 40px; }
+
+/* ---- LABY 플레이어 지금 모습 ---- */
+#player-wrap { position: relative; aspect-ratio: 16 / 9; background: #000; overflow: hidden; border-radius: 8px; font-family: NotoKrM, 'Pretendard Variable', sans-serif; user-select: none; }
+#player-body, #video-wrap { position: absolute; inset: 0; }
+.lab-video { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(135deg, #3a3a3d, #1d1d1f); color: rgba(255,255,255,.35); font-size: 14px; }
+.lab-video__slide { width: 46%; aspect-ratio: 4 / 3; border-radius: 4px; background: #e8e8eb; box-shadow: 0 8px 32px rgba(0,0,0,.4); display: flex; flex-direction: column; gap: 10px; padding: 7% 6%; box-sizing: border-box; }
+.lab-video__slide i { display: block; height: 8px; border-radius: 2px; background: #c7c7cc; }
+.player-watermark-wrap { position: absolute; left: 16px; top: 14px; }
+.player-watermark-logo { width: 72px; opacity: .85; }
+.player-center-icon { display: none; }
+#player-footer { position: absolute; left: 0; right: 0; bottom: 0; background: rgb(34,34,34); }
+.player-footer-wrap { padding: 8px 16px 0; }
+.player-controller-box { display: flex; align-items: center; justify-content: space-between; height: 44px; }
+.left-box, .right-box { display: flex; align-items: center; gap: 18px; }
+#player-footer a.icon { position: relative; display: grid; place-items: center; width: 27px; height: 27px; color: #fff; cursor: pointer; }
+#player-footer a.icon svg { width: 20px; height: 20px; }
+.tooltip-text { display: none; }
+.volume-wrap { display: flex; align-items: center; }
+.volume-gage-wrap { position: relative; width: 120px; height: 3px; background: rgba(255,255,255,.3); }
+.volume-gage { position: absolute; left: 0; top: 0; bottom: 0; width: 75%; background: #fff; }
+.btn-volume-gage { position: absolute; left: 75%; top: 50%; width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; border-radius: 50%; background: #fff; }
+.playtime-wrap { display: flex; gap: 4px; font-size: 12.8px; color: #fff; font-variant-numeric: tabular-nums; }
+.playtime-explode, .playtime { color: #888; }
+.right-box .btn-fullscreen { padding-left: 18px; border-left: 1px solid #444; }
+.option-layout, .btn-setting, .btn-chapter, .btn-info { display: none !important; }
+.progress-gage-wrap { position: relative; height: 4px; margin: 6px 0 0; background: #333; }
+.progress-buffer { position: absolute; left: 0; top: 0; bottom: 0; width: 41%; background: #555; }
+.progress-gage { position: absolute; left: 0; top: 0; bottom: 0; width: 25%; background: #999; }
+.progress-gage-btn { display: none; }
+</style></head>
+<body class="cl-scope">
+<div class="lab-stage">
+<p class="lab-stage__label">강의 영상 · 마우스를 올려 조작 줄이 보이는 상태 (재생 중 · 03:12 / 12:40)</p>
+<p class="lab-stage__label">학원 강의 보기 · 선생님 강의 미리보기 · 관리자 콘텐츠 미리보기가 모두 이 플레이어를 끼워 넣어 쓴다</p>
+<section>
+<div id="player-wrap" class="is-hover" data-player-state="playing">
+  <div id="player-body"><div id="video-wrap">
+    <div class="lab-video" aria-hidden="true"><div class="lab-video__slide"><i style="width:62%"></i><i style="width:88%"></i><i style="width:74%"></i><i style="width:0;height:12px;background:none"></i><i style="width:80%"></i><i style="width:56%"></i></div></div>
+    <div class="player-watermark-wrap"><img class="player-watermark-logo" src="../img/image_6acf2b92d8a59.png" alt=""></div>
+    <div class="player-center-icon btn-center-play"></div>
+  </div></div>
+  <div id="player-footer"><div class="player-footer-wrap">
+    <div class="player-controller-box">
+      <div class="left-box">
+        <a class="btn-play icon tooltip" role="button" aria-label="일시정지"><div class="tooltip-text tooltip-top">재생</div><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg></a>
+        <a class="btn-stop icon tooltip" role="button" aria-label="정지"><div class="tooltip-text tooltip-top">정지</div><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1"></rect></svg></a>
+        <a class="btn-mute icon tooltip" role="button" aria-label="음소거"><div class="tooltip-text tooltip-top">음소거</div><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"></path><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></a>
+        <div class="volume-wrap"><span class="volume-gage-wrap"><span class="volume-gage"></span><span class="btn-volume-gage"></span></span></div>
+        <div class="playtime-wrap"><div class="current-playtime">03:12</div><div class="playtime-explode">/</div><div class="playtime">12:40</div></div>
+      </div>
+      <div class="right-box">
+        <div class="setting-view-option option-layout"><div class="option-layout-title">재생속도</div><div class="speed-row">0.5</div><div class="speed-normal active">보통</div><div class="speed-row-fast">1.2</div><div class="speed-fast">1.5</div><div class="speed-high-fast">2.0</div></div>
+        <a class="btn-setting icon tooltip" role="button" aria-label="설정"></a>
+        <a class="btn-fullscreen icon tooltip" role="button" aria-label="확대"><div class="tooltip-text tooltip-top">확대</div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"></path></svg></a>
+      </div>
+    </div>
+    <div class="progress-gage-wrap"><div class="progress-buffer"></div><div class="progress-gage"></div><div class="progress-gage-btn"></div></div>
+  </div></div>
+</div>
+</section>
+</div>
+</body></html>
