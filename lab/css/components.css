@@ -643,7 +643,7 @@ html.lenis, html.lenis body { height: auto; }
 /* 멈췄을 때 가운데 큰 재생 버튼 */
 .cl-vplayer__center { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border: 0; border-radius: var(--cl-radius-pill); background: var(--cl-player-center); color: var(--cl-on-ink); display: none; place-items: center; cursor: pointer; }
 .cl-vplayer[data-state="paused"] .cl-vplayer__center { display: grid; }
-.cl-vplayer__center svg { width: 32px; height: 32px; margin-left: 4px; }
+.cl-vplayer__center svg { width: 32px; height: 32px; } /* 삼각형 무게중심이 원 가운데에 오게 — 따로 밀지 않는다 */
 /* 조작 줄 — 영상 위 아래쪽 그라데이션. 재생 중 3초 가만히 · 밖으로 나가면 .is-idle 로 바로 페이드아웃 */
 .cl-vplayer__bar { position: absolute; left: 0; right: 0; bottom: 0; padding: 32px 12px 8px; background: linear-gradient(to bottom, transparent, var(--cl-player-scrim)); transition: opacity 250ms var(--cl-ease); }
 .cl-vplayer.is-idle .cl-vplayer__bar { opacity: 0; pointer-events: none; }

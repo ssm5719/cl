@@ -1559,7 +1559,7 @@ html { scroll-behavior: smooth; }
 /* 멈췄을 때 — 가운데 큰 재생 버튼 */
 .player-center-icon.btn-center-play { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: var(--cl-radius-pill); background: rgba(0, 0, 0, .55); color: var(--cl-on-ink); place-items: center; cursor: pointer; }
 #player-wrap[data-player-state="paused"] .player-center-icon.btn-center-play { display: grid; }
-.player-center-icon svg { width: 32px; height: 32px; margin-left: 4px; }
+.player-center-icon svg { width: 32px; height: 32px; } /* 삼각형 무게중심이 원 가운데에 오게 — 따로 밀지 않는다 */
 /* 휴대폰 — 10초 이동 · 음량 막대는 빼고(두 번 눌러 이동 · 기기 음량), 시간 · 배속 · 전체화면만 */
 @media (max-width: 600px) {
   .player-footer-wrap { padding: 24px 4px 4px; }
