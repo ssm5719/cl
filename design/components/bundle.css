@@ -2888,10 +2888,6 @@ a.cl-cd-row__title:hover { color: var(--cl-primary-pressed); }
 /* --- B3 [확정] 강좌 이름 14.5px → 14px --- */
 .cl-tc-course__title { font-size: var(--cl-fs-ui); font-weight: 600; }
 
-/* --- C1 [확정] 상단 [새로 만들기]를 연보라로 --- */
-.cl-ws-create__btn.cl-btn--primary { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
-.cl-ws-create__btn.cl-btn--primary:hover { background: var(--cl-primary-tint-hover); }
-
 /* --- C4 [확정] 과목 목록: 강좌 이름 보라 굵게 해제 --- */
 [data-subject-manage] .cl-mt-id { font-weight: 600; color: var(--cl-ink); }
 [data-subject-manage] .cl-mt-id:hover { color: var(--cl-primary-pressed); }

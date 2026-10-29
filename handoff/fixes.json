@@ -4158,29 +4158,6 @@
       "css": ".cl-tc-course__title { font-size: var(--cl-fs-ui); font-weight: 600; }"
     },
     {
-      "id": "C1",
-      "area": "teacher",
-      "layer": "화면별",
-      "work": "프론트 수정",
-      "screens": [
-        "courses",
-        "t-cms-dlg",
-        "t-meeting-dlg",
-        "t-thumb-dlg"
-      ],
-      "title": "상단 [새로 만들기]를 연보라로",
-      "files": [
-        "lab/screens/courses.html",
-        "lab/screens/t-cms-dlg.html",
-        "lab/screens/t-meeting-dlg.html",
-        "lab/screens/t-thumb-dlg.html"
-      ],
-      "current": "`cl-btn--primary` — 본문 [강좌 생성]과 꽉 찬 보라가 둘",
-      "next": "`cl-btn--tint` 모양 (배경 `cl-primary-tint`, 글자 `cl-primary-pressed`)",
-      "markup": "가능하면 CSS 덮어쓰기 대신 버튼 클래스를 `cl-btn--primary` → `cl-btn--tint` 로 바꾼다.",
-      "css": ".cl-ws-create__btn.cl-btn--primary { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }\n.cl-ws-create__btn.cl-btn--primary:hover { background: var(--cl-primary-tint-hover); }"
-    },
-    {
       "id": "C2",
       "area": "admin",
       "layer": "화면별",

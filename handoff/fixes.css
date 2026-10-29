@@ -1,4 +1,4 @@
-/* fixes.css — 확정 수정안 CSS 전부 (2026.10.29, 230건, 층 순서).
+/* fixes.css — 확정 수정안 CSS 전부 (2026.10.29, 229건, 층 순서).
    공통 CSS(01-공통 0번) 다음에 불러오거나, 각 규칙을 원본 파일 안으로 옮긴다. */
 
 /* T1 · 토큰 추가 · 분리 (화면 변화 없음) */
@@ -342,10 +342,6 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
 
 /* B3 · 강좌 이름 14.5px → 14px */
 .cl-tc-course__title { font-size: var(--cl-fs-ui); font-weight: 600; }
-
-/* C1 · 상단 [새로 만들기]를 연보라로 */
-.cl-ws-create__btn.cl-btn--primary { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
-.cl-ws-create__btn.cl-btn--primary:hover { background: var(--cl-primary-tint-hover); }
 
 /* C4 · 과목 목록: 강좌 이름 보라 굵게 해제 */
 [data-subject-manage] .cl-mt-id { font-weight: 600; color: var(--cl-ink); }

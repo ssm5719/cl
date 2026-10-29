@@ -116,14 +116,15 @@ const m=doc.createElement('p'); m.className='cl-page__meta'; m.textContent='강�
     targets: ['.cl-tc-course__title']
   },
   {
-    id: 'C1', group: 3, status: '확정', kind: 'CSS', screens: ['courses', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg'],
+    id: 'C1', group: 3, status: '보류', kind: 'CSS', screens: ['courses', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg'],
     title: '상단 [새로 만들기]를 연보라로',
     current: '`cl-btn--primary` — 본문 [강좌 생성]과 꽉 찬 보라가 둘',
     next: '`cl-btn--tint` 모양 (배경 `cl-primary-tint`, 글자 `cl-primary-pressed`)',
     css: `.cl-ws-create__btn.cl-btn--primary { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
 .cl-ws-create__btn.cl-btn--primary:hover { background: var(--cl-primary-tint-hover); }`,
     markup: '가능하면 CSS 덮어쓰기 대신 버튼 클래스를 `cl-btn--primary` → `cl-btn--tint` 로 바꾼다.',
-    targets: ['.cl-ws-create__btn']
+    targets: ['.cl-ws-create__btn'],
+    note: '보류(2026.10.29 사용자 결정): 디자인시스템 Topbar 대로 상단 [새로 만들기]는 꽉 찬 보라(`cl-btn--primary`) 그대로 둔다. 개발 적용 안 함.'
   },
   {
     id: 'C2', group: 3, status: '확정', kind: '마크업', screens: ['teachers'],
