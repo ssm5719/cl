@@ -3626,7 +3626,7 @@ rows.forEach(function (tr) { if (/미채점/.test(tr.children[2].textContent)) {
     when: "강의 영상을 재생하는 모든 곳(학원 강의 보기 · 선생님 강의 미리보기 · 관리자 콘텐츠 미리보기). 영상 위에 마우스를 올리면 보임",
     howTo: "관리자 → 콘텐츠 목록 → 콘텐츠 제목 → 미리보기 창 영상 위에 마우스",
     current: "영상 아래를 진회색 띠(#222)가 덮고, 진행 막대는 그 띠 맨 아래 가는 회색 선(#999 · 4px)이라 지금 위치가 잘 안 보임. 재생 · 정지가 따로 있고 음량 막대(120)가 늘 펼쳐져 있음. 플레이어에 재생속도 · 챕터가 있는데 설정 버튼이 숨겨져 배속을 쓸 수 없음. 색은 흰색 · 회색뿐",
-    next: "조작 줄을 영상 위 그라데이션으로 띄우고 진행 막대를 버튼 위로(본 부분 학원 대표색 · 올리면 굵어지고 손잡이 · 시간 말풍선). 정지 빼고 10초 뒤로 · 앞으로 추가, 음량 막대는 올릴 때만, 오른쪽에 [1.0×] 배속 버튼(0.5 ~ 2.0), 멈추면 가운데 큰 재생 버튼",
+    next: `조작 줄을 영상 위 그라데이션으로 띄우고 진행 막대를 버튼 위로(본 부분 학원 대표색 · 올리면 굵어지고 손잡이 · 시간 말풍선). 정지 빼고 10초 뒤로 · 앞으로 추가, 음량 막대는 올릴 때만, 오른쪽에 [1.0×] 배속 버튼(0.5 ~ 2.0), 멈추면 가운데 큰 재생 버튼 재생 중 마우스를 3초 멈추거나 밖으로 나가면 조작 줄이 사라지고, 움직이면 다시 보임(유튜브처럼)`,
     css: `/* LABY 플레이어 조작 줄 — 영상 위에 뜨는 그라데이션 줄, 진행 막대는 버튼 위, 보라는 본 부분에만 */
 #player-footer { background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .72)); }
 .player-footer-wrap { padding: 32px 12px 8px; }
@@ -3682,7 +3682,12 @@ rows.forEach(function (tr) { if (/미채점/.test(tr.children[2].textContent)) {
   .playtime-wrap { margin-left: 4px; font-size: var(--cl-fs-12); }
   #player-footer a.icon { width: 36px; height: 36px; }
 }
-@media (prefers-reduced-motion: reduce) { .progress-gage-wrap::before, .progress-buffer, .progress-gage, .progress-gage-btn, .lab-volume .volume-wrap, .lab-seek-tip { transition: none; } }`,
+@media (prefers-reduced-motion: reduce) { .progress-gage-wrap::before, .progress-buffer, .progress-gage, .progress-gage-btn, .lab-volume .volume-wrap, .lab-seek-tip { transition: none; } }
+/* 자동 숨김 — 재생 중 마우스를 3초 멈추거나 영상 밖으로 나가면 조작 줄 · 커서가 사라지고, 움직이면 다시 보인다(유튜브와 같음). 멈춘 상태 · 키보드로 들어온 상태 · 배속 목록이 열린 동안은 늘 보인다 */
+#player-footer { transition: opacity 200ms var(--cl-ease); }
+#player-wrap.is-idle #player-footer { opacity: 0; pointer-events: none; }
+#player-wrap.is-idle { cursor: none; }
+@media (prefers-reduced-motion: reduce) { #player-footer { transition: none; } }`,
     dom: `var w = doc.getElementById('player-wrap'); if (!w || w.dataset.nl1) return; w.dataset.nl1 = '1';
 var I = function (p, fill) { return '<svg viewBox="0 0 24 24" ' + (fill ? 'fill="currentColor"' : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"') + ' aria-hidden="true">' + p + '</svg>'; };
 var PLAY = '<path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"></path>';
@@ -3718,7 +3723,17 @@ menu.addEventListener('click', function (e) { var b = e.target.closest('button')
 var center = doc.querySelector('.btn-center-play'); center.innerHTML = I(PLAY, true); center.setAttribute('role', 'button'); center.setAttribute('aria-label', '재생'); center.classList.add('lab-live');
 var setState = function (st) { w.dataset.playerState = st; play.innerHTML = I(st === 'playing' ? PAUSE : PLAY, true); play.setAttribute('aria-label', st === 'playing' ? '일시정지' : '재생'); };
 play.classList.add('lab-live'); play.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState(w.dataset.playerState === 'playing' ? 'paused' : 'playing'); });
-center.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState('playing'); });`,
+center.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState('playing'); });
+/* 6. 자동 숨김 — 재생 중 3초 가만히 · 밖으로 나가면 1초 뒤 숨김, 움직이면 다시 */
+var idleT = 0, IDLE = 3000, LEAVE = 1000;
+var canHide = function () { return w.dataset.playerState === 'playing' && menu.hidden && !w.querySelector('#player-footer').contains(doc.activeElement); };
+var show = function () { w.classList.remove('is-idle'); clearTimeout(idleT); };
+var hideLater = function (ms) { clearTimeout(idleT); idleT = setTimeout(function () { if (canHide()) w.classList.add('is-idle'); }, ms); };
+w.addEventListener('mousemove', function () { show(); hideLater(IDLE); });
+w.addEventListener('mouseleave', function () { hideLater(LEAVE); });
+w.addEventListener('focusin', show);
+w.addEventListener('touchstart', function () { if (w.classList.contains('is-idle')) { show(); hideLater(IDLE); } }, { passive: true });
+new MutationObserver(function () { if (w.dataset.playerState !== 'playing') show(); else hideLater(IDLE); }).observe(w, { attributes: true, attributeFilter: ['data-player-state'] });`,
     markup: `대상은 학원 사이트가 아니라 LABY 플레이어(cms.atedu.co.kr · video-common.css · lab.View.js). 플레이어는 cl-tokens.css 를 불러오지 않으므로 토큰 값을 그대로 쓰거나 cl-tokens.css 를 함께 불러온다: 본 부분 = 학원 대표색(--cl-primary, 기본 #904AE8 — 학원 색은 플레이어 주소 파라미터로 넘김), 흰 글자 #FFFFFF, 메뉴 선택 글자 #B78AF7.
 1) #player-footer 배경: 단색 #222 → 위 투명 · 아래 검정 72% 그라데이션, 위 여백 32.
 2) .progress-gage-wrap 을 .player-controller-box 앞(위)으로 옮기고, 누르는 높이 16 · 막대 4(올리면 6) · 동그라미 손잡이 14(올리면 보임) · 올린 위치 시간 말풍선. role="slider", 키보드 ← → 5초.
@@ -3727,6 +3742,7 @@ center.addEventListener('click', function (e) { e.preventDefault(); e.stopPropag
 5) 숨겨진 .btn-setting 의 재생속도를 오른쪽 글자 버튼 [1.0×] 로 꺼냄 — 위로 열리는 목록 0.5 · 1.0(보통) · 1.2 · 1.5 · 2.0. 고른 값은 학생별로 기억(localStorage).
 6) 멈춘 상태에서 가운데 72 원 재생 버튼(.btn-center-play).
 7) 휴대폰(600 이하): 10초 버튼 · 음량 막대 숨김(두 번 눌러 이동 · 기기 음량), 버튼 36.
+9) 자동 숨김(유튜브와 같음): 재생 중 영상 위에서 마우스를 3초 움직이지 않거나 영상 밖으로 나가면 1초 뒤 조작 줄 · 그라데이션 · 커서를 0.2초에 걸쳐 숨기고(#player-wrap.is-idle), 마우스를 움직이거나 다시 올리면 바로 보인다. 멈춘 상태 · 키보드로 조작 줄에 들어온 상태 · 배속 목록이 열린 동안은 숨기지 않는다. 휴대폰은 화면을 한 번 누르면 보이고 3초 뒤 숨김(한 번 누를 때 재생이 멈추지 않게 — 보이는 상태에서 누를 때만 재생 · 멈춤).
 8) 버튼 누르는 칸 40 · 아이콘 22 · 올리면 흰 14% 원. 전체화면 앞 세로선 삭제. 움직임은 prefers-reduced-motion 에서 끔.`,
     targets: ["#player-footer", ".progress-gage-wrap", ".player-controller-box"],
     note: "테스트 사이트 관리자 콘텐츠 미리보기에서 확인(2026.10.29) — 플레이어는 LABY 플레이어 v2.0(video.js 7.21 + 자체 조작 줄). 학원 사이트 CSS 로는 바꿀 수 없어 플레이어 쪽 전달 항목",
