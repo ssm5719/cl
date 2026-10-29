@@ -218,7 +218,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   </div>
 </section>
 
-<script src="fixes.js?v=190"></script>
+<script src="fixes.js?v=191"></script>
 <script>
 (function () {
   const SCREENS = [
@@ -381,14 +381,14 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
     doc.documentElement.setAttribute('data-theme', state.theme);
     if (state.mode === 'after') {
       const qq = (state.q || '').trim().toLowerCase(); const exact = (qq && FIXES.find(f => f.id.toLowerCase() === qq)) || (!qq && state.focus && state.focusScreen === state.screen && FIXES.find(f => f.id === state.focus));
-      const active = (exact ? [exact] : forScreen(state.screen)).filter(f => state.on.has(f.id) && (f.screens.includes('all') || f.screens.includes(state.screen)));
+      const active = forScreen(state.screen).filter(f => state.on.has(f.id) && (f.screens.includes('all') || f.screens.includes(state.screen)));
       const st = doc.createElement('style'); st.id = 'lab-fixes';
       st.textContent = active.filter(f => f.css).map(f => `/* ${f.id} */\n${f.css}`).join('\n\n');
       doc.head.append(st);
       active.filter(f => f.dom).forEach(f => { try { new (frame.contentWindow.Function)('doc', f.dom)(doc); } catch (e) { console.warn(f.id, e); } });
       const noteFocus = !qq && state.focus && state.focusScreen === state.screen && NOTES.some(n => n.id === state.focus);
       if (state.mark && !noteFocus) {
-        const sel = active.flatMap(f => f.targets || []).filter(s => { try { return doc.querySelector(s); } catch (e) { return false; } });
+        const sel = (exact ? [exact] : active).flatMap(f => f.targets || []).filter(s => { try { return doc.querySelector(s); } catch (e) { return false; } });
         if (sel.length) { const m = doc.createElement('style'); m.textContent = sel.join(',\n') + ' { outline: 2px dashed #D92D20 !important; outline-offset: 2px; }'; doc.head.append(m); }
       }
     }

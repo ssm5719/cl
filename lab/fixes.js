@@ -1767,7 +1767,7 @@ html[data-theme="dark"] .cl-scope :is(.cl-row__thumb, .cl-card-item__thumb) { bo
     note: '적용 범위 장의 규칙(이미지 칸은 뒤집지 않는다)을 그대로 옮겼다. 실험실 썸네일은 회색 네모(예시)다.'
   },
   {
-    id: 'SL3', group: 7, status: '제안', kind: '마크업', layer: '공통 부품', screens: ['dashboard', 'teachers', 'students', 'students-courses-dlg', 'students-join-dlg', 'students-group-dlg', 'subjects', 'courses', 'notfound', 'teacher-read', 'teacher-edit', 'admins', 'admin-create', 'admin-edit', 'admin-read', 'groups', 'group-edit', 'categories', 'course-list', 'contents', 'cms', 'cms-owner-dlg', 'cms-visibility-dlg', 'cms-usage-dlg', 'board', 'board-view-dlg', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'group-stat-s', 't-learn', 't-progress', 't-group', 't-assign', 't-assign-list', 't-assign-read', 't-assign-stats-dlg', 't-assign-close-dlg', 't-assign-edit-dlg', 't-info', 't-password', 'teacher-create', 'course-create', 'course-edit', 'course-sequence', 'teacher-order', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 't-course-create', 't-course-edit', 't-assign-create', 't-info-edit', 't-group-edit', 't-group-create-dlg', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 't-cms-page', 's-learn', 's-assign', 's-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-complete', 's-assign-read-empty', 's-qna', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-learn-many', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-about', 'a-board-empty', 'a-board-read-empty', 'a-board-read', 'a-board', 'a-course-read', 'a-courses-empty', 'a-courses-s', 'a-courses', 'a-main-dash', 'a-main', 'a-player-doc-hwp', 'a-player-doc', 'a-player', 'a-qna-empty', 'a-qna-read-empty', 'a-qna-read', 'a-qna', 'a-teacher-read-empty', 'a-teacher-read', 'a-teachers-empty', 'a-teachers', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg'],
+    id: 'SL3', group: 7, status: '확정', kind: '마크업', layer: '공통 부품', screens: ['dashboard', 'teachers', 'students', 'students-courses-dlg', 'students-join-dlg', 'students-group-dlg', 'subjects', 'courses', 'notfound', 'teacher-read', 'teacher-edit', 'admins', 'admin-create', 'admin-edit', 'admin-read', 'groups', 'group-edit', 'categories', 'course-list', 'contents', 'cms', 'cms-owner-dlg', 'cms-visibility-dlg', 'cms-usage-dlg', 'board', 'board-view-dlg', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'group-stat-s', 't-learn', 't-progress', 't-group', 't-assign', 't-assign-list', 't-assign-read', 't-assign-stats-dlg', 't-assign-close-dlg', 't-assign-edit-dlg', 't-info', 't-password', 'teacher-create', 'course-create', 'course-edit', 'course-sequence', 'teacher-order', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 't-course-create', 't-course-edit', 't-assign-create', 't-info-edit', 't-group-edit', 't-group-create-dlg', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 't-cms-page', 's-learn', 's-assign', 's-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-complete', 's-assign-read-empty', 's-qna', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-learn-many', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-about', 'a-board-empty', 'a-board-read-empty', 'a-board-read', 'a-board', 'a-course-read', 'a-courses-empty', 'a-courses-s', 'a-courses', 'a-main-dash', 'a-main', 'a-player-doc-hwp', 'a-player-doc', 'a-player', 'a-qna-empty', 'a-qna-read-empty', 'a-qna-read', 'a-qna', 'a-teacher-read-empty', 'a-teacher-read', 'a-teachers-empty', 'a-teachers', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg'],
     title: `화면 테마 고르기 — 로그인한 화면의 계정 메뉴 한 곳에서 [기기 설정 · 라이트 · 다크]`,
     when: `로그인한 사람이 오른쪽 위 계정(프로필) 버튼을 눌러 메뉴를 열었을 때. 로그인 전 화면 · 포털에는 없음`,
     current: '테마를 고르는 곳이 없다. 다크 토큰은 `html[data-theme="dark"]` 일 때만 켜진다',
@@ -2103,7 +2103,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells];
     note: '실험실 목록은 실제 질문 1건(답변 완료)에 답변 대기 1건을 더해 두 가지를 같이 본다. 강좌 링크는 실험실에서 눌러도 움직이지 않는다.'
   },
   {
-    id: 'SQ2', group: 1, status: '제안', kind: 'CSS', layer: '화면별', screens: ['s-qna-read', 's-qna-delete-dlg', 'a-qna-read', 'a-qna-read-empty'],
+    id: 'SQ2', group: 1, status: '확정', kind: 'CSS', layer: '화면별', screens: ['s-qna-read', 's-qna-delete-dlg', 'a-qna-read', 'a-qna-read-empty'],
     title: 'Q&A 상세: 큰 제목 두 개 → 질문 제목 하나',
     current: '머리 띠에 "Q&A" 가 56px 로 크게 있고, 정작 질문 제목은 그 아래 32px. 화면에서 가장 큰 글자가 게시판 이름이라 무슨 질문인지보다 먼저 읽힌다',
     next: '머리 띠는 길 안내(홈 › Q&A › 질문)만 남기고 큰 "Q&A" 는 뺀다. 질문 제목이 화면의 첫 제목이 된다. 띠 위아래 여백도 64 → 24px 로 줄여 질문이 바로 보이게',
@@ -2115,7 +2115,7 @@ t.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells];
     note: '자유게시판 상세도 같은 틀이면 함께 바꾼다.'
   },
   {
-    id: 'SQ3', group: 1, status: '제안', kind: '마크업', layer: '화면별', screens: ['s-qna-read', 's-qna-delete-dlg', 's-qna-detail', 's-qna-detail-dlg', 'a-qna-read', 'a-qna-read-empty'],
+    id: 'SQ3', group: 1, status: '확정', kind: '마크업', layer: '화면별', screens: ['s-qna-read', 's-qna-delete-dlg', 's-qna-detail', 's-qna-detail-dlg', 'a-qna-read', 'a-qna-read-empty'],
     title: 'Q&A 상세: 답변 쓰기 칸을 늘 펼쳐 두지 않기',
     current: '답변이 있든 없든 "답변 쓰기" 편집기(270px)와 파일 첨부가 늘 펼쳐져 있다. 답변을 보러 온 학생에게도 빈 편집기가 화면 절반을 차지한다',
     next: '평소에는 [답변 쓰기] 버튼 하나만. 누르면 그 자리에 편집기가 열린다(과제 상세의 [새로 제출]과 같은 동작). 편집기가 열리면 [취소]로 닫는다',
@@ -2126,10 +2126,10 @@ f.hidden=true; const b=doc.createElement('button'); b.type='button'; b.className
 b.addEventListener('click',e=>{e.preventDefault(); e.stopPropagation(); f.hidden=false; b.hidden=true; try{parent.postMessage({labFit:1},'*')}catch(err){}});
 f.before(b);`,
     targets: ['[data-answer-write]'],
-    note: '실험실에서 [답변 쓰기]를 누르면 편집기가 열린다. 답변이 0건인 질문에서는 바로 펼쳐 두는 쪽이 나을 수 있다 — [정할 것].'
+    note: `실험실에서 [답변 쓰기]를 누르면 편집기가 열린다. 답변이 0건인 질문에서는 바로 펼쳐 두는 쪽이 나을 수 있다 — [정할 것]. 2026.10.29 — 공개 Q&A 상세에서는 NQ5 와 함께 적용한다: 이 항목이 편집기를 접고 [답변 쓰기] 버튼을 만들면, NQ5 가 그 버튼을 [목록으로] 옆 오른쪽 아래로 옮긴다.`
   },
   {
-    id: 'SQ4', group: 4, status: '제안', kind: 'CSS', layer: '화면별', screens: ['s-qna-read', 's-qna-delete-dlg', 's-qna-detail', 's-qna-detail-dlg', 'a-qna-read', 'a-qna-read-empty'],
+    id: 'SQ4', group: 4, status: '확정', kind: 'CSS', layer: '화면별', screens: ['s-qna-read', 's-qna-delete-dlg', 's-qna-detail', 's-qna-detail-dlg', 'a-qna-read', 'a-qna-read-empty'],
     title: 'Q&A 답변: 답변마다 상자를 두지 않고 선으로만 나눈다',
     current: '답변마다 반경 14px 상자(테두리 + 안쪽 여백 18px)가 있고, 선생님 답변은 그 상자가 통째로 연보라(`cl-primary-tint`)다. 상세가 카드 안에 들어가면 카드 테두리 안에 또 상자가 생겨 테두리가 겹치고, 답변이 늘수록 상자가 줄줄이 쌓인다',
     next: '상자를 없앤다 — 테두리 · 바탕 · 반경 모두 빼고 글만 둔다. 답변이 둘 이상이면 답변 사이에만 1px `cl-grid-row` 선을 넣고, 마지막 답변 아래에는 선을 두지 않는다. 답변이 하나면 선도 없다. 누가 썼는지는 지금처럼 "A." 표시와 이름(선생님은 보라 굵은 글자)이 말해 준다',
@@ -2138,7 +2138,7 @@ f.before(b);`,
 .cl-thread__answer:not(:last-child) { padding-bottom: var(--cl-space-5); border-bottom: 1px solid var(--cl-grid-row); }
 @media (max-width: 900px) { .cl-thread__answer, .cl-thread__answer.is-teacher { padding: 0; } .cl-thread__answer:not(:last-child) { padding-bottom: var(--cl-space-4); } }`,
     targets: ['.cl-thread__answer'],
-    note: '연보라 판은 글자 대비가 떨어지고 답변이 여러 개면 보라 덩어리가 된다. 왼쪽 색 띠도 같은 문제를 모양만 바꾼 것이라 함께 뺐다. 내 강의실 상세는 답변 2개(선생님 · 학생)로 두어 사이 선을 볼 수 있게 했다. 공개 상세는 실제대로 답변 1개라 선이 없다.'
+    note: `연보라 판은 글자 대비가 떨어지고 답변이 여러 개면 보라 덩어리가 된다. 왼쪽 색 띠도 같은 문제를 모양만 바꾼 것이라 함께 뺐다. 내 강의실 상세는 답변 2개(선생님 · 학생)로 두어 사이 선을 볼 수 있게 했다. 공개 상세는 실제대로 답변 1개라 선이 없다. 2026.10.29 — 공개 Q&A 상세에서는 NQ5 의 "옅은 회색 판 하나 + 답변 사이 선" 이 최종 모양이다(이 항목의 답변별 상자 없애기 위에 NQ5 를 얹는다). 내 강의실 Q&A 상세(SQ6)는 이 항목 그대로 선으로만.`
   },
   {
     id: 'SQ5', group: 7, status: '제안', kind: 'CSS', layer: '화면별', screens: ['s-qna-read', 's-qna-delete-dlg', 's-qna-edit'],
@@ -2419,7 +2419,7 @@ const rail=doc.querySelector('[data-finder-open]'); if(rail) rail.title=tip;`,
     note: '`.cl-home-head__title` 은 대표 강좌 · 분류별로 찾기 · 선생님 소개 · 학원소개 · 상담 띠 · 오시는 길 여섯 곳에서 같이 쓴다. 한 번에 같이 바뀐다. 히어로 제목(`.cl-home-hero__title`)은 따로다 — 슬라이드도 사진도 없는 학원에서 `clamp(40px, 7.2vw, 104px)` 가 104px 까지 올라가는 문제는 아직 정하지 않았다.'
   },
   {
-    id: 'AM4', group: 5, status: '제안', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-main-dash'],
+    id: 'AM4', group: 5, status: '확정', kind: 'CSS', layer: '화면별', screens: ['a-main', 'a-main-dash'],
     title: '선생님 카드 — 세로형에서 가로형으로',
     current: '사진칸이 216×281px 세로형이고 그 안에 성 한 글자가 56px 로 들어간다. 언어비전은 선생님 12명 전원이 사진을 안 올려서 같은 연보라 네모가 한 줄에 다섯 개 늘어서고 글자만 다르다 — 송 · 장 · 김 · 김 · 변. 사람 목록이 아니라 자음 표처럼 보이고, 같은 성이 둘이면 구분도 안 된다. 소개글도 대부분 비어 있어 카드 아래가 비고 높이가 제각각이다',
     next: '사진을 왼쪽에 작게 두고 오른쪽에 과목 · 이름 · 소개글을 쌓는 가로형 카드로 바꾼다. 사진 비율 10:13 은 그대로 두고 너비만 216 → 88px 로 줄인다(88×114). 이니셜은 56 → 28px. 카드에 테두리와 흰 바탕을 주어 한 사람씩 끊어 읽히게 한다. 선생님 목록 화면(`/user/teacher`)의 `.cl-teacher-card` 와 같은 모양이라, 메인과 목록이 한 부품으로 맞는다',
@@ -2719,7 +2719,7 @@ if (cats && cats.children.length > 6 && !cats.parentNode.querySelector('.cl-home
     note: '`100dvh` 는 휴대폰 주소창이 접히고 펴질 때도 맞는 화면 높이다. 이 단위를 모르는 옛 브라우저는 바로 앞 줄의 `100vh` 를 쓴다 — Chrome · Edge · Safari · Firefox · 삼성 인터넷 모두 같은 결과. 공개 화면 공통 틀이라 학원 메인 · 전체강좌 · 강좌 상세 · Q&A · 로그인까지 모든 공개 화면에 같이 적용된다. 머리의 `position: sticky` 는 flex 안에서도 그대로 동작한다. 실험실 미리보기 창은 1440×900 창을 흉내 내도록 최소 높이를 900 으로 두었다.'
   },
   {
-    id: 'AD6', group: 9, status: '제안', kind: '마크업', layer: '화면별', screens: ['a-course-read'],
+    id: 'AD6', group: 9, status: '확정', kind: '마크업', layer: '화면별', screens: ['a-course-read'],
     title: '[정할 것] 오른쪽 패널을 왼쪽 줄에 맞춰 내리기',
     current: '오른쪽 썸네일은 화면 맨 위(위치 표시 높이)에서 시작하고, 정보 줄은 썸네일 아래에 이어진다. 왼쪽은 머리 → 64 → 탭 → 검은 선 → 강의 목록 순이라 두 열의 가로선이 하나도 맞지 않는다 — 썸네일 아래 끝 · 정보 첫 줄 · 탭 선 · 강의 첫 줄이 모두 다른 높이다',
     next: '**썸네일 아래 끝을 탭 아래 검은 선에 맞추고, 정보 첫 줄을 강의 첫 줄과 같은 높이에서 시작**한다. 두 열이 [머리 | 썸네일] · [강의 목록 | 강좌 정보] 두 층으로 나뉘어, 검은 선 하나가 가로로 화면을 가르는 것처럼 읽힌다. 정보(와 학생 화면의 수강 신청 버튼)는 스크롤해도 지금처럼 따라 내려온다',
@@ -3050,7 +3050,7 @@ if (cats && cats.children.length > 6 && !cats.parentNode.querySelector('.cl-home
     status: "확정",
     kind: "마크업",
     layer: "화면별",
-    screens: ["a-qna-read", "a-qna-read-empty"],
+    screens: ["a-qna-read", "a-qna-read-empty", "s-qna-read", "s-qna-delete-dlg"],
     title: "Q&A 상세 — 답변 배지는 글쓴이 줄로 · 답변은 한 판에 · 버튼은 오른쪽 아래",
     when: "답변이 0개인 질문은 회색 판 대신 빈 상태",
     howTo: "Q&A → 답변대기 질문",
@@ -3124,7 +3124,7 @@ if (foot && w) { var b = Array.prototype.find.call(w.querySelectorAll('button'),
   {
     id: "NP1",
     group: 2,
-    status: "제안",
+    status: "확정",
     kind: "마크업",
     layer: "화면별",
     screens: ["a-player", "a-player-doc", "a-player-doc-hwp"],
@@ -3196,7 +3196,7 @@ content-view.js: 질문 등록은 질문하기 페이지와 같은 POST /api/boa
   {
     id: "NP2",
     group: 2,
-    status: "제안",
+    status: "확정",
     kind: "마크업",
     layer: "화면별",
     screens: ["a-player", "a-player-doc", "a-player-doc-hwp"],
@@ -3267,7 +3267,7 @@ doc.querySelectorAll('.cl-ws-account img[src*="default-person"], .cl-player-teac
   {
     id: "NP3",
     group: 2,
-    status: "제안",
+    status: "확정",
     kind: "마크업",
     layer: "화면별",
     screens: ["a-player-doc", "a-player-doc-hwp"],

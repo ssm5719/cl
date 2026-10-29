@@ -1,12 +1,12 @@
 {
   "date": "2026.10.29",
-  "confirmed": 217,
-  "proposed": 12,
-  "common": 34,
+  "confirmed": 226,
+  "proposed": 3,
+  "common": 39,
   "admin": 89,
   "teacher": 15,
   "student": 32,
-  "public": 46,
+  "public": 50,
   "player": 1,
   "newScreens": [
     "SQ6"
