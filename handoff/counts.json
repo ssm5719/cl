@@ -1,14 +1,15 @@
 {
   "date": "2026.10.29",
-  "confirmed": 226,
-  "proposed": 3,
+  "confirmed": 229,
+  "proposed": 0,
   "common": 39,
   "admin": 89,
   "teacher": 15,
-  "student": 32,
+  "student": 35,
   "public": 50,
   "player": 1,
   "newScreens": [
-    "SQ6"
+    "SQ6",
+    "SB2"
   ]
 }

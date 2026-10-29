@@ -3389,6 +3389,22 @@
       "dom": "const box=doc.querySelector('[data-subjects]'); if(!box) return; const chips=box.querySelectorAll('.cl-chip');\nconst total=parseInt((box.querySelector('.cl-chip .cl-chip__count')||{}).textContent||'0',10);\nif(chips.length<3 || total<7) box.hidden=true;"
     },
     {
+      "id": "LC5",
+      "area": "student",
+      "layer": "공통 부품",
+      "work": "프론트 수정",
+      "screens": [
+        "s-learn-many"
+      ],
+      "title": "과목이 5개를 넘으면 칩 대신 선택 칸",
+      "files": [
+        "lab/screens/s-learn-many.html"
+      ],
+      "current": "칩은 과목 수만큼 늘어난다. 과목이 6~7개가 되면 칩 줄이 두 줄로 접히고, 1280px 이하에서는 보기 전환까지 밀린다. 같은 학생 화면인데 과제 목록은 강좌를 선택 칸(`cl-selectbox`)으로 고른다 — 거르는 방법이 화면마다 다르다",
+      "next": "결정(2026.10.29): 과목이 5개를 넘으면 칩 줄 대신 \"과목 전체\" 선택 칸(과제 목록과 같은 모양)으로 바꾼다. 5개 이하면 칩 그대로(LC4 의 \"걸러서 줄어들 때만 보인다\" 조건도 그대로)",
+      "markup": "`renderSubjects` 에서 `state.subjects.length > 5` 이면 `chipGroup` 대신 과제 목록이 쓰는 선택 칸을 그린다. 고른 값과 개수 표시는 지금과 같다."
+    },
+    {
       "id": "SI2",
       "area": "student",
       "layer": "공통 부품",
@@ -6309,6 +6325,26 @@
       "css": ".cl-thread__list { gap: var(--cl-space-5); }\n.cl-thread__answer, .cl-thread__answer.is-teacher { padding: 0; border: 0; border-radius: 0; background: transparent; }\n.cl-thread__answer:not(:last-child) { padding-bottom: var(--cl-space-5); border-bottom: 1px solid var(--cl-grid-row); }\n@media (max-width: 900px) { .cl-thread__answer, .cl-thread__answer.is-teacher { padding: 0; } .cl-thread__answer:not(:last-child) { padding-bottom: var(--cl-space-4); } }"
     },
     {
+      "id": "SQ5",
+      "area": "student",
+      "layer": "화면별",
+      "work": "프론트 수정",
+      "screens": [
+        "s-qna-read",
+        "s-qna-delete-dlg",
+        "s-qna-edit"
+      ],
+      "title": "로그인 후 Q&A · 자유게시판 상세도 다크 범위에 — 목록 → 상세에서 화면이 하얘지지 않게",
+      "files": [
+        "lab/screens/s-qna-read.html",
+        "lab/screens/s-qna-delete-dlg.html",
+        "lab/screens/s-qna-edit.html"
+      ],
+      "current": "목록(내 강의실)은 작업공간이라 다크로 바뀌지만, 제목을 누르면 열리는 상세 · 수정은 공개 화면(`public.css` · `cl-pub-body`)이라 밝은 채로 남는다. 밤에 쓰면 목록 → 상세에서 화면이 한 번 하얘진다",
+      "next": "결정(2026.10.29): ①+②. 학원 사이트 로그인 후 화면은 SL3 화면 테마를 따르므로 Q&A · 자유게시판 상세 · 질문 수정도 다크 범위에 넣는다(공개 화면 토큰은 이미 var(--cl-…) — 머리 · 푸터 · 글 본문 · 편집기만 확인). 학생은 나의 강의실 안 새 상세(SQ6 Q&A · SB2 자유게시판)로 들어가므로 목록 → 상세에서 끊기지 않는다. 로그인 전 학원 화면은 라이트 고정(SL3)",
+      "markup": "디자인시스템 적용 범위(design/scope.md) \"다크모드 범위\" 표의 \"학원 페이지 — 로그인 후\" 에 게시판 상세 · 질문 수정을 포함한다. 편집기(Toast UI)는 다크 테마 클래스(toastui-editor-dark)를 data-theme 에 맞춰 붙인다. 올린 이미지 칸은 뒤집지 않는다."
+    },
+    {
       "id": "SQ6",
       "area": "student",
       "layer": "화면별",
@@ -6347,6 +6383,30 @@
       "markup": "`posts.js` 의 자유게시판 행에서 칸 순서를 제목 · 댓글 · 조회 · 작성일 로 바꾼다. 댓글 수는 `<span class=\"cl-brd-count is-on\">`(1 이상) 또는 `<span class=\"cl-brd-count\">`(0), 조회는 `<span class=\"cl-brd-views\">`. 표에 `cl-brd-table`.",
       "css": ".cl-brd-table { table-layout: fixed; }\n.cl-brd-table th:nth-child(1) { width: 56%; }\n.cl-brd-table th:nth-child(2), .cl-brd-table th:nth-child(3) { width: 12%; }\n.cl-brd-table th:nth-child(4) { width: auto; }\n.cl-brd-table .cl-table__title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere; }\n.cl-brd-count { color: var(--cl-ink-faint); }\n.cl-brd-count.is-on { color: var(--cl-primary-pressed); font-weight: 600; }\n.cl-brd-views { color: var(--cl-ink-muted); }",
       "dom": "const t=doc.querySelector('[data-post-type=\"free\"] .cl-table'); if(!t) return; t.classList.add('cl-brd-table');\nt.querySelector('thead tr').innerHTML='<th scope=\"col\">제목</th><th scope=\"col\" class=\"cl-table__num\">댓글</th><th scope=\"col\" class=\"cl-table__num\">조회</th><th scope=\"col\">작성일</th>';\nt.querySelectorAll('tbody tr').forEach(tr=>{const c=[...tr.cells]; const n=parseInt(c[2].textContent.trim(),10)||0;\n  c[2].innerHTML='<span class=\"cl-brd-count'+(n>0?' is-on':'')+'\">'+n+'</span>';\n  c[3].innerHTML='<span class=\"cl-brd-views\">'+c[3].textContent.trim()+'</span>';\n  tr.append(c[1]);});"
+    },
+    {
+      "id": "SB2",
+      "area": "student",
+      "layer": "화면별",
+      "work": "프론트 수정",
+      "screens": [
+        "s-board",
+        "s-board-detail",
+        "s-board-detail-dlg",
+        "s-board-write"
+      ],
+      "title": "자유게시판 상세 · 글쓰기를 내 강의실 안에 새로 만든다 (새 화면)",
+      "files": [
+        "lab/screens/s-board.html",
+        "lab/screens/s-board-detail.html",
+        "lab/screens/s-board-detail-dlg.html",
+        "lab/screens/s-board-write.html"
+      ],
+      "current": "\"나의 글 목록 › 자유게시판\" 은 내 강의실인데, 제목을 누르면 학원 공개 게시글(`/user/board/read/{uid}`)로, [글쓰기]를 누르면 공개 글쓰기(`/user/board/write`)로 나간다. 사이드바가 사라지고 상단이 학원 메뉴로 바뀐다. 쓰거나 지운 뒤에도 공개 목록으로 가서 내 강의실로 돌아오지 못한다. Q&A 와 같은 문제다(SQ6)",
+      "next": "내 강의실 안에 상세(`/user/student/post/board/{uid}`)와 글쓰기(`/user/student/post/board/write`)를 만든다. 공개 화면에 있는 것을 모두 담는다 — 상세는 제목 · 작성자 · 날짜 · 조회 · [공유] · [인쇄] · [수정] · [삭제] · 본문 · 댓글(입력 칸 · 목록 · 삭제), 글쓰기는 제목 · 내용(1,000자) · 첨부파일 · [취소] · [등록]. 돌아가는 길은 위 \"자유게시판\" 과 아래 [목록으로] 두 곳. 쓰거나 지운 뒤에도 이 목록으로 돌아온다",
+      "markup": "Q&A 상세(SQ6)와 같은 틀을 쓴다: `cl-back` → 제목 + 오른쪽 동작 버튼 → `cl-page__meta`(작성자 · 날짜 · 조회) → 본문 카드 → 댓글 카드 → 아래 [목록으로]. 글쓰기도 같은 틀에 폼을 카드 하나로 담고 [취소] · [등록]은 카드 밖 오른쪽. 공개 화면에서 `cl-btn--text` 였던 [공유] · [인쇄] · [수정] · [삭제]는 작업공간 기준에 맞춰 `cl-btn--ghost --sm` 으로 바꾼다(머리 줄에서 글자만 있는 버튼은 누를 곳이 좁다). 글 · 댓글 부품(`cl-post__body` · `cl-comment` 묶음)은 공개와 작업공간 두 곳에서 쓰게 되므로 공통층(`components.css`)으로 올린다 — Q&A 와 같은 묶음이라 한 번에 옮긴다. 카드로 감쌀 때 공개 화면의 구역 클래스(`cl-comments` · `cl-thread__others`)는 쓰지 않는다 — 그 클래스의 `padding-top` 과 `border-top` 이 카드 안쪽 여백과 카드 위 테두리를 덮어써 테두리가 한쪽만 사라진다. 카드에는 세로 배치 · 간격만 주고, 댓글 제목 · 입력 칸 · 목록은 지금 클래스를 그대로 쓴다.",
+      "server": "지금 API 를 그대로 쓴다(`/api/boards/{uid}`, `/api/board/comments`). 새 주소에서도 작성자 본인 확인(isOwner)이 되는지만 확인한다.",
+      "spec": "새 화면 2개 — 학생 \"게시글 상세 · 내 강의실\", \"글쓰기 · 내 강의실\"\n- 주소: /user/student/post/board/{uid} (상세), /user/student/post/board/write (글쓰기)\n- 틀: 학생 작업공간 — SQ6 와 같은 틀\n- 마크업 기준: lab/screens/s-board-detail.html, lab/screens/s-board-write.html 의 <main> 안. 삭제 확인 창은 lab/screens/s-board-detail-dlg.html\n- 데이터: GET /api/boards/{uid} (글), GET · POST /api/board/comments (댓글), 글쓰기는 지금 공개 글쓰기와 같은 POST · 편집기(Toast UI)\n- 상태: 댓글 있음 / 없음(빈 상태 --sm \"아직 댓글이 없습니다\") / 내 글이면 [수정] · [삭제] 보임(isOwner)\n- 목록 연결: 학생 자유게시판 목록(s-board) 제목 링크와 [글쓰기] 버튼을 새 주소로 바꾼다\n- 공통층 이동: cl-post__body · cl-comment 묶음을 components.css 로(SQ6 과 함께)"
     },
     {
       "id": "SB3",
@@ -7674,32 +7734,5 @@
       "dom": "var w = doc.getElementById('player-wrap'); if (!w || w.dataset.nl1) return; w.dataset.nl1 = '1';\nvar I = function (p, fill) { return '<svg viewBox=\"0 0 24 24\" ' + (fill ? 'fill=\"currentColor\"' : 'fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"') + ' aria-hidden=\"true\">' + p + '</svg>'; };\nvar PLAY = '<path d=\"M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z\"></path>';\nvar PAUSE = '<rect x=\"6\" y=\"5\" width=\"4\" height=\"14\" rx=\"1\"></rect><rect x=\"14\" y=\"5\" width=\"4\" height=\"14\" rx=\"1\"></rect>';\nvar foot = doc.querySelector('.player-footer-wrap'), box = doc.querySelector('.player-controller-box'), prog = doc.querySelector('.progress-gage-wrap');\n/* 1. 진행 막대를 버튼 줄 위로 + 시간 미리보기 */\nfoot.insertBefore(prog, box); prog.insertAdjacentHTML('beforeend', '<span class=\"lab-seek-tip\">04:10</span>');\nprog.setAttribute('role', 'slider'); prog.setAttribute('aria-label', '재생 위치'); prog.setAttribute('aria-valuetext', '03:12 / 12:40'); prog.tabIndex = 0;\n/* 2. 정지 빼고, 재생 옆에 10초 뒤로 · 앞으로 */\nvar play = doc.querySelector('.btn-play');\nplay.insertAdjacentHTML('afterend', '<a class=\"icon lab-jump lab-live\" role=\"button\" aria-label=\"10초 뒤로\">' + I('<path d=\"M3 12a9 9 0 1 0 3-6.7\"></path><path d=\"M3 4v5h5\"></path><text x=\"12\" y=\"15.5\" text-anchor=\"middle\" font-size=\"7.5\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" font-family=\"sans-serif\">10</text>') + '</a>' +\n  '<a class=\"icon lab-jump lab-live\" role=\"button\" aria-label=\"10초 앞으로\">' + I('<path d=\"M21 12a9 9 0 1 1-3-6.7\"></path><path d=\"M21 4v5h-5\"></path><text x=\"12\" y=\"15.5\" text-anchor=\"middle\" font-size=\"7.5\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" font-family=\"sans-serif\">10</text>') + '</a>');\n/* 3. 음량 — 스피커 + 막대를 한 묶음으로(올리면 펼침) */\nvar mute = doc.querySelector('.btn-mute'), vol = doc.querySelector('.volume-wrap'), grp = doc.createElement('div'); grp.className = 'lab-volume';\nmute.before(grp); grp.append(mute, vol);\n/* 스피커를 누르면 음소거 — 아이콘이 X 스피커로, 막대는 0, 다시 누르면 이전 음량으로 */\nvar SPK = '<path d=\"M4 9h4l5-4v14l-5-4H4z\" fill=\"currentColor\" stroke=\"none\"></path><path d=\"M16 8.5a5 5 0 0 1 0 7\"></path><path d=\"M18.5 6a8.5 8.5 0 0 1 0 12\"></path>';\nvar MUTED = '<path d=\"M4 9h4l5-4v14l-5-4H4z\" fill=\"currentColor\" stroke=\"none\"></path><path d=\"m16 9.5 5 5\"></path><path d=\"m21 9.5-5 5\"></path>';\nvar gage = doc.querySelector('.volume-gage'), knob = doc.querySelector('.btn-volume-gage');\nvar setMute = function (on) { mute.dataset.muted = on ? '1' : ''; mute.innerHTML = I(on ? MUTED : SPK); mute.setAttribute('aria-label', on ? '음소거 해제' : '음소거'); mute.setAttribute('aria-pressed', String(on)); gage.style.width = on ? '0%' : '75%'; knob.style.left = on ? '0%' : '75%'; };\nmute.classList.add('lab-live'); setMute(false);\nmute.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setMute(!mute.dataset.muted); });\n/* 4. 배속 — 숨겨져 있던 재생속도를 오른쪽 글자 버튼으로 */\nvar SP = ['0.5', '1.0', '1.2', '1.5', '2.0'];\nvar sp = doc.createElement('div'); sp.className = 'lab-speed';\nsp.innerHTML = '<button type=\"button\" class=\"lab-speed__btn lab-live\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-label=\"재생 속도 1.0배\">1.0×</button><div class=\"lab-speed__menu\" role=\"menu\" hidden><p>재생 속도</p>' +\n  SP.map(function (v) { return '<button type=\"button\" role=\"menuitemradio\" class=\"lab-live\" aria-checked=\"' + (v === '1.0') + '\">' + v + '×' + (v === '1.0' ? ' <span>보통</span>' : '') + '</button>'; }).join('') + '</div>';\ndoc.querySelector('.btn-fullscreen').before(sp);\nvar sb = sp.querySelector('.lab-speed__btn'), menu = sp.querySelector('.lab-speed__menu');\nsb.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); menu.hidden = !menu.hidden; sb.setAttribute('aria-expanded', String(!menu.hidden)); });\nmenu.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; e.preventDefault(); e.stopPropagation(); menu.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); }); var v = b.textContent.match(/[\\d.]+/)[0]; sb.textContent = v + '×'; sb.setAttribute('aria-label', '재생 속도 ' + v + '배'); menu.hidden = true; sb.setAttribute('aria-expanded', 'false'); });\n/* 5. 멈춤 · 재생 — 멈추면 가운데 큰 재생 버튼 */\nvar center = doc.querySelector('.btn-center-play'); center.innerHTML = I(PLAY, true); center.setAttribute('role', 'button'); center.setAttribute('aria-label', '재생'); center.classList.add('lab-live');\nvar setState = function (st) { w.dataset.playerState = st; play.innerHTML = I(st === 'playing' ? PAUSE : PLAY, true); play.setAttribute('aria-label', st === 'playing' ? '일시정지' : '재생'); };\nplay.classList.add('lab-live'); play.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState(w.dataset.playerState === 'playing' ? 'paused' : 'playing'); });\ncenter.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState('playing'); });\n/* 6. 자동 숨김 — 재생 중 3초 가만히 있거나 밖으로 나가면 바로 페이드아웃, 움직이면 다시 */\nvar idleT = 0, IDLE = 3000;\nvar canHide = function () { return w.dataset.playerState === 'playing' && menu.hidden && !w.querySelector('#player-footer').contains(doc.activeElement); };\nvar show = function () { w.classList.remove('is-idle'); clearTimeout(idleT); };\nvar hideLater = function (ms) { clearTimeout(idleT); idleT = setTimeout(function () { if (canHide()) w.classList.add('is-idle'); }, ms); };\nw.addEventListener('mousemove', function () { show(); hideLater(IDLE); });\nw.addEventListener('mouseleave', function () { clearTimeout(idleT); if (canHide()) w.classList.add('is-idle'); });\nw.addEventListener('focusin', show);\nw.addEventListener('touchstart', function () { if (w.classList.contains('is-idle')) { show(); hideLater(IDLE); } }, { passive: true });\nnew MutationObserver(function () { if (w.dataset.playerState !== 'playing') show(); else hideLater(IDLE); }).observe(w, { attributes: true, attributeFilter: ['data-player-state'] });"
     }
   ],
-  "proposed": [
-    {
-      "id": "SQ5",
-      "title": "[정할 것] Q&A 상세 · 질문 수정은 공개 화면이라 다크모드가 끊긴다",
-      "screens": [
-        "s-qna-read",
-        "s-qna-delete-dlg",
-        "s-qna-edit"
-      ]
-    },
-    {
-      "id": "SB2",
-      "title": "자유게시판 상세 · 글쓰기를 내 강의실 안에 새로 만든다 (새 화면)",
-      "screens": [
-        "s-board",
-        "s-board-detail",
-        "s-board-detail-dlg",
-        "s-board-write"
-      ]
-    },
-    {
-      "id": "LC5",
-      "title": "[정할 것] 과목이 많아지면 칩 대신 선택 칸",
-      "screens": [
-        "s-learn-many"
-      ]
-    }
-  ]
+  "proposed": []
 }
