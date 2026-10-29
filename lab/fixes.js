@@ -3460,7 +3460,7 @@ if (!doc.getElementById('lab-cancel-dlg')) {
     group: 1,
     status: "확정",
     kind: "마크업",
-    layer: "공통",
+    layer: "공통 부품",
     screens: ["a-main", "a-main-dash", "a-about", "a-course-read", "a-player", "a-player-doc", "a-player-doc-hwp", "a-teacher-read", "a-teacher-read-empty"],
     title: "공개 화면 버튼 · 링크를 공통 Button · IconButton 으로 — 화면 전용 버튼 7종 정리",
     current: "같은 알약 버튼이 화면마다 다른 클래스(.cl-cd-pill · .cl-home-pill · .cl-home-btn · .cl-home-slider__ctl · .cl-home-tile__more · .cl-home-more)로 따로 만들어져 높이 36 · 40 · 44 · 48, 글자 14 · 15 · 17 이 섞여 있음",
