@@ -218,7 +218,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
   </div>
 </section>
 
-<script src="fixes.js?v=189"></script>
+<script src="fixes.js?v=190"></script>
 <script>
 (function () {
   const SCREENS = [
@@ -426,7 +426,7 @@ select.scr { height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--line)
       }, true);
       pan.querySelectorAll('a, button').forEach(x => x.classList.add('lab-live'));
       pan.addEventListener('click', e => {
-        if (e.target.closest('[data-lab-go]')) return;
+        if (e.target.closest('[data-lab-go], [data-lab-own]')) return; // data-lab-own: 수정안이 직접 동작을 붙인 칸(테마 고르기 등)
         e.preventDefault(); e.stopPropagation();
       }, true);
     });

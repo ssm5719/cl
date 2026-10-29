@@ -4215,8 +4215,8 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
   #player-footer a.icon { width: 36px; height: 36px; }
 }
 @media (prefers-reduced-motion: reduce) { .progress-gage-wrap::before, .progress-buffer, .progress-gage, .progress-gage-btn, .lab-volume .volume-wrap, .lab-seek-tip { transition: none; } }
-/* 자동 숨김 — 재생 중 마우스를 3초 멈추거나 영상 밖으로 나가면 조작 줄 · 커서가 사라지고, 움직이면 다시 보인다(유튜브와 같음). 멈춘 상태 · 키보드로 들어온 상태 · 배속 목록이 열린 동안은 늘 보인다 */
-#player-footer { transition: opacity 200ms var(--cl-ease); }
+/* 자동 숨김 — 재생 중 마우스를 3초 멈추거나 영상 밖으로 나가면 바로 조작 줄 · 커서가 서서히 사라지고, 움직이면 다시 보인다(유튜브와 같음). 멈춘 상태 · 키보드로 들어온 상태 · 배속 목록이 열린 동안은 늘 보인다 */
+#player-footer { transition: opacity 250ms var(--cl-ease); }
 #player-wrap.is-idle #player-footer { opacity: 0; pointer-events: none; }
 #player-wrap.is-idle { cursor: none; }
 @media (prefers-reduced-motion: reduce) { #player-footer { transition: none; } }

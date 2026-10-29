@@ -1787,7 +1787,7 @@ html[data-theme="dark"] .cl-scope :is(.cl-row__thumb, .cl-card-item__thumb) { bo
     dom: `const menu=doc.querySelector('.cl-ws-account + .cl-menu'), head=menu&&menu.querySelector('.cl-menu__head'); if(!head) return;
 const cur=doc.documentElement.getAttribute('data-theme')||'light';
 const box=doc.createElement('div'); box.className='cl-theme-pick'; box.setAttribute('role','group'); box.setAttribute('aria-label','화면 테마');
-box.innerHTML='<span class="cl-theme-pick__label">화면 테마</span><div class="cl-segmented">'+[['system','기기 설정'],['light','라이트'],['dark','다크']].map(([v,t])=>'<button type="button" class="cl-segmented__item lab-live" data-theme-pick="'+v+'" aria-pressed="'+(v===cur)+'">'+t+'</button>').join('')+'</div>';
+box.innerHTML='<span class="cl-theme-pick__label">화면 테마</span><div class="cl-segmented">'+[['system','기기 설정'],['light','라이트'],['dark','다크']].map(([v,t])=>'<button type="button" class="cl-segmented__item lab-live" data-lab-own data-theme-pick="'+v+'" aria-pressed="'+(v===cur)+'">'+t+'</button>').join('')+'</div>';
 head.after(box);
 box.querySelectorAll('button').forEach(b=>b.addEventListener('click',e=>{e.preventDefault(); e.stopPropagation(); box.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
   const v=b.dataset.themePick==='system'?(doc.defaultView.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):b.dataset.themePick; doc.documentElement.setAttribute('data-theme',v);}));
@@ -3683,8 +3683,8 @@ rows.forEach(function (tr) { if (/미채점/.test(tr.children[2].textContent)) {
   #player-footer a.icon { width: 36px; height: 36px; }
 }
 @media (prefers-reduced-motion: reduce) { .progress-gage-wrap::before, .progress-buffer, .progress-gage, .progress-gage-btn, .lab-volume .volume-wrap, .lab-seek-tip { transition: none; } }
-/* 자동 숨김 — 재생 중 마우스를 3초 멈추거나 영상 밖으로 나가면 조작 줄 · 커서가 사라지고, 움직이면 다시 보인다(유튜브와 같음). 멈춘 상태 · 키보드로 들어온 상태 · 배속 목록이 열린 동안은 늘 보인다 */
-#player-footer { transition: opacity 200ms var(--cl-ease); }
+/* 자동 숨김 — 재생 중 마우스를 3초 멈추거나 영상 밖으로 나가면 바로 조작 줄 · 커서가 서서히 사라지고, 움직이면 다시 보인다(유튜브와 같음). 멈춘 상태 · 키보드로 들어온 상태 · 배속 목록이 열린 동안은 늘 보인다 */
+#player-footer { transition: opacity 250ms var(--cl-ease); }
 #player-wrap.is-idle #player-footer { opacity: 0; pointer-events: none; }
 #player-wrap.is-idle { cursor: none; }
 @media (prefers-reduced-motion: reduce) { #player-footer { transition: none; } }`,
@@ -3724,13 +3724,13 @@ var center = doc.querySelector('.btn-center-play'); center.innerHTML = I(PLAY, t
 var setState = function (st) { w.dataset.playerState = st; play.innerHTML = I(st === 'playing' ? PAUSE : PLAY, true); play.setAttribute('aria-label', st === 'playing' ? '일시정지' : '재생'); };
 play.classList.add('lab-live'); play.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState(w.dataset.playerState === 'playing' ? 'paused' : 'playing'); });
 center.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); setState('playing'); });
-/* 6. 자동 숨김 — 재생 중 3초 가만히 · 밖으로 나가면 1초 뒤 숨김, 움직이면 다시 */
-var idleT = 0, IDLE = 3000, LEAVE = 1000;
+/* 6. 자동 숨김 — 재생 중 3초 가만히 있거나 밖으로 나가면 바로 페이드아웃, 움직이면 다시 */
+var idleT = 0, IDLE = 3000;
 var canHide = function () { return w.dataset.playerState === 'playing' && menu.hidden && !w.querySelector('#player-footer').contains(doc.activeElement); };
 var show = function () { w.classList.remove('is-idle'); clearTimeout(idleT); };
 var hideLater = function (ms) { clearTimeout(idleT); idleT = setTimeout(function () { if (canHide()) w.classList.add('is-idle'); }, ms); };
 w.addEventListener('mousemove', function () { show(); hideLater(IDLE); });
-w.addEventListener('mouseleave', function () { hideLater(LEAVE); });
+w.addEventListener('mouseleave', function () { clearTimeout(idleT); if (canHide()) w.classList.add('is-idle'); });
 w.addEventListener('focusin', show);
 w.addEventListener('touchstart', function () { if (w.classList.contains('is-idle')) { show(); hideLater(IDLE); } }, { passive: true });
 new MutationObserver(function () { if (w.dataset.playerState !== 'playing') show(); else hideLater(IDLE); }).observe(w, { attributes: true, attributeFilter: ['data-player-state'] });`,
@@ -3742,7 +3742,7 @@ new MutationObserver(function () { if (w.dataset.playerState !== 'playing') show
 5) 숨겨진 .btn-setting 의 재생속도를 오른쪽 글자 버튼 [1.0×] 로 꺼냄 — 위로 열리는 목록 0.5 · 1.0(보통) · 1.2 · 1.5 · 2.0. 고른 값은 학생별로 기억(localStorage).
 6) 멈춘 상태에서 가운데 72 원 재생 버튼(.btn-center-play).
 7) 휴대폰(600 이하): 10초 버튼 · 음량 막대 숨김(두 번 눌러 이동 · 기기 음량), 버튼 36.
-9) 자동 숨김(유튜브와 같음): 재생 중 영상 위에서 마우스를 3초 움직이지 않거나 영상 밖으로 나가면 1초 뒤 조작 줄 · 그라데이션 · 커서를 0.2초에 걸쳐 숨기고(#player-wrap.is-idle), 마우스를 움직이거나 다시 올리면 바로 보인다. 멈춘 상태 · 키보드로 조작 줄에 들어온 상태 · 배속 목록이 열린 동안은 숨기지 않는다. 휴대폰은 화면을 한 번 누르면 보이고 3초 뒤 숨김(한 번 누를 때 재생이 멈추지 않게 — 보이는 상태에서 누를 때만 재생 · 멈춤).
+9) 자동 숨김(유튜브와 같음): 재생 중 영상 위에서 마우스를 3초 움직이지 않거나 영상 밖으로 나가면 바로 조작 줄 · 그라데이션 · 커서를 0.25초 페이드아웃으로 숨기고(#player-wrap.is-idle), 마우스를 움직이거나 다시 올리면 바로 보인다. 멈춘 상태 · 키보드로 조작 줄에 들어온 상태 · 배속 목록이 열린 동안은 숨기지 않는다. 휴대폰은 화면을 한 번 누르면 보이고 3초 뒤 숨김(한 번 누를 때 재생이 멈추지 않게 — 보이는 상태에서 누를 때만 재생 · 멈춤).
 8) 버튼 누르는 칸 40 · 아이콘 22 · 올리면 흰 14% 원. 전체화면 앞 세로선 삭제. 움직임은 prefers-reduced-motion 에서 끔.`,
     targets: ["#player-footer", ".progress-gage-wrap", ".player-controller-box"],
     note: "테스트 사이트 관리자 콘텐츠 미리보기에서 확인(2026.10.29) — 플레이어는 LABY 플레이어 v2.0(video.js 7.21 + 자체 조작 줄). 학원 사이트 CSS 로는 바꿀 수 없어 플레이어 쪽 전달 항목",
