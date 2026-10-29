@@ -24,8 +24,9 @@ const AREAS = [
   { key: 'teacher', file: '03-선생님.md', title: '선생님 화면' },
   { key: 'student', file: '04-학생.md', title: '학생 화면 (학생 작업공간 · 나의 강의실)' },
   { key: 'public', file: '05-학원-공개화면.md', title: '학원 공개 화면 (메인 · 전체강좌 · 강좌 상세 · 강의 보기 · 학원소개 · 선생님 · Q&A · 자유게시판)' },
+  { key: 'player', file: '08-동영상플레이어.md', title: '동영상 플레이어 (LABY 플레이어 · cms.atedu.co.kr — 학원 사이트와 별도 서비스, 플레이어 담당에게 전달)' },
 ];
-const areaOfScreen = id => /^a-/.test(id) ? 'public' : /^s-/.test(id) ? 'student' : (/^t-/.test(id) || id === 'courses' || id === 'login-stat-t') ? 'teacher' : 'admin';
+const areaOfScreen = id => id === 'player-laby' ? 'player' : /^a-/.test(id) ? 'public' : /^s-/.test(id) ? 'student' : (/^t-/.test(id) || id === 'courses' || id === 'login-stat-t') ? 'teacher' : 'admin';
 const areaOf = f => {
   if ((f.screens || []).includes('all')) return 'common';
   const set = new Set((f.screens || []).map(areaOfScreen));

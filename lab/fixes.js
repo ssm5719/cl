@@ -3618,7 +3618,7 @@ rows.forEach(function (tr) { if (/미채점/.test(tr.children[2].textContent)) {
   {
     id: "NL1",
     group: 2,
-    status: "제안",
+    status: "확정",
     kind: "마크업",
     layer: "화면별",
     screens: ["player-laby"],
