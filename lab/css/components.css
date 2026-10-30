@@ -64,6 +64,12 @@
 .cl-loading__spinner { width: 16px; height: 16px; border-radius: var(--cl-radius-pill); border: 2px solid var(--cl-hairline); border-top-color: var(--cl-primary); animation: cl-spin .8s linear infinite; }
 @keyframes cl-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .cl-loading__spinner { animation: none; } }
+/* 버튼 안 처리 중 — 짧은 동작(로그인 등)은 화면을 덮지 않고 누른 버튼 안에서 보여 준다. 크기는 그대로, 글자 앞에 16 회전 고리 */
+.cl-btn[aria-busy="true"] { cursor: progress; }
+.cl-btn[aria-busy="true"][disabled] { opacity: 1; }
+.cl-btn--primary[aria-busy="true"]:disabled { background: var(--cl-primary); cursor: progress; }
+.cl-btn__spinner { width: 16px; height: 16px; flex: none; box-sizing: border-box; border-radius: var(--cl-radius-pill); border: 2px solid currentColor; border-right-color: transparent; animation: cl-spin .8s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .cl-btn__spinner { animation: none; border-right-color: currentColor; opacity: .6; } }
 
 /* ---------- 칩 · 보기 전환 · 보기 탭 ---------- */
 .cl-chips { display: flex; flex-wrap: wrap; gap: 6px; }

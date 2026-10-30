@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#904AE8">
+    <title>로그인 | 클라우드러닝</title>
+    <link rel="stylesheet" href="../css/cl-tokens.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/public.css">
+<link rel="stylesheet" href="../css/lab-frame.css">
+<style>
+/* 실험실 전용 — 실제 화면에서는 관리자가 올린 사진이 들어가는 자리다 */
+.cl-ph { width: 100%; height: 100%; min-height: 0; border-radius: var(--cl-radius-sm); background: var(--cl-hover); box-shadow: inset 0 0 0 1px var(--cl-hairline); color: var(--cl-ink-faint); display: grid; place-items: center; font-size: var(--cl-fs-caption); }
+.cl-home-gallery .cl-ph:first-child { grid-row: 1 / 3; }
+.cl-ph-dot { background: var(--cl-hover); }
+</style>
+</head>
+<body class="cl-scope cl-pub-body">
+<a class="cl-skip" href="#">본문으로 건너뛰기</a>
+<header class="cl-pub-header">
+<div class="cl-pub-header__inner">
+<a class="cl-pub-brand cl-pub-brand--logo-only" href="#">
+<img class="cl-pub-brand__logo" src="../img/image_6acf2b92d8a59.png" alt="">
+<span class="cl-pub-brand__name cl-sr-only">클라우드러닝</span>
+</a>
+<nav class="cl-pub-nav" aria-label="학원 메뉴"><a class="cl-pub-nav__item" href="#">전체강좌</a><a class="cl-pub-nav__item" href="#">학원소개</a><a class="cl-pub-nav__item" href="#">선생님소개</a><a class="cl-pub-nav__item" href="#" aria-current="page">Q&amp;A</a><a class="cl-pub-nav__item" href="#">자유게시판</a></nav>
+<div class="cl-pub-actions">
+<a class="cl-pub-actions__link cl-pub-hide-mobile" href="#">로그인</a>
+<button type="button" class="cl-icon-btn cl-pub-icon-btn cl-pub-show-mobile" aria-label="메뉴 열기" aria-controls="cl-pub-drawer" aria-expanded="false" data-pub-drawer-open=""><svg class="cl-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button>
+</div>
+</div>
+</header>
+
+<main id="cl-main" class="cl-pub-main" tabindex="-1"> <div class="cl-pub-wrap cl-auth"> <div class="cl-auth__card"> <p class="cl-auth__eyebrow">클라우드러닝</p> <h1 class="cl-auth__title">로그인</h1> <div class="cl-auth__tabs" role="tablist" aria-label="로그인 대상"> <button type="button" class="cl-auth__tab" role="tab" aria-selected="true" data-login-type="0">학생</button> <button type="button" class="cl-auth__tab" role="tab" aria-selected="false" data-login-type="1">선생님</button> </div> <form class="cl-form" novalidate="" data-login-form=""> <div class="cl-banner cl-banner--danger" role="alert" tabindex="-1" data-login-error="" hidden=""></div> <div class="cl-field"> <label class="cl-field__label" for="login-id">아이디</label> <input id="login-id" class="cl-input" type="text" name="user_id" autocomplete="off" autocapitalize="off" spellcheck="false" value="sahyein1"> </div> <div class="cl-field"> <label class="cl-field__label" for="login-password">비밀번호</label> <div class="cl-input-group"> <input id="login-password" class="cl-input" type="password" name="password" autocomplete="off" value="labdemo00"> <button type="button" class="cl-input-group__btn" aria-label="비밀번호 보기" aria-pressed="false" aria-controls="login-password" data-visible-toggle=""><svg class="cl-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></button> </div> <p class="cl-field__help cl-auth__caps" data-capslock="" hidden=""><svg class="cl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>CapsLock 이 켜져 있습니다.</p> </div> <label class="cl-check"> <input type="checkbox" data-save-id=""> <span>아이디 저장</span> </label> <button type="submit" class="cl-btn cl-btn--primary cl-btn--lg cl-auth__submit lab-live" data-login-submit="">로그인</button> </form> <nav class="cl-auth__links" aria-label="계정 도움" data-student-links=""> <a href="#">아이디 찾기</a> <a href="#">비밀번호 찾기</a> <a href="#">회원가입</a> </nav> <p class="cl-auth__note" data-teacher-note="" hidden=""> 선생님 계정은 학원 관리자에게 문의해주세요. <button type="button" class="cl-text-btn" data-reset-request="">비밀번호를 잊으셨나요? 초기화 요청</button> </p> </div> </div> </main>
+<style>
+/* 학원 로그인 — 사이트 public.css(2026.10.30 사본)의 cl-auth 규칙. 실험실 public.css 는 10.19 저장본이라 이 화면에만 붙인다 */
+.cl-auth { padding: 64px 20px 96px; }
+.cl-auth__card { max-width: 420px; margin: 0px auto; display: flex; flex-direction: column; gap: 20px; }
+.cl-auth__eyebrow { margin: 0px; font-size: var(--cl-fs-caption); font-weight: 600; color: var(--cl-primary-pressed); }
+.cl-auth__title { margin: -12px 0px 0px; font-size: var(--cl-fs-40); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+.cl-auth__tabs { display: grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: var(--cl-radius-pill); background: var(--cl-hover); }
+.cl-auth__tab { height: 40px; border: 0px; border-radius: var(--cl-radius-pill); background: transparent; color: var(--cl-ink-muted); font: inherit; font-weight: 600; cursor: pointer; }
+.cl-auth__tab[aria-selected="true"] { background: var(--cl-canvas); color: var(--cl-ink); box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px; }
+.cl-auth .cl-field { max-width: none; }
+.cl-auth .cl-form { display: flex; flex-direction: column; gap: 16px; }
+.cl-auth__caps { display: flex; align-items: center; gap: 4px; color: var(--cl-warning); }
+.cl-auth__caps[hidden] { display: none; }
+.cl-auth__submit { width: 100%; height: var(--cl-h-cta); border-radius: var(--cl-radius-pill); font-size: var(--cl-fs-17); }
+.cl-auth__links { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 0px; font-size: var(--cl-fs-14); }
+.cl-auth__links a { padding: 4px 12px; color: var(--cl-ink-2); text-decoration: none; }
+.cl-auth__links a + a { border-left: 1px solid var(--cl-hairline); }
+.cl-auth__note { margin: 0px; text-align: center; font-size: var(--cl-fs-14); color: var(--cl-ink-muted); }
+@media (max-width: 900px) { .cl-auth { padding: 32px 20px 64px; } .cl-auth__title { font-size: var(--cl-fs-32); } }
+</style>
+<script>
+/* 지금 사이트 동작 재현(실험실 확인용) — 로그인을 누르면 공통 로딩(module.util.appendLoading)이 화면 전체를 덮고
+   /public/images/common/portal/loading.svg(보라 · 하늘색 동그라미가 퍼지는 그림, 200px)를 띄운다. 응답 뒤 버튼 글자 "로그인 성공" */
+(function () {
+  var form = document.querySelector('[data-login-form]'), btn = form.querySelector('[data-login-submit]');
+  var RIPPLE = '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100" style="display:block"><circle cx="50" cy="50" r="0" fill="none" stroke="#904AE8" stroke-width="2"><animate attributeName="r" repeatCount="indefinite" dur="0.58s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="0s"/><animate attributeName="opacity" repeatCount="indefinite" dur="0.58s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="0s"/></circle><circle cx="50" cy="50" r="0" fill="none" stroke="#46dff0" stroke-width="2"><animate attributeName="r" repeatCount="indefinite" dur="0.58s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="-0.29s"/><animate attributeName="opacity" repeatCount="indefinite" dur="0.58s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="-0.29s"/></circle></svg>';
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); if (btn.disabled) return; btn.disabled = true;
+    var m = document.createElement('div'); m.className = 'portal__loading';
+    m.style.cssText = 'position: fixed; left: 0; top: 0; z-index: 100; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(1px);';
+    m.innerHTML = '<div>' + RIPPLE + '</div>'; document.body.appendChild(m);
+    setTimeout(function () { m.remove(); btn.textContent = '로그인 성공'; setTimeout(function () { btn.disabled = false; btn.textContent = '로그인'; }, 1500); }, 1200);
+  });
+})();
+</script>
+
+<footer class="cl-pub-footer">
+<div class="cl-pub-footer__inner">
+<div class="cl-pub-footer__brand">
+<img class="cl-pub-footer__logo" src="../img/image_6acf2b92d8a59.png" alt="클라우드러닝">
+<span class="cl-pub-footer__muted">믿음으로 선택한 고객에게 신뢰로 보답해온 랩241</span>
+</div>
+<div class="cl-pub-footer__col">
+<span class="cl-pub-footer__label">연락처</span>
+<span>서울특별시 금천구 가산동 000로 00 리더스타워 0000호</span>                <span class="cl-num">Tel 02-0000-0000</span>
+</div>
+<nav class="cl-pub-footer__col" aria-label="안내">
+<span class="cl-pub-footer__label">안내</span>
+<a href="#">이용약관</a>
+<a href="#" class="cl-pub-footer__strong">개인정보처리방침</a>
+<a href="#">자료실</a>
+<a href="#">문의하기</a>
+<a href="#">학원탈퇴</a>
+</nav>
+<div class="cl-pub-footer__bottom">
+<span>© 2022–2025 Lab241 Co., Ltd. All rights reserved.</span>
+<span class="cl-pub-footer__links">
+<a href="#">클라우드러닝 포털</a>
+<a href="#">Powered by Lab241 · 올댓에듀케이션 소개</a>
+</span>
+</div>
+</div>
+</footer>
+
+<button type="button" class="cl-pub-top" aria-label="맨 위로"><svg class="cl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m18 15-6-6-6 6"></path></svg></button>
+
+<script>
+// 실험실 전용: 실제 화면 post-common.js createRichEditor 와 같은 설정
+(function () { var el = document.querySelector('[data-lab-editor]'); if (!el || !window.toastui) return;
+  new toastui.Editor({ el: el, height: el.style.height || '270px', initialEditType: 'wysiwyg', previewStyle: 'vertical', usageStatistics: false,
+    toolbarItems: [['heading', 'bold', 'italic', 'strike', 'hr'], ['table', 'image', 'link']],
+    initialValue: el.dataset.labValue || '' });
+  setTimeout(function () { try { parent.postMessage({ labFit: 1 }, '*'); } catch (e) {} }, 300);
+})();
+</script>
+</body></html>

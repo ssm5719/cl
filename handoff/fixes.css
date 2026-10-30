@@ -1,4 +1,4 @@
-/* fixes.css — 확정 수정안 CSS 전부 (2026.10.30, 231건, 층 순서).
+/* fixes.css — 확정 수정안 CSS 전부 (2026.10.30, 232건, 층 순서).
    공통 CSS(01-공통 0번) 다음에 불러오거나, 각 규칙을 원본 파일 안으로 옮긴다. */
 
 /* T1 · 토큰 추가 · 분리 (화면 변화 없음) */
@@ -344,6 +344,14 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
 .cl-btn:has(> .cl-home-pill__logo) { padding-left: 7px; gap: 8px; }
 /* 메인의 [전체 보기 ›] · [학원소개 보기 ›] — 글자 17, 누르는 높이 44 */
 .cl-home .cl-more-link { min-height: var(--cl-touch); font-size: var(--cl-fs-body-public); }
+
+/* NK1 · 학원 로그인 — 화면 전체 로딩 대신 버튼 안에서 "로그인 중" */
+/* 버튼 안 처리 중 — 공통 CSS components.css 에 들어 있다(Button 부품). 아래는 같은 내용 */
+.cl-btn[aria-busy="true"] { cursor: progress; }
+.cl-btn[aria-busy="true"][disabled] { opacity: 1; }
+.cl-btn--primary[aria-busy="true"]:disabled { background: var(--cl-primary); cursor: progress; }
+.cl-btn__spinner { width: 16px; height: 16px; flex: none; box-sizing: border-box; border-radius: var(--cl-radius-pill); border: 2px solid currentColor; border-right-color: transparent; animation: cl-spin .8s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .cl-btn__spinner { animation: none; border-right-color: currentColor; opacity: .6; } }
 
 /* B1 · 대시보드 섹션 제목 16px */
 .cl-md-title { font-size: var(--cl-fs-section-title); }

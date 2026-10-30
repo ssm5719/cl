@@ -452,6 +452,12 @@ button.cl-ws-nav__item { width: 100%; border: 0; background: transparent; font: 
 .cl-loading__spinner { width: 16px; height: 16px; border-radius: var(--cl-radius-pill); border: 2px solid var(--cl-hairline); border-top-color: var(--cl-primary); animation: cl-spin .8s linear infinite; }
 @keyframes cl-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .cl-loading__spinner { animation: none; } }
+/* 버튼 안 처리 중 — 짧은 동작(로그인 등)은 화면을 덮지 않고 누른 버튼 안에서 보여 준다. 크기는 그대로, 글자 앞에 16 회전 고리 */
+.cl-btn[aria-busy="true"] { cursor: progress; }
+.cl-btn[aria-busy="true"][disabled] { opacity: 1; }
+.cl-btn--primary[aria-busy="true"]:disabled { background: var(--cl-primary); cursor: progress; }
+.cl-btn__spinner { width: 16px; height: 16px; flex: none; box-sizing: border-box; border-radius: var(--cl-radius-pill); border: 2px solid currentColor; border-right-color: transparent; animation: cl-spin .8s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .cl-btn__spinner { animation: none; border-right-color: currentColor; opacity: .6; } }
 
 /* ---------- 칩 · 보기 전환 · 보기 탭 ---------- */
 .cl-chips { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -4429,5 +4435,13 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
 .cl-ws-footer__links { display: flex; flex-wrap: wrap; gap: var(--cl-space-4); }
 .cl-ws-footer__links a { color: var(--cl-ink-muted); text-decoration: none; }
 .cl-ws-footer__links a:hover { color: var(--cl-ink); }
+
+/* --- NK1 [확정] 학원 로그인 — 화면 전체 로딩 대신 버튼 안에서 "로그인 중" --- */
+/* 버튼 안 처리 중 — 공통 CSS components.css 에 들어 있다(Button 부품). 아래는 같은 내용 */
+.cl-btn[aria-busy="true"] { cursor: progress; }
+.cl-btn[aria-busy="true"][disabled] { opacity: 1; }
+.cl-btn--primary[aria-busy="true"]:disabled { background: var(--cl-primary); cursor: progress; }
+.cl-btn__spinner { width: 16px; height: 16px; flex: none; box-sizing: border-box; border-radius: var(--cl-radius-pill); border: 2px solid currentColor; border-right-color: transparent; animation: cl-spin .8s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .cl-btn__spinner { animation: none; border-right-color: currentColor; opacity: .6; } }
 
 /* ===== 디자인 수정(제안) — 실험실에서 보는 중. 확정되면 위로 올라간다 ===== */
