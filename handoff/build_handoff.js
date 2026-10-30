@@ -108,12 +108,12 @@ for (const A of AREAS) {
   files['07-화면목록.md'] = L.join('\n');
 }
 
-// 1차 전달(2026.10.29 · GitHub 태그 handoff-1) 뒤에 바뀐 것 — 항목의 rev 표시로 모은다
+// 1차 전달(2026.10.29 · 커밋 bae0106) 뒤에 바뀐 것 — 항목의 rev 표시로 모은다
 {
   const revs = FIXES.filter(f => f.rev).sort((a, b) => a.rev.date.localeCompare(b.rev.date) || a.id.localeCompare(b.id));
   const T = ['새로 추가', '내용 바뀜', '적용 취소'];
   const L = ['# 추가 수정 — 1차 전달 뒤에 바뀐 것', '',
-    `> ${DATE} 기준 · ${revs.length}건(${T.map(t => `${t} ${revs.filter(f => f.rev.type === t).length}`).join(' · ')}). 1차 문서(01 ~ 08)를 이미 적용했다면 **이 파일만** 적용하면 된다. 1차 전달 시점은 GitHub 태그 \`handoff-1\` — \`git diff handoff-1 -- handoff/\` 로 바뀐 줄을 볼 수 있다.`, '',
+    `> ${DATE} 기준 · ${revs.length}건(${T.map(t => `${t} ${revs.filter(f => f.rev.type === t).length}`).join(' · ')}). 1차 문서(01 ~ 08)를 이미 적용했다면 **이 파일만** 적용하면 된다. 1차 전달 시점은 커밋 \`bae0106\` — \`git diff bae0106 -- handoff/\` 로 바뀐 줄을 볼 수 있다.`, '',
     '- **새로 추가** — 1차 문서에 없던 항목. 아래 내용대로 적용한다.',
     '- **내용 바뀜** — 1차 문서에 있던 항목의 내용이 바뀌었다. "바뀐 것"만 고치면 되고, 아래에 바뀐 뒤 전체 내용을 붙였다.',
     '- **적용 취소** — 1차 문서에 있었지만 적용하지 않는다. 이미 적용했다면 되돌린다.', '',

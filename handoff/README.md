@@ -60,4 +60,4 @@
 
 ## 이 문서가 바뀌었을 때
 
-디자인 쪽에서 실험실을 고치면 `node handoff/build_handoff.js` 로 이 폴더를 다시 만듭니다(README · AI_PROMPT 만 손으로 쓴 파일). 개발 쪽은 `git pull` 후 [`10-추가수정.md`](10-추가수정.md) 만 보면 됩니다 — 1차 전달 뒤 새로 생기거나 바뀌거나 취소된 항목이 날짜순으로 모여 있습니다. 1차 전달 시점은 GitHub 태그 `handoff-1`(`git diff handoff-1 -- handoff/`). 건수는 [`counts.json`](counts.json).
+디자인 쪽에서 실험실을 고치면 `node handoff/build_handoff.js` 로 이 폴더를 다시 만듭니다(README · AI_PROMPT 만 손으로 쓴 파일). 개발 쪽은 `git pull` 후 [`10-추가수정.md`](10-추가수정.md) 만 보면 됩니다 — 1차 전달 뒤 새로 생기거나 바뀌거나 취소된 항목이 날짜순으로 모여 있습니다. 1차 전달 시점은 커밋 `bae0106`(`git diff bae0106 -- handoff/`). 건수는 [`counts.json`](counts.json).
