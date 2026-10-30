@@ -1,4 +1,4 @@
-/* fixes.css — 확정 수정안 CSS 전부 (2026.10.29, 229건, 층 순서).
+/* fixes.css — 확정 수정안 CSS 전부 (2026.10.30, 229건, 층 순서).
    공통 CSS(01-공통 0번) 다음에 불러오거나, 각 규칙을 원본 파일 안으로 옮긴다. */
 
 /* T1 · 토큰 추가 · 분리 (화면 변화 없음) */
@@ -253,11 +253,12 @@ html[data-theme="dark"] .cl-scope :is(.cl-row__thumb, .cl-card-item__thumb) { bo
 /* H5 · 입력 칸 · 선택 버튼 아래 도움말 띄우기 */
 :is(.cl-input, .cl-inline-fields, .cl-tcf-radios, .cl-mms-keyword-form, .cl-mt-courses, .cl-chips, ul, ol) + .cl-field__help { margin-top: 6px; }
 
-/* SL3 · 화면 테마 고르기 — 로그인한 화면의 계정 메뉴 한 곳에서 [기기 설정 · 라이트 · 다크] */
-.cl-theme-pick { padding: 2px 10px 8px; display: flex; flex-direction: column; gap: 6px; }
-.cl-theme-pick__label { font-size: var(--cl-fs-micro); font-weight: 500; color: var(--cl-ink-muted); }
-.cl-theme-pick .cl-segmented { width: 100%; }
-.cl-theme-pick .cl-segmented__item { flex: 1; width: auto; padding: 0 8px; font-size: var(--cl-fs-caption); font-weight: 600; white-space: nowrap; }
+/* SL3 · 화면 테마 고르기 — 로그인한 화면의 계정 메뉴 한 곳에서 (해 · 달 아이콘) */
+/* 화면 테마 — 이름 왼쪽, 오른쪽에 동그란 해 · 달 아이콘 두 개를 한 줄로 (2026.10.30) */
+.cl-theme-pick { padding: 4px 10px 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cl-theme-pick__label { font-size: var(--cl-fs-caption); font-weight: 500; color: var(--cl-ink-2); }
+.cl-theme-pick__opts { display: flex; gap: 4px; }
+.cl-theme-pick .cl-icon-btn { color: var(--cl-ink-muted); }
 
 /* SL8 · 학생 다크모드: 진도 0% 막대 · 칩 개수 대비 */
 .cl-progress__track { background: var(--cl-track); }

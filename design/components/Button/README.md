@@ -26,7 +26,7 @@
 
 버튼 끝 화살표 `cl-btn__arrow` 는 올리면 4px 앞으로 간다(움직임 줄이기 설정이면 멈춤).
 
-아이콘 버튼은 `cl-icon-btn` 32×32, 배경 없음, hover `cl-hover`. 크기 `--xs` 26 · `--md` 36 · `--lg` 44, 모양 `--round`(원), 바탕 `--soft`(회색 원, hover 연보라 — 더보기 원 · 가로 목록 ‹ ›), `--on-dark`(진한 판 위 흰 12%). 터치 기기에서는 보이는 크기는 두고 누르는 영역만 44px로 넓힌다.
+아이콘 버튼은 `cl-icon-btn` 32×32, 배경 없음, hover `cl-hover`. 크기 `--xs` 26 · `--md` 36 · `--lg` 44, 모양 `--round`(원), 바탕 `--soft`(회색 원, hover 연보라 — 더보기 원 · 가로 목록 ‹ ›), `--on-dark`(진한 판 위 흰 12%). 켜고 끄는 아이콘 버튼은 `aria-pressed="true"` 이면 `cl-primary-tint` 바탕 · `cl-primary-pressed` 아이콘(계정 메뉴 화면 테마 해 · 달). 터치 기기에서는 보이는 크기는 두고 누르는 영역만 44px로 넓힌다.
 
 비활성: `--primary` 는 `cl-ink-faint` 배경, 나머지는 불투명도 .5.
 

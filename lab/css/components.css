@@ -502,6 +502,8 @@ html.lenis, html.lenis body { height: auto; }
 
 /* 아이콘 버튼 — 둥근 모양 · 회색 바탕 · 크기 */
 .cl-icon-btn--round { border-radius: var(--cl-radius-pill); }
+/* 켜고 끄는 아이콘 버튼(화면 테마 해 · 달 등) — 고른 것은 연보라 바탕 · 진한 보라 아이콘 */
+.cl-icon-btn[aria-pressed="true"], .cl-icon-btn[aria-pressed="true"]:hover { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
 .cl-icon-btn--soft { background: var(--cl-parchment); color: var(--cl-ink); }
 .cl-icon-btn--soft:hover { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
 .cl-icon-btn--soft:disabled { background: var(--cl-parchment); color: var(--cl-ink-faint); opacity: 1; }
