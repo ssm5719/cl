@@ -3777,12 +3777,13 @@ new MutationObserver(function () { if (w.dataset.playerState !== 'playing') show
     note: "학생 화면 중 공개 화면 틀(`cl-pub-main`)을 쓰는 옛 Q&A 화면은 원래 학원 푸터가 있어 제외. 휴대폰에서 일괄 작업 바(cl-selbar)가 떠 있을 때는 푸터를 가릴 수 있다 — 바가 뜰 때만이라 그대로 둔다."
   },
   {
-    id: 'NI2', rev: { date: '2026.10.29', type: '새로 추가', what: '강좌 기본 썸네일(썸네일을 올리지 않은 강좌)을 분홍 그림에서 새 그림으로 바꾼다.' }, group: 7, status: '확정', kind: '이미지', layer: '공통 부품', screens: ['a-courses', 'a-courses-s', 'a-main', 'a-main-dash', 'a-course-read', 'a-teacher-read'],
+    id: 'NI2', rev: { date: '2026.10.29', type: '새로 추가', what: '강좌 기본 썸네일(썸네일을 올리지 않은 강좌)을 분홍 그림에서 새 그림으로 바꾼다. 이미지를 한 번에 크게 바꾸지 않고 단계적으로 바꾼다 — 이번 업데이트에서는 지금 그림과 구성(책 · 사람 · 전구)이 비슷한 새 그림으로 조금만 바꿔 사용자가 낯설지 않게 하고, 다음 업데이트에서 새 방향의 그림으로 한 번 더 바꾼다.' }, group: 7, status: '확정', kind: '이미지', layer: '공통 부품', screens: ['a-courses', 'a-courses-s', 'a-main', 'a-main-dash', 'a-course-read', 'a-teacher-read'],
     title: '강좌 기본 썸네일을 새 그림으로 — 연보라 바탕 · 책 위 두 사람',
     current: '썸네일을 올리지 않은 강좌에 분홍 바탕 그림(지구본 · 학사모 · 책)이 들어간다.',
     next: '같은 크기(640×360)의 새 그림 `lab/img/course-default.png` 로 바꾼다. 연보라 바탕에 책 위 두 사람 — 학원 대표색(보라)과 어울리고 덜 요란하다.',
     markup: '서비스의 기본 썸네일 파일(분홍 그림)을 `lab/img/course-default.png` 로 바꿔 끼운다. 파일 이름 · 경로가 다르면 그 자리에 같은 그림을 둔다. 디자인시스템 Images 묶음 `course-default.png` 와 같은 파일. 전체강좌 · 메인 · 강좌 상세 · 선생님 상세 · 나의 강의실 등 기본 썸네일이 나오는 모든 곳에 같이 바뀐다.',
-    targets: ['.cl-cs-thumb', '.cl-home-course__thumb']
+    targets: ['.cl-cs-thumb', '.cl-home-course__thumb'],
+    note: '이미지를 한 번에 크게 바꾸지 않고 단계적으로 바꾼다 — 이번 업데이트에서는 지금 그림과 구성(책 · 사람 · 전구)이 비슷한 새 그림으로 조금만 바꿔 사용자가 낯설지 않게 하고, 다음 업데이트에서 새 방향의 그림으로 한 번 더 바꾼다. 다음 단계 그림은 정해지면 이 항목에 이어서 적는다(10-추가수정 "내용 바뀜").'
   },
 ];
 
