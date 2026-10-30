@@ -1102,6 +1102,8 @@ html { scroll-behavior: smooth; }
 @media (max-width: 900px) { .cl-player-page { padding-top: 0; } .cl-player { border-radius: 0; } }
 
 /* AP2 · 오른쪽 강의 목록 — 숫자 배지, 지금 보는 강의만 굵게, 번호 유지 */
+/* 목록 위아래 4px 여백을 없앤다 — 고른 강의의 연보라 바탕이 위 선 · 아래 테두리에 바로 닿게 (2026.10.30) */
+.cl-playlist { padding: 0; }
 /* 오른쪽 강의 목록 — 모서리 8, 머리 숫자는 배지, 지금 보는 강의만 굵게 */
 .cl-player-page__aside { border-radius: var(--cl-radius-sm); }
 /* 위 여백이 24 → 40 이 되어(AP1) 첫 화면에서 상자 아래 끝이 16px 잘리던 것을 맞춘다 — 첫 화면 · 따라 내려올 때 모두 화면 안 */
