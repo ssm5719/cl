@@ -253,7 +253,7 @@ index 25a27d4..6cd2f77 100644
    --cl-shadow-bulkbar: 0 8px 24px rgba(0,0,0,.6);
  }
 diff --git a/lab/css/components.css b/lab/css/components.css
-index 90a8a35..3f64e2f 100644
+index 90a8a35..6e98d09 100644
 --- a/lab/css/components.css
 +++ b/lab/css/components.css
 @@ -23,8 +23,24 @@
@@ -510,7 +510,7 @@ index 90a8a35..3f64e2f 100644
  .cl-repo__info { margin: 0; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 6px 8px; font-size: var(--cl-fs-caption); }
  .cl-repo__info dt { color: var(--cl-ink-muted); }
  .cl-repo__info dd { margin: 0; color: var(--cl-ink); }
-@@ -441,15 +457,236 @@ html.lenis, html.lenis body { height: auto; }
+@@ -441,15 +457,238 @@ html.lenis, html.lenis body { height: auto; }
  
  /* ---------- 고른 행 · 일괄 작업 바 (manager/common.js selectionBar) ---------- */
  .cl-table tbody tr.is-selected { background: var(--cl-primary-tint); }
@@ -562,6 +562,8 @@ index 90a8a35..3f64e2f 100644
 +
 +/* 아이콘 버튼 — 둥근 모양 · 회색 바탕 · 크기 */
 +.cl-icon-btn--round { border-radius: var(--cl-radius-pill); }
++/* 켜고 끄는 아이콘 버튼(화면 테마 해 · 달 등) — 고른 것은 연보라 바탕 · 진한 보라 아이콘 */
++.cl-icon-btn[aria-pressed="true"], .cl-icon-btn[aria-pressed="true"]:hover { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
 +.cl-icon-btn--soft { background: var(--cl-parchment); color: var(--cl-ink); }
 +.cl-icon-btn--soft:hover { background: var(--cl-primary-tint); color: var(--cl-primary-pressed); }
 +.cl-icon-btn--soft:disabled { background: var(--cl-parchment); color: var(--cl-ink-faint); opacity: 1; }
