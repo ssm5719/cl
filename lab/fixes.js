@@ -116,7 +116,7 @@ const m=doc.createElement('p'); m.className='cl-page__meta'; m.textContent='강�
     targets: ['.cl-tc-course__title']
   },
   {
-    id: 'C1', rev: { date: "2026.10.29", type: "적용 취소", what: "선생님 상단 [새로 만들기]를 연보라로 바꾸지 않는다 — 디자인시스템 Topbar 대로 꽉 찬 보라(`cl-btn--primary`) 그대로. 이미 적용했다면 되돌린다." }, group: 3, status: '보류', kind: 'CSS', screens: ['courses', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg'],
+    id: 'C1', group: 3, status: '보류', kind: 'CSS', screens: ['courses', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg'],
     title: '상단 [새로 만들기]를 연보라로',
     current: '`cl-btn--primary` — 본문 [강좌 생성]과 꽉 찬 보라가 둘',
     next: '`cl-btn--tint` 모양 (배경 `cl-primary-tint`, 글자 `cl-primary-pressed`)',
