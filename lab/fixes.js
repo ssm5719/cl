@@ -4,7 +4,7 @@
    status: 제안 · 확정 · 보류 */
 window.LAB_FIXES = [
   {
-    id: 'T1', group: 7, status: '확정', kind: '토큰', screens: ['all', 'teacher-read', 'teacher-edit', 'teacher-create', 'course-create', 'course-edit', 'course-sequence', 'teacher-order'],
+    id: 'T1', rev: { date: "2026.10.29", type: "내용 바뀜", what: "`.cl-avatar` 글자색 규칙이 연보라 아바타(`--tint` · `--ph`)까지 흰색으로 덮어 아이콘 · 첫 글자가 안 보이던 실수를 고쳤다. 선택자만 `.cl-avatar:not(.cl-avatar--tint, .cl-avatar--ph)` 로 바뀐다." }, group: 7, status: '확정', kind: '토큰', screens: ['all', 'teacher-read', 'teacher-edit', 'teacher-create', 'course-create', 'course-edit', 'course-sequence', 'teacher-order'],
     title: '토큰 추가 · 분리 (화면 변화 없음)',
     current: '`#fff` 23곳 직접 값, `cl-primary` 하나로 버튼 배경과 글자를 같이 씀',
     next: '`cl-on-ink` #FFFFFF 추가, `cl-primary-fill` #904AE8 / `cl-primary-text` #7A35D0 로 나눔, 직접 값 6종 토큰화',
@@ -116,7 +116,7 @@ const m=doc.createElement('p'); m.className='cl-page__meta'; m.textContent='강�
     targets: ['.cl-tc-course__title']
   },
   {
-    id: 'C1', group: 3, status: '보류', kind: 'CSS', screens: ['courses', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg'],
+    id: 'C1', rev: { date: "2026.10.29", type: "적용 취소", what: "선생님 상단 [새로 만들기]를 연보라로 바꾸지 않는다 — 디자인시스템 Topbar 대로 꽉 찬 보라(`cl-btn--primary`) 그대로. 이미 적용했다면 되돌린다." }, group: 3, status: '보류', kind: 'CSS', screens: ['courses', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg'],
     title: '상단 [새로 만들기]를 연보라로',
     current: '`cl-btn--primary` — 본문 [강좌 생성]과 꽉 찬 보라가 둘',
     next: '`cl-btn--tint` 모양 (배경 `cl-primary-tint`, 글자 `cl-primary-pressed`)',
@@ -1768,7 +1768,7 @@ html[data-theme="dark"] .cl-scope :is(.cl-row__thumb, .cl-card-item__thumb) { bo
     note: '적용 범위 장의 규칙(이미지 칸은 뒤집지 않는다)을 그대로 옮겼다. 실험실 썸네일은 회색 네모(예시)다.'
   },
   {
-    id: 'SL3', group: 7, status: '확정', kind: '마크업', layer: '공통 부품', screens: ['dashboard', 'teachers', 'students', 'students-courses-dlg', 'students-join-dlg', 'students-group-dlg', 'subjects', 'courses', 'notfound', 'teacher-read', 'teacher-edit', 'admins', 'admin-create', 'admin-edit', 'admin-read', 'groups', 'group-edit', 'categories', 'course-list', 'contents', 'cms', 'cms-owner-dlg', 'cms-visibility-dlg', 'cms-usage-dlg', 'board', 'board-view-dlg', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'group-stat-s', 't-learn', 't-progress', 't-group', 't-assign', 't-assign-list', 't-assign-read', 't-assign-stats-dlg', 't-assign-close-dlg', 't-assign-edit-dlg', 't-info', 't-password', 'teacher-create', 'course-create', 'course-edit', 'course-sequence', 'teacher-order', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 't-course-create', 't-course-edit', 't-assign-create', 't-info-edit', 't-group-edit', 't-group-create-dlg', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 't-cms-page', 's-learn', 's-assign', 's-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-complete', 's-assign-read-empty', 's-qna', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-learn-many', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-about', 'a-board-empty', 'a-board-read-empty', 'a-board-read', 'a-board', 'a-course-read', 'a-courses-empty', 'a-courses-s', 'a-courses', 'a-main-dash', 'a-main', 'a-player-doc-hwp', 'a-player-doc', 'a-player', 'a-qna-empty', 'a-qna-read-empty', 'a-qna-read', 'a-qna', 'a-teacher-read-empty', 'a-teacher-read', 'a-teachers-empty', 'a-teachers', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg'],
+    id: 'SL3', rev: { date: "2026.10.30", type: "내용 바뀜", what: "계정 메뉴 화면 테마가 [기기 설정 · 라이트 · 다크] 글자 칸에서 \"화면 테마\" 오른쪽 동그란 해 · 달 아이콘 두 개 한 줄로 바뀌었다(기기 설정 버튼 없음 — 고르기 전에는 기기 설정을 따른다). 공통 CSS `components.css` 에 아이콘 버튼 눌린 상태(`.cl-icon-btn[aria-pressed=\"true\"]`)가 더해졌다." }, group: 7, status: '확정', kind: '마크업', layer: '공통 부품', screens: ['dashboard', 'teachers', 'students', 'students-courses-dlg', 'students-join-dlg', 'students-group-dlg', 'subjects', 'courses', 'notfound', 'teacher-read', 'teacher-edit', 'admins', 'admin-create', 'admin-edit', 'admin-read', 'groups', 'group-edit', 'categories', 'course-list', 'contents', 'cms', 'cms-owner-dlg', 'cms-visibility-dlg', 'cms-usage-dlg', 'board', 'board-view-dlg', 'alarm', 'payments', 'login-stat', 'login-stat-t', 'login-detail', 'demand', 'download', 'group-stat', 'user-stat', 'main-setting', 'system-setting', 'about-setting', 'ip-setting', 'banner-setting', 'menu-setting', 'group-stat-s', 't-learn', 't-progress', 't-group', 't-assign', 't-assign-list', 't-assign-read', 't-assign-stats-dlg', 't-assign-close-dlg', 't-assign-edit-dlg', 't-info', 't-password', 'teacher-create', 'course-create', 'course-edit', 'course-sequence', 'teacher-order', 'group-create-dlg', 'subject-create-dlg', 'notice-create-dlg', 't-course-create', 't-course-edit', 't-assign-create', 't-info-edit', 't-group-edit', 't-group-create-dlg', 't-course-read', 't-course-content', 't-learn-excel', 't-cms-dlg', 't-meeting-dlg', 't-thumb-dlg', 't-qr-dlg', 't-cms-page', 's-learn', 's-assign', 's-assign-read', 's-assign-submit', 's-assign-confirm-dlg', 's-complete', 's-assign-read-empty', 's-qna', 's-qna-detail', 's-qna-detail-dlg', 's-board', 's-board-detail', 's-board-detail-dlg', 's-board-write', 's-like-course', 's-like-teacher', 's-learn-many', 's-info', 's-info-mail', 's-info-photo-dlg', 's-info-mail-dlg', 's-password', 'a-about', 'a-board-empty', 'a-board-read-empty', 'a-board-read', 'a-board', 'a-course-read', 'a-courses-empty', 'a-courses-s', 'a-courses', 'a-main-dash', 'a-main', 'a-player-doc-hwp', 'a-player-doc', 'a-player', 'a-qna-empty', 'a-qna-read-empty', 'a-qna-read', 'a-qna', 'a-teacher-read-empty', 'a-teacher-read', 'a-teachers-empty', 'a-teachers', 's-qna-read', 's-qna-edit', 's-qna-delete-dlg'],
     title: `화면 테마 고르기 — 로그인한 화면의 계정 메뉴 한 곳에서 (해 · 달 아이콘)`,
     when: `로그인한 사람이 오른쪽 위 계정(프로필) 버튼을 눌러 메뉴를 열었을 때. 로그인 전 화면 · 포털에는 없음`,
     current: '테마를 고르는 곳이 없다. 다크 토큰은 `html[data-theme="dark"]` 일 때만 켜진다',
@@ -3618,7 +3618,7 @@ rows.forEach(function (tr) { if (/미채점/.test(tr.children[2].textContent)) {
     note: "테스트 사이트(장현석 선생님 계정으로 들어가기)에서 확인 2026.10.29. 실험실에 없던 과제 있는 목록 · 채점 · 통계 · 지금 마감 · 수정 확인 화면을 함께 추가",
   },
   {
-    id: "NL1",
+    id: "NL1", rev: { date: "2026.10.29", type: "내용 바뀜", what: "멈췄을 때 가운데 큰 재생 버튼 안 삼각형이 오른쪽으로 밀려 보이던 것 — 아이콘의 `margin-left: 4px` 를 뺀다(삼각형 무게중심이 원 가운데)." },
     group: 2,
     status: "확정",
     kind: "마크업",
@@ -3758,6 +3758,31 @@ new MutationObserver(function () { if (w.dataset.playerState !== 'playing') show
     markup: "CSS 만 바꾼다. cl-tokens.css 에 `--cl-radius-control: 4px;` 추가. border-radius 를 `var(--cl-radius-control)` 로: base.css `.cl-ws-search` · `.cl-btn` · `.cl-btn--xs` · `.cl-icon-btn` · `.cl-input`, components.css `.cl-segmented` · `.cl-search input` · `.cl-select` · `.cl-pagination__page, .cl-pagination__arrow` · `.cl-textarea` · `.cl-composer__input`, manager.css `.cl-mu-memo__btn`, student.css `.cl-editor`, 수정안 H2 `.cl-mu-memo__btn` · `.cl-impersonate__back` · `.cl-scope .cl-editor` · AC3 `.cl-scope .cl-cs-reset`. `var(--cl-radius-3xs)` 로: `.cl-ws-search kbd` · `.cl-input-group__btn` · `.cl-segmented__item`.",
     targets: ['.cl-btn', '.cl-input', '.cl-select', '.cl-textarea'],
     note: "그대로 둔 것: 목록 행처럼 쓰는 버튼(분류 고르기 `cl-mc-pick` · 전체강좌 분류 `cl-cs-cate` · 사이드바 메뉴 · 메뉴 항목 · 고르기 목록 항목), 사진 · 카드형 버튼(학원소개 사진 · 메인 구성 고르기 · 폴더 · 썸네일 · 학생 카드), 편집기(Toast UI) 도구 버튼 3px — 외부 편집기 기본값. 점검: 실험실 화면 전부를 그려 버튼 · 입력 칸 모서리를 모은 결과 위 예외만 남음(2026.10.29)."
+  },
+  {
+    id: 'NW1', rev: { date: '2026.10.30', type: '새로 추가', what: '관리자 · 선생님 · 학생 작업공간 맨 아래에 얇은 푸터 한 줄(저작권 · 클라우드러닝 포털 · Powered by Lab241).' }, group: 1, status: '확정', kind: '마크업', layer: '공통 틀', screens: ["about-setting", "admin-create", "admin-edit", "admin-read", "admins", "alarm", "banner-setting", "board-view-dlg", "board", "categories", "cms-owner-dlg", "cms-usage-dlg", "cms-visibility-dlg", "cms", "contents", "course-create", "course-edit", "course-list", "course-sequence", "courses", "dashboard", "demand", "download", "group-create-dlg", "group-edit", "group-stat-s", "group-stat", "groups", "ip-setting", "login-detail", "login-stat-t", "login-stat", "main-setting", "menu-setting", "notfound", "notice-create-dlg", "payments", "s-assign-confirm-dlg", "s-assign-read-empty", "s-assign-read", "s-assign-submit", "s-assign", "s-board-detail-dlg", "s-board-detail", "s-board-write", "s-board", "s-complete", "s-info-mail-dlg", "s-info-mail", "s-info-photo-dlg", "s-info", "s-learn-many", "s-learn", "s-like-course", "s-like-teacher", "s-password", "s-qna-detail-dlg", "s-qna-detail", "s-qna", "students-courses-dlg", "students-group-dlg", "students-join-dlg", "students", "subject-create-dlg", "subjects", "system-setting", "t-assign-close-dlg", "t-assign-create", "t-assign-edit-dlg", "t-assign-list", "t-assign-read", "t-assign-stats-dlg", "t-assign", "t-cms-dlg", "t-cms-page", "t-course-content", "t-course-create", "t-course-edit", "t-course-read", "t-group-create-dlg", "t-group-edit", "t-group", "t-info-edit", "t-info", "t-learn-excel", "t-learn", "t-meeting-dlg", "t-password", "t-progress", "t-qr-dlg", "t-thumb-dlg", "teacher-create", "teacher-edit", "teacher-order", "teacher-read", "teachers", "user-stat"],
+    title: '작업공간 맨 아래 얇은 푸터 — 긴 화면이 잘린 듯 끝나지 않게',
+    current: "관리자 · 선생님 · 학생 화면 본문이 아래 여백 없이 끝난다(`.cl-page` 아래 여백 0). 세로로 긴 화면은 마지막 줄에서 스크롤이 멈춰 잘린 느낌이 든다.",
+    next: "본문 맨 아래에 얇은 한 줄: 위 1px `cl-hairline` 선, 왼쪽 \"© 2022–2025 Lab241 Co., Ltd. All rights reserved.\", 오른쪽 [클라우드러닝 포털] [Powered by Lab241 · 올댓에듀케이션 소개]. 글자 `cl-fs-micro` 500 `cl-ink-muted`(링크 올리면 `cl-ink`). 본문과 사이 48. 본문이 짧으면 창 맨 아래에 붙는다. 학원 공개 화면 푸터의 맨 아래 줄과 같은 모양.",
+    markup: "작업공간 공통 틀(`<main class=\"cl-ws-main\">`) 맨 끝, `.cl-page` 다음에 `<footer class=\"cl-ws-footer\"><div class=\"cl-ws-footer__inner\"><span>© 2022–{올해} Lab241 Co., Ltd. All rights reserved.</span><span class=\"cl-ws-footer__links\"><a href=\"포털 주소\">클라우드러닝 포털</a><a href=\"올댓에듀케이션 소개 주소\">Powered by Lab241 · 올댓에듀케이션 소개</a></span></div></footer>` 를 넣는다. 끝 연도는 서버에서 올해로. 링크 주소는 학원 공개 화면 푸터와 같은 곳.",
+    css: `/* 작업공간 맨 아래 얇은 푸터 — 긴 화면이 잘린 듯 끝나지 않게, 짧은 화면은 창 맨 아래에 붙게 */
+.cl-ws-main:has(> .cl-ws-footer) { display: flex; flex-direction: column; }
+.cl-ws-footer { margin-top: auto; padding: var(--cl-space-7) var(--cl-ws-gutter) 0; }
+.cl-ws-footer__inner { padding: var(--cl-space-4) 0 var(--cl-space-5); border-top: 1px solid var(--cl-hairline); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--cl-space-2) var(--cl-space-4); font-size: var(--cl-fs-micro); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-ws-footer__links { display: flex; flex-wrap: wrap; gap: var(--cl-space-4); }
+.cl-ws-footer__links a { color: var(--cl-ink-muted); text-decoration: none; }
+.cl-ws-footer__links a:hover { color: var(--cl-ink); }`,
+    dom: "const m=doc.querySelector('.cl-ws-main'); if(!m||m.querySelector(':scope > .cl-ws-footer')) return;\nm.insertAdjacentHTML('beforeend','<footer class=\"cl-ws-footer\"><div class=\"cl-ws-footer__inner\"><span>© 2022–2025 Lab241 Co., Ltd. All rights reserved.</span><span class=\"cl-ws-footer__links\"><a href=\"#\">클라우드러닝 포털</a><a href=\"#\">Powered by Lab241 · 올댓에듀케이션 소개</a></span></div></footer>');",
+    targets: ['.cl-ws-footer'],
+    note: "학생 화면 중 공개 화면 틀(`cl-pub-main`)을 쓰는 옛 Q&A 화면은 원래 학원 푸터가 있어 제외. 휴대폰에서 일괄 작업 바(cl-selbar)가 떠 있을 때는 푸터를 가릴 수 있다 — 바가 뜰 때만이라 그대로 둔다."
+  },
+  {
+    id: 'NI2', rev: { date: '2026.10.29', type: '새로 추가', what: '강좌 기본 썸네일(썸네일을 올리지 않은 강좌)을 분홍 그림에서 새 그림으로 바꾼다.' }, group: 7, status: '확정', kind: '이미지', layer: '공통 부품', screens: ['a-courses', 'a-courses-s', 'a-main', 'a-main-dash', 'a-course-read', 'a-teacher-read'],
+    title: '강좌 기본 썸네일을 새 그림으로 — 연보라 바탕 · 책 위 두 사람',
+    current: '썸네일을 올리지 않은 강좌에 분홍 바탕 그림(지구본 · 학사모 · 책)이 들어간다.',
+    next: '같은 크기(640×360)의 새 그림 `lab/img/course-default.png` 로 바꾼다. 연보라 바탕에 책 위 두 사람 — 학원 대표색(보라)과 어울리고 덜 요란하다.',
+    markup: '서비스의 기본 썸네일 파일(분홍 그림)을 `lab/img/course-default.png` 로 바꿔 끼운다. 파일 이름 · 경로가 다르면 그 자리에 같은 그림을 둔다. 디자인시스템 Images 묶음 `course-default.png` 와 같은 파일. 전체강좌 · 메인 · 강좌 상세 · 선생님 상세 · 나의 강의실 등 기본 썸네일이 나오는 모든 곳에 같이 바뀐다.',
+    targets: ['.cl-cs-thumb', '.cl-home-course__thumb']
   },
 ];
 

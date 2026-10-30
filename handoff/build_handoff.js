@@ -75,7 +75,7 @@ for (const A of AREAS) {
       '1. **토큰** — `lab/css/cl-tokens.css` 를 기준으로 새 토큰을 더한다. 추가된 것: 글자 고정 단계 `--cl-fs-10 ~ --cl-fs-72`, 모서리 `--cl-radius-3xs`(2) · `--cl-radius-2xs`(6) · `--cl-radius-xl`(16), 색 `--cl-on-ink-2` · `--cl-on-ink-muted` · `--cl-on-ink-faint` · `--cl-surface-dark-hover` · `--cl-disabled-bg` · `--cl-media-bg`, 공개 화면 글자 `--cl-fs-body-sm-pub` · `--cl-fs-section-pub` (다크 값 포함).',
       '2. **px · hex 를 토큰으로** — base · components · manager · teacher · student · public.css 의 `font-size: 14px`, `border-radius: 6px`, `#fff` 같은 직접 값 430곳을 토큰으로 바꿨다. 값은 같고(반 픽셀 글자 13.5 → 14 등만 반올림) 화면 변화는 거의 없다. 바뀐 줄은 [`css-changes.diff`](css-changes.diff).',
       '3. **공통 부품 v1.3** — `lab/css/components.css` 맨 끝 "공통 부품 v1.3" 묶음을 그대로 옮긴다(새 클래스만이라 기존 화면에 영향 없음). 부품 설명은 [`../design/components/`](../design/components/) 의 Button · Link · Status · Tabs · Composer · MiniList · Popover · FileCard · Empty · Avatar README.',
-      '4. **이미지 파일** — `lab/img/teacher-placeholder.svg`(사진 없는 선생님 선 아이콘)를 서비스 이미지 폴더에 둔다. **강좌 기본 썸네일**(썸네일을 올리지 않은 강좌에 쓰는 그림, 640×360)은 지금 쓰는 분홍 그림 대신 `lab/img/course-default.png`(연보라 바탕 · 책 위 두 사람, 2026.10.29)로 바꾼다 — 전체강좌 · 메인 · 강좌 상세 · 선생님 상세 · 나의 강의실 등 기본 썸네일이 나오는 모든 곳.', '',
+      '4. **이미지 파일** — `lab/img/teacher-placeholder.svg`(사진 없는 선생님 선 아이콘)를 서비스 이미지 폴더에 둔다. 강좌 기본 썸네일 교체(`lab/img/course-default.png`)는 05-학원-공개화면의 NI2.', '',
       '> 포털(cloudlearning.lab241.com)도 같은 `cl-tokens.css` · `base.css` · `components.css` 를 불러온다. 배포 뒤 포털 로그인 · 회원가입 화면이 그대로인지 한 번 확인한다. 포털 화면 수정은 2차.', '');
   }
   if (!list.length) L.push('없음', '');
@@ -106,6 +106,29 @@ for (const A of AREAS) {
     L.push('');
   }
   files['07-화면목록.md'] = L.join('\n');
+}
+
+// 1차 전달(2026.10.29 · GitHub 태그 handoff-1) 뒤에 바뀐 것 — 항목의 rev 표시로 모은다
+{
+  const revs = FIXES.filter(f => f.rev).sort((a, b) => a.rev.date.localeCompare(b.rev.date) || a.id.localeCompare(b.id));
+  const T = ['새로 추가', '내용 바뀜', '적용 취소'];
+  const L = ['# 추가 수정 — 1차 전달 뒤에 바뀐 것', '',
+    `> ${DATE} 기준 · ${revs.length}건(${T.map(t => `${t} ${revs.filter(f => f.rev.type === t).length}`).join(' · ')}). 1차 문서(01 ~ 08)를 이미 적용했다면 **이 파일만** 적용하면 된다. 1차 전달 시점은 GitHub 태그 \`handoff-1\` — \`git diff handoff-1 -- handoff/\` 로 바뀐 줄을 볼 수 있다.`, '',
+    '- **새로 추가** — 1차 문서에 없던 항목. 아래 내용대로 적용한다.',
+    '- **내용 바뀜** — 1차 문서에 있던 항목의 내용이 바뀌었다. "바뀐 것"만 고치면 되고, 아래에 바뀐 뒤 전체 내용을 붙였다.',
+    '- **적용 취소** — 1차 문서에 있었지만 적용하지 않는다. 이미 적용했다면 되돌린다.', '',
+    '| 날짜 | 구분 | ID | 영역 | 내용 |', '| --- | --- | --- | --- | --- |',
+    ...revs.map(f => `| ${f.rev.date} | ${f.rev.type} | ${f.id} | ${(AREAS.find(a => a.key === areaOf(f)) || {}).file || ''} | ${f.title.replace(/\|/g, '/')} |`), ''];
+  for (const t of T) {
+    const g = revs.filter(f => f.rev.type === t); if (!g.length) continue;
+    L.push(`## ${t} (${g.length})`, '');
+    for (const f of g) {
+      L.push(`> **${f.rev.date} · ${f.id} — 바뀐 것:** ${strip(f.rev.what)}`, '');
+      if (t === '적용 취소') L.push(`### ${f.id} · ${f.title}`, '', `- 적용하지 않는다. 이미 적용했다면 아래 CSS · 마크업을 되돌린다.`, '', ...(f.css && f.css.trim() ? ['```css', f.css.trim(), '```', ''] : []));
+      else L.push(item(f));
+    }
+  }
+  files['10-추가수정.md'] = L.join('\n');
 }
 
 // 기계용

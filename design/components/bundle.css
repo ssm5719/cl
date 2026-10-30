@@ -4419,4 +4419,13 @@ html[data-theme="dark"] .cl-scope .toastui-editor-defaultUI :is(.toastui-editor-
 #player-wrap.is-idle { cursor: none; }
 @media (prefers-reduced-motion: reduce) { #player-footer { transition: none; } }
 
+/* --- NW1 [확정] 작업공간 맨 아래 얇은 푸터 — 긴 화면이 잘린 듯 끝나지 않게 --- */
+/* 작업공간 맨 아래 얇은 푸터 — 긴 화면이 잘린 듯 끝나지 않게, 짧은 화면은 창 맨 아래에 붙게 */
+.cl-ws-main:has(> .cl-ws-footer) { display: flex; flex-direction: column; }
+.cl-ws-footer { margin-top: auto; padding: var(--cl-space-7) var(--cl-ws-gutter) 0; }
+.cl-ws-footer__inner { padding: var(--cl-space-4) 0 var(--cl-space-5); border-top: 1px solid var(--cl-hairline); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--cl-space-2) var(--cl-space-4); font-size: var(--cl-fs-micro); font-weight: 500; color: var(--cl-ink-muted); }
+.cl-ws-footer__links { display: flex; flex-wrap: wrap; gap: var(--cl-space-4); }
+.cl-ws-footer__links a { color: var(--cl-ink-muted); text-decoration: none; }
+.cl-ws-footer__links a:hover { color: var(--cl-ink); }
+
 /* ===== 디자인 수정(제안) — 실험실에서 보는 중. 확정되면 위로 올라간다 ===== */

@@ -199,4 +199,5 @@ Fonts: `tokens.css` loads each font from its file, by path.
 | FileCard | `cl-filecard` · `cl-docview` | FileCard |
 | Empty | `cl-empty` / 점선 `--line` · 작게 `--sm` | Empty |
 | Avatar | `cl-avatar` / `--tint · --ph`, `--md · --lg · --fill` | Avatar |
+| Footer | `cl-ws-footer` (`__inner · __links`) — 작업공간 맨 아래 얇은 한 줄 | Footer |
 | VideoPlayer | `cl-vplayer` (`__center · __bar · __seek · __controls · __btn · __volume · __time · __speed · __menu`) — 강의 영상 조작 줄. 색은 `cl-player-*` 토큰 | VideoPlayer |
